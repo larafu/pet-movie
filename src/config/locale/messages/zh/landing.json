@@ -91,6 +91,11 @@
         "variant": "outline"
       }
     ],
+    "early_bird_badge": "即将上线",
+    "early_bird_button": {
+      "title": "立即购买享早鸟优惠",
+      "url": "/pricing"
+    },
     "stats": [
       {
         "value": "50K+",
@@ -232,7 +237,7 @@
     "items": [
       {
         "title": "上传素材",
-        "description": "上传 10-50 张宠物照片或影片。支持 JPG、PNG、MP4、MOV 格式",
+        "description": "上传 1 张宠物照片或影片。支持 JPG、PNG、MP4、MOV 格式",
         "image": {
           "src": "/imgs/features/5.svg",
           "alt": "usage"
@@ -376,11 +381,11 @@
     "id": "faq",
     "title": "常见问题",
     "description": "关于 Pet Movie AI 您需要知道的一切",
-    "tip": "还有其他问题？<a href='mailto:support@petmovie.ai' class='text-primary font-medium hover:underline'>联系我们的支持团队</a>",
+    "tip": "还有其他问题？<a href='mailto:linghanju0720@gmail.com' class='text-primary font-medium hover:underline'>联系我们的支持团队</a>",
     "items": [
       {
         "question": "Pet Movie AI 是如何工作的？",
-        "answer": "只需上传 10-50 张您宠物的照片或视频。我们的 AI 会分析内容，创建故事板，添加音乐、转场和特效。5-10 分钟内，您就能获得一部可供下载和分享的电影级 4K 影片。"
+        "answer": "只需上传 1 张您宠物的照片或视频。我们的 AI 会分析内容，创建故事板，添加音乐、转场和特效。5-10 分钟内，您就能获得一部可供下载和分享的电影级 4K 影片。"
       },
       {
         "question": "支持哪些视频格式？",
@@ -444,7 +449,7 @@
       "title": "Pet Movie AI",
       "description": "每个宠物都值得拥有专属电影。AI 驱动的宠物电影工作室，将您的照片和视频创作成电影级大片。",
       "logo": {
-        "src": "/logo-simple.svg",
+        "src": "/logo-dark.png",
         "alt": "Pet Movie AI"
       },
       "url": "/"
@@ -536,7 +541,7 @@
         {
           "title": "邮箱",
           "icon": "Mail",
-          "url": "mailto:support@petmovie.ai",
+          "url": "mailto:linghanju0720@gmail.com",
           "target": "_self"
         }
       ]

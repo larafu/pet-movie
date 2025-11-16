@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Check, Lightbulb, Loader2, SendHorizonal, Zap } from 'lucide-react';
+import { Check, Clock, Lightbulb, Loader2, SendHorizonal, Zap } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 
@@ -76,6 +76,90 @@ function getInitialCurrency(
   return defaultCurrency;
 }
 
+// Early bird countdown hook
+function useEarlybirdCountdown() {
+  const [timeLeft, setTimeLeft] = useState<{
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    isActive: boolean;
+  }>({ days: 0, hours: 0, minutes: 0, seconds: 0, isActive: false });
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      // Early bird starts on Nov 16, 2025 00:00:00 and lasts 8 days
+      const startDate = new Date('2025-11-16T00:00:00');
+      const endDate = new Date(startDate.getTime() + 8 * 24 * 60 * 60 * 1000);
+      const now = new Date();
+
+      // Check if we're within the early bird period
+      if (now < startDate || now > endDate) {
+        return { days: 0, hours: 0, minutes: 0, seconds: 0, isActive: false };
+      }
+
+      const difference = endDate.getTime() - now.getTime();
+
+      return {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+        isActive: true,
+      };
+    };
+
+    setTimeLeft(calculateTimeLeft());
+
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return timeLeft;
+}
+
+// Calculate early bird discount price
+// For yearly plans, calculate based on total amount, not monthly price
+function calculateEarlybirdPrice(
+  item: PricingItem,
+  isActive: boolean
+): { discountedPrice: string; originalTotalPrice?: string } {
+  if (!isActive || !item.price) return { discountedPrice: item.price || '' };
+
+  const isYearly = item.interval === 'year';
+
+  if (isYearly) {
+    // For yearly plans, calculate discount on total amount and display yearly price
+    const totalAmount = item.amount; // e.g., 315000 (¥3150 in cents)
+    const discountedTotal = Math.round(totalAmount * 0.3); // 30% of original (3折)
+
+    // Extract currency symbol from price
+    const currencyMatch = item.price.match(/[^\d.,]+/);
+    const currency = currencyMatch ? currencyMatch[0] : '¥';
+
+    // Format the discounted YEARLY price (not monthly)
+    const discountedPrice = `${currency}${(discountedTotal / 100).toFixed(1)}`;
+
+    // Calculate original total price for display
+    const originalTotal = `${currency}${(totalAmount / 100).toFixed(0)}`;
+
+    return { discountedPrice, originalTotalPrice: originalTotal };
+  } else {
+    // For one-time and monthly plans, calculate directly on price
+    const match = item.price.match(/[\d,.]+/);
+    if (!match) return { discountedPrice: item.price };
+
+    const amount = parseFloat(match[0].replace(',', ''));
+    const discountedAmount = Math.round(amount * 0.3); // 30% of original (3折)
+
+    const discountedPrice = item.price.replace(/[\d,.]+/, discountedAmount.toString());
+    return { discountedPrice };
+  }
+}
+
 export function Pricing({
   pricing,
   className,
@@ -94,6 +178,9 @@ export function Pricing({
     setIsShowPaymentModal,
     configs,
   } = useAppContext();
+
+  // Early bird countdown
+  const earlybird = useEarlybirdCountdown();
 
   const [group, setGroup] = useState(() => {
     // find current pricing item
@@ -328,6 +415,59 @@ export function Pricing({
       id={pricing.id}
       className={cn('py-24 md:py-36', pricing.className, className)}
     >
+      {/* Early Bird Countdown Banner */}
+      {earlybird.isActive && (
+        <div className="mx-auto mb-8 px-4">
+          <div className="bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-red-500/10 border border-amber-500/20 rounded-lg p-4 max-w-2xl mx-auto">
+            <div className="flex items-center justify-center gap-3 flex-wrap">
+              <div className="flex items-center gap-2">
+                <Clock className="size-4 text-amber-500" />
+                <span className="text-sm font-medium">
+                  {locale === 'zh' ? '早鸟优惠倒计时' : 'Early Bird Countdown'}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 font-mono text-lg font-bold">
+                <div className="bg-background/50 px-2 py-1 rounded">
+                  {String(earlybird.days).padStart(2, '0')}
+                  <span className="text-xs text-muted-foreground ml-1">
+                    {locale === 'zh' ? '天' : 'd'}
+                  </span>
+                </div>
+                <span>:</span>
+                <div className="bg-background/50 px-2 py-1 rounded">
+                  {String(earlybird.hours).padStart(2, '0')}
+                  <span className="text-xs text-muted-foreground ml-1">
+                    {locale === 'zh' ? '时' : 'h'}
+                  </span>
+                </div>
+                <span>:</span>
+                <div className="bg-background/50 px-2 py-1 rounded">
+                  {String(earlybird.minutes).padStart(2, '0')}
+                  <span className="text-xs text-muted-foreground ml-1">
+                    {locale === 'zh' ? '分' : 'm'}
+                  </span>
+                </div>
+                <span>:</span>
+                <div className="bg-background/50 px-2 py-1 rounded">
+                  {String(earlybird.seconds).padStart(2, '0')}
+                  <span className="text-xs text-muted-foreground ml-1">
+                    {locale === 'zh' ? '秒' : 's'}
+                  </span>
+                </div>
+              </div>
+              <Badge variant="secondary" className="bg-amber-500/20 text-amber-700 dark:text-amber-400 border-amber-500/30">
+                {locale === 'zh' ? '限时3折' : '70% OFF'}
+              </Badge>
+            </div>
+            <p className="text-xs text-muted-foreground text-center mt-2">
+              {locale === 'zh'
+                ? '⚠️ 功能开发中，预购享优惠价格。正式上线后恢复原价。'
+                : '⚠️ Feature in development. Pre-order at discounted price. Price will increase at launch.'}
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className="mx-auto mb-12 px-4 text-center md:px-8">
         {pricing.sr_only_title && (
           <h1 className="sr-only">{pricing.sr_only_title}</h1>
@@ -386,6 +526,14 @@ export function Pricing({
               currencyState?.selectedCurrency || item.currency;
             const currencies = getCurrenciesFromItem(item);
 
+            // Calculate early bird pricing
+            const earlybirdResult = calculateEarlybirdPrice(
+              displayedItem,
+              earlybird.isActive
+            );
+            const showEarlybirdDiscount = earlybird.isActive && earlybirdResult.discountedPrice !== displayedItem.price;
+            const isYearly = displayedItem.interval === 'year';
+
             return (
               <Card key={idx} className="relative">
                 {item.label && (
@@ -399,25 +547,54 @@ export function Pricing({
                     <h3 className="text-sm font-medium">{item.title}</h3>
                   </CardTitle>
 
-                  <div className="my-3 flex items-baseline gap-2">
-                    {displayedItem.original_price && (
+                  <div className="my-3 flex items-baseline gap-2 flex-wrap">
+                    {/* Show original price when early bird is active OR when original_price exists */}
+                    {(showEarlybirdDiscount || displayedItem.original_price) && (
                       <span className="text-muted-foreground text-sm line-through">
-                        {displayedItem.original_price}
+                        {showEarlybirdDiscount && isYearly
+                          ? earlybirdResult.originalTotalPrice
+                          : showEarlybirdDiscount
+                          ? displayedItem.price
+                          : displayedItem.original_price}
                       </span>
                     )}
 
                     <div className="my-3 block text-2xl font-semibold">
-                      <span className="text-primary">
-                        {displayedItem.price}
+                      <span className={cn(
+                        "text-primary",
+                        showEarlybirdDiscount && "text-amber-600 dark:text-amber-400"
+                      )}>
+                        {showEarlybirdDiscount ? earlybirdResult.discountedPrice : displayedItem.price}
                       </span>{' '}
                       {displayedItem.unit ? (
                         <span className="text-muted-foreground text-sm font-normal">
-                          {displayedItem.unit}
+                          {showEarlybirdDiscount && isYearly
+                            ? (locale === 'zh' ? '/ 年' : '/ year')
+                            : displayedItem.unit}
                         </span>
                       ) : (
                         ''
                       )}
                     </div>
+
+                    {/* Show early bird badge */}
+                    {showEarlybirdDiscount && (
+                      <Badge variant="secondary" className="bg-amber-500/20 text-amber-700 dark:text-amber-400 border-amber-500/30 text-xs">
+                        -70%
+                      </Badge>
+                    )}
+
+                    {/* Show total price info for yearly plans */}
+                    {showEarlybirdDiscount && isYearly && earlybirdResult.originalTotalPrice && (
+                      <div className="w-full mt-1">
+                        <p className="text-xs text-muted-foreground">
+                          {locale === 'zh'
+                            ? `相当于每月 ${(displayedItem.amount * 0.3 / 100 / 12).toFixed(1)} 元，直接发放全年 3600 积分`
+                            : `Equivalent to ${(displayedItem.amount * 0.3 / 100 / 12).toFixed(1)}/month, 3600 credits granted immediately`
+                          }
+                        </p>
+                      </div>
+                    )}
 
                     {currencies.length > 1 && (
                       <Select

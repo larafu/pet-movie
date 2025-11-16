@@ -7,7 +7,7 @@ import { useSidebar } from '@/shared/components/ui/sidebar';
 import { NavItem } from '@/shared/types/blocks/common';
 import { SidebarFooter as SidebarFooterType } from '@/shared/types/blocks/dashboard';
 
-import { LocaleSelector, ThemeToggler } from '../common';
+import { LocaleSelector } from '../common';
 
 export function SidebarFooter({ footer }: { footer: SidebarFooterType }) {
   const { open } = useSidebar();
@@ -32,10 +32,9 @@ export function SidebarFooter({ footer }: { footer: SidebarFooterType }) {
 
           <div className="flex-1"></div>
 
-          {(footer.show_theme || footer.show_locale) && (
+          {footer.show_locale && (
             <Separator orientation="vertical" className="h-4" />
           )}
-          {footer.show_theme && <ThemeToggler />}
           {footer.show_locale && <LocaleSelector />}
         </div>
       ) : null}

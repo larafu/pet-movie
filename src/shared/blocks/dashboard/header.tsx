@@ -33,13 +33,13 @@ export function Header({
   show_theme?: boolean;
 }) {
   return (
-    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+    <header className="relative flex h-(--header-height) shrink-0 items-center gap-2 border-b backdrop-blur-md bg-background/80 transition-all duration-300 ease-in-out group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height) hover:shadow-md">
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
-        <SidebarTrigger className="-ml-1" />
+        <SidebarTrigger className="-ml-1 transition-transform duration-200 hover:scale-110" />
         {crumbs && crumbs.length > 0 && (
           <Separator
             orientation="vertical"
-            className="mr-2 data-[orientation=vertical]:h-4"
+            className="mr-2 data-[orientation=vertical]:h-4 opacity-60"
           />
         )}
         {crumbs && crumbs.length > 0 && (
@@ -49,27 +49,35 @@ export function Header({
                 <Fragment key={index}>
                   <BreadcrumbItem className="hidden md:block">
                     {crumb.is_active ? (
-                      <BreadcrumbPage>{crumb.title}</BreadcrumbPage>
+                      <BreadcrumbPage className="font-medium text-foreground">
+                        {crumb.title}
+                      </BreadcrumbPage>
                     ) : (
-                      <Link href={crumb.url || ''}>{crumb.title}</Link>
+                      <Link
+                        href={crumb.url || ''}
+                        className="transition-colors duration-200 hover:text-primary"
+                      >
+                        {crumb.title}
+                      </Link>
                     )}
                   </BreadcrumbItem>
                   {index < crumbs.length - 1 && (
-                    <BreadcrumbSeparator className="hidden md:block" />
+                    <BreadcrumbSeparator className="hidden md:block opacity-50" />
                   )}
                 </Fragment>
               ))}
             </BreadcrumbList>
           </Breadcrumb>
         )}
-        <div className="ml-auto flex items-center gap-4">
+        <div className="ml-auto flex items-center gap-3">
           {buttons && buttons.length > 0 && (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               {buttons.map((button, idx) => (
                 <Button
                   key={idx}
                   variant={button.variant || 'outline'}
                   size="sm"
+                  className="transition-all duration-200 hover:scale-105 hover:shadow-sm"
                 >
                   <Link
                     href={button.url || ''}
@@ -83,8 +91,17 @@ export function Header({
               ))}
             </div>
           )}
-          {show_theme && <ThemeToggler />}
-          {show_locale !== false && <LocaleSelector type="button" />}
+          {show_theme !== false && (
+            <ThemeToggler
+              type="icon"
+              className="p-2 rounded-full transition-all duration-200 hover:bg-primary/10 hover:scale-110"
+            />
+          )}
+          {show_locale !== false && (
+            <LocaleSelector
+              type="button"
+            />
+          )}
         </div>
       </div>
     </header>

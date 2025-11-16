@@ -539,3 +539,29 @@ export const chatMessage = pgTable(
     index('idx_chat_message_user_id').on(table.userId, table.status),
   ]
 );
+
+// Earlybird subscriber table for pre-launch subscriptions
+export const earlybirdSubscriber = pgTable(
+  'earlybird_subscriber',
+  {
+    id: text('id').primaryKey(),
+    name: text('name'),
+    email: text('email').notNull().unique(),
+    petInfo: text('pet_info'), // Pet name and breed
+    creativeDemand: text('creative_demand'), // User's creative requirements
+    interestedPrepay: boolean('interested_prepay').default(false).notNull(), // Whether interested in prepay discount
+    discountCode: text('discount_code'), // Generated discount code (20% off)
+    status: text('status').notNull().default('pending'), // pending, contacted, converted
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+    metadata: text('metadata'), // Additional info (JSON)
+  },
+  (table) => [
+    index('idx_earlybird_email').on(table.email),
+    index('idx_earlybird_status').on(table.status),
+    index('idx_earlybird_prepay').on(table.interestedPrepay),
+    index('idx_earlybird_created').on(table.createdAt),
+  ]
+);

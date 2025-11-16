@@ -91,6 +91,11 @@
         "variant": "outline"
       }
     ],
+    "early_bird_badge": "Coming Soon",
+    "early_bird_button": {
+      "title": "Get Early Bird Discount Now",
+      "url": "/pricing"
+    },
     "stats": [
       {
         "value": "50K+",
@@ -232,7 +237,7 @@
     "items": [
       {
         "title": "Upload Content",
-        "description": "Upload 10-50 photos or videos of your pet. Supports JPG, PNG, MP4, MOV formats",
+        "description": "Upload 1 photos or videos of your pet. Supports JPG, PNG, MP4, MOV formats",
         "image": {
           "src": "/imgs/features/5.svg",
           "alt": "usage"
@@ -376,11 +381,11 @@
     "id": "faq",
     "title": "Frequently Asked Questions",
     "description": "Everything you need to know about Pet Movie AI",
-    "tip": "Still have questions? <a href='mailto:support@petmovie.ai' class='text-primary font-medium hover:underline'>Contact our support team</a>",
+    "tip": "Still have questions? <a href='mailto:linghanju0720@gmail.com' class='text-primary font-medium hover:underline'>Contact our support team</a>",
     "items": [
       {
         "question": "How does Pet Movie AI work?",
-        "answer": "Simply upload 10-50 photos or videos of your pet. Our AI analyzes the content, creates a storyboard, adds music, transitions, and effects. In 5-10 minutes, you'll have a cinematic 4K movie ready to download and share."
+        "answer": "Simply upload 1 photos or videos of your pet. Our AI analyzes the content, creates a storyboard, adds music, transitions, and effects. In 5-10 minutes, you'll have a cinematic 4K movie ready to download and share."
       },
       {
         "question": "What video formats are supported?",
@@ -540,7 +545,7 @@
         {
           "title": "Email",
           "icon": "Mail",
-          "url": "mailto:support@petmovie.ai",
+          "url": "mailto:linghanju0720@gmail.com",
           "target": "_self"
         }
       ]

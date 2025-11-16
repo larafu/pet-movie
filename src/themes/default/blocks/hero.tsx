@@ -1,13 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 import { Link } from '@/core/i18n/navigation';
 import { LazyImage, SmartIcon } from '@/shared/blocks/common';
 import { Button } from '@/shared/components/ui/button';
 import { Hero as HeroType } from '@/shared/types/blocks/landing';
+import { cn } from '@/shared/lib/utils';
 
 import { SocialAvatars } from './social-avatars';
 
@@ -137,25 +138,67 @@ export function Hero({
           {hero.buttons && (
             <motion.div
               {...createFadeInVariant(0.45)}
-              className="flex items-center justify-center gap-4"
+              className="flex flex-col items-center justify-center gap-4"
             >
-              {hero.buttons.map((button, idx) => (
-                <Button
-                  asChild
-                  size={button.size || 'default'}
-                  variant={button.variant || 'default'}
-                  className="px-4 text-sm"
-                  key={idx}
-                >
-                  <Link
-                    href={button.url ?? ''}
-                    target={button.target ?? '_self'}
+              <div className="flex items-center justify-center gap-4 flex-wrap">
+                {hero.buttons.map((button, idx) => (
+                  <Button
+                    key={idx}
+                    asChild
+                    size={button.size || 'default'}
+                    variant={button.variant || 'default'}
+                    className="px-4 text-sm"
                   >
-                    {button.icon && <SmartIcon name={button.icon as string} />}
-                    <span>{button.title}</span>
-                  </Link>
-                </Button>
-              ))}
+                    <Link
+                      href={button.url ?? ''}
+                      target={button.target ?? '_self'}
+                    >
+                      {button.icon && <SmartIcon name={button.icon as string} />}
+                      <span>{button.title}</span>
+                    </Link>
+                  </Button>
+                ))}
+              </div>
+              {hero.early_bird_badge && hero.early_bird_button && (
+                <Link
+                  href={hero.early_bird_button.url ?? '/pricing'}
+                  target={hero.early_bird_button.target ?? '_self'}
+                  className={cn(
+                    "relative inline-flex items-center gap-3 h-12 px-6 overflow-hidden rounded-full",
+                    "bg-zinc-900 dark:bg-zinc-100",
+                    "transition-all duration-200",
+                    "group shadow-lg hover:shadow-xl"
+                  )}
+                >
+                  {/* Gradient background effect */}
+                  <div
+                    className={cn(
+                      "absolute inset-0",
+                      "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500",
+                      "opacity-40 group-hover:opacity-80",
+                      "blur transition-opacity duration-500"
+                    )}
+                  />
+
+                  {/* Content */}
+                  <div className="relative flex items-center gap-3">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-white dark:text-zinc-900 text-sm font-bold">
+                        {hero.early_bird_badge}
+                      </span>
+                      <span className="text-white/70 dark:text-zinc-900/70">•</span>
+                      <span className="text-white dark:text-zinc-900 text-sm font-medium">
+                        {hero.early_bird_button.title}
+                      </span>
+                      <ArrowUpRight className="w-4 h-4 text-white/90 dark:text-zinc-900/90 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </div>
+                  </div>
+                </Link>
+              )}
             </motion.div>
           )}
 

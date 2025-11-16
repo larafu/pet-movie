@@ -66,6 +66,8 @@ export interface Hero extends Section {
   avatars_tip?: string;
   show_award?: boolean;
   highlight_text?: string;
+  early_bird_badge?: string;
+  early_bird_button?: Button;
   stats?: Array<{
     value: string;
     label: string;

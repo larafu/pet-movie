@@ -177,6 +177,9 @@ dependencies:
   fumadocs-ui:
     specifier: ^16.0.11
     version: 16.0.11(@types/react-dom@19.2.2)(@types/react@19.2.2)(lucide-react@0.543.0)(next@16.0.0)(react-dom@19.2.0)(react@19.2.0)(tailwindcss@4.1.17)
+  geist:
+    specifier: ^1.5.1
+    version: 1.5.1(next@16.0.0)
   github-markdown-css:
     specifier: ^5.8.1
     version: 5.8.1
@@ -7241,6 +7244,14 @@ packages:
   /functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: true
+
+  /geist@1.5.1(next@16.0.0):
+    resolution: {integrity: sha512-mAHZxIsL2o3ZITFaBVFBnwyDOw+zNLYum6A6nIjpzCGIO8QtC3V76XF2RnZTyLx1wlDTmMDy8jg3Ib52MIjGvQ==}
+    peerDependencies:
+      next: '>=13.2.0'
+    dependencies:
+      next: 16.0.0(@babel/core@7.28.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0)(react@19.2.0)
+    dev: false
 
   /generator-function@2.0.1:
     resolution: {integrity: sha512-SFdFmIJi+ybC0vjlHN0ZGVGHc3lgE0DxPAT0djjVg+kjOnSqclqmj0KQ7ykTOLP6YxoqOvuAODGdcHJn+43q3g==}

@@ -6,11 +6,6 @@
         "title": "AI Tasks",
         "url": "/activity/ai-tasks",
         "icon": "RiTaskLine"
-      },
-      {
-        "title": "AI Chats",
-        "url": "/activity/chats",
-        "icon": "RiChat2Line"
       }
     ]
   },

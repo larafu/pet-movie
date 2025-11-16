@@ -6,6 +6,7 @@ import {
   NavItem,
   SocialNav,
   UserNav,
+  Video,
 } from './common';
 import { FormSubmit } from './form';
 
@@ -23,6 +24,7 @@ export interface Section {
   icon?: string | ReactNode;
   image?: Image;
   image_invert?: Image;
+  video?: Video;
   items?: SectionItem[];
   image_position?: 'left' | 'right' | 'top' | 'bottom' | 'center';
   text_align?: 'left' | 'center' | 'right';
@@ -64,6 +66,10 @@ export interface Hero extends Section {
   avatars_tip?: string;
   show_award?: boolean;
   highlight_text?: string;
+  stats?: Array<{
+    value: string;
+    label: string;
+  }>;
 }
 
 export interface Logos extends Section {}

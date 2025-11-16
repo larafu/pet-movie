@@ -2,13 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Link } from '@/core/i18n/navigation';
 import { LazyImage, SmartIcon } from '@/shared/blocks/common';
-import { AnimatedGridPattern } from '@/shared/components/ui/animated-grid-pattern';
 import { Button } from '@/shared/components/ui/button';
-import { Highlighter } from '@/shared/components/ui/highlighter';
-import { cn } from '@/shared/lib/utils';
 import { Hero as HeroType } from '@/shared/types/blocks/landing';
 
 import { SocialAvatars } from './social-avatars';
@@ -44,25 +42,62 @@ export function Hero({
     texts = hero.title?.split(highlightText, 2);
   }
 
+  // Pet Movie AI: Mouse tracking for glow effect
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const heroRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!heroRef.current) return;
+      const rect = heroRef.current.getBoundingClientRect();
+      setMousePosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <>
       <section
+        ref={heroRef}
         id={hero.id}
-        className={`pt-24 pb-8 md:pt-36 md:pb-8 ${hero.className} ${className}`}
+        className={`relative overflow-hidden pt-16 pb-8 md:pb-8 ${hero.className} ${className}`}
       >
+        {/* Pet Movie AI: Glow balls */}
+        <div
+          className="absolute w-[800px] h-[800px] rounded-full bg-primary/30 blur-[120px] animate-glow-pulse pointer-events-none"
+          style={{
+            left: `${mousePosition.x - 400}px`,
+            top: `${mousePosition.y - 400}px`,
+            transition: 'left 0.3s ease-out, top 0.3s ease-out',
+          }}
+        />
+        <div
+          className="absolute top-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-secondary/20 blur-[100px] animate-glow-pulse pointer-events-none"
+          style={{ animationDelay: '2s' }}
+        />
+
         {hero.announcement && (
           <motion.div {...createFadeInVariant(0)}>
             <Link
               href={hero.announcement.url || ''}
               target={hero.announcement.target || '_self'}
-              className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto mb-8 flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
+              className="glass hover:bg-white/5 group mx-auto mb-8 flex w-fit items-center gap-4 rounded-full border-transparent p-1 pl-4 shadow-md transition-colors duration-300 relative z-10"
             >
-              <span className="text-foreground text-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              <span className="text-foreground/80 text-sm">
                 {hero.announcement.title}
               </span>
-              <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
+              <span className="dark:border-background block h-4 w-0.5 border-l bg-white/20 dark:bg-zinc-700"></span>
 
-              <div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
+              <div className="bg-white/5 group-hover:bg-white/10 size-6 overflow-hidden rounded-full duration-500">
                 <div className="flex w-12 -translate-x-1/2 duration-500 ease-in-out group-hover:translate-x-0">
                   <span className="flex size-6">
                     <ArrowRight className="m-auto size-3" />
@@ -76,18 +111,18 @@ export function Hero({
           </motion.div>
         )}
 
-        <div className="relative mx-auto max-w-5xl px-4 text-center">
+        <div className="relative mx-auto max-w-5xl px-4 text-center z-10">
           <motion.div {...createFadeInVariant(0.15)}>
             {texts && texts.length > 0 ? (
-              <h1 className="text-foreground text-5xl font-semibold text-balance sm:mt-12 sm:text-7xl">
+              <h1 className="text-foreground font-bold leading-[0.9] tracking-tighter text-balance" style={{ fontSize: 'clamp(3rem, 12vw, 12rem)' }}>
                 {texts[0]}
-                <Highlighter action="underline" color="#FF9800">
+                <span className="text-gradient block">
                   {highlightText}
-                </Highlighter>
+                </span>
                 {texts[1]}
               </h1>
             ) : (
-              <h1 className="text-foreground text-5xl font-semibold text-balance sm:mt-12 sm:text-7xl">
+              <h1 className="text-foreground font-bold leading-[0.9] tracking-tighter text-balance" style={{ fontSize: 'clamp(3rem, 12vw, 12rem))' }}>
                 {hero.title}
               </h1>
             )}
@@ -137,6 +172,35 @@ export function Hero({
               <SocialAvatars tip={hero.avatars_tip || ''} />
             </motion.div>
           )}
+
+          {/* Pet Movie AI: Stats cards */}
+          {hero.stats && hero.stats.length > 0 && (
+            <motion.div
+              {...createFadeInVariant(0.8)}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-16 max-w-3xl mx-auto"
+            >
+              {hero.stats.map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.8 + i * 0.1,
+                    ease: [0.22, 1, 0.36, 1] as const,
+                  }}
+                  className="glass rounded-2xl p-6 hover:bg-white/5 transition-all"
+                >
+                  <div className="text-4xl font-bold text-gradient mb-2">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {stat.label}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
         </div>
       </section>
       {hero.image && (
@@ -170,17 +234,6 @@ export function Hero({
           </div>
         </motion.section>
       )}
-
-      <AnimatedGridPattern
-        numSquares={30}
-        maxOpacity={0.1}
-        duration={3}
-        repeatDelay={1}
-        className={cn(
-          '[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]',
-          'inset-x-0 inset-y-[-30%] h-[200%] skew-y-12'
-        )}
-      />
     </>
   );
 }

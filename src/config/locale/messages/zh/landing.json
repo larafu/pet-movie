@@ -2,24 +2,28 @@
   "header": {
     "id": "header",
     "brand": {
-      "title": "ShipAny Two",
-      "logo": {
-        "src": "/logo.png",
-        "alt": "ShipAny Two"
+      "title": "Pet Movie AI",
+      "logoLight": {
+        "src": "/logo-light.png",
+        "alt": "Pet Movie AI"
+      },
+      "logoDark": {
+        "src": "/logo-dark.png",
+        "alt": "Pet Movie AI"
       },
       "url": "/"
     },
     "nav": {
       "items": [
         {
-          "title": "功能亮点",
-          "url": "/#features",
-          "icon": "Sparkles"
+          "title": "如何使用",
+          "url": "/#usage",
+          "icon": "Workflow"
         },
         {
-          "title": "案例展示",
-          "url": "/showcases",
-          "icon": "Box"
+          "title": "作品展示",
+          "url": "/#gallery",
+          "icon": "Images"
         },
         {
           "title": "价格",
@@ -27,38 +31,14 @@
           "icon": "DollarSign"
         },
         {
-          "title": "AI",
-          "icon": "RiRobot2Line",
-          "children": [
-            {
-              "title": "AI 图片生成器",
-              "description": "使用 AI 生成图片",
-              "url": "/ai-image-generator",
-              "icon": "RiImage2Line"
-            },
-            {
-              "title": "AI 音乐生成器",
-              "description": "使用 AI 生成美妙的音乐",
-              "url": "/ai-music-generator",
-              "icon": "RiMusic2Line"
-            },
-            {
-              "title": "AI 聊天机器人",
-              "description": "与 AI 聊天机器人对话",
-              "url": "/chat",
-              "icon": "RiMessage2Line"
-            }
-          ]
+          "title": "我的电影",
+          "url": "/activity",
+          "icon": "Film"
         },
         {
-          "title": "博客",
-          "url": "/blog",
-          "icon": "Newspaper"
-        },
-        {
-          "title": "文档",
-          "url": "/docs",
-          "icon": "BookOpenText"
+          "title": "帮助中心",
+          "url": "/#faq",
+          "icon": "HelpCircle"
         }
       ]
     },
@@ -86,161 +66,153 @@
   },
   "hero": {
     "id": "hero",
-    "title": "一小时快速上线你的 AI 创业项目",
-    "highlight_text": "一小时",
-    "description": "ShipAny 是用于构建 AI SaaS 创业项目的 NextJS 项目模板。<br/>集成常用功能，快速上线你的产品。",
+    "title": "YOUR PET THEIR STORY",
+    "highlight_text": "THEIR STORY",
+    "description": "每个宠物都值得拥有专属电影。上传照片和影片，AI 自动创作电影级宠物短片，还可自订故事版",
     "announcement": {
-      "badge": "全新",
-      "title": "🎉 ShipAny 模板二已发布",
+      "badge": "AI 驱动的寵物電影工作室",
+      "title": "pet movie.ai - 让 AI 帮您永存这份爱",
       "url": "/pricing"
     },
-    "tip": "🎁 前 1000 名用户特价优惠",
+    "tip": "✨ 立即开始创作您宠物的专属电影",
     "buttons": [
       {
-        "title": "立即开始",
-        "icon": "Zap",
+        "title": "立即创作",
+        "icon": "Upload",
         "url": "/pricing",
         "target": "_self",
         "variant": "default"
       },
       {
-        "title": "阅读文档",
-        "icon": "BookOpenText",
-        "url": "https://docs.shipany.ai",
-        "target": "_blank",
+        "title": "观看演示",
+        "icon": "Play",
+        "url": "#showcase",
+        "target": "_self",
         "variant": "outline"
       }
     ],
-    "show_avatars": true,
-    "avatars_tip": "999+ 用户在使用 ShipAny 上站",
+    "stats": [
+      {
+        "value": "50K+",
+        "label": "已创作影片"
+      },
+      {
+        "value": "15K+",
+        "label": "满意用户"
+      },
+      {
+        "value": "8分钟",
+        "label": "平均处理时间"
+      }
+    ],
+    "show_avatars": false,
+    "avatars_tip": "",
     "show_award": false,
     "image": {
-      "src": "/imgs/features/admin.png",
-      "alt": "hero"
+      "src": "",
+      "alt": ""
     },
     "image_invert": {
-      "src": "/imgs/features/admin-dark.png",
-      "alt": "hero"
+      "src": "",
+      "alt": ""
     }
   },
   "logos": {
-    "title": "ShipAny 使用以下技术栈构建",
+    "title": "在各大平台分享您的宠物电影",
     "items": [
       {
-        "title": "Next.js",
+        "title": "YouTube",
         "image": {
-          "src": "/imgs/logos/nextjs.svg",
-          "alt": "Next.js"
+          "src": "/imgs/logos/youtube.svg",
+          "alt": "YouTube"
         }
       },
       {
-        "title": "React",
+        "title": "Instagram",
         "image": {
-          "src": "/imgs/logos/react.svg",
-          "alt": "React"
+          "src": "/imgs/logos/instagram.svg",
+          "alt": "Instagram"
         }
       },
       {
-        "title": "TailwindCSS",
+        "title": "TikTok",
         "image": {
-          "src": "/imgs/logos/tailwindcss.svg",
-          "alt": "TailwindCSS"
+          "src": "/imgs/logos/tiktok.svg",
+          "alt": "TikTok"
         }
       },
       {
-        "title": "Shadcn/UI",
+        "title": "Facebook",
         "image": {
-          "src": "/imgs/logos/shadcn.svg",
-          "alt": "Shadcn/UI"
+          "src": "/imgs/logos/facebook.svg",
+          "alt": "Facebook"
         }
       },
       {
-        "title": "Vercel",
+        "title": "Twitter",
         "image": {
-          "src": "/imgs/logos/vercel.svg",
-          "alt": "Vercel"
+          "src": "/imgs/logos/twitter.svg",
+          "alt": "Twitter"
         }
       }
     ]
   },
   "introduce": {
-    "id": "introduce",
-    "title": "ShipAny 是什么？",
-    "label": "产品简介",
-    "description": "ShipAny 是专为 AI SaaS 创业项目打造的 NextJS 脚手架，包括丰富模板、组件及文档。",
-    "image": {
-      "src": "/imgs/features/landing-page.png",
-      "alt": "introduce"
-    },
+    "id": "gallery",
+    "title": "AI 创作的宠物大片",
+    "label": "作品展示",
+    "description": "看看我们的 AI 技术能为您心爱的宠物创造什么",
     "items": [
       {
-        "title": "开箱即用的模板",
-        "description": "从数十款生产级 AI SaaS 模板中选择，快速开启你的项目。",
-        "icon": "RiNextjsFill",
-        "image": {
-          "src": "/imgs/features/1.png",
-          "alt": "introduce"
+        "title": "喵喵的冒险",
+        "description": "电影级猫咪故事，震撼视觉效果",
+        "icon": "Film",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/17607764967900u9630hr.mp4",
+          "alt": "猫咪电影"
         }
       },
       {
-        "title": "基础设施搭建",
-        "description": "内置最佳实践，即刻拥有可扩展的基础设施。",
-        "icon": "RiDatabase2Line",
-        "image": {
-          "src": "/imgs/features/2.png",
-          "alt": "introduce"
-        }
-      },
-      {
-        "title": "极速部署",
-        "description": "AI SaaS 产品快速上线，助力小时级交付。",
-        "icon": "RiCloudyFill",
-        "image": {
-          "src": "/imgs/features/3.png",
-          "alt": "introduce"
-        }
-      },
-      {
-        "title": "AI 集成",
-        "description": "通过内置的 AI SDK，轻松为你的项目集成 AI 能力。",
-        "icon": "RiRobot2Line",
-        "image": {
-          "src": "/imgs/features/4.png",
-          "alt": "introduce"
+        "title": "狗狗的旅程",
+        "description": "温馨狗狗故事，专业级剪辑",
+        "icon": "Heart",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4",
+          "alt": "狗狗电影"
         }
       }
     ]
   },
   "benefits": {
     "id": "benefits",
-    "title": "为何选择 ShipAny",
-    "label": "产品优势",
-    "description": "你获得一切 AI 创业所需——从开箱即用的模板到专业技术支持。",
+    "title": "即将推出的精彩新功能",
+    "label": "敬请期待",
+    "description": "我们正在开发令人兴奋的新功能，让您的宠物电影更加精彩",
     "items": [
       {
-        "title": "全栈解决方案",
-        "description": "基于 Next.js，集成认证、支付、AI，一站式开箱即用。",
-        "icon": "RiNextjsFill",
+        "title": "实时直播",
+        "description": "直播您宠物的日常冒险，AI 自动创作精彩集锦",
+        "icon": "Video",
         "image": {
-          "src": "/imgs/features/user-billing.png",
+          "src": "/imgs/features/live-streaming.svg",
           "alt": "benefits"
         }
       },
       {
-        "title": "丰富模板库",
-        "description": "多样的 AI SaaS 模板，点击即用，涵盖聊天、图像生成等多场景。",
-        "icon": "RiClapperboardAiLine",
+        "title": "语音旁白",
+        "description": "添加 AI 生成的多语言旁白和名人语音选项",
+        "icon": "Mic",
         "image": {
-          "src": "/imgs/features/admin-settings.png",
+          "src": "/imgs/features/voice-narration.svg",
           "alt": "benefits"
         }
       },
       {
-        "title": "专属技术指导",
-        "description": "享受专属技术支持与开发者社区，为你的成功保驾护航。",
-        "icon": "RiCodeFill",
+        "title": "社区分享",
+        "description": "与全球社区分享您的宠物电影，发现热门宠物故事，并协作创作",
+        "icon": "Users",
         "image": {
-          "src": "/imgs/features/landing-page.png",
+          "src": "/imgs/features/social-community.svg",
           "alt": "benefits"
         }
       }
@@ -248,44 +220,45 @@
   },
   "usage": {
     "id": "usage",
-    "title": "三步使用 ShipAny 极速上线",
-    "description": "只需三步，快速开启你的 AI SaaS 创业之路：",
+    "label": "使用流程",
+    "title": "3 个简单步骤 电影完成",
+    "description": "只需几个简单步骤，即可创作您宠物的电影级大片",
     "image": {
-      "src": "/imgs/features/1.png",
+      "src": "/imgs/features/1.svg",
       "alt": "usage"
     },
     "image_position": "left",
     "text_align": "center",
     "items": [
       {
-        "title": "获取 ShipAny",
-        "description": "一次性购买 ShipAny，查收邮件获取代码与文档。",
+        "title": "上传素材",
+        "description": "上传 10-50 张宠物照片或影片。支持 JPG、PNG、MP4、MOV 格式",
         "image": {
-          "src": "/imgs/features/5.png",
+          "src": "/imgs/features/5.svg",
           "alt": "usage"
         }
       },
       {
-        "title": "启动你的项目",
-        "description": "阅读说明文档，克隆 ShipAny 代码，开始开发你的 AI SaaS 项目。",
+        "title": "选择故事版",
+        "description": "选择故事主题、音乐风格、时长。AI 生成专属故事版和预览",
         "image": {
-          "src": "/imgs/features/6.png",
+          "src": "/imgs/features/6.svg",
           "alt": "usage"
         }
       },
       {
-        "title": "个性化定制",
-        "description": "根据需求修改模板内容和数据，配置专属 AI 能力。",
+        "title": "AI 处理",
+        "description": "AI 自动剪辑、调色、添加转场、音乐和字幕。实时查看处理进度",
         "image": {
-          "src": "/imgs/features/7.png",
+          "src": "/imgs/features/7.svg",
           "alt": "usage"
         }
       },
       {
-        "title": "部署上线",
-        "description": "简单几步将你的项目推向生产环境，立刻为客户提供服务。",
+        "title": "下载分享",
+        "description": "获取 4K 高清影片，多种格式可选。适合社交媒体、家庭分享或收藏",
         "image": {
-          "src": "/imgs/features/8.png",
+          "src": "/imgs/features/8.svg",
           "alt": "usage"
         }
       }
@@ -293,180 +266,171 @@
   },
   "features": {
     "id": "features",
-    "title": "ShipAny 核心功能",
-    "description": "一切你需要的工具，助力 AI SaaS 项目高效上线。",
+    "title": "电影级 AI 专业级成果",
+    "label": "AI 魔法",
+    "description": "先进的 AI 技术在几分钟内创作好莱坞品质的宠物电影",
     "items": [
       {
-        "title": "Next.js 项目模板",
-        "description": "生产就绪、支持 SEO 与多语言的 Next.js 脚手架。",
-        "icon": "RiNextjsFill"
+        "title": "智能上传",
+        "description": "上传您的宠物照片和影片。AI 自动分析并整理素材内容",
+        "icon": "Upload"
       },
       {
-        "title": "身份认证与支付",
-        "description": "集成谷歌 OAuth、一键登录，以及 Stripe 支付。",
-        "icon": "RiKey2Fill"
+        "title": "故事模板",
+        "description": "选择冒险、日常生活、生日派对等 20+ 种电影级故事模板",
+        "icon": "Film"
       },
       {
-        "title": "数据基础设施",
-        "description": "内置 Supabase，稳定可靠的数据存储。",
-        "icon": "RiDatabase2Line"
+        "title": "AI 导演",
+        "description": "先进 AI 自动剪辑、调色、添加音乐和特效，打造好莱坞品质的效果",
+        "icon": "Sparkles"
       },
       {
-        "title": "一键部署",
-        "description": "自动化部署到 Vercel 或 Cloudflare，极速上线。",
-        "icon": "RiCloudy2Fill"
-      },
-      {
-        "title": "商业分析",
-        "description": "集成 Google Analytics、Search Console，助力业务增长。",
-        "icon": "RiBarChart2Line"
-      },
-      {
-        "title": "AI 原生基础设施",
-        "description": "预置 AI 集成、积分系统和 API 售卖能力。",
-        "icon": "RiRobot2Line"
+        "title": "即时预览",
+        "description": "5-10 分钟生成 4K 宠物电影。即刻下载和分享",
+        "icon": "Zap"
       }
     ]
   },
   "stats": {
     "id": "stats",
-    "title": "用户喜爱 ShipAny",
-    "description": "因其易用且上线飞快。",
+    "title": "全球宠物家长的喜爱",
+    "description": "创造回忆，一次一部电影",
     "items": [
       {
-        "title": "999+",
-        "description": "位用户"
+        "title": "50K+",
+        "description": "已创作宠物电影"
       },
       {
-        "title": "200+",
-        "description": "组件块"
+        "title": "15K+",
+        "description": "满意的宠物家长"
       },
       {
-        "title": "50+",
-        "description": "专业模板"
+        "title": "4.9★",
+        "description": "平均评分"
       }
     ]
   },
   "testimonials": {
     "id": "testimonials",
-    "title": "用户对 ShipAny 的评价",
-    "description": "听听开发者与创始人用 ShipAny 快速上线 AI 创业项目的故事。",
+    "title": "宠物家长的真实评价",
+    "description": "来自我们宠物爱好者社区的真实故事",
     "items": [
       {
-        "name": "David Chen",
-        "role": "AIWallpaper.shop 创始人",
-        "quote": "ShipAny 为我们节省了数月开发时间。2 天上线 AI 壁纸业务，一周内就收到了第一笔付费订单！",
+        "name": "Sarah Johnson",
+        "role": "金毛主人",
+        "quote": "AI 为 Max 第一年创作的电影让我热泪盈眶。它捕捉了我们上传的每一个珍贵瞬间。现在我们每年生日都要看一遍！",
         "image": {
           "src": "/imgs/avatars/1.png",
+          "alt": "sarah"
+        }
+      },
+      {
+        "name": "Michael Chen",
+        "role": "三只猫的铲屎官",
+        "quote": "我有数百张随机的猫咪照片。Pet Movie AI 把它们整理成了一部配有完美音乐的 5 分钟电影。我的家人都很喜欢！",
+        "image": {
+          "src": "/imgs/avatars/2.png",
+          "alt": "michael"
+        }
+      },
+      {
+        "name": "Emma Rodriguez",
+        "role": "救助犬倡导者",
+        "quote": "我们使用 Pet Movie AI 为收容所的狗狗创作领养故事。电影级的品质帮助它们的领养率提高了 3 倍！",
+        "image": {
+          "src": "/imgs/avatars/3.png",
+          "alt": "emma"
+        }
+      },
+      {
+        "name": "David Park",
+        "role": "柯基 Instagram 网红",
+        "quote": "作为宠物内容创作者，这为我节省了数小时的编辑时间。AI 知道如何让我的柯基看起来像电影明星！",
+        "image": {
+          "src": "/imgs/avatars/4.png",
           "alt": "david"
         }
       },
       {
-        "name": "Rachel Kim",
-        "role": "HeyBeauty.ai CTO",
-        "quote": "内置 AI 基础设施颠覆了开发体验，无需担心架构，只需专注核心功能，极快落地。",
-        "image": {
-          "src": "/imgs/avatars/2.png",
-          "alt": "rachel"
-        }
-      },
-      {
-        "name": "Marcus Thompson",
-        "role": "独立开发者",
-        "quote": "作为独立开发者，ShipAny 满足了全部需求——认证、支付、AI 集成、美观界面，一个周末上线 SaaS！",
-        "image": {
-          "src": "/imgs/avatars/3.png",
-          "alt": "marcus"
-        }
-      },
-      {
-        "name": "Sofia Garcia",
-        "role": "Melodisco CEO",
-        "quote": "模板高度可定制且生产级。我们几小时内搭建出了 AI 音乐平台，上市周期大大缩短！",
-        "image": {
-          "src": "/imgs/avatars/4.png",
-          "alt": "sofia"
-        }
-      },
-      {
-        "name": "James Wilson",
-        "role": "GPTs.works 技术负责人",
-        "quote": "ShipAny 基础设施极其稳定。我们从 0 到 1 万用户，无需关心后端维护，是最棒的 AI 创业投资。",
+        "name": "Lisa Anderson",
+        "role": "资深宠物主人",
+        "quote": "当我的老狗去世时，我用 10 年的回忆创作了一部纪念电影。这是我能给自己最珍贵的礼物。",
         "image": {
           "src": "/imgs/avatars/5.png",
-          "alt": "james"
+          "alt": "lisa"
         }
       },
       {
-        "name": "Anna Zhang",
-        "role": "创业者",
-        "quote": "从想法到上线，仅用 3 天！ShipAny 模板和部署工具让我们极快验证 AI 商业创意。",
+        "name": "Tom Wilson",
+        "role": "新晋铲屎官",
+        "quote": "每周我都会上传新的小狗照片，AI 会将它们添加到我们不断增长的电影中。这就像一本活的相册，但更酷！",
         "image": {
           "src": "/imgs/avatars/6.png",
-          "alt": "anna"
+          "alt": "tom"
         }
       }
     ]
   },
   "faq": {
     "id": "faq",
-    "title": "关于 ShipAny 的常见问题",
-    "description": "还有其他问题？欢迎加入 Discord 或发邮件联系我们。",
-    "tip": "没有找到想要的答案？请联系 <a href='https://discord.gg/HQNnrzjZQS' target='_blank' class='text-primary font-medium hover:underline'>我们的客服团队</a>",
+    "title": "常见问题",
+    "description": "关于 Pet Movie AI 您需要知道的一切",
+    "tip": "还有其他问题？<a href='mailto:support@petmovie.ai' class='text-primary font-medium hover:underline'>联系我们的支持团队</a>",
     "items": [
       {
-        "question": "ShipAny 是什么？怎么帮到我？",
-        "answer": "ShipAny 是专为 AI SaaS 创业设计的 NextJS 全套脚手架，内含开箱即用的模板、基础设施搭建和部署工具，让你数小时内上线 AI 产品。"
+        "question": "Pet Movie AI 是如何工作的？",
+        "answer": "只需上传 10-50 张您宠物的照片或视频。我们的 AI 会分析内容，创建故事板，添加音乐、转场和特效。5-10 分钟内，您就能获得一部可供下载和分享的电影级 4K 影片。"
       },
       {
-        "question": "使用 ShipAny 需要很高的技术水平吗？",
-        "answer": "有基础编程知识即可上手。ShipAny 面向开发者友好，详细文档和模板让初学者也能轻松起步，不需深厚 AI 或云计算背景。"
+        "question": "支持哪些视频格式？",
+        "answer": "我们支持照片格式 JPG、PNG，以及视频格式 MP4、MOV、AVI。单个文件最大 500MB。每个电影项目最多可上传 100 个文件。"
       },
       {
-        "question": "ShipAny 支持哪些类型的 AI SaaS 项目？",
-        "answer": "ShipAny 支持内容生成、数据分析、AI 聊天机器人、图片/内容生成器等多种主流 AI 应用场景。"
+        "question": "我可以选择音乐和风格吗？",
+        "answer": "当然可以！我们提供 20+ 种故事模板，包括冒险、日常生活、生日派对、纪念致敬等。每个模板都有多种音乐选项。您也可以上传自己的音乐。"
       },
       {
-        "question": "用 ShipAny 一般多久能上线？",
-        "answer": "借助 ShipAny，可在数小时内拿到产品原型并上线生产环境，预配置的一键部署大幅缩短开发周期。"
+        "question": "处理需要多长时间？",
+        "answer": "大多数电影在 5-10 分钟内完成，具体取决于文件数量和选定的视频长度。电影准备好后，您会收到通知，可以预览和下载。"
       },
       {
-        "question": "ShipAny 的基础设施包括哪些内容？",
-        "answer": "包含认证、数据库、API 集成、支付、云端部署等全栈解决方案，全部遵循业界最佳实践预配置。"
+        "question": "免费计划包含什么？",
+        "answer": "免费计划包括每月 1 部电影（最长 2 分钟）、720p 分辨率和水印。付费计划提供无限电影、4K 分辨率、无水印、更长时长和优先处理。"
       },
       {
-        "question": "模板是否支持定制自己的品牌？",
-        "answer": "当然支持！所有模板均可自定义设计、功能和品牌，既保持基础架构稳定，又能满足个性扩展需求。"
+        "question": "AI 生成后我可以编辑电影吗？",
+        "answer": "可以！您可以重新排列片段、更换音乐、调整文字叠加，以及重新生成特定部分。我们的编辑器设计简单而强大，无需视频编辑经验。"
       }
     ]
   },
   "cta": {
     "id": "cta",
-    "title": "发布你的第一个 AI SaaS 项目",
-    "description": "从这里出发，用 ShipAny 极速交付。",
+    "title": "准备好创作您宠物的电影了吗？",
+    "description": "今天就开始保存珍贵回忆。免费试用，无需信用卡。",
     "buttons": [
       {
-        "title": "获取 ShipAny",
-        "url": "https://shipany.ai",
-        "target": "_blank",
-        "icon": "Zap"
+        "title": "开始免费试用",
+        "url": "/pricing",
+        "target": "_self",
+        "icon": "Sparkles"
       },
       {
-        "title": "阅读文档",
-        "url": "https://docs.shipany.ai",
-        "target": "_blank",
+        "title": "观看示例电影",
+        "url": "/#gallery",
+        "target": "_self",
         "variant": "outline",
-        "icon": "BookOpenText"
+        "icon": "Play"
       }
     ]
   },
   "subscribe": {
     "id": "subscribe",
-    "title": "订阅我们的邮件通知",
-    "description": "获取 ShipAny 最新资讯与产品动态。",
+    "title": "获取宠物电影创作技巧与灵感",
+    "description": "加入 10,000+ 宠物家长。获取创意想法、专属模板和特别优惠。",
     "submit": {
       "input": {
-        "placeholder": "输入邮箱"
+        "placeholder": "输入您的邮箱"
       },
       "button": {
         "title": "订阅"
@@ -477,31 +441,31 @@
   "footer": {
     "id": "footer",
     "brand": {
-      "title": "ShipAny Two",
-      "description": "ShipAny 是专为 AI SaaS 创业项目打造的 NextJS 模板。丰富模板与组件，极速交付你的产品。",
+      "title": "Pet Movie AI",
+      "description": "每个宠物都值得拥有专属电影。AI 驱动的宠物电影工作室，将您的照片和视频创作成电影级大片。",
       "logo": {
-        "src": "/logo.png",
-        "alt": "ShipAny Two"
+        "src": "/logo-simple.svg",
+        "alt": "Pet Movie AI"
       },
       "url": "/"
     },
     "nav": {
       "items": [
         {
-          "title": "关于我们",
+          "title": "产品",
           "children": [
             {
-              "title": "功能亮点",
-              "url": "/#features",
+              "title": "使用流程",
+              "url": "/#usage",
               "target": "_self"
             },
             {
-              "title": "案例展示",
-              "url": "/showcases",
+              "title": "作品展示",
+              "url": "/#gallery",
               "target": "_self"
             },
             {
-              "title": "价格",
+              "title": "价格方案",
               "url": "/pricing",
               "target": "_self"
             }
@@ -511,39 +475,39 @@
           "title": "资源",
           "children": [
             {
-              "title": "文档",
-              "url": "https://docs.shipany.ai",
-              "target": "_blank"
+              "title": "帮助中心",
+              "url": "/#faq",
+              "target": "_self"
             },
             {
-              "title": "组件库",
-              "url": "https://shipany.ai/blocks",
-              "target": "_blank"
+              "title": "故事模板",
+              "url": "/#features",
+              "target": "_self"
             },
             {
-              "title": "模板",
-              "url": "https://shipany.ai/templates",
-              "target": "_blank"
+              "title": "宠物故事博客",
+              "url": "/blog",
+              "target": "_self"
             }
           ]
         },
         {
-          "title": "合作伙伴",
+          "title": "社区",
           "children": [
             {
-              "title": "ThinkAny",
-              "url": "https://thinkany.ai",
-              "target": "_blank"
+              "title": "用户展示",
+              "url": "/#testimonials",
+              "target": "_self"
             },
             {
-              "title": "MCP.so",
-              "url": "https://mcp.so",
-              "target": "_blank"
+              "title": "分享您的故事",
+              "url": "/showcase",
+              "target": "_self"
             },
             {
-              "title": "CopyWeb",
-              "url": "https://copyweb.ai",
-              "target": "_blank"
+              "title": "联盟计划",
+              "url": "/affiliate",
+              "target": "_self"
             }
           ]
         }
@@ -552,27 +516,27 @@
     "social": {
       "items": [
         {
-          "title": "X",
-          "icon": "RiTwitterXFill",
-          "url": "https://x.com/shipanyai",
+          "title": "Instagram",
+          "icon": "Instagram",
+          "url": "https://instagram.com/petmovieai",
           "target": "_blank"
         },
         {
-          "title": "Github",
-          "icon": "Github",
-          "url": "https://github.com/shipanyai/shipany-template-two",
+          "title": "TikTok",
+          "icon": "Video",
+          "url": "https://tiktok.com/@petmovieai",
           "target": "_blank"
         },
         {
-          "title": "Discord",
-          "icon": "RiDiscordFill",
-          "url": "https://discord.gg/HQNnrzjZQS",
+          "title": "YouTube",
+          "icon": "Youtube",
+          "url": "https://youtube.com/@petmovieai",
           "target": "_blank"
         },
         {
           "title": "邮箱",
           "icon": "Mail",
-          "url": "mailto:support@xxx.ai",
+          "url": "mailto:support@petmovie.ai",
           "target": "_self"
         }
       ]

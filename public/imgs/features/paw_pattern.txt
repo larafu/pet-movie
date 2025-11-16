@@ -1,0 +1,10 @@
+  <!-- Paw print watermark - optimized for light/dark modes -->
+  <g transform="translate(730, 570)" opacity="0.6">
+    <!-- Main pad with stroke for visibility -->
+    <ellipse cx="0" cy="4" rx="10" ry="12" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <!-- Toe pads with increased spacing and strokes -->
+    <ellipse cx="-11" cy="-5" rx="5" ry="7" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="-3" cy="-8" rx="5" ry="7" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="5" cy="-8" rx="5" ry="7" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="13" cy="-5" rx="5" ry="7" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+  </g>

@@ -46,5 +46,4 @@ export const localeMessagesPaths = [
   'ai/image',
   'activity/sidebar',
   'activity/ai-tasks',
-  'activity/chats',
 ];

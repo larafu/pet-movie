@@ -1,0 +1,83 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Upload Content - Step 1 UI Mockup -->
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="oklch(0.98 0.02 140)" rx="16"/>
+
+  <!-- Browser window mockup -->
+  <rect x="50" y="50" width="700" height="500" rx="12" fill="oklch(0.95 0.04 140)"/>
+
+  <!-- Window header -->
+  <rect x="50" y="50" width="700" height="50" rx="12 12 0 0" fill="oklch(0.92 0.05 140)"/>
+  <circle cx="80" cy="75" r="8" fill="oklch(0.75 0.15 10)"/>
+  <circle cx="110" cy="75" r="8" fill="oklch(0.80 0.15 60)"/>
+  <circle cx="140" cy="75" r="8" fill="oklch(0.75 0.15 140)"/>
+
+  <!-- URL bar -->
+  <rect x="180" y="62" width="500" height="26" rx="13" fill="oklch(0.98 0.02 140)"/>
+  <text x="200" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="oklch(0.50 0.05 140)">petmovie.ai/upload</text>
+
+  <!-- Main upload area -->
+  <rect x="100" y="150" width="600" height="350" rx="16" fill="oklch(0.97 0.03 140)" stroke="oklch(0.85 0.15 140)" stroke-width="3" stroke-dasharray="12 8"/>
+
+  <!-- Upload icon -->
+  <g transform="translate(400, 250)">
+    <!-- Cloud shape -->
+    <path d="M -50 0 Q -50 -30 -20 -30 Q -20 -50 20 -50 Q 60 -50 60 -20 Q 90 -20 90 10 Q 90 40 60 40 L -50 40 Q -80 40 -80 10 Q -80 -10 -50 0 Z" fill="oklch(0.85 0.15 140)"/>
+
+    <!-- Upload arrow -->
+    <path d="M 0 10 L 0 -15" stroke="oklch(0.98 0.02 140)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M -15 -5 L 0 -20 L 15 -5" stroke="oklch(0.98 0.02 140)" stroke-width="8" stroke-linecap="round" fill="none" stroke-linejoin="round"/>
+    <rect x="-20" y="15" width="40" height="10" rx="5" fill="oklch(0.98 0.02 140)"/>
+  </g>
+
+  <!-- Text -->
+  <text x="400" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="oklch(0.25 0.05 140)" text-anchor="middle">Drop photos & videos here</text>
+  <text x="400" y="395" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="oklch(0.50 0.08 140)" text-anchor="middle">or click to browse</text>
+  <text x="400" y="425" font-family="system-ui, -apple-system, sans-serif" font-size="15" fill="oklch(0.60 0.08 140)" text-anchor="middle">Supports JPG, PNG, MP4, MOV • Max 500MB per file</text>
+
+  <!-- Sample file thumbnails at bottom -->
+  <g transform="translate(150, 450)">
+    <!-- Thumbnail 1 -->
+    <rect x="0" y="0" width="80" height="60" rx="8" fill="oklch(0.88 0.12 50)"/>
+    <g transform="translate(40, 30)" opacity="0.6">
+      <ellipse cx="0" cy="5" rx="12" ry="10" fill="oklch(0.45 0.08 50)"/>
+      <circle cx="0" cy="-5" r="10" fill="oklch(0.45 0.08 50)"/>
+      <path d="M -8 -8 L -12 -15 L -5 -10 Z" fill="oklch(0.45 0.08 50)"/>
+      <path d="M 8 -8 L 12 -15 L 5 -10 Z" fill="oklch(0.45 0.08 50)"/>
+    </g>
+
+    <!-- Thumbnail 2 -->
+    <rect x="100" y="0" width="80" height="60" rx="8" fill="oklch(0.85 0.15 220)"/>
+    <g transform="translate(140, 30)" opacity="0.6">
+      <ellipse cx="0" cy="5" rx="12" ry="10" fill="oklch(0.40 0.08 220)"/>
+      <circle cx="0" cy="-5" r="10" fill="oklch(0.40 0.08 220)"/>
+    </g>
+
+    <!-- Thumbnail 3 -->
+    <rect x="200" y="0" width="80" height="60" rx="8" fill="oklch(0.90 0.10 25)"/>
+    <circle cx="240" cy="25" r="6" fill="oklch(0.95 0.05 60)" opacity="0.7"/>
+    <circle cx="257" cy="32" r="8" fill="oklch(0.95 0.05 60)" opacity="0.5"/>
+
+    <!-- Plus icon for more -->
+    <rect x="300" y="0" width="80" height="60" rx="8" fill="oklch(0.92 0.05 140)" stroke="oklch(0.85 0.15 140)" stroke-width="2" stroke-dasharray="4 4"/>
+    <path d="M 340 20 L 340 40 M 330 30 L 350 30" stroke="oklch(0.85 0.15 140)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Counter badge -->
+    <g transform="translate(390, 10)">
+      <rect x="0" y="0" width="80" height="28" rx="14" fill="oklch(0.85 0.15 140)"/>
+      <text x="40" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="oklch(0.15 0.02 140)" text-anchor="middle">12 files</text>
+    </g>
+  </g>
+
+  <!-- Paw print watermark - optimized for light/dark modes -->
+  <g transform="translate(730, 570)" opacity="0.6">
+    <!-- Main pad with stroke for visibility -->
+    <ellipse cx="0" cy="4" rx="10" ry="12" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <!-- Toe pads with increased spacing and strokes -->
+    <ellipse cx="-11" cy="-5" rx="5" ry="7" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="-3" cy="-8" rx="5" ry="7" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="5" cy="-8" rx="5" ry="7" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="13" cy="-5" rx="5" ry="7" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+  </g>
+</svg>

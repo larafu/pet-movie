@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "ShipAny Template Two",
-    "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups. Ship Fast with a variety of templates and components.",
-    "keywords": "shipany, shipany-boilerplate, shipany-template-two-demo"
+    "title": "Pet Movie AI - Turn Pet Photos into Movies",
+    "description": "Transform your pet photos and videos into Hollywood-quality movies with AI. Choose from 20+ story templates, get 4K output in minutes. Every pet deserves a blockbuster.",
+    "keywords": "pet movie, ai video maker, pet videos, dog videos, cat videos, pet memories, pet photo album"
   },
   "sign": {
     "sign_in_title": "Sign In",

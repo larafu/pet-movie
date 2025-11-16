@@ -7,11 +7,20 @@ export interface Image {
   className?: string;
 }
 
+// video props for video component
+export interface Video {
+  src: string;
+  alt?: string;
+  poster?: string;
+}
+
 // brand props for brand component, contains logo and brand title
 export interface Brand {
   title?: string;
   description?: string;
   logo?: Image;
+  logoLight?: Image;  // Logo for light mode
+  logoDark?: Image;   // Logo for dark mode
   url?: string;
   target?: string;
   className?: string;
@@ -31,6 +40,7 @@ export interface NavItem {
   icon?: string | ReactNode;
   badge?: string;
   image?: Image;
+  video?: Video;
   is_expand?: boolean;
   is_active?: boolean;
   children?: NavItem[];

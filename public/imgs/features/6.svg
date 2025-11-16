@@ -1,0 +1,107 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Choose Storyboard - Step 2 UI Mockup -->
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="oklch(0.98 0.02 140)" rx="16"/>
+
+  <!-- Browser window mockup -->
+  <rect x="50" y="50" width="700" height="500" rx="12" fill="oklch(0.95 0.04 140)"/>
+
+  <!-- Window header -->
+  <rect x="50" y="50" width="700" height="50" rx="12 12 0 0" fill="oklch(0.92 0.05 140)"/>
+  <circle cx="80" cy="75" r="8" fill="oklch(0.75 0.15 10)"/>
+  <circle cx="110" cy="75" r="8" fill="oklch(0.80 0.15 60)"/>
+  <circle cx="140" cy="75" r="8" fill="oklch(0.75 0.15 140)"/>
+
+  <!-- URL bar -->
+  <rect x="180" y="62" width="500" height="26" rx="13" fill="oklch(0.98 0.02 140)"/>
+  <text x="200" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="oklch(0.50 0.05 140)">petmovie.ai/storyboard</text>
+
+  <!-- Title -->
+  <text x="400" y="140" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="oklch(0.25 0.05 140)" text-anchor="middle">Choose Your Story Theme</text>
+
+  <!-- Template cards -->
+  <g transform="translate(100, 180)">
+    <!-- Card 1: Adventure (selected) -->
+    <g>
+      <rect x="0" y="0" width="200" height="140" rx="12" fill="oklch(0.92 0.15 60)" stroke="oklch(0.85 0.15 140)" stroke-width="4"/>
+      <!-- Mountain icon -->
+      <path d="M 40 90 L 70 50 L 100 80 L 100 100 L 40 100 Z" fill="oklch(0.75 0.12 55)" opacity="0.6"/>
+      <path d="M 80 100 L 110 60 L 140 90 L 140 100 L 80 100 Z" fill="oklch(0.65 0.15 50)" opacity="0.7"/>
+      <text x="100" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="oklch(0.25 0.05 140)" text-anchor="middle">Adventure</text>
+      <!-- Checkmark badge -->
+      <circle cx="180" cy="20" r="14" fill="oklch(0.85 0.15 140)"/>
+      <path d="M 175 20 L 178 23 L 185 16" stroke="oklch(0.15 0.02 140)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Card 2: Daily Life -->
+    <g transform="translate(220, 0)">
+      <rect x="0" y="0" width="200" height="140" rx="12" fill="oklch(0.90 0.10 20)" stroke="oklch(0.85 0.08 20)" stroke-width="2"/>
+      <!-- Heart icon -->
+      <path d="M 100 90 Q 75 65 75 50 Q 75 35 85 35 Q 95 35 100 45 Q 105 35 115 35 Q 125 35 125 50 Q 125 65 100 90 Z" fill="oklch(0.75 0.18 20)" opacity="0.5"/>
+      <text x="100" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="oklch(0.35 0.08 20)" text-anchor="middle">Daily Life</text>
+    </g>
+
+    <!-- Card 3: Birthday -->
+    <g transform="translate(440, 0)">
+      <rect x="0" y="0" width="200" height="140" rx="12" fill="oklch(0.88 0.12 320)" stroke="oklch(0.82 0.10 320)" stroke-width="2"/>
+      <!-- Cake icon -->
+      <rect x="80" y="70" width="40" height="25" rx="4" fill="oklch(0.70 0.15 320)" opacity="0.5"/>
+      <line x1="100" y1="70" x2="100" y2="55" stroke="oklch(0.70 0.15 320)" stroke-width="3" opacity="0.5"/>
+      <ellipse cx="100" cy="52" rx="4" ry="6" fill="oklch(0.80 0.18 60)" opacity="0.6"/>
+      <text x="100" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="oklch(0.35 0.08 320)" text-anchor="middle">Birthday</text>
+    </g>
+  </g>
+
+  <!-- Settings panel -->
+  <g transform="translate(100, 360)">
+    <!-- Music selection -->
+    <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="oklch(0.30 0.05 140)">Music Style</text>
+    <rect x="0" y="10" width="280" height="45" rx="8" fill="oklch(0.98 0.02 140)" stroke="oklch(0.85 0.15 140)" stroke-width="2"/>
+    <text x="15" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="oklch(0.35 0.05 140)">🎵 Upbeat Adventure</text>
+    <path d="M 255 30 L 260 35 L 255 40" stroke="oklch(0.50 0.08 140)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Duration slider -->
+    <g transform="translate(320, 0)">
+      <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="oklch(0.30 0.05 140)">Duration</text>
+      <rect x="0" y="10" width="280" height="45" rx="8" fill="oklch(0.98 0.02 140)" stroke="oklch(0.85 0.15 140)" stroke-width="2"/>
+      <text x="15" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="oklch(0.35 0.05 140)">⏱️ 2:30 minutes</text>
+    </g>
+  </g>
+
+  <!-- Preview thumbnail -->
+  <g transform="translate(100, 460)">
+    <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="oklch(0.30 0.05 140)">Storyboard Preview</text>
+    <rect x="0" y="10" width="600" height="45" rx="8" fill="oklch(0.88 0.12 60)" opacity="0.3"/>
+
+    <!-- Timeline thumbnails -->
+    <g transform="translate(10, 18)">
+      <rect x="0" y="0" width="90" height="28" rx="4" fill="oklch(0.75 0.12 55)"/>
+      <text x="45" y="19" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="500" fill="oklch(0.95 0.02 140)" text-anchor="middle">Intro</text>
+
+      <rect x="100" y="0" width="180" height="28" rx="4" fill="oklch(0.85 0.15 60)"/>
+      <text x="190" y="19" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="500" fill="oklch(0.25 0.05 140)" text-anchor="middle">Adventure Scenes</text>
+
+      <rect x="290" y="0" width="120" height="28" rx="4" fill="oklch(0.80 0.15 55)"/>
+      <text x="350" y="19" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="500" fill="oklch(0.15 0.02 140)" text-anchor="middle">Highlights</text>
+
+      <rect x="420" y="0" width="90" height="28" rx="4" fill="oklch(0.75 0.12 55)"/>
+      <text x="465" y="19" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="500" fill="oklch(0.95 0.02 140)" text-anchor="middle">Outro</text>
+    </g>
+  </g>
+
+  <!-- Continue button -->
+  <rect x="550" y="515" width="150" height="45" rx="23" fill="oklch(0.85 0.15 140)"/>
+  <text x="625" y="544" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="oklch(0.15 0.02 140)" text-anchor="middle">Continue →</text>
+
+  <!-- Paw print watermark - optimized for light/dark modes -->
+  <g transform="translate(730, 570)" opacity="0.6">
+    <!-- Main pad with stroke for visibility -->
+    <ellipse cx="0" cy="4" rx="10" ry="12" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <!-- Toe pads with increased spacing and strokes -->
+    <ellipse cx="-11" cy="-5" rx="5" ry="7" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="-3" cy="-8" rx="5" ry="7" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="5" cy="-8" rx="5" ry="7" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="13" cy="-5" rx="5" ry="7" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+  </g>
+</svg>

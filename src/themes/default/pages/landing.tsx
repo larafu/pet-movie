@@ -23,8 +23,8 @@ export default async function LandingPage({
   return (
     <>
       {page.hero && <Hero hero={page.hero} />}
-      {page.logos && <Logos logos={page.logos} />}
       {page.introduce && <FeaturesList features={page.introduce} />}
+      {page.logos && <Logos logos={page.logos} />}
       {page.benefits && <FeaturesAccordion features={page.benefits} />}
       {page.usage && <FeaturesStep features={page.usage} />}
       {page.features && <Features features={page.features} />}

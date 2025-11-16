@@ -1,0 +1,98 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Corgi Explorer - Travel Theme Movie Thumbnail -->
+
+  <!-- Background gradient - sky blue travel theme -->
+  <defs>
+    <linearGradient id="travel-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:oklch(0.88 0.12 230);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:oklch(0.82 0.15 220);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="video-overlay-2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:oklch(0.2 0.05 140);stop-opacity:0" />
+      <stop offset="100%" style="stop-color:oklch(0.2 0.05 140);stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+
+  <!-- Main background -->
+  <rect width="800" height="600" fill="url(#travel-bg)" rx="16"/>
+
+  <!-- Road/path elements for travel theme -->
+  <path d="M -50 600 L 200 350 L 400 400 L 850 200" stroke="oklch(0.65 0.08 220)" stroke-width="120" fill="none" opacity="0.3"/>
+
+  <!-- Clouds -->
+  <circle cx="150" cy="100" r="40" fill="oklch(0.95 0.02 230)" opacity="0.6"/>
+  <circle cx="190" cy="100" r="50" fill="oklch(0.95 0.02 230)" opacity="0.6"/>
+  <circle cx="230" cy="100" r="40" fill="oklch(0.95 0.02 230)" opacity="0.6"/>
+
+  <circle cx="550" cy="120" r="35" fill="oklch(0.95 0.02 230)" opacity="0.5"/>
+  <circle cx="585" cy="120" r="45" fill="oklch(0.95 0.02 230)" opacity="0.5"/>
+  <circle cx="620" cy="120" r="35" fill="oklch(0.95 0.02 230)" opacity="0.5"/>
+
+  <!-- Corgi silhouette -->
+  <g transform="translate(360, 320)">
+    <!-- Body (longer, lower to ground - characteristic corgi shape) -->
+    <ellipse cx="0" cy="15" rx="70" ry="35" fill="oklch(0.4 0.08 35)"/>
+    <!-- Head -->
+    <ellipse cx="-55" cy="0" rx="30" ry="32" fill="oklch(0.4 0.08 35)"/>
+    <!-- Large pointy ears (corgi trademark) -->
+    <path d="M -75 -10 L -85 -35 L -65 -5 Z" fill="oklch(0.42 0.09 38)"/>
+    <path d="M -45 -12 L -35 -37 L -50 -8 Z" fill="oklch(0.42 0.09 38)"/>
+    <!-- Short legs (corgi characteristic) -->
+    <rect x="-55" y="40" width="14" height="25" rx="7" fill="oklch(0.38 0.07 33)"/>
+    <rect x="-30" y="40" width="14" height="25" rx="7" fill="oklch(0.38 0.07 33)"/>
+    <rect x="5" y="40" width="14" height="25" rx="7" fill="oklch(0.38 0.07 33)"/>
+    <rect x="30" y="40" width="14" height="25" rx="7" fill="oklch(0.38 0.07 33)"/>
+    <!-- Tail -->
+    <ellipse cx="70" cy="5" rx="12" ry="18" fill="oklch(0.42 0.09 38)"/>
+  </g>
+
+  <!-- Suitcase icon for travel theme -->
+  <g transform="translate(550, 350)">
+    <rect x="0" y="0" width="60" height="45" rx="4" fill="oklch(0.35 0.06 40)" opacity="0.7"/>
+    <rect x="22" y="-8" width="16" height="10" rx="3" fill="oklch(0.35 0.06 40)" opacity="0.7"/>
+    <line x1="0" y1="15" x2="60" y2="15" stroke="oklch(0.25 0.04 40)" stroke-width="2"/>
+    <line x1="0" y1="30" x2="60" y2="30" stroke="oklch(0.25 0.04 40)" stroke-width="2"/>
+  </g>
+
+  <!-- Video overlay gradient -->
+  <rect width="800" height="600" fill="url(#video-overlay-2)" rx="16"/>
+
+  <!-- Video player UI elements -->
+  <g opacity="0.95">
+    <!-- Play button -->
+    <circle cx="400" cy="300" r="50" fill="oklch(0.95 0.02 140)" opacity="0.9"/>
+    <path d="M 385 280 L 385 320 L 420 300 Z" fill="oklch(0.75 0.15 220)"/>
+
+    <!-- Bottom info bar -->
+    <rect y="520" width="800" height="80" fill="oklch(0.15 0.02 140)" opacity="0.85" rx="0 0 16 16"/>
+
+    <!-- Title -->
+    <text x="40" y="560" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="oklch(0.95 0.02 140)">Corgi Explorer</text>
+
+    <!-- Metadata -->
+    <g transform="translate(40, 580)">
+      <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500" fill="oklch(0.75 0.12 220)">Travel Theme</text>
+      <circle cx="130" cy="-6" r="3" fill="oklch(0.75 0.12 220)"/>
+      <text x="145" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500" fill="oklch(0.75 0.12 220)">1:45</text>
+      <circle cx="200" cy="-6" r="3" fill="oklch(0.75 0.12 220)"/>
+      <text x="215" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500" fill="oklch(0.75 0.12 220)">4K</text>
+    </g>
+
+    <!-- View count badge -->
+    <g transform="translate(680, 555)">
+      <rect x="0" y="0" width="90" height="32" rx="16" fill="oklch(0.75 0.15 220)" opacity="0.9"/>
+      <text x="45" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="oklch(0.15 0.02 140)" text-anchor="middle">1.8K views</text>
+    </g>
+  </g>
+
+  <!-- Paw print watermark - optimized for light/dark modes -->
+  <g transform="translate(720, 50)" opacity="0.6">
+    <!-- Main pad with stroke for visibility -->
+    <ellipse cx="0" cy="8" rx="12" ry="14" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <!-- Toe pads with increased spacing and strokes -->
+    <ellipse cx="-14" cy="-6" rx="6" ry="8" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="-4" cy="-10" rx="6" ry="8" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="6" cy="-10" rx="6" ry="8" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="16" cy="-6" rx="6" ry="8" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+  </g>
+</svg>

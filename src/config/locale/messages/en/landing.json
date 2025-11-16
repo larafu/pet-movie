@@ -2,24 +2,28 @@
   "header": {
     "id": "header",
     "brand": {
-      "title": "ShipAny Two",
-      "logo": {
-        "src": "/logo.png",
-        "alt": "ShipAny Two"
+      "title": "Pet Movie AI",
+      "logoLight": {
+        "src": "/logo-light.png",
+        "alt": "Pet Movie AI"
+      },
+      "logoDark": {
+        "src": "/logo-dark.png",
+        "alt": "Pet Movie AI"
       },
       "url": "/"
     },
     "nav": {
       "items": [
         {
-          "title": "Features",
-          "url": "/#features",
-          "icon": "Sparkles"
+          "title": "How It Works",
+          "url": "/#usage",
+          "icon": "Workflow"
         },
         {
-          "title": "Showcases",
-          "url": "/showcases",
-          "icon": "Box"
+          "title": "Gallery",
+          "url": "/#gallery",
+          "icon": "Images"
         },
         {
           "title": "Pricing",
@@ -27,38 +31,14 @@
           "icon": "DollarSign"
         },
         {
-          "title": "AI",
-          "icon": "RiRobot2Line",
-          "children": [
-            {
-              "title": "AI Image Generator",
-              "description": "Use AI to generate images",
-              "url": "/ai-image-generator",
-              "icon": "RiImage2Line"
-            },
-            {
-              "title": "AI Music Generator",
-              "description": "Use AI to generate music",
-              "url": "/ai-music-generator",
-              "icon": "RiMusic2Line"
-            },
-            {
-              "title": "AI Chatbot",
-              "description": "Chat with AI chatbot",
-              "url": "/chat",
-              "icon": "RiMessage2Line"
-            }
-          ]
+          "title": "My Movies",
+          "url": "/activity",
+          "icon": "Film"
         },
         {
-          "title": "Blog",
-          "url": "/blog",
-          "icon": "Newspaper"
-        },
-        {
-          "title": "Docs",
-          "url": "/docs",
-          "icon": "BookOpenText"
+          "title": "Help",
+          "url": "/#faq",
+          "icon": "HelpCircle"
         }
       ]
     },
@@ -86,161 +66,153 @@
   },
   "hero": {
     "id": "hero",
-    "title": "Ship AI Startups in hours, not days",
-    "highlight_text": "in hours",
-    "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups.<br/>Ship Fast with a variety of templates and components.",
+    "title": "YOUR PET THEIR STORY",
+    "highlight_text": "THEIR STORY",
+    "description": "Every Pet Deserves a Movie. Upload photos & videos. AI creates cinematic pet movies with custom storyboards in minutes",
     "announcement": {
-      "badge": "New",
-      "title": "🎉 ShipAny Template Two",
+      "badge": "AI-Powered Pet Movie Studio",
+      "title": "pet movie.ai - Let AI help you keep the love alive",
       "url": "/pricing"
     },
-    "tip": "🎁 Special offer for the first 1000 users",
+    "tip": "✨ Start creating your pet's movie today",
     "buttons": [
       {
-        "title": "Get Started",
-        "icon": "Zap",
+        "title": "Create Now",
+        "icon": "Upload",
         "url": "/pricing",
         "target": "_self",
         "variant": "default"
       },
       {
-        "title": "Read Document",
-        "icon": "BookOpenText",
-        "url": "https://docs.shipany.ai",
-        "target": "_blank",
+        "title": "Watch Demo",
+        "icon": "Play",
+        "url": "/#gallery",
+        "target": "_self",
         "variant": "outline"
       }
     ],
-    "show_avatars": true,
-    "avatars_tip": "999+ users are using ShipAny",
+    "stats": [
+      {
+        "value": "50K+",
+        "label": "Movies Created"
+      },
+      {
+        "value": "15K+",
+        "label": "Happy Pet Parents"
+      },
+      {
+        "value": "8min",
+        "label": "Avg. Processing Time"
+      }
+    ],
+    "show_avatars": false,
+    "avatars_tip": "",
     "show_award": false,
     "image": {
-      "src": "/imgs/features/admin.png",
-      "alt": "hero"
+      "src": "",
+      "alt": ""
     },
     "image_invert": {
-      "src": "/imgs/features/admin-dark.png",
-      "alt": "hero"
+      "src": "",
+      "alt": ""
     }
   },
   "logos": {
-    "title": "ShipAny is built on the shoulders of giants",
+    "title": "Share Your Pet Movies Everywhere",
     "items": [
       {
-        "title": "Next.js",
+        "title": "YouTube",
         "image": {
-          "src": "/imgs/logos/nextjs.svg",
-          "alt": "Next.js"
+          "src": "/imgs/logos/youtube.svg",
+          "alt": "YouTube"
         }
       },
       {
-        "title": "React",
+        "title": "Instagram",
         "image": {
-          "src": "/imgs/logos/react.svg",
-          "alt": "React"
+          "src": "/imgs/logos/instagram.svg",
+          "alt": "Instagram"
         }
       },
       {
-        "title": "TailwindCSS",
+        "title": "TikTok",
         "image": {
-          "src": "/imgs/logos/tailwindcss.svg",
-          "alt": "TailwindCSS"
+          "src": "/imgs/logos/tiktok.svg",
+          "alt": "TikTok"
         }
       },
       {
-        "title": "Shadcn/UI",
+        "title": "Facebook",
         "image": {
-          "src": "/imgs/logos/shadcn.svg",
-          "alt": "Shadcn/UI"
+          "src": "/imgs/logos/facebook.svg",
+          "alt": "Facebook"
         }
       },
       {
-        "title": "Vercel",
+        "title": "Twitter",
         "image": {
-          "src": "/imgs/logos/vercel.svg",
-          "alt": "Vercel"
+          "src": "/imgs/logos/twitter.svg",
+          "alt": "Twitter"
         }
       }
     ]
   },
   "introduce": {
-    "id": "introduce",
-    "title": "What is ShipAny",
-    "label": "Introduce",
-    "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups, including templates, components, and documentation.",
-    "image": {
-      "src": "/imgs/features/landing-page.png",
-      "alt": "introduce"
-    },
+    "id": "gallery",
+    "title": "AI-Created Pet Masterpieces",
+    "label": "GALLERY",
+    "description": "See what our AI technology can create for your beloved pets",
     "items": [
       {
-        "title": "Ready-to-use Templates",
-        "description": "Choose from dozens of production-ready AI SaaS templates to quickly start your project.",
-        "icon": "RiNextjsFill",
-        "image": {
-          "src": "/imgs/features/1.png",
-          "alt": "introduce"
+        "title": "Meow's Adventure",
+        "description": "Cinematic cat story with stunning visual effects",
+        "icon": "Film",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/17607764967900u9630hr.mp4",
+          "alt": "Cat Movie"
         }
       },
       {
-        "title": "Infrastructure Setup",
-        "description": "Get instant access to scalable infrastructure with best practices built-in.",
-        "icon": "RiDatabase2Line",
-        "image": {
-          "src": "/imgs/features/2.png",
-          "alt": "introduce"
-        }
-      },
-      {
-        "title": "Quick Deployment",
-        "description": "Deploy your AI SaaS application to production in hours, not days.",
-        "icon": "RiCloudyFill",
-        "image": {
-          "src": "/imgs/features/3.png",
-          "alt": "introduce"
-        }
-      },
-      {
-        "title": "AI Integration",
-        "description": "Integrate AI into your project with ease using our built-in AI SDK.",
-        "icon": "RiRobot2Line",
-        "image": {
-          "src": "/imgs/features/4.png",
-          "alt": "introduce"
+        "title": "Puppy's Journey",
+        "description": "Heartwarming dog tale with professional editing",
+        "icon": "Heart",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4",
+          "alt": "Dog Movie"
         }
       }
     ]
   },
   "benefits": {
     "id": "benefits",
-    "title": "Why Choose ShipAny",
-    "label": "Benefits",
-    "description": "Get everything you need to launch your AI startup - from ready-to-use templates to technical support.",
+    "title": "What's Next Amazing Features",
+    "label": "COMING SOON",
+    "description": "We're working on exciting new features to make your pet movies even more magical",
     "items": [
       {
-        "title": "Complete Framework",
-        "description": "Built on Next.js with authentication, payments, and AI integration - everything works out of the box.",
-        "icon": "RiNextjsFill",
+        "title": "Live Streaming",
+        "description": "Stream your pet's daily adventures live and let AI create highlight reels automatically",
+        "icon": "Video",
         "image": {
-          "src": "/imgs/features/user-billing.png",
+          "src": "/imgs/features/live-streaming.svg",
           "alt": "benefits"
         }
       },
       {
-        "title": "Rich Templates Library",
-        "description": "Choose from various AI SaaS templates to kickstart your project - chatbots, image generation, and more.",
-        "icon": "RiClapperboardAiLine",
+        "title": "Voice Narration",
+        "description": "Add AI-generated voice narration in multiple languages and celebrity voice options",
+        "icon": "Mic",
         "image": {
-          "src": "/imgs/features/admin-settings.png",
+          "src": "/imgs/features/voice-narration.svg",
           "alt": "benefits"
         }
       },
       {
-        "title": "Technical Guidance",
-        "description": "Get dedicated support and join our developer community to ensure your successful launch.",
-        "icon": "RiCodeFill",
+        "title": "Social Community",
+        "description": "Share your pet movies with a global community, discover trending pet stories, and collaborate",
+        "icon": "Users",
         "image": {
-          "src": "/imgs/features/landing-page.png",
+          "src": "/imgs/features/social-community.svg",
           "alt": "benefits"
         }
       }
@@ -248,44 +220,45 @@
   },
   "usage": {
     "id": "usage",
-    "title": "How to Launch with ShipAny",
-    "description": "Get your AI SaaS startup running in three simple steps:",
+    "label": "HOW IT WORKS",
+    "title": "3 Simple Steps Movie Ready",
+    "description": "Create your pet's cinematic masterpiece in just a few simple steps",
     "image": {
-      "src": "/imgs/features/1.png",
+      "src": "/imgs/features/1.svg",
       "alt": "usage"
     },
     "image_position": "left",
     "text_align": "center",
     "items": [
       {
-        "title": "Get ShipAny",
-        "description": "Buy ShipAny with a one-time payment. Check your email for the code and documentation.",
+        "title": "Upload Content",
+        "description": "Upload 10-50 photos or videos of your pet. Supports JPG, PNG, MP4, MOV formats",
         "image": {
-          "src": "/imgs/features/5.png",
+          "src": "/imgs/features/5.svg",
           "alt": "usage"
         }
       },
       {
-        "title": "Start Your Project",
-        "description": "Read the documentation and clone the code of ShipAny. Start building your AI SaaS startup.",
+        "title": "Choose Storyboard",
+        "description": "Select story theme, music style, duration. AI generates custom storyboard and preview",
         "image": {
-          "src": "/imgs/features/6.png",
+          "src": "/imgs/features/6.svg",
           "alt": "usage"
         }
       },
       {
-        "title": "Customize Your Project",
-        "description": "Modify the template with your data and contents. Specific AI functionality needs.",
+        "title": "AI Processing",
+        "description": "AI automatically edits, color grades, adds transitions, music, and text. Real-time progress tracking",
         "image": {
-          "src": "/imgs/features/7.png",
+          "src": "/imgs/features/7.svg",
           "alt": "usage"
         }
       },
       {
-        "title": "Deploy to Production",
-        "description": "Deploy your project to production with a few steps and start serving customers immediately.",
+        "title": "Download & Share",
+        "description": "Get 4K HD movie in multiple formats. Perfect for social media, family sharing, or keepsakes",
         "image": {
-          "src": "/imgs/features/8.png",
+          "src": "/imgs/features/8.svg",
           "alt": "usage"
         }
       }
@@ -293,177 +266,168 @@
   },
   "features": {
     "id": "features",
-    "title": "Key Features of ShipAny",
-    "description": "Everything you need to launch your AI SaaS startup quickly and efficiently.",
+    "title": "Cinematic AI Professional Results",
+    "label": "AI MAGIC",
+    "description": "Advanced AI technology creates Hollywood-quality pet movies in minutes.",
     "items": [
       {
-        "title": "Next.js Boilerplate",
-        "description": "Production-ready Next.js templates with SEO-friendly structure and i18n support.",
-        "icon": "RiNextjsFill"
+        "title": "Smart Upload",
+        "description": "Upload your pet photos and videos. AI automatically analyzes and organizes content",
+        "icon": "Upload"
       },
       {
-        "title": "Authentication & Payments",
-        "description": "Integrated Google OAuth, one-tap login, and Stripe payment processing.",
-        "icon": "RiKey2Fill"
+        "title": "Story Templates",
+        "description": "Choose from adventure, daily life, birthday party and 20+ cinematic story templates",
+        "icon": "Film"
       },
       {
-        "title": "Data Infrastructure",
-        "description": "Built-in Supabase integration for reliable and scalable data storage.",
-        "icon": "RiDatabase2Line"
+        "title": "AI Director",
+        "description": "Advanced AI edits, color grades, adds music and effects for Hollywood-quality results",
+        "icon": "Sparkles"
       },
       {
-        "title": "One-Click Deployment",
-        "description": "Seamless deployment to Vercel or Cloudflare with automated setup.",
-        "icon": "RiCloudy2Fill"
-      },
-      {
-        "title": "Business Analytics",
-        "description": "Integrated Google Analytics and Search Console for tracking growth.",
-        "icon": "RiBarChart2Line"
-      },
-      {
-        "title": "AI-Ready Infrastructure",
-        "description": "Pre-configured AI integration with built-in credits system and API sales.",
-        "icon": "RiRobot2Line"
+        "title": "Instant Preview",
+        "description": "Generate 4K pet movie in 5-10 minutes. Download and share instantly",
+        "icon": "Zap"
       }
     ]
   },
   "stats": {
     "id": "stats",
-    "title": "People Love ShipAny",
-    "description": "for it's easy to use and fast to ship.",
+    "title": "Loved by Pet Parents Worldwide",
+    "description": "Creating memories, one movie at a time",
     "items": [
       {
-        "title": "999+",
-        "description": "Customers"
+        "title": "50K+",
+        "description": "Pet Movies Created"
       },
       {
-        "title": "200+",
-        "description": "Blocks"
+        "title": "15K+",
+        "description": "Happy Pet Parents"
       },
       {
-        "title": "50+",
-        "description": "Templates"
+        "title": "4.9★",
+        "description": "Average Rating"
       }
     ]
   },
   "testimonials": {
     "id": "testimonials",
-    "title": "What Users Say About ShipAny",
-    "description": "Hear from developers and founders who launched their AI startups with ShipAny.",
+    "title": "What Pet Parents Say",
+    "description": "Real stories from our community of pet lovers",
     "items": [
       {
-        "name": "David Chen",
-        "role": "Founder of AIWallpaper.shop",
-        "quote": "ShipAny saved us months of development time. We launched our AI wallpaper business in just 2 days and got our first paying customer within a week!",
+        "name": "Sarah Johnson",
+        "role": "Golden Retriever Mom",
+        "quote": "The movie AI created of Max's first year brought tears to my eyes. It captured every precious moment we uploaded. Now we watch it every birthday!",
         "image": {
           "src": "/imgs/avatars/1.png",
+          "alt": "sarah"
+        }
+      },
+      {
+        "name": "Michael Chen",
+        "role": "Cat Dad of 3",
+        "quote": "I had hundreds of random cat photos. Pet Movie AI organized them into a beautiful 5-minute film with perfect music. My family loved it!",
+        "image": {
+          "src": "/imgs/avatars/2.png",
+          "alt": "michael"
+        }
+      },
+      {
+        "name": "Emma Rodriguez",
+        "role": "Rescue Dog Advocate",
+        "quote": "We use Pet Movie AI to create adoption stories for our shelter dogs. The cinematic quality helps them get adopted 3x faster!",
+        "image": {
+          "src": "/imgs/avatars/3.png",
+          "alt": "emma"
+        }
+      },
+      {
+        "name": "David Park",
+        "role": "Corgi Instagram Influencer",
+        "quote": "As a pet content creator, this saves me hours of editing. The AI knows exactly how to make my corgi look like a movie star!",
+        "image": {
+          "src": "/imgs/avatars/4.png",
           "alt": "david"
         }
       },
       {
-        "name": "Rachel Kim",
-        "role": "CTO at HeyBeauty.ai",
-        "quote": "The pre-built AI infrastructure is a game-changer. We didn't have to worry about architecture - just focused on our AI beauty tech and went live fast.",
-        "image": {
-          "src": "/imgs/avatars/2.png",
-          "alt": "rachel"
-        }
-      },
-      {
-        "name": "Marcus Thompson",
-        "role": "Solo Developer",
-        "quote": "As a solo developer, ShipAny gave me everything I needed - auth, payments, AI integration, and beautiful UI. Launched my SaaS in a weekend!",
-        "image": {
-          "src": "/imgs/avatars/3.png",
-          "alt": "marcus"
-        }
-      },
-      {
-        "name": "Sofia Garcia",
-        "role": "CEO of Melodisco",
-        "quote": "The templates are production-ready and highly customizable. We built our AI music platform in hours instead of months. Incredible time-to-market!",
-        "image": {
-          "src": "/imgs/avatars/4.png",
-          "alt": "sofia"
-        }
-      },
-      {
-        "name": "James Wilson",
-        "role": "Tech Lead at GPTs.works",
-        "quote": "ShipAny's infrastructure is rock-solid. We scaled from 0 to 10k users without touching the backend. Best investment for our AI startup.",
+        "name": "Lisa Anderson",
+        "role": "Senior Pet Owner",
+        "quote": "When my old dog passed away, I created a tribute movie with 10 years of memories. It's the most precious gift I could give myself.",
         "image": {
           "src": "/imgs/avatars/5.png",
-          "alt": "james"
+          "alt": "lisa"
         }
       },
       {
-        "name": "Anna Zhang",
-        "role": "Startup Founder",
-        "quote": "From idea to launch in 3 days! ShipAny's templates and deployment tools made it possible to test our AI business concept incredibly fast.",
+        "name": "Tom Wilson",
+        "role": "New Puppy Parent",
+        "quote": "Every week I upload new puppy photos and the AI adds them to our growing movie. It's like a living photo album but way cooler!",
         "image": {
           "src": "/imgs/avatars/6.png",
-          "alt": "anna"
+          "alt": "tom"
         }
       }
     ]
   },
   "faq": {
     "id": "faq",
-    "title": "Frequently Asked Questions About ShipAny",
-    "description": "Have another question? Contact us on Discord or by email.",
-    "tip": "Can't find what you're looking for? Contact our <a href='https://discord.gg/HQNnrzjZQS' target='_blank' class='text-primary font-medium hover:underline'>customer support team</a>",
+    "title": "Frequently Asked Questions",
+    "description": "Everything you need to know about Pet Movie AI",
+    "tip": "Still have questions? <a href='mailto:support@petmovie.ai' class='text-primary font-medium hover:underline'>Contact our support team</a>",
     "items": [
       {
-        "question": "What exactly is ShipAny and how does it work?",
-        "answer": "ShipAny is a comprehensive NextJS boilerplate designed specifically for building AI SaaS startups. It provides ready-to-use templates, infrastructure setup, and deployment tools that help you launch your AI business in hours instead of days."
+        "question": "How does Pet Movie AI work?",
+        "answer": "Simply upload 10-50 photos or videos of your pet. Our AI analyzes the content, creates a storyboard, adds music, transitions, and effects. In 5-10 minutes, you'll have a cinematic 4K movie ready to download and share."
       },
       {
-        "question": "Do I need advanced technical skills to use ShipAny?",
-        "answer": "While basic programming knowledge is helpful, ShipAny is designed to be developer-friendly. Our templates and documentation make it easy to get started, even if you're not an expert in AI or cloud infrastructure."
+        "question": "What video formats are supported?",
+        "answer": "We support JPG, PNG for photos and MP4, MOV, AVI for videos. Maximum file size is 500MB per upload. You can upload up to 100 files per movie project."
       },
       {
-        "question": "What types of AI SaaS can I build with ShipAny?",
-        "answer": "ShipAny supports a wide range of AI applications, from content generation to data analysis tools. Our templates cover popular use cases like AI chatbots, content generators, image processing apps, and more."
+        "question": "Can I choose the music and style?",
+        "answer": "Yes! We offer 20+ story templates including Adventure, Daily Life, Birthday Party, Memorial Tribute, and more. Each template has multiple music options. You can also upload your own music."
       },
       {
-        "question": "How long does it typically take to launch with ShipAny?",
-        "answer": "With ShipAny, you can have a working prototype in hours and a production-ready application in hours. Our one-click deployment and pre-configured infrastructure significantly reduce the traditional months-long development cycle."
+        "question": "How long does processing take?",
+        "answer": "Most movies are ready in 5-10 minutes depending on the number of files and selected video length. You'll receive a notification when your movie is ready to preview and download."
       },
       {
-        "question": "What's included in the ShipAny infrastructure?",
-        "answer": "ShipAny provides a complete infrastructure stack including authentication, database setup, API integration, payment processing, and scalable cloud deployment. Everything is pre-configured following industry best practices."
+        "question": "What's included in the free plan?",
+        "answer": "The free plan includes 1 movie per month (up to 2 minutes), 720p resolution, and watermark. Paid plans offer unlimited movies, 4K resolution, no watermark, longer duration, and priority processing."
       },
       {
-        "question": "Can I customize the templates to match my brand?",
-        "answer": "Absolutely! All ShipAny templates are fully customizable. You can modify the design, features, and functionality to match your brand identity and specific business requirements while maintaining the robust underlying infrastructure."
+        "question": "Can I edit the movie after AI generates it?",
+        "answer": "Yes! You can re-order clips, change music, adjust text overlays, and regenerate specific sections. Our editor is designed to be simple yet powerful, no video editing experience needed."
       }
     ]
   },
   "cta": {
     "id": "cta",
-    "title": "Ship your first AI SaaS Startup",
-    "description": "Start from here, ship with ShipAny.",
+    "title": "Ready to Create Your Pet's Movie?",
+    "description": "Start preserving precious memories today. Free trial, no credit card required.",
     "buttons": [
       {
-        "title": "Get ShipAny",
-        "url": "https://shipany.ai",
-        "target": "_blank",
-        "icon": "Zap"
+        "title": "Start Free Trial",
+        "url": "/pricing",
+        "target": "_self",
+        "icon": "Sparkles"
       },
       {
-        "title": "Read Document",
-        "url": "https://docs.shipany.ai",
-        "target": "_blank",
+        "title": "Watch Sample Movies",
+        "url": "/#introduce",
+        "target": "_self",
         "variant": "outline",
-        "icon": "BookOpenText"
+        "icon": "Play"
       }
     ]
   },
   "subscribe": {
     "id": "subscribe",
-    "title": "Subscribe to our newsletter",
-    "description": "Get the latest news and updates from ShipAny.",
+    "title": "Get Pet Movie Tips & Inspiration",
+    "description": "Join 10,000+ pet parents. Get creative ideas, exclusive templates, and special offers.",
     "submit": {
       "input": {
         "placeholder": "Enter your email"
@@ -477,27 +441,31 @@
   "footer": {
     "id": "footer",
     "brand": {
-      "title": "ShipAny Two",
-      "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups. Ship Fast with a variety of templates and components.",
-      "logo": {
-        "src": "/logo.png",
-        "alt": "ShipAny Two"
+      "title": "Pet Movie AI",
+      "description": "Every Pet Deserves a Movie. AI-powered pet movie studio that creates cinematic masterpieces from your photos and videos.",
+      "logoLight": {
+        "src": "/logo-light.png",
+        "alt": "Pet Movie AI"
+      },
+      "logoDark": {
+        "src": "/logo-dark.png",
+        "alt": "Pet Movie AI"
       },
       "url": "/"
     },
     "nav": {
       "items": [
         {
-          "title": "About",
+          "title": "Product",
           "children": [
             {
-              "title": "Features",
-              "url": "/#features",
+              "title": "How It Works",
+              "url": "/#usage",
               "target": "_self"
             },
             {
-              "title": "Showcases",
-              "url": "/showcases",
+              "title": "Gallery",
+              "url": "/#introduce",
               "target": "_self"
             },
             {
@@ -511,39 +479,39 @@
           "title": "Resources",
           "children": [
             {
-              "title": "Documents",
-              "url": "https://docs.shipany.ai",
-              "target": "_blank"
+              "title": "Help Center",
+              "url": "/#faq",
+              "target": "_self"
             },
             {
-              "title": "Blocks",
-              "url": "https://shipany.ai/blocks",
-              "target": "_blank"
+              "title": "Story Templates",
+              "url": "/#features",
+              "target": "_self"
             },
             {
-              "title": "Templates",
-              "url": "https://shipany.ai/templates",
-              "target": "_blank"
+              "title": "Pet Stories Blog",
+              "url": "/blog",
+              "target": "_self"
             }
           ]
         },
         {
-          "title": "Friends",
+          "title": "Community",
           "children": [
             {
-              "title": "ThinkAny",
-              "url": "https://thinkany.ai",
-              "target": "_blank"
+              "title": "User Showcase",
+              "url": "/#testimonials",
+              "target": "_self"
             },
             {
-              "title": "MCP.so",
-              "url": "https://mcp.so",
-              "target": "_blank"
+              "title": "Share Your Story",
+              "url": "/showcase",
+              "target": "_self"
             },
             {
-              "title": "CopyWeb",
-              "url": "https://copyweb.ai",
-              "target": "_blank"
+              "title": "Affiliate Program",
+              "url": "/affiliate",
+              "target": "_self"
             }
           ]
         }
@@ -552,27 +520,27 @@
     "social": {
       "items": [
         {
-          "title": "X",
-          "icon": "RiTwitterXFill",
-          "url": "https://x.com/shipanyai",
+          "title": "Instagram",
+          "icon": "Instagram",
+          "url": "https://instagram.com/petmovieai",
           "target": "_blank"
         },
         {
-          "title": "Github",
-          "icon": "Github",
-          "url": "https://github.com/shipanyai/shipany-template-two",
+          "title": "TikTok",
+          "icon": "Video",
+          "url": "https://tiktok.com/@petmovieai",
           "target": "_blank"
         },
         {
-          "title": "Discord",
-          "icon": "RiDiscordFill",
-          "url": "https://discord.gg/HQNnrzjZQS",
+          "title": "YouTube",
+          "icon": "Youtube",
+          "url": "https://youtube.com/@petmovieai",
           "target": "_blank"
         },
         {
           "title": "Email",
           "icon": "Mail",
-          "url": "mailto:support@xxx.ai",
+          "url": "mailto:support@petmovie.ai",
           "target": "_self"
         }
       ]

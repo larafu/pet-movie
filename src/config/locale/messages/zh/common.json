@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "ShipAny 模板二",
-    "description": "ShipAny 是用于构建 AI SaaS 创业项目的 NextJS 脚手架。提供丰富模板和组件，助您快速上线产品。",
-    "keywords": "shipany, shipany-boilerplate, shipany-template-two-demo"
+    "title": "Pet Movie AI - 宠物照片变电影",
+    "description": "用 AI 将宠物照片和影片转化为好莱坞品质的电影。20+ 种故事模板，几分钟内生成 4K 影片。每个宠物都值得拥有专属大片。",
+    "keywords": "宠物电影, AI视频制作, 宠物视频, 狗狗视频, 猫咪视频, 宠物回忆, 宠物相册"
   },
   "sign": {
     "sign_in_title": "登录",

@@ -1,0 +1,122 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Daily Moments - Life Theme Movie Thumbnail -->
+
+  <!-- Background gradient - warm home theme -->
+  <defs>
+    <linearGradient id="life-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:oklch(0.90 0.10 20);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:oklch(0.85 0.12 30);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="video-overlay-4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:oklch(0.2 0.05 140);stop-opacity:0" />
+      <stop offset="100%" style="stop-color:oklch(0.2 0.05 140);stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+
+  <!-- Main background -->
+  <rect width="800" height="600" fill="url(#life-bg)" rx="16"/>
+
+  <!-- Home interior elements - floor -->
+  <rect y="400" width="800" height="200" fill="oklch(0.72 0.08 25)" opacity="0.4"/>
+
+  <!-- Rug/mat -->
+  <rect x="250" y="420" width="300" height="160" rx="12" fill="oklch(0.65 0.10 30)" opacity="0.5"/>
+  <rect x="270" y="440" width="260" height="120" rx="8" fill="oklch(0.60 0.12 28)" opacity="0.3"/>
+
+  <!-- Pet bowl -->
+  <g transform="translate(150, 500)">
+    <ellipse cx="0" cy="0" rx="40" ry="15" fill="oklch(0.50 0.08 20)"/>
+    <path d="M -40 0 Q -38 -25 -30 -28 Q 30 -28 38 -25 Q 40 0 40 0 Z" fill="oklch(0.55 0.10 22)"/>
+    <circle cx="-5" cy="-18" r="8" fill="oklch(0.85 0.15 25)" opacity="0.6"/>
+  </g>
+
+  <!-- Cat and dog together (companionship) -->
+  <g transform="translate(350, 350)">
+    <!-- Dog (sitting) -->
+    <g transform="translate(-40, 0)">
+      <!-- Body -->
+      <ellipse cx="0" cy="30" rx="45" ry="50" fill="oklch(0.45 0.08 30)"/>
+      <!-- Head -->
+      <circle cx="0" cy="-10" r="32" fill="oklch(0.45 0.08 30)"/>
+      <!-- Ears (floppy) -->
+      <ellipse cx="-25" cy="-8" rx="12" ry="22" fill="oklch(0.42 0.09 28)" transform="rotate(-20 -25 -8)"/>
+      <ellipse cx="25" cy="-8" rx="12" ry="22" fill="oklch(0.42 0.09 28)" transform="rotate(20 25 -8)"/>
+      <!-- Legs -->
+      <rect x="-25" y="70" width="16" height="35" rx="8" fill="oklch(0.43 0.08 29)"/>
+      <rect x="9" y="70" width="16" height="35" rx="8" fill="oklch(0.43 0.08 29)"/>
+      <!-- Tail (wagging - curved) -->
+      <path d="M 45 40 Q 70 35 75 15" stroke="oklch(0.45 0.08 30)" stroke-width="14" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- Cat (sitting next to dog) -->
+    <g transform="translate(50, 10)">
+      <!-- Body -->
+      <ellipse cx="0" cy="25" rx="35" ry="40" fill="oklch(0.40 0.06 25)"/>
+      <!-- Head -->
+      <circle cx="0" cy="-5" r="28" fill="oklch(0.40 0.06 25)"/>
+      <!-- Pointed ears -->
+      <path d="M -20 -18 L -28 -40 L -12 -20 Z" fill="oklch(0.40 0.06 25)"/>
+      <path d="M 20 -18 L 28 -40 L 12 -20 Z" fill="oklch(0.40 0.06 25)"/>
+      <!-- Legs (sitting) -->
+      <rect x="-20" y="60" width="14" height="28" rx="7" fill="oklch(0.38 0.06 24)"/>
+      <rect x="6" y="60" width="14" height="28" rx="7" fill="oklch(0.38 0.06 24)"/>
+      <!-- Tail (curled) -->
+      <path d="M 35 30 Q 60 25 65 5 Q 67 -10 55 -15" stroke="oklch(0.40 0.06 25)" stroke-width="10" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- Heart symbols for love theme -->
+  <g opacity="0.3">
+    <path d="M 620 180 Q 610 165 595 165 Q 575 165 570 185 Q 565 165 545 165 Q 530 165 520 180 Q 520 210 570 240 Q 620 210 620 180 Z" fill="oklch(0.75 0.18 20)"/>
+    <path d="M 180 200 Q 172 190 162 190 Q 148 190 145 203 Q 142 190 128 190 Q 114 190 107 203 Q 107 225 145 245 Q 180 225 180 200 Z" fill="oklch(0.75 0.18 20)"/>
+  </g>
+
+  <!-- Sun/window light coming from left -->
+  <g opacity="0.2">
+    <rect x="50" y="100" width="120" height="180" rx="8" fill="oklch(0.98 0.05 50)"/>
+    <line x1="110" y1="100" x2="110" y2="280" stroke="oklch(0.75 0.08 25)" stroke-width="4"/>
+    <line x1="50" y1="190" x2="170" y2="190" stroke="oklch(0.75 0.08 25)" stroke-width="4"/>
+  </g>
+
+  <!-- Video overlay gradient -->
+  <rect width="800" height="600" fill="url(#video-overlay-4)" rx="16"/>
+
+  <!-- Video player UI elements -->
+  <g opacity="0.95">
+    <!-- Play button -->
+    <circle cx="400" cy="300" r="50" fill="oklch(0.95 0.02 140)" opacity="0.9"/>
+    <path d="M 385 280 L 385 320 L 420 300 Z" fill="oklch(0.75 0.18 25)"/>
+
+    <!-- Bottom info bar -->
+    <rect y="520" width="800" height="80" fill="oklch(0.15 0.02 140)" opacity="0.85" rx="0 0 16 16"/>
+
+    <!-- Title -->
+    <text x="40" y="560" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="oklch(0.95 0.02 140)">Daily Moments</text>
+
+    <!-- Metadata -->
+    <g transform="translate(40, 580)">
+      <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500" fill="oklch(0.75 0.15 25)">Life Theme</text>
+      <circle cx="105" cy="-6" r="3" fill="oklch(0.75 0.15 25)"/>
+      <text x="120" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500" fill="oklch(0.75 0.15 25)">2:15</text>
+      <circle cx="175" cy="-6" r="3" fill="oklch(0.75 0.15 25)"/>
+      <text x="190" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500" fill="oklch(0.75 0.15 25)">4K</text>
+    </g>
+
+    <!-- View count badge -->
+    <g transform="translate(680, 555)">
+      <rect x="0" y="0" width="90" height="32" rx="16" fill="oklch(0.75 0.18 25)" opacity="0.9"/>
+      <text x="45" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="oklch(0.15 0.02 140)" text-anchor="middle">4.2K views</text>
+    </g>
+  </g>
+
+  <!-- Paw print watermark - optimized for light/dark modes -->
+  <g transform="translate(720, 50)" opacity="0.6">
+    <!-- Main pad with stroke for visibility -->
+    <ellipse cx="0" cy="8" rx="12" ry="14" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <!-- Toe pads with increased spacing and strokes -->
+    <ellipse cx="-14" cy="-6" rx="6" ry="8" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="-4" cy="-10" rx="6" ry="8" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="6" cy="-10" rx="6" ry="8" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+    <ellipse cx="16" cy="-6" rx="6" ry="8" fill="oklch(0.95 0.02 140)" stroke="oklch(0.25 0.05 140)" stroke-width="1.5"/>
+  </g>
+</svg>

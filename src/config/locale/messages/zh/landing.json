@@ -219,7 +219,7 @@
     "items": [
       {
         "title": "上传素材",
-        "description": "上传 1 张宠物照片或影片。支持 JPG、PNG、MP4、MOV 格式",
+        "description": "上传宠物照片或影片。支持 JPG、PNG、MP4、MOV 格式",
         "image": {
           "src": "/imgs/features/5.svg",
           "alt": "usage"
@@ -295,19 +295,19 @@
     "id": "faq",
     "title": "常见问题",
     "description": "关于 Pet Movie AI 您需要知道的一切",
-    "tip": "还有其他问题？<a href='mailto:linghanju0720@gmail.com' class='text-primary font-medium hover:underline'>联系我们的支持团队</a>",
+    "tip": "还有其他问题？<a href='mailto:support@petmovie.ai' class='text-primary font-medium hover:underline'>联系我们的支持团队</a>",
     "items": [
       {
         "question": "Pet Movie AI 是如何工作的？",
-        "answer": "只需上传 1 张您宠物的照片或视频。我们的 AI 会分析内容，创建故事板，添加音乐、转场和特效。5-10 分钟内，您就能获得一部可供下载和分享的电影级 4K 影片。"
+        "answer": "只需上传您宠物的照片或视频。我们的 AI 会分析内容，创建故事板，添加音乐、转场和特效。5-10 分钟内，您就能获得一部可供下载和分享的电影级 4K 影片。"
       },
       {
         "question": "支持哪些视频格式？",
-        "answer": "我们支持照片格式 JPG、PNG，以及视频格式 MP4、MOV、AVI。单个文件最大 500MB。每个电影项目最多可上传 100 个文件。"
+        "answer": "我们支持照片格式 JPG、PNG，以及视频格式 MP4、MOV。单个文件最大 100MB。"
       },
       {
         "question": "我可以选择音乐和风格吗？",
-        "answer": "当然可以！我们提供 20+ 种故事模板，包括冒险、日常生活、生日派对、纪念致敬等。每个模板都有多种音乐选项。您也可以上传自己的音乐。"
+        "answer": "当然可以！我们提供 20+ 种故事模板，包括冒险、日常生活、生日派对、纪念致敬等。每个模板都有多种音乐选项。"
       },
       {
         "question": "处理需要多长时间？",
@@ -316,6 +316,10 @@
       {
         "question": "免费 Beta 测试包含什么？",
         "answer": "在 Beta 测试期间，新用户注册后将获得 5 个免费积分（可生成 1 个免费视频）。这是一次性试用，没有时间限制。Beta 测试结束后将提供付费计划。"
+      },
+      {
+        "question": "音乐授权和版权如何处理？",
+        "answer": "视频采用 Sora 2 技术 AI 生成。背景音乐来自免版税音乐库，授权用于个人和社交媒体使用。商业用途（广告、YouTube 盈利）请查看服务条款了解详情。"
       },
       {
         "question": "AI 生成后我可以编辑电影吗？",
@@ -399,15 +403,60 @@
               "target": "_self"
             }
           ]
+        },
+        {
+          "title": "法律",
+          "children": [
+            {
+              "title": "服务条款",
+              "url": "/legal/terms",
+              "target": "_self"
+            },
+            {
+              "title": "隐私政策",
+              "url": "/legal/privacy",
+              "target": "_self"
+            },
+            {
+              "title": "退款政策",
+              "url": "/legal/refund",
+              "target": "_self"
+            },
+            {
+              "title": "内容政策",
+              "url": "/legal/content-policy",
+              "target": "_self"
+            }
+          ]
         }
       ]
     },
+    "agreement": {
+      "items": [
+        {
+          "title": "条款",
+          "url": "/legal/terms",
+          "target": "_self"
+        },
+        {
+          "title": "隐私",
+          "url": "/legal/privacy",
+          "target": "_self"
+        },
+        {
+          "title": "退款",
+          "url": "/legal/refund",
+          "target": "_self"
+        }
+      ]
+    },
+    "copyright": "© 2025 Pet Movie AI. 版权所有。",
     "social": {
       "items": [
         {
           "title": "邮箱",
           "icon": "Mail",
-          "url": "mailto:linghanju0720@gmail.com",
+          "url": "mailto:support@petmovie.ai",
           "target": "_self"
         }
       ]

@@ -1,0 +1,22 @@
+{
+  "terms": {
+    "title": "服务条款",
+    "description": "使用 Pet Movie AI 的条款和条件",
+    "lastUpdated": "最后更新：{date}"
+  },
+  "privacy": {
+    "title": "隐私政策",
+    "description": "我们如何收集、使用和保护您的个人信息",
+    "lastUpdated": "最后更新：{date}"
+  },
+  "refund": {
+    "title": "退款政策",
+    "description": "关于退款、取消和计费的信息",
+    "lastUpdated": "最后更新：{date}"
+  },
+  "content": {
+    "title": "内容政策",
+    "description": "可接受使用和禁止内容的指南",
+    "lastUpdated": "最后更新：{date}"
+  }
+}

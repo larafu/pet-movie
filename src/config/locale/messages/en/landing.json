@@ -294,19 +294,27 @@
     "items": [
       {
         "question": "How does Pet Movie AI work?",
-        "answer": "Simply upload photos or videos of your pet. Our AI analyzes the content, creates a storyboard, adds music, transitions, and effects. In 5-10 minutes, you'll have a cinematic 4K movie ready to download and share."
+        "answer": "Upload a photo or video of your pet, choose a template, and our AI generates a cinematic short film (25s or 50s) with music, transitions, and effects. In 5-10 minutes, you'll have a ready-to-share pet movie."
+      },
+      {
+        "question": "What length options are available?",
+        "answer": "We offer two formats: 25-second short films and 50-second short films. Choose the length that best fits your needs when creating your pet movie."
+      },
+      {
+        "question": "What templates can I choose from?",
+        "answer": "We offer multiple cinematic templates with different styles and moods. Each template includes professionally curated music, transitions, and visual effects optimized for pet content."
       },
       {
         "question": "What video formats are supported?",
         "answer": "We support JPG, PNG for photos and MP4, MOV for videos. Maximum file size is 100MB per upload."
       },
       {
-        "question": "Can I choose the music and style?",
-        "answer": "Yes! We offer 20+ story templates including Adventure, Daily Life, Birthday Party, Memorial Tribute, and more. Each template has multiple music options."
+        "question": "How long does processing take?",
+        "answer": "Most 25s and 50s pet films are ready in 5-10 minutes. You'll receive a notification when your movie is ready to preview and download."
       },
       {
-        "question": "How long does processing take?",
-        "answer": "Most movies are ready in 5-10 minutes depending on the number of files and selected video length. You'll receive a notification when your movie is ready to preview and download."
+        "question": "Can I edit the generated movie?",
+        "answer": "The AI generates a finalized short film optimized for the selected template. If you'd like different results, you can regenerate with a different template or upload different content."
       },
       {
         "question": "What's included in the free beta trial?",
@@ -315,10 +323,6 @@
       {
         "question": "What about music licensing and copyright?",
         "answer": "Videos are AI-generated using Sora 2 technology. Background music is from royalty-free libraries licensed for personal and social media use. For commercial use (ads, monetized YouTube), see our Terms of Service for details."
-      },
-      {
-        "question": "Can I edit the movie after AI generates it?",
-        "answer": "Yes! You can re-order clips, change music, adjust text overlays, and regenerate specific sections. Our editor is designed to be simple yet powerful, no video editing experience needed."
       }
     ]
   },

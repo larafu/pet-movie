@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "title": "AI Video Generator - Pet Movie",
+    "description": "Generate amazing pet videos with AI. Transform your photos into cinematic masterpieces."
+  },
+  "page": {
+    "title": "AI Video Generator",
+    "description": "Create stunning pet videos from your photos with AI technology"
+  },
+  "generator": {
+    "title": "Video Generator",
+    "description": "Generate videos with AI models, support text-to-video.",
+    "form": {
+      "prompt": "Video Description",
+      "prompt_placeholder": "Describe your video idea. For example: A golden retriever running through a meadow at sunset, cinematic, beautiful lighting",
+      "prompt_too_long": "Description is too long, please shorten it",
+      "reference_images": "Reference Images (Optional)",
+      "reference_images_description": "Upload pet photos to help AI generate better videos",
+      "images_uploading": "Please wait for images to finish uploading",
+      "images_upload_error": "Some images failed to upload. Please remove them and try again."
+    },
+    "generate": "Generate Video",
+    "checking_account": "Checking Account...",
+    "loading": "Loading...",
+    "generating": "Generating Video...",
+    "sign_in_to_generate": "Sign In to Generate Video",
+    "credits_cost": "Cost {credits} credits",
+    "credits_remaining": "Remaining {credits} credits",
+    "buy_credits": "Buy Credits",
+    "progress": "Progress",
+    "generated_videos": "Video Preview",
+    "ready_to_generate": "Ready to Generate",
+    "ready_for_generating": "Ready for Generating",
+    "no_videos_generated": "No Videos Generated Yet",
+    "free_trial": "🎉 You have {credits} free credits to try!"
+  }
+}

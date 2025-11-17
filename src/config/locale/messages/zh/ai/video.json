@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "title": "AI 视频生成器 - Pet Movie",
+    "description": "使用 AI 生成精彩的宠物视频。将您的照片转换为电影级杰作。"
+  },
+  "page": {
+    "title": "AI 视频生成器",
+    "description": "使用 AI 技术从您的照片创建精美的宠物视频"
+  },
+  "generator": {
+    "title": "视频生成器",
+    "description": "使用 AI 模型生成视频，支持文字生成视频。",
+    "form": {
+      "prompt": "视频描述",
+      "prompt_placeholder": "描述您的视频创意。例如：一只金毛犬在日落时分奔跑在草地上，电影感，美丽的光线",
+      "prompt_too_long": "描述过长，请缩短",
+      "reference_images": "参考图片（可选）",
+      "reference_images_description": "上传宠物照片帮助 AI 生成更好的视频",
+      "images_uploading": "请等待图片上传完成",
+      "images_upload_error": "部分图片上传失败，请删除后重试。"
+    },
+    "generate": "生成视频",
+    "checking_account": "检查账户中...",
+    "loading": "加载中...",
+    "generating": "生成视频中...",
+    "sign_in_to_generate": "登录后生成视频",
+    "credits_cost": "消耗 {credits} 积分",
+    "credits_remaining": "剩余 {credits} 积分",
+    "buy_credits": "购买积分",
+    "progress": "进度",
+    "generated_videos": "视频预览",
+    "ready_to_generate": "准备生成",
+    "ready_for_generating": "准备生成中",
+    "no_videos_generated": "还未生成视频",
+    "free_trial": "🎉 您有 {credits} 个免费积分可以试用！"
+  }
+}

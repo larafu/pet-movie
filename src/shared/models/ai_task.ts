@@ -13,12 +13,20 @@ export type AITask = typeof aiTask.$inferSelect & {
 export type NewAITask = typeof aiTask.$inferInsert;
 export type UpdateAITask = Partial<Omit<NewAITask, 'id' | 'createdAt'>>;
 
-export async function createAITask(newAITask: NewAITask) {
+export async function createAITask(
+  newAITask: NewAITask,
+  options?: { skipCreditConsumption?: boolean }
+) {
   const result = await db().transaction(async (tx) => {
     // 1. create task record
     const [taskResult] = await tx.insert(aiTask).values(newAITask).returning();
 
-    if (newAITask.costCredits && newAITask.costCredits > 0) {
+    // Skip credit consumption if requested (e.g., for super admins)
+    if (
+      !options?.skipCreditConsumption &&
+      newAITask.costCredits &&
+      newAITask.costCredits > 0
+    ) {
       // 2. consume credits
       const consumedCredit = await consumeCredits({
         userId: newAITask.userId,
@@ -50,6 +58,14 @@ export async function createAITask(newAITask: NewAITask) {
 
 export async function findAITaskById(id: string) {
   const [result] = await db().select().from(aiTask).where(eq(aiTask.id, id));
+  return result;
+}
+
+export async function findAITaskByTaskId(taskId: string) {
+  const [result] = await db()
+    .select()
+    .from(aiTask)
+    .where(eq(aiTask.taskId, taskId));
   return result;
 }
 

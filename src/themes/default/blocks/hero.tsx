@@ -9,6 +9,7 @@ import { LazyImage, SmartIcon } from '@/shared/blocks/common';
 import { Button } from '@/shared/components/ui/button';
 import { Hero as HeroType } from '@/shared/types/blocks/landing';
 import { cn } from '@/shared/lib/utils';
+import { useAppContext } from '@/shared/contexts/app';
 
 import { SocialAvatars } from './social-avatars';
 
@@ -37,11 +38,21 @@ export function Hero({
   hero: HeroType;
   className?: string;
 }) {
+  const { user } = useAppContext();
   const highlightText = hero.highlight_text ?? '';
   let texts = null;
   if (highlightText) {
     texts = hero.title?.split(highlightText, 2);
   }
+
+  // Helper function to get correct URL based on login status
+  const getButtonUrl = (originalUrl: string) => {
+    // If user is logged in and URL is /sign-up, redirect to video generator
+    if (user && originalUrl === '/sign-up') {
+      return '/ai-video-generator';
+    }
+    return originalUrl;
+  };
 
   // Pet Movie AI: Mouse tracking for glow effect
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -85,7 +96,7 @@ export function Hero({
         {hero.announcement && (
           <motion.div {...createFadeInVariant(0)}>
             <Link
-              href={hero.announcement.url || ''}
+              href={getButtonUrl(hero.announcement.url || '')}
               target={hero.announcement.target || '_self'}
               className="glass hover:bg-white/5 group mx-auto mb-8 flex w-fit items-center gap-4 rounded-full border-transparent p-1 pl-4 shadow-md transition-colors duration-300 relative z-10"
             >
@@ -150,7 +161,7 @@ export function Hero({
                     className="px-4 text-sm"
                   >
                     <Link
-                      href={button.url ?? ''}
+                      href={getButtonUrl(button.url ?? '')}
                       target={button.target ?? '_self'}
                     >
                       {button.icon && <SmartIcon name={button.icon as string} />}
@@ -161,7 +172,7 @@ export function Hero({
               </div>
               {hero.early_bird_badge && hero.early_bird_button && (
                 <Link
-                  href={hero.early_bird_button.url ?? '/pricing'}
+                  href={getButtonUrl(hero.early_bird_button.url ?? '/pricing')}
                   target={hero.early_bird_button.target ?? '_self'}
                   className={cn(
                     "relative inline-flex items-center gap-3 h-12 px-6 overflow-hidden rounded-full",

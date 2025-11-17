@@ -312,3 +312,49 @@ export async function getRemainingCredits(userId: string): Promise<number> {
 
   return parseInt(result?.total || '0');
 }
+
+// Grant free trial credits to new users
+export async function grantFreeTrialCredit(userId: string) {
+  const freeTrialCredits = 5; // 5 credits = 1 free video generation
+
+  // Check if user already received free trial
+  const existingFreeTrials = await db()
+    .select()
+    .from(credit)
+    .where(
+      and(
+        eq(credit.userId, userId),
+        eq(credit.transactionType, CreditTransactionType.GRANT),
+        eq(credit.transactionScene, CreditTransactionScene.GIFT)
+      )
+    )
+    .limit(1);
+
+  // Skip if already granted
+  if (existingFreeTrials.length > 0) {
+    const metadata = existingFreeTrials[0].metadata;
+    if (metadata && metadata.includes('free_trial')) {
+      console.log(`User ${userId} already received free trial credits`);
+      return null;
+    }
+  }
+
+  // Create free trial credit
+  const newCredit: NewCredit = {
+    id: getUuid(),
+    transactionNo: getSnowId(),
+    transactionType: CreditTransactionType.GRANT,
+    transactionScene: CreditTransactionScene.GIFT,
+    userId: userId,
+    status: CreditStatus.ACTIVE,
+    description: 'Free trial credit - 1 free video generation',
+    credits: freeTrialCredits,
+    remainingCredits: freeTrialCredits,
+    expiresAt: null, // Never expires
+    metadata: JSON.stringify({ source: 'free_trial', initial: true }),
+  };
+
+  const result = await createCredit(newCredit);
+  console.log(`Granted ${freeTrialCredits} free trial credits to user ${userId}`);
+  return result;
+}

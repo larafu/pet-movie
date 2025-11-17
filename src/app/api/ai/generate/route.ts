@@ -6,10 +6,11 @@ import { createAITask, NewAITask } from '@/shared/models/ai_task';
 import { consumeCredits, getRemainingCredits } from '@/shared/models/credit';
 import { getUserInfo } from '@/shared/models/user';
 import { getAIService } from '@/shared/services/ai';
+import { isSuperAdmin } from '@/shared/services/rbac';
 
 export async function POST(request: Request) {
   try {
-    let { provider, mediaType, model, prompt, options, scene } =
+    let { provider, mediaType, model, prompt, options, scene, image_urls } =
       await request.json();
 
     if (!provider || !mediaType || !model) {
@@ -55,14 +56,23 @@ export async function POST(request: Request) {
       // generate music
       costCredits = 10;
       scene = 'text-to-music';
+    } else if (mediaType === AIMediaType.VIDEO) {
+      // generate video
+      costCredits = 5;
+      scene = 'text-to-video';
     } else {
       throw new Error('invalid mediaType');
     }
 
-    // check credits
-    const remainingCredits = await getRemainingCredits(user.id);
-    if (remainingCredits < costCredits) {
-      throw new Error('insufficient credits');
+    // Check if user is super admin (unlimited credits)
+    const isAdmin = await isSuperAdmin(user.id);
+
+    // Check credits (skip for super admins)
+    if (!isAdmin) {
+      const remainingCredits = await getRemainingCredits(user.id);
+      if (remainingCredits < costCredits) {
+        throw new Error('insufficient credits');
+      }
     }
 
     const callbackUrl = `${envConfigs.app_url}/api/ai/notify/${provider}`;
@@ -74,6 +84,11 @@ export async function POST(request: Request) {
       callbackUrl,
       options,
     };
+
+    // Add image_urls if provided (for image-to-video or reference images)
+    if (image_urls) {
+      params.image_urls = image_urls;
+    }
 
     // generate content
     const result = await aiProvider.generate({ params });
@@ -99,7 +114,9 @@ export async function POST(request: Request) {
       taskInfo: result.taskInfo ? JSON.stringify(result.taskInfo) : null,
       taskResult: result.taskResult ? JSON.stringify(result.taskResult) : null,
     };
-    await createAITask(newAITask);
+    await createAITask(newAITask, {
+      skipCreditConsumption: isAdmin, // Skip credit consumption for super admins
+    });
 
     return respData(newAITask);
   } catch (e: any) {

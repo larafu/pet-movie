@@ -5,8 +5,19 @@ import { SmartIcon } from '@/shared/blocks/common/smart-icon';
 import { Button } from '@/shared/components/ui/button';
 import { ScrollAnimation } from '@/shared/components/ui/scroll-animation';
 import { CTA as CTAType } from '@/shared/types/blocks/landing';
+import { useAppContext } from '@/shared/contexts/app';
 
 export function CTA({ cta, className }: { cta: CTAType; className?: string }) {
+  const { user } = useAppContext();
+
+  // Helper function to get correct URL based on login status
+  const getButtonUrl = (originalUrl: string) => {
+    // If user is logged in and URL is /sign-up, redirect to video generator
+    if (user && originalUrl === '/sign-up') {
+      return '/ai-video-generator';
+    }
+    return originalUrl;
+  };
   return (
     <section id={cta.id} className={`py-16 md:py-24 ${className}`}>
       <div className="container">
@@ -33,7 +44,7 @@ export function CTA({ cta, className }: { cta: CTAType; className?: string }) {
                   key={idx}
                 >
                   <Link
-                    href={button.url || ''}
+                    href={getButtonUrl(button.url || '')}
                     target={button.target || '_self'}
                   >
                     {button.icon && <SmartIcon name={button.icon as string} />}

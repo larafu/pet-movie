@@ -355,6 +355,16 @@ export async function hasAnyRole(
 }
 
 /**
+ * Check if user is a super admin
+ * Super admins have unlimited access and bypass all restrictions
+ */
+export const isSuperAdmin = cache(
+  async (userId: string): Promise<boolean> => {
+    return await hasRole(userId, ROLES.SUPER_ADMIN);
+  }
+);
+
+/**
  * Assign role to user
  */
 export async function assignRoleToUser(

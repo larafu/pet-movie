@@ -4,11 +4,11 @@
     "brand": {
       "title": "Pet Movie AI",
       "logoLight": {
-        "src": "/logo-light.png",
+        "src": "/logo.png",
         "alt": "Pet Movie AI"
       },
       "logoDark": {
-        "src": "/logo-dark.png",
+        "src": "/logo.png",
         "alt": "Pet Movie AI"
       },
       "url": "/"
@@ -24,16 +24,6 @@
           "title": "Gallery",
           "url": "/#gallery",
           "icon": "Images"
-        },
-        {
-          "title": "Pricing",
-          "url": "/pricing",
-          "icon": "DollarSign"
-        },
-        {
-          "title": "My Movies",
-          "url": "/activity",
-          "icon": "Film"
         },
         {
           "title": "Help",
@@ -72,14 +62,14 @@
     "announcement": {
       "badge": "AI-Powered Pet Movie Studio",
       "title": "pet movie.ai - Let AI help you keep the love alive",
-      "url": "/pricing"
+      "url": "/sign-up"
     },
     "tip": "✨ Start creating your pet's movie today",
     "buttons": [
       {
         "title": "Create Now",
         "icon": "Upload",
-        "url": "/pricing",
+        "url": "/sign-up",
         "target": "_self",
         "variant": "default"
       },
@@ -91,25 +81,12 @@
         "variant": "outline"
       }
     ],
-    "early_bird_badge": "Coming Soon",
+    "early_bird_badge": "Beta Testing",
     "early_bird_button": {
-      "title": "Get Early Bird Discount Now",
-      "url": "/pricing"
+      "title": "Try Free Beta",
+      "url": "/sign-up"
     },
-    "stats": [
-      {
-        "value": "50K+",
-        "label": "Movies Created"
-      },
-      {
-        "value": "15K+",
-        "label": "Happy Pet Parents"
-      },
-      {
-        "value": "8min",
-        "label": "Avg. Processing Time"
-      }
-    ],
+    "stats": [],
     "show_avatars": false,
     "avatars_tip": "",
     "show_award": false,
@@ -299,83 +276,15 @@
   },
   "stats": {
     "id": "stats",
-    "title": "Loved by Pet Parents Worldwide",
-    "description": "Creating memories, one movie at a time",
-    "items": [
-      {
-        "title": "50K+",
-        "description": "Pet Movies Created"
-      },
-      {
-        "title": "15K+",
-        "description": "Happy Pet Parents"
-      },
-      {
-        "title": "4.9★",
-        "description": "Average Rating"
-      }
-    ]
+    "title": "",
+    "description": "",
+    "items": []
   },
   "testimonials": {
     "id": "testimonials",
-    "title": "What Pet Parents Say",
-    "description": "Real stories from our community of pet lovers",
-    "items": [
-      {
-        "name": "Sarah Johnson",
-        "role": "Golden Retriever Mom",
-        "quote": "The movie AI created of Max's first year brought tears to my eyes. It captured every precious moment we uploaded. Now we watch it every birthday!",
-        "image": {
-          "src": "/imgs/avatars/1.png",
-          "alt": "sarah"
-        }
-      },
-      {
-        "name": "Michael Chen",
-        "role": "Cat Dad of 3",
-        "quote": "I had hundreds of random cat photos. Pet Movie AI organized them into a beautiful 5-minute film with perfect music. My family loved it!",
-        "image": {
-          "src": "/imgs/avatars/2.png",
-          "alt": "michael"
-        }
-      },
-      {
-        "name": "Emma Rodriguez",
-        "role": "Rescue Dog Advocate",
-        "quote": "We use Pet Movie AI to create adoption stories for our shelter dogs. The cinematic quality helps them get adopted 3x faster!",
-        "image": {
-          "src": "/imgs/avatars/3.png",
-          "alt": "emma"
-        }
-      },
-      {
-        "name": "David Park",
-        "role": "Corgi Instagram Influencer",
-        "quote": "As a pet content creator, this saves me hours of editing. The AI knows exactly how to make my corgi look like a movie star!",
-        "image": {
-          "src": "/imgs/avatars/4.png",
-          "alt": "david"
-        }
-      },
-      {
-        "name": "Lisa Anderson",
-        "role": "Senior Pet Owner",
-        "quote": "When my old dog passed away, I created a tribute movie with 10 years of memories. It's the most precious gift I could give myself.",
-        "image": {
-          "src": "/imgs/avatars/5.png",
-          "alt": "lisa"
-        }
-      },
-      {
-        "name": "Tom Wilson",
-        "role": "New Puppy Parent",
-        "quote": "Every week I upload new puppy photos and the AI adds them to our growing movie. It's like a living photo album but way cooler!",
-        "image": {
-          "src": "/imgs/avatars/6.png",
-          "alt": "tom"
-        }
-      }
-    ]
+    "title": "",
+    "description": "",
+    "items": []
   },
   "faq": {
     "id": "faq",
@@ -400,8 +309,8 @@
         "answer": "Most movies are ready in 5-10 minutes depending on the number of files and selected video length. You'll receive a notification when your movie is ready to preview and download."
       },
       {
-        "question": "What's included in the free plan?",
-        "answer": "The free plan includes 1 movie per month (up to 2 minutes), 720p resolution, and watermark. Paid plans offer unlimited movies, 4K resolution, no watermark, longer duration, and priority processing."
+        "question": "What's included in the free beta trial?",
+        "answer": "During beta testing, new users receive 5 free credits (good for 1 free video generation) upon sign-up. This is a one-time trial with no time limit. Paid plans will be available after beta testing concludes."
       },
       {
         "question": "Can I edit the movie after AI generates it?",
@@ -416,7 +325,7 @@
     "buttons": [
       {
         "title": "Start Free Trial",
-        "url": "/pricing",
+        "url": "/sign-up",
         "target": "_self",
         "icon": "Sparkles"
       },
@@ -432,7 +341,7 @@
   "subscribe": {
     "id": "subscribe",
     "title": "Get Pet Movie Tips & Inspiration",
-    "description": "Join 10,000+ pet parents. Get creative ideas, exclusive templates, and special offers.",
+    "description": "Get creative ideas, exclusive templates, and special offers.",
     "submit": {
       "input": {
         "placeholder": "Enter your email"
@@ -449,11 +358,11 @@
       "title": "Pet Movie AI",
       "description": "Every Pet Deserves a Movie. AI-powered pet movie studio that creates cinematic masterpieces from your photos and videos.",
       "logoLight": {
-        "src": "/logo-light.png",
+        "src": "/logo.png",
         "alt": "Pet Movie AI"
       },
       "logoDark": {
-        "src": "/logo-dark.png",
+        "src": "/logo.png",
         "alt": "Pet Movie AI"
       },
       "url": "/"
@@ -472,11 +381,6 @@
               "title": "Gallery",
               "url": "/#introduce",
               "target": "_self"
-            },
-            {
-              "title": "Pricing",
-              "url": "/pricing",
-              "target": "_self"
             }
           ]
         },
@@ -492,31 +396,6 @@
               "title": "Story Templates",
               "url": "/#features",
               "target": "_self"
-            },
-            {
-              "title": "Pet Stories Blog",
-              "url": "/blog",
-              "target": "_self"
-            }
-          ]
-        },
-        {
-          "title": "Community",
-          "children": [
-            {
-              "title": "User Showcase",
-              "url": "/#testimonials",
-              "target": "_self"
-            },
-            {
-              "title": "Share Your Story",
-              "url": "/showcase",
-              "target": "_self"
-            },
-            {
-              "title": "Affiliate Program",
-              "url": "/affiliate",
-              "target": "_self"
             }
           ]
         }
@@ -525,24 +404,6 @@
     "social": {
       "items": [
         {
-          "title": "Instagram",
-          "icon": "Instagram",
-          "url": "https://instagram.com/petmovieai",
-          "target": "_blank"
-        },
-        {
-          "title": "TikTok",
-          "icon": "Video",
-          "url": "https://tiktok.com/@petmovieai",
-          "target": "_blank"
-        },
-        {
-          "title": "YouTube",
-          "icon": "Youtube",
-          "url": "https://youtube.com/@petmovieai",
-          "target": "_blank"
-        },
-        {
           "title": "Email",
           "icon": "Mail",
           "url": "mailto:linghanju0720@gmail.com",
@@ -550,20 +411,8 @@
         }
       ]
     },
-    "agreement": {
-      "items": [
-        {
-          "title": "Privacy Policy",
-          "url": "/privacy-policy"
-        },
-        {
-          "title": "Terms of Service",
-          "url": "/terms-of-service"
-        }
-      ]
-    },
     "show_built_with": true,
-    "show_theme": true,
+    "show_theme": false,
     "show_locale": true
   }
 }

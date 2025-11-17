@@ -6,6 +6,7 @@ export * from './brand-logo';
 
 export * from './locale-detector';
 export * from './locale-selector';
+export * from './user-initializer';
 
 export * from './theme-toggler';
 

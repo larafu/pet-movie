@@ -44,6 +44,8 @@ export interface AIGenerateParams {
   mediaType: AIMediaType;
   prompt: string;
   model?: string;
+  // reference images for image-to-video or img2img
+  image_urls?: string[];
   // custom options
   options?: any;
   // receive notify result
@@ -148,3 +150,4 @@ export const aiManager = new AIManager();
 
 export * from './kie';
 export * from './replicate';
+export * from './evolink';

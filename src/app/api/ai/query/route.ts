@@ -1,6 +1,6 @@
 import { respData, respErr } from '@/shared/lib/resp';
 import {
-  findAITaskById,
+  findAITaskByTaskId,
   UpdateAITask,
   updateAITaskById,
 } from '@/shared/models/ai_task';
@@ -19,7 +19,8 @@ export async function POST(req: Request) {
       return respErr('no auth, please sign in');
     }
 
-    const task = await findAITaskById(taskId);
+    // Find task by provider's taskId (e.g., Evolink task ID)
+    const task = await findAITaskByTaskId(taskId);
     if (!task || !task.taskId) {
       return respErr('task not found');
     }

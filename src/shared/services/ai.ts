@@ -1,5 +1,11 @@
-import { AIManager, KieProvider, ReplicateProvider } from '@/extensions/ai';
+import {
+  AIManager,
+  KieProvider,
+  ReplicateProvider,
+  EvolinkProvider,
+} from '@/extensions/ai';
 import { Configs, getAllConfigs } from '@/shared/models/config';
+import { envConfigs } from '@/config';
 
 /**
  * get ai manager with configs
@@ -20,6 +26,16 @@ export function getAIManagerWithConfigs(configs: Configs) {
       new ReplicateProvider({
         apiToken: configs.replicate_api_token,
       })
+    );
+  }
+
+  // Add Evolink provider for text-to-video generation
+  if (envConfigs.evolink_api_token) {
+    aiManager.addProvider(
+      new EvolinkProvider({
+        apiToken: envConfigs.evolink_api_token,
+      }),
+      true // Set as default for video generation
     );
   }
 

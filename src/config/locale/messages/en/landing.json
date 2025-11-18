@@ -21,6 +21,11 @@
           "icon": "Workflow"
         },
         {
+          "title": "Pricing",
+          "url": "/pricing",
+          "icon": "DollarSign"
+        },
+        {
           "title": "Gallery",
           "url": "/#gallery",
           "icon": "Images"
@@ -62,14 +67,14 @@
     "announcement": {
       "badge": "AI-Powered Pet Movie Studio",
       "title": "pet movie.ai - Let AI help you keep the love alive",
-      "url": "/sign-up"
+      "url": "/pricing"
     },
     "tip": "✨ Start creating your pet's movie today",
     "buttons": [
       {
         "title": "Create Now",
         "icon": "Upload",
-        "url": "/sign-up",
+        "url": "/pricing",
         "target": "_self",
         "variant": "default"
       },
@@ -81,10 +86,10 @@
         "variant": "outline"
       }
     ],
-    "early_bird_badge": "Beta Testing",
+    "early_bird_badge": "Limited Time Offer",
     "early_bird_button": {
-      "title": "Try Free Beta",
-      "url": "/sign-up"
+      "title": "Get Started",
+      "url": "/pricing"
     },
     "stats": [],
     "show_avatars": false,
@@ -333,7 +338,7 @@
     "buttons": [
       {
         "title": "Start Free Trial",
-        "url": "/sign-up",
+        "url": "/pricing",
         "target": "_self",
         "icon": "Sparkles"
       },

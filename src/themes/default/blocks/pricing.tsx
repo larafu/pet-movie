@@ -129,6 +129,11 @@ function calculateEarlybirdPrice(
 ): { discountedPrice: string; originalTotalPrice?: string } {
   if (!isActive || !item.price) return { discountedPrice: item.price || '' };
 
+  // 积分包（one-time）不参与早鸟折扣
+  if (item.interval === 'one-time') {
+    return { discountedPrice: item.price };
+  }
+
   const isYearly = item.interval === 'year';
 
   if (isYearly) {
@@ -415,58 +420,101 @@ export function Pricing({
       id={pricing.id}
       className={cn('py-24 md:py-36', pricing.className, className)}
     >
-      {/* Early Bird Countdown Banner */}
-      {earlybird.isActive && (
-        <div className="mx-auto mb-8 px-4">
-          <div className="bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-red-500/10 border border-amber-500/20 rounded-lg p-4 max-w-2xl mx-auto">
-            <div className="flex items-center justify-center gap-3 flex-wrap">
-              <div className="flex items-center gap-2">
-                <Clock className="size-4 text-amber-500" />
-                <span className="text-sm font-medium">
-                  {locale === 'zh' ? '早鸟优惠倒计时' : 'Early Bird Countdown'}
-                </span>
-              </div>
-              <div className="flex items-center gap-2 font-mono text-lg font-bold">
-                <div className="bg-background/50 px-2 py-1 rounded">
-                  {String(earlybird.days).padStart(2, '0')}
-                  <span className="text-xs text-muted-foreground ml-1">
-                    {locale === 'zh' ? '天' : 'd'}
-                  </span>
-                </div>
-                <span>:</span>
-                <div className="bg-background/50 px-2 py-1 rounded">
-                  {String(earlybird.hours).padStart(2, '0')}
-                  <span className="text-xs text-muted-foreground ml-1">
-                    {locale === 'zh' ? '时' : 'h'}
-                  </span>
-                </div>
-                <span>:</span>
-                <div className="bg-background/50 px-2 py-1 rounded">
-                  {String(earlybird.minutes).padStart(2, '0')}
-                  <span className="text-xs text-muted-foreground ml-1">
-                    {locale === 'zh' ? '分' : 'm'}
-                  </span>
-                </div>
-                <span>:</span>
-                <div className="bg-background/50 px-2 py-1 rounded">
-                  {String(earlybird.seconds).padStart(2, '0')}
-                  <span className="text-xs text-muted-foreground ml-1">
-                    {locale === 'zh' ? '秒' : 's'}
-                  </span>
-                </div>
-              </div>
-              <Badge variant="secondary" className="bg-amber-500/20 text-amber-700 dark:text-amber-400 border-amber-500/30">
-                {locale === 'zh' ? '限时3折' : '70% OFF'}
-              </Badge>
+      {/* Combined Promo Code & Countdown Banner */}
+      <div className="mx-auto mb-8 px-4">
+        <div className="relative bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-orange-500/10 border-2 border-purple-500/30 rounded-xl p-6 max-w-4xl mx-auto shadow-lg">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+            <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-1 text-sm font-bold shadow-md">
+              {locale === 'zh' ? '限时优惠' : 'LIMITED OFFER'}
+            </Badge>
+          </div>
+
+          <div className="text-center space-y-5">
+            {/* Title */}
+            <div className="flex items-center justify-center gap-2">
+              <Zap className="size-6 text-amber-500 animate-pulse" />
+              <h3 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                {locale === 'zh' ? '输入优惠码享受 70% 折扣' : 'Enter Promo Code for 70% OFF'}
+              </h3>
+              <Zap className="size-6 text-amber-500 animate-pulse" />
             </div>
-            <p className="text-xs text-muted-foreground text-center mt-2">
+
+            {/* Promo Code */}
+            <div className="flex items-center justify-center gap-3 flex-wrap">
+              <span className="text-muted-foreground text-sm md:text-base font-medium">
+                {locale === 'zh' ? '优惠码：' : 'Promo Code:'}
+              </span>
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg blur-sm group-hover:blur-md transition-all"></div>
+                <code className="relative flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg text-xl md:text-2xl font-bold tracking-wider shadow-xl">
+                  EARLYBIRD
+                  <Lightbulb className="size-5 text-yellow-300" />
+                </code>
+              </div>
+            </div>
+
+            {/* Countdown Timer - Only show during early bird period */}
+            {earlybird.isActive && (
+              <div className="pt-2">
+                <div className="inline-flex items-center justify-center gap-3 flex-wrap bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-red-500/20 border border-amber-500/30 rounded-lg px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <Clock className="size-4 text-amber-500" />
+                    <span className="text-sm font-medium text-foreground">
+                      {locale === 'zh' ? '早鸟优惠倒计时' : 'Early Bird Countdown'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 font-mono text-base md:text-lg font-bold">
+                    <div className="bg-background/80 px-2 py-1 rounded border border-amber-500/20">
+                      {String(earlybird.days).padStart(2, '0')}
+                      <span className="text-xs text-muted-foreground ml-1">
+                        {locale === 'zh' ? '天' : 'd'}
+                      </span>
+                    </div>
+                    <span className="text-amber-500">:</span>
+                    <div className="bg-background/80 px-2 py-1 rounded border border-amber-500/20">
+                      {String(earlybird.hours).padStart(2, '0')}
+                      <span className="text-xs text-muted-foreground ml-1">
+                        {locale === 'zh' ? '时' : 'h'}
+                      </span>
+                    </div>
+                    <span className="text-amber-500">:</span>
+                    <div className="bg-background/80 px-2 py-1 rounded border border-amber-500/20">
+                      {String(earlybird.minutes).padStart(2, '0')}
+                      <span className="text-xs text-muted-foreground ml-1">
+                        {locale === 'zh' ? '分' : 'm'}
+                      </span>
+                    </div>
+                    <span className="text-amber-500">:</span>
+                    <div className="bg-background/80 px-2 py-1 rounded border border-amber-500/20">
+                      {String(earlybird.seconds).padStart(2, '0')}
+                      <span className="text-xs text-muted-foreground ml-1">
+                        {locale === 'zh' ? '秒' : 's'}
+                      </span>
+                    </div>
+                  </div>
+                  <Badge variant="secondary" className="bg-amber-500/30 text-amber-700 dark:text-amber-400 border-amber-500/40 font-bold">
+                    {locale === 'zh' ? '限时3折' : '70% OFF'}
+                  </Badge>
+                </div>
+              </div>
+            )}
+
+            {/* Price Info */}
+            <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
+              {locale === 'zh'
+                ? '年费原价 $499，使用优惠码后仅需 $149.7！点击下方"开始订阅"按钮即可应用折扣。'
+                : 'Annual plan: Regular price $499, only $149.7 with promo code! Click "Start Subscription" below to apply discount.'}
+            </p>
+
+            {/* Development Warning */}
+            <p className="text-xs text-muted-foreground/80 pt-1 border-t border-purple-500/20">
               {locale === 'zh'
                 ? '⚠️ 功能开发中，预购享优惠价格。正式上线后恢复原价。'
                 : '⚠️ Feature in development. Pre-order at discounted price. Price will increase at launch.'}
             </p>
           </div>
         </div>
-      )}
+      </div>
 
       <div className="mx-auto mb-12 px-4 text-center md:px-8">
         {pricing.sr_only_title && (
@@ -589,8 +637,8 @@ export function Pricing({
                       <div className="w-full mt-1">
                         <p className="text-xs text-muted-foreground">
                           {locale === 'zh'
-                            ? `相当于每月 ${(displayedItem.amount * 0.3 / 100 / 12).toFixed(1)} 元，直接发放全年 3600 积分`
-                            : `Equivalent to ${(displayedItem.amount * 0.3 / 100 / 12).toFixed(1)}/month, 3600 credits granted immediately`
+                            ? `相当于每月 ${(displayedItem.amount * 0.3 / 100 / 12).toFixed(1)} 元，直接发放全年 4200 积分`
+                            : `Equivalent to ${(displayedItem.amount * 0.3 / 100 / 12).toFixed(1)}/month, 4200 credits granted immediately`
                           }
                         </p>
                       </div>

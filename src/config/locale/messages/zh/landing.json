@@ -21,6 +21,11 @@
           "icon": "Workflow"
         },
         {
+          "title": "价格",
+          "url": "/pricing",
+          "icon": "DollarSign"
+        },
+        {
           "title": "作品展示",
           "url": "/#gallery",
           "icon": "Images"
@@ -67,14 +72,14 @@
     "announcement": {
       "badge": "AI 驱动的寵物電影工作室",
       "title": "pet movie.ai - 让 AI 帮您永存这份爱",
-      "url": "/sign-up"
+      "url": "/pricing"
     },
     "tip": "✨ 立即开始创作您宠物的专属电影",
     "buttons": [
       {
         "title": "立即创作",
         "icon": "Upload",
-        "url": "/sign-up",
+        "url": "/pricing",
         "target": "_self",
         "variant": "default"
       },
@@ -86,10 +91,10 @@
         "variant": "outline"
       }
     ],
-    "early_bird_badge": "Beta 测试",
+    "early_bird_badge": "限时优惠",
     "early_bird_button": {
-      "title": "免费试用 Beta",
-      "url": "/sign-up"
+      "title": "立即开始",
+      "url": "/pricing"
     },
     "stats": [],
     "show_avatars": false,
@@ -338,7 +343,7 @@
     "buttons": [
       {
         "title": "开始免费试用",
-        "url": "/sign-up",
+        "url": "/pricing",
         "target": "_self",
         "icon": "Sparkles"
       },

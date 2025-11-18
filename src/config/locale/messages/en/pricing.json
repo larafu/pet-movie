@@ -36,7 +36,6 @@
         },
         "product_id": "credits-pro",
         "product_name": "Credit Pack",
-        "payment_product_id": "prod_2ypEJ6kg47LjQNY6Jt6Qhg",
         "credits": 700
       },
       {
@@ -68,7 +67,6 @@
         },
         "product_id": "creator-monthly",
         "product_name": "Creator Monthly Subscription",
-        "payment_product_id": "prod_6A5M1Ngtleazu83Q2Nvqg3",
         "credits": 350,
         "plan_name": "Creator"
       },
@@ -102,7 +100,6 @@
         },
         "product_id": "creator-yearly",
         "product_name": "Creator Annual Subscription",
-        "payment_product_id": "prod_3kiCPXvi5kPVXDiDH5GIJJ",
         "credits": 350,
         "plan_name": "Creator"
       }

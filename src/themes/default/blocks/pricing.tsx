@@ -236,17 +236,17 @@ export function Pricing({
 
         const displayedItem = currencyData
           ? {
-              ...item,
-              currency: currencyData.currency,
-              amount: currencyData.amount,
-              price: currencyData.price,
-              original_price: currencyData.original_price,
-              // Override with currency-specific payment settings if available
-              payment_product_id:
-                currencyData.payment_product_id || item.payment_product_id,
-              payment_providers:
-                currencyData.payment_providers || item.payment_providers,
-            }
+            ...item,
+            currency: currencyData.currency,
+            amount: currencyData.amount,
+            price: currencyData.price,
+            original_price: currencyData.original_price,
+            // Override with currency-specific payment settings if available
+            payment_product_id:
+              currencyData.payment_product_id || item.payment_product_id,
+            payment_providers:
+              currencyData.payment_providers || item.payment_providers,
+          }
           : item;
 
         initialCurrencyStates[item.product_id] = {
@@ -447,7 +447,7 @@ export function Pricing({
               <div className="relative group">
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg blur-sm group-hover:blur-md transition-all"></div>
                 <code className="relative flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg text-xl md:text-2xl font-bold tracking-wider shadow-xl">
-                  EARLYBIRD
+                  EARLY070
                   <Lightbulb className="size-5 text-yellow-300" />
                 </code>
               </div>
@@ -549,10 +549,9 @@ export function Pricing({
         )}
 
         <div
-          className={`mt-0 grid w-full gap-6 md:grid-cols-${
-            pricing.items?.filter((item) => !item.group || item.group === group)
-              ?.length
-          }`}
+          className={`mt-0 grid w-full gap-6 md:grid-cols-${pricing.items?.filter((item) => !item.group || item.group === group)
+            ?.length
+            }`}
         >
           {pricing.items?.map((item: PricingItem, idx) => {
             if (item.group && item.group !== group) {
@@ -602,8 +601,8 @@ export function Pricing({
                         {showEarlybirdDiscount && isYearly
                           ? earlybirdResult.originalTotalPrice
                           : showEarlybirdDiscount
-                          ? displayedItem.price
-                          : displayedItem.original_price}
+                            ? displayedItem.price
+                            : displayedItem.original_price}
                       </span>
                     )}
 

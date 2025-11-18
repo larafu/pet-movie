@@ -26,7 +26,6 @@
         "currency": "USD",
         "price": "$99",
         "original_price": "$99",
-        "payment_product_id": "prod_2ypEJ6kg47LjQNY6Jt6Qhg",
         "currencies": [
           {
             "currency": "CNY",
@@ -67,7 +66,6 @@
         "currency": "USD",
         "price": "$49",
         "original_price": "$49",
-        "payment_product_id": "prod_6A5M1Ngtleazu83Q2Nvqg3",
         "currencies": [
           {
             "currency": "CNY",
@@ -110,7 +108,6 @@
         "currency": "USD",
         "price": "$41.58",
         "original_price": "$49",
-        "payment_product_id": "prod_3kiCPXvi5kPVXDiDH5GIJJ",
         "currencies": [
           {
             "currency": "CNY",

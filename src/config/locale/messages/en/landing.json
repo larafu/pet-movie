@@ -69,11 +69,11 @@
       "title": "pet movie.ai - Let AI help you keep the love alive",
       "url": "/pricing"
     },
-    "tip": "✨ Start creating your pet's movie today",
+    "tip": "✨ Early Bird -70% OFF, Limited Availability",
     "buttons": [
       {
-        "title": "Create Now",
-        "icon": "Upload",
+        "title": "Claim Early Bird -70%",
+        "icon": "Sparkles",
         "url": "/pricing",
         "target": "_self",
         "variant": "default"
@@ -88,7 +88,7 @@
     ],
     "early_bird_badge": "Limited Time Offer",
     "early_bird_button": {
-      "title": "Get Started",
+      "title": "Get Early Bird Deal",
       "url": "/pricing"
     },
     "stats": [],

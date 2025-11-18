@@ -74,11 +74,11 @@
       "title": "pet movie.ai - 让 AI 帮您永存这份爱",
       "url": "/pricing"
     },
-    "tip": "✨ 立即开始创作您宠物的专属电影",
+    "tip": "✨ 早鸟优惠 -70%，限量发售中",
     "buttons": [
       {
-        "title": "立即创作",
-        "icon": "Upload",
+        "title": "限时7折优惠",
+        "icon": "Sparkles",
         "url": "/pricing",
         "target": "_self",
         "variant": "default"
@@ -93,7 +93,7 @@
     ],
     "early_bird_badge": "限时优惠",
     "early_bird_button": {
-      "title": "立即开始",
+      "title": "查看优惠价格",
       "url": "/pricing"
     },
     "stats": [],

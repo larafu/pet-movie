@@ -100,7 +100,8 @@
         },
         "product_id": "creator-yearly",
         "product_name": "Creator Annual Subscription",
-        "credits": 350,
+        "payment_product_id": "prod_3kiCPXvi5kPVXDiDH5GIJJ",
+        "credits": 4200,
         "plan_name": "Creator"
       }
     ]

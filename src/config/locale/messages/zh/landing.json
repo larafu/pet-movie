@@ -1,4 +1,9 @@
 {
+  "metadata": {
+    "title": "狗狗电影 猫咪电影AI | 宠物纪念视频",
+    "description": "用AI创作精美狗狗电影和猫咪电影。将宠物照片转化为电影级纪念视频,完美的彩虹桥悼念片。立即免费试用,珍藏宠物美好回忆。",
+    "keywords": "狗狗电影, 猫咪电影, 宠物纪念, 彩虹桥, AI宠物电影"
+  },
   "header": {
     "id": "header",
     "brand": {
@@ -31,11 +36,6 @@
           "icon": "Images"
         },
         {
-          "title": "我的电影",
-          "url": "/activity",
-          "icon": "Film"
-        },
-        {
           "title": "帮助中心",
           "url": "/#faq",
           "icon": "HelpCircle"
@@ -66,9 +66,9 @@
   },
   "hero": {
     "id": "hero",
-    "title": "YOUR PET THEIR STORY",
-    "highlight_text": "THEIR STORY",
-    "description": "每个宠物都值得拥有专属电影。上传照片和影片，AI 自动创作电影级宠物短片，还可自订故事版",
+    "title": "创作您的狗狗电影或猫咪电影",
+    "highlight_text": "狗狗电影或猫咪电影",
+    "description": "将宠物照片转化为电影级狗狗电影和猫咪电影。用AI创作温馨的宠物纪念视频和彩虹桥悼念片。",
     "announcement": {
       "badge": "AI 驱动的寵物電影工作室",
       "title": "pet movie.ai - 让 AI 帮您永存这份爱",
@@ -151,9 +151,9 @@
   },
   "introduce": {
     "id": "gallery",
-    "title": "AI 创作的宠物大片",
+    "title": "精选狗狗电影和猫咪电影",
     "label": "作品展示",
-    "description": "看看我们的 AI 技术能为您心爱的宠物创造什么",
+    "description": "观看真实宠物家长创作的狗狗电影和猫咪电影,从纪念视频到庆祝短片。",
     "items": [
       {
         "title": "喵喵的冒险",
@@ -210,11 +210,64 @@
       }
     ]
   },
+  "showcases": {
+    "id": "gallery",
+    "label": "正在热播",
+    "title": "AI 创作的宠物大片",
+    "description": "观看这些由我们的 AI 创作的惊艳作品",
+    "items": [
+      {
+        "title": "猫猫博客视频",
+        "description": "电影级猫咪故事，震撼视觉效果",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/17607764967900u9630hr.mp4",
+          "poster": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800",
+          "alt": "猫猫博客视频"
+        }
+      },
+      {
+        "title": "狗狗故事视频",
+        "description": "温馨感人的狗狗故事，专业剪辑",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4",
+          "poster": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800",
+          "alt": "狗狗故事视频"
+        }
+      },
+      {
+        "title": "狗狗对视",
+        "description": "温馨动人的狗狗对视时刻",
+        "video": {
+          "src": "/video/dogs-eye-contact.mp4",
+          "poster": "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=800",
+          "alt": "狗狗对视"
+        }
+      },
+      {
+        "title": "狗狗击掌",
+        "description": "可爱的狗狗击掌庆祝瞬间",
+        "video": {
+          "src": "/video/dogs-high-five.mp4",
+          "poster": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800",
+          "alt": "狗狗击掌"
+        }
+      },
+      {
+        "title": "散步草原奔跑",
+        "description": "在美丽草原上自由奔跑的快乐时光",
+        "video": {
+          "src": "/video/prairie-adventure.mp4",
+          "poster": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800",
+          "alt": "草原奔跑"
+        }
+      }
+    ]
+  },
   "usage": {
     "id": "usage",
     "label": "使用流程",
-    "title": "3 个简单步骤 电影完成",
-    "description": "只需几个简单步骤，即可创作您宠物的电影级大片",
+    "title": "5步创作您的狗狗电影或猫咪电影",
+    "description": "从珍贵照片到电影级宠物视频,完美的纪念片、庆祝视频或彩虹桥悼念。",
     "image": {
       "src": "/imgs/features/1.svg",
       "alt": "usage"
@@ -258,9 +311,9 @@
   },
   "features": {
     "id": "features",
-    "title": "电影级 AI 专业级成果",
-    "label": "AI 魔法",
-    "description": "先进的 AI 技术在几分钟内创作好莱坞品质的宠物电影",
+    "title": "创作专业狗狗电影和猫咪电影",
+    "label": "AI 功能",
+    "description": "先进AI将宠物照片转化为好莱坞品质的狗狗电影、猫咪电影和纪念视频,仅需几分钟。",
     "items": [
       {
         "title": "智能上传",
@@ -292,19 +345,56 @@
   },
   "testimonials": {
     "id": "testimonials",
-    "title": "",
-    "description": "",
-    "items": []
+    "title": "深受全球宠物家长喜爱",
+    "description": "从庆祝视频到彩虹桥纪念片,看看宠物家长们的真实评价。",
+    "className": "bg-black",
+    "items": [
+      {
+        "name": "王女士",
+        "role": "狗狗家长",
+        "quote": "为我的金毛创作了完美的彩虹桥纪念片。这部狗狗电影完美捕捉了它的精神,给我们全家带来了慰藉。",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=200&auto=format&fit=crop",
+          "alt": "用户评价"
+        }
+      },
+      {
+        "name": "李女士",
+        "role": "猫咪家长",
+        "quote": "为我的橘猫生日制作了一部精美的猫咪电影。AI完美捕捉了它的个性,现在每个特殊场合我都会制作一部!",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=200&auto=format&fit=crop",
+          "alt": "用户评价"
+        }
+      },
+      {
+        "name": "张先生",
+        "role": "宠物纪念视频创作者",
+        "quote": "创作的宠物纪念视频帮助我们疗愈。质量超出预期,真正感人的爱宠致敬。",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=200&auto=format&fit=crop",
+          "alt": "用户评价"
+        }
+      }
+    ]
   },
   "faq": {
     "id": "faq",
-    "title": "常见问题",
-    "description": "关于 Pet Movie AI 您需要知道的一切",
+    "title": "狗狗电影和猫咪电影常见问题",
+    "description": "关于创作狗狗电影、猫咪电影和宠物纪念视频的常见问题",
     "tip": "还有其他问题？<a href='mailto:support@petmovie.ai' class='text-primary font-medium hover:underline'>联系我们的支持团队</a>",
     "items": [
       {
-        "question": "Pet Movie AI 是如何工作的？",
-        "answer": "上传您宠物的照片或视频，选择模板，我们的 AI 会生成一部电影级短片（25秒或50秒），包含音乐、转场和特效。5-10 分钟内，您就能获得一部可供分享的宠物电影。"
+        "question": "如何创作狗狗电影或猫咪电影？",
+        "answer": "上传狗狗或猫咪的照片或视频,选择电影模板,我们的AI会生成专业的狗狗电影或猫咪电影(25秒或50秒),包含音乐、转场和特效。5-10分钟内您的宠物电影就准备好了。"
+      },
+      {
+        "question": "可以创作彩虹桥纪念视频吗？",
+        "answer": "可以。Pet Movie AI非常适合创作彩虹桥纪念视频,以纪念跨越彩虹桥的宠物。选择纪念模板配以柔和音乐,创作感人的致敬片,庆祝您宠物的一生和传承。"
+      },
+      {
+        "question": "什么是宠物纪念视频？",
+        "answer": "宠物纪念视频是通过照片和视频配以音乐来庆祝宠物一生的温馨致敬。我们的AI创作电影级宠物纪念视频,完美用于彩虹桥悼念、葬礼或个人珍藏,以纪念您挚爱的伴侣。"
       },
       {
         "question": "有哪些时长选项？",
@@ -338,8 +428,8 @@
   },
   "cta": {
     "id": "cta",
-    "title": "准备好创作您宠物的电影了吗？",
-    "description": "今天就开始保存珍贵回忆。免费试用，无需信用卡。",
+    "title": "今天就创作您的狗狗电影或猫咪电影",
+    "description": "将宠物照片转化为电影级狗狗电影、猫咪电影和纪念视频。免费试用,无需信用卡。",
     "buttons": [
       {
         "title": "开始免费试用",
@@ -374,7 +464,7 @@
     "id": "footer",
     "brand": {
       "title": "Pet Movie AI",
-      "description": "每个宠物都值得拥有专属电影。AI 驱动的宠物电影工作室，将您的照片和视频创作成电影级大片。",
+      "description": "用AI创作精美狗狗电影、猫咪电影和宠物纪念视频。完美的彩虹桥悼念和宠物庆祝视频。",
       "logo": {
         "src": "/logo.png",
         "alt": "Pet Movie AI"

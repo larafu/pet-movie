@@ -11,14 +11,31 @@ import { FAQ as FAQType } from '@/shared/types/blocks/landing';
 
 export function FAQ({ faq, className }: { faq: FAQType; className?: string }) {
   return (
-    <section id={faq.id} className={`py-16 md:py-24 ${className}`}>
-      <div className={`mx-auto max-w-full px-4 md:max-w-3xl md:px-8`}>
+    <section id={faq.id} className={`relative overflow-hidden py-16 md:py-24 ${className}`}>
+      {/* Background Video */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-30"
+          style={{ filter: 'brightness(0.6)' }}
+        >
+          <source src="/video/prairie-adventure.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      {/* Overlay Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80 z-0" />
+
+      <div className={`relative z-10 mx-auto max-w-full px-4 md:max-w-3xl md:px-8`}>
         <ScrollAnimation>
           <div className="mx-auto max-w-2xl text-center text-balance">
-            <h2 className="text-foreground mb-4 text-3xl font-semibold tracking-tight md:text-4xl">
+            <h2 className="text-foreground font-cinzel mb-4 text-3xl font-bold tracking-tight md:text-4xl drop-shadow-lg">
               {faq.title}
             </h2>
-            <p className="text-muted-foreground mb-6 md:mb-12 lg:mb-16">
+            <p className="text-muted-foreground mb-6 md:mb-12 lg:mb-16 text-lg">
               {faq.description}
             </p>
           </div>
@@ -29,28 +46,28 @@ export function FAQ({ faq, className }: { faq: FAQType; className?: string }) {
             <Accordion
               type="single"
               collapsible
-              className="bg-muted dark:bg-muted/50 w-full rounded-2xl p-1"
+              className="glass-frosted w-full rounded-2xl p-2 border border-white/10"
             >
               {faq.items?.map((item, idx) => (
                 <div className="group" key={idx}>
                   <AccordionItem
                     value={item.question ?? ''}
-                    className="data-[state=open]:bg-card dark:data-[state=open]:bg-muted peer rounded-xl border-none px-7 py-1 data-[state=open]:border-none data-[state=open]:shadow-sm"
+                    className="data-[state=open]:bg-white/5 rounded-xl border-none px-4 md:px-7 py-1 transition-colors duration-300 hover:bg-white/5"
                   >
-                    <AccordionTrigger className="cursor-pointer text-base hover:no-underline">
+                    <AccordionTrigger className="cursor-pointer text-base md:text-lg font-medium hover:no-underline hover:text-gold transition-colors text-left">
                       {item.question ?? ''}
                     </AccordionTrigger>
                     <AccordionContent>
-                      <p className="text-base">{item.answer ?? ''}</p>
+                      <p className="text-base text-muted-foreground leading-relaxed">{item.answer ?? ''}</p>
                     </AccordionContent>
                   </AccordionItem>
-                  <hr className="mx-7 border-dashed group-last:hidden peer-data-[state=open]:opacity-0" />
+                  <div className="mx-7 border-b border-white/5 group-last:hidden my-2" />
                 </div>
               ))}
             </Accordion>
 
             <p
-              className="text-muted-foreground mt-6 px-8"
+              className="text-muted-foreground mt-6 px-8 text-center text-sm opacity-60"
               dangerouslySetInnerHTML={{ __html: faq.tip ?? '' }}
             />
           </div>

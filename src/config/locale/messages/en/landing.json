@@ -1,8 +1,13 @@
 {
+  "metadata": {
+    "title": "Dog Movie & Cat Movie AI | Pet Memorial Videos",
+    "description": "Create stunning dog movies and cat movies with AI. Transform pet photos into memorial videos. Perfect for Rainbow Bridge tributes. Start your free trial today.",
+    "keywords": "dog movie, cat movie, pet memorial, rainbow bridge, memorial video, ai pet movie"
+  },
   "header": {
     "id": "header",
     "brand": {
-      "title": "Pet Movie AI",
+      "title": "PET MOVIE",
       "logoLight": {
         "src": "/logo.png",
         "alt": "Pet Movie AI"
@@ -16,14 +21,9 @@
     "nav": {
       "items": [
         {
-          "title": "How It Works",
+          "title": "Process",
           "url": "/#usage",
           "icon": "Workflow"
-        },
-        {
-          "title": "Pricing",
-          "url": "/pricing",
-          "icon": "DollarSign"
         },
         {
           "title": "Gallery",
@@ -31,7 +31,12 @@
           "icon": "Images"
         },
         {
-          "title": "Help",
+          "title": "Pricing",
+          "url": "/pricing",
+          "icon": "DollarSign"
+        },
+        {
+          "title": "FAQ",
           "url": "/#faq",
           "icon": "HelpCircle"
         }
@@ -61,25 +66,25 @@
   },
   "hero": {
     "id": "hero",
-    "title": "YOUR PET THEIR STORY",
-    "highlight_text": "THEIR STORY",
-    "description": "Every Pet Deserves a Movie. Upload photos & videos. AI creates cinematic pet movies with custom storyboards in minutes",
+    "title": "CREATE YOUR DOG MOVIE OR CAT MOVIE",
+    "highlight_text": "DOG MOVIE OR CAT MOVIE",
+    "description": "Transform your pet photos into cinematic dog movies and cat movies. Create heartfelt pet memorial videos and Rainbow Bridge tributes with AI.",
     "announcement": {
-      "badge": "AI-Powered Pet Movie Studio",
-      "title": "pet movie.ai - Let AI help you keep the love alive",
+      "badge": "New Feature",
+      "title": "Now with 4K Cinema Grade Export",
       "url": "/pricing"
     },
     "tip": "✨ Early Bird -70% OFF, Limited Availability",
     "buttons": [
       {
-        "title": "Claim Early Bird -70%",
+        "title": "Create Movie Now",
         "icon": "Sparkles",
-        "url": "/pricing",
+        "url": "/ai-video-generator",
         "target": "_self",
         "variant": "default"
       },
       {
-        "title": "Watch Demo",
+        "title": "Watch Trailer",
         "icon": "Play",
         "url": "/#gallery",
         "target": "_self",
@@ -105,7 +110,7 @@
     }
   },
   "logos": {
-    "title": "Share Your Pet Movies Everywhere",
+    "title": "As Seen In",
     "items": [
       {
         "title": "YouTube",
@@ -146,13 +151,13 @@
   },
   "introduce": {
     "id": "gallery",
-    "title": "AI-Created Pet Masterpieces",
+    "title": "Featured Dog Movies & Cat Movies",
     "label": "GALLERY",
-    "description": "See what our AI technology can create for your beloved pets",
+    "description": "Watch real dog movies and cat movies created by pet parents. From memorial tributes to celebration videos.",
     "items": [
       {
-        "title": "Meow's Adventure",
-        "description": "Cinematic cat story with stunning visual effects",
+        "title": "The Great Escape",
+        "description": "A thrilling adventure of a cat who dreams of the outside world.",
         "icon": "Film",
         "video": {
           "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/17607764967900u9630hr.mp4",
@@ -160,8 +165,8 @@
         }
       },
       {
-        "title": "Puppy's Journey",
-        "description": "Heartwarming dog tale with professional editing",
+        "title": "Golden Days",
+        "description": "A heartwarming story of friendship and loyalty.",
         "icon": "Heart",
         "video": {
           "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4",
@@ -172,8 +177,8 @@
   },
   "benefits": {
     "id": "benefits",
-    "title": "What's Next Amazing Features",
-    "label": "COMING SOON",
+    "title": "Coming Attractions",
+    "label": "ROADMAP",
     "description": "We're working on exciting new features to make your pet movies even more magical",
     "items": [
       {
@@ -205,11 +210,64 @@
       }
     ]
   },
+  "showcases": {
+    "id": "gallery",
+    "label": "NOW STREAMING",
+    "title": "AI-Created Pet Masterpieces",
+    "description": "Watch these stunning transformations created by our AI",
+    "items": [
+      {
+        "title": "Cat's Creative Vlog",
+        "description": "Cinematic cat story with stunning visual effects",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/17607764967900u9630hr.mp4",
+          "poster": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800",
+          "alt": "Cat Blog Video"
+        }
+      },
+      {
+        "title": "Puppy's Story",
+        "description": "Heartwarming dog tale with professional editing",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4",
+          "poster": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800",
+          "alt": "Dog Story Video"
+        }
+      },
+      {
+        "title": "Dogs' Loving Gaze",
+        "description": "Heartwarming moment of dogs making eye contact",
+        "video": {
+          "src": "/video/dogs-eye-contact.mp4",
+          "poster": "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=800",
+          "alt": "Dogs Eye Contact"
+        }
+      },
+      {
+        "title": "Paw Celebration",
+        "description": "Adorable dogs giving high fives together",
+        "video": {
+          "src": "/video/dogs-high-five.mp4",
+          "poster": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800",
+          "alt": "Dogs High Five"
+        }
+      },
+      {
+        "title": "Prairie Adventure",
+        "description": "Running free through the beautiful grassland",
+        "video": {
+          "src": "/video/prairie-adventure.mp4",
+          "poster": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800",
+          "alt": "Running on Prairie"
+        }
+      }
+    ]
+  },
   "usage": {
     "id": "usage",
     "label": "HOW IT WORKS",
-    "title": "3 Simple Steps Movie Ready",
-    "description": "Create your pet's cinematic masterpiece in just a few simple steps",
+    "title": "Create Your Dog Movie or Cat Movie in 5 Steps",
+    "description": "From cherished photos to cinematic pet movies. Perfect for memorials, celebrations, or Rainbow Bridge tributes.",
     "image": {
       "src": "/imgs/features/1.svg",
       "alt": "usage"
@@ -218,32 +276,45 @@
     "text_align": "center",
     "items": [
       {
-        "title": "Upload Content",
-        "description": "Upload photos or videos of your pet. Supports JPG, PNG, MP4, MOV formats",
+        "title": "Upload Media",
+        "description": "Upload clear photos or videos of your pet. The better the quality, the better the movie.",
+        "icon": "Upload",
         "image": {
           "src": "/imgs/features/5.svg",
           "alt": "usage"
         }
       },
       {
-        "title": "Choose Storyboard",
-        "description": "Select story theme, music style, duration. AI generates custom storyboard and preview",
+        "title": "Select Style",
+        "description": "Choose from cinematic genres: Adventure, Drama, Comedy, or Sci-Fi.",
+        "icon": "Palette",
         "image": {
           "src": "/imgs/features/6.svg",
           "alt": "usage"
         }
       },
       {
-        "title": "AI Processing",
-        "description": "AI automatically edits, color grades, adds transitions, music, and text. Real-time progress tracking",
+        "title": "Generate Protagonist",
+        "description": "AI analyzes your pet's features to create a consistent digital actor.",
+        "icon": "User",
         "image": {
           "src": "/imgs/features/7.svg",
           "alt": "usage"
         }
       },
       {
-        "title": "Download & Share",
-        "description": "Get 4K HD movie in multiple formats. Perfect for social media, family sharing, or keepsakes",
+        "title": "Choose Storyboard",
+        "description": "Review AI-generated plot options and select your favorite narrative arc.",
+        "icon": "FileText",
+        "image": {
+          "src": "/imgs/features/8.svg",
+          "alt": "usage"
+        }
+      },
+      {
+        "title": "Create Movie",
+        "description": "Watch as AI renders your 4K masterpiece complete with music and effects.",
+        "icon": "Film",
         "image": {
           "src": "/imgs/features/8.svg",
           "alt": "usage"
@@ -253,9 +324,9 @@
   },
   "features": {
     "id": "features",
-    "title": "Cinematic AI Professional Results",
-    "label": "AI MAGIC",
-    "description": "Advanced AI technology creates Hollywood-quality pet movies in minutes.",
+    "title": "Create Professional Dog Movies & Cat Movies",
+    "label": "AI FEATURES",
+    "description": "Advanced AI transforms your pet photos into Hollywood-quality dog movies, cat movies, and memorial videos in minutes.",
     "items": [
       {
         "title": "Smart Upload",
@@ -287,19 +358,56 @@
   },
   "testimonials": {
     "id": "testimonials",
-    "title": "",
-    "description": "",
-    "items": []
+    "title": "Loved by Pet Parents Worldwide",
+    "description": "From celebration videos to Rainbow Bridge memorials, see what pet parents are saying.",
+    "className": "bg-black",
+    "items": [
+      {
+        "name": "Sarah M.",
+        "role": "Dog Parent",
+        "quote": "Created the perfect Rainbow Bridge memorial for my golden retriever. This dog movie captured his spirit beautifully and brought our family comfort.",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=200&auto=format&fit=crop",
+          "alt": "Critic"
+        }
+      },
+      {
+        "name": "Jennifer L.",
+        "role": "Cat Parent",
+        "quote": "Made a beautiful cat movie for my tabby's birthday. The AI perfectly captured her personality. Now making one for every special occasion!",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=200&auto=format&fit=crop",
+          "alt": "Critic"
+        }
+      },
+      {
+        "name": "Michael R.",
+        "role": "Pet Memorial Creator",
+        "quote": "Created a pet memorial video that helped us heal. The quality was beyond expectations - truly a touching tribute to our beloved companion.",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=200&auto=format&fit=crop",
+          "alt": "Critic"
+        }
+      }
+    ]
   },
   "faq": {
     "id": "faq",
-    "title": "Frequently Asked Questions",
-    "description": "Everything you need to know about Pet Movie AI",
+    "title": "Dog Movie & Cat Movie FAQ",
+    "description": "Common questions about creating dog movies, cat movies, and pet memorial videos",
     "tip": "Still have questions? <a href='mailto:support@petmovie.ai' class='text-primary font-medium hover:underline'>Contact our support team</a>",
     "items": [
       {
-        "question": "How does Pet Movie AI work?",
-        "answer": "Upload a photo or video of your pet, choose a template, and our AI generates a cinematic short film (25s or 50s) with music, transitions, and effects. In 5-10 minutes, you'll have a ready-to-share pet movie."
+        "question": "How do I create a dog movie or cat movie?",
+        "answer": "Upload photos or videos of your dog or cat, choose a cinematic template, and our AI generates a professional dog movie or cat movie (25s or 50s) with music, transitions, and effects. Your pet movie is ready in 5-10 minutes."
+      },
+      {
+        "question": "Can I create a Rainbow Bridge memorial video?",
+        "answer": "Yes. Pet Movie AI is perfect for creating Rainbow Bridge memorial videos to honor pets who have crossed the rainbow bridge. Choose memorial templates with gentle music and create a touching tribute that celebrates your pet's life and legacy."
+      },
+      {
+        "question": "What is a pet memorial video?",
+        "answer": "A pet memorial video is a heartfelt tribute that celebrates your pet's life through photos and videos, set to music. Our AI creates cinematic pet memorial videos perfect for Rainbow Bridge tributes, funerals, or personal keepsakes to honor your beloved companion."
       },
       {
         "question": "What length options are available?",
@@ -333,8 +441,8 @@
   },
   "cta": {
     "id": "cta",
-    "title": "Ready to Create Your Pet's Movie?",
-    "description": "Start preserving precious memories today. Free trial, no credit card required.",
+    "title": "Create Your Dog Movie or Cat Movie Today",
+    "description": "Transform pet photos into cinematic dog movies, cat movies, and memorial videos. Free trial, no credit card required.",
     "buttons": [
       {
         "title": "Start Free Trial",
@@ -369,7 +477,7 @@
     "id": "footer",
     "brand": {
       "title": "Pet Movie AI",
-      "description": "Every Pet Deserves a Movie. AI-powered pet movie studio that creates cinematic masterpieces from your photos and videos.",
+      "description": "Create stunning dog movies, cat movies, and pet memorial videos with AI. Perfect for Rainbow Bridge tributes and celebrating your beloved pets.",
       "logoLight": {
         "src": "/logo.png",
         "alt": "Pet Movie AI"

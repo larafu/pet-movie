@@ -26,65 +26,66 @@ export function InfiniteSlider({
   const [currentSpeed, setCurrentSpeed] = useState(speed);
   const [ref, { width, height }] = useMeasure();
   const translation = useMotionValue(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [key, setKey] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    let controls;
     const size = direction === "horizontal" ? width : height;
     const contentSize = size + gap;
     const from = reverse ? -contentSize / 2 : 0;
     const to = reverse ? 0 : -contentSize / 2;
 
-    const distanceToTravel = Math.abs(to - from);
-    const duration = distanceToTravel / currentSpeed;
-
-    if (isTransitioning) {
-      const remainingDistance = Math.abs(translation.get() - to);
-      const transitionDuration = remainingDistance / currentSpeed;
-
-      controls = animate(translation, [translation.get(), to], {
-        ease: "linear",
-        duration: transitionDuration,
-        onComplete: () => {
-          setIsTransitioning(false);
-          setKey((prevKey) => prevKey + 1);
-        },
-      });
-    } else {
-      controls = animate(translation, [from, to], {
-        ease: "linear",
-        duration: duration,
-        repeat: Infinity,
-        repeatType: "loop",
-        repeatDelay: 0,
-        onRepeat: () => {
-          translation.set(from);
-        },
-      });
+    // If paused, don't start animation
+    if (isPaused) {
+      return;
     }
 
-    return controls?.stop;
+    const currentPosition = translation.get();
+
+    // Calculate remaining distance from current position
+    let startPosition = currentPosition;
+
+    // If we're at or past the end, reset to start
+    if ((reverse && currentPosition >= to) || (!reverse && currentPosition <= to)) {
+      startPosition = from;
+    }
+
+    const remainingDistance = Math.abs(to - startPosition);
+    const duration = remainingDistance / currentSpeed;
+
+    const controls = animate(translation, [startPosition, to], {
+      ease: "linear",
+      duration: duration,
+      repeat: Infinity,
+      repeatType: "loop",
+      repeatDelay: 0,
+      onRepeat: () => {
+        translation.set(from);
+      },
+    });
+
+    return () => controls?.stop();
   }, [
-    key,
     translation,
     currentSpeed,
     width,
     height,
     gap,
-    isTransitioning,
+    isPaused,
     direction,
     reverse,
   ]);
 
-  const hoverProps = speedOnHover
+  const hoverProps = speedOnHover !== undefined
     ? {
         onHoverStart: () => {
-          setIsTransitioning(true);
-          setCurrentSpeed(speedOnHover);
+          if (speedOnHover === 0) {
+            setIsPaused(true);
+          } else {
+            setCurrentSpeed(speedOnHover);
+          }
         },
         onHoverEnd: () => {
-          setIsTransitioning(true);
+          setIsPaused(false);
           setCurrentSpeed(speed);
         },
       }

@@ -1,7 +1,14 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { getThemePage } from '@/core/theme';
+import { getMetadata } from '@/shared/lib/seo';
 import { Landing } from '@/shared/types/blocks/landing';
+
+export const generateMetadata = getMetadata({
+  metadataKey: 'landing.metadata',
+  canonicalUrl: '/',
+  imageUrl: '/logo.png',
+});
 
 export default async function LandingPage({
   params,
@@ -20,6 +27,7 @@ export default async function LandingPage({
     logos: t.raw('logos'),
     introduce: t.raw('introduce'),
     benefits: t.raw('benefits'),
+    showcases: t.raw('showcases'),
     usage: t.raw('usage'),
     features: t.raw('features'),
     stats: t.raw('stats'),

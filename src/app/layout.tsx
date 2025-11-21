@@ -2,7 +2,7 @@ import '@/config/style/global.css';
 
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
-import { Merriweather } from 'next/font/google';
+import { Cinzel, Merriweather } from 'next/font/google';
 import { getLocale, setRequestLocale } from 'next-intl/server';
 import NextTopLoader from 'nextjs-toploader';
 
@@ -17,6 +17,11 @@ const merriweather = Merriweather({
   subsets: ['latin'],
   weight: ['300', '400', '700', '900'],
   variable: '--font-serif',
+});
+
+const cinzel = Cinzel({
+  subsets: ['latin'],
+  variable: '--font-cinzel',
 });
 
 export default async function RootLayout({
@@ -82,7 +87,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${GeistSans.variable} ${merriweather.variable} ${GeistMono.variable}`}
+      className={`${GeistSans.variable} ${merriweather.variable} ${GeistMono.variable} ${cinzel.variable}`}
       suppressHydrationWarning
     >
       <head>

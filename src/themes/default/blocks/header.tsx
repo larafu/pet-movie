@@ -45,6 +45,7 @@ function NavigationMenuTrigger(
 export function Header({ header }: { header: HeaderType }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
   const isLarge = useMedia('(min-width: 64rem)');
   const router = useRouter();
   const pathname = usePathname();
@@ -52,7 +53,7 @@ export function Header({ header }: { header: HeaderType }) {
   useEffect(() => {
     // Listen to scroll event to enable header styles on scroll
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -63,7 +64,8 @@ export function Header({ header }: { header: HeaderType }) {
     const menuRef = useRef<React.ElementRef<typeof NavigationMenu>>(null);
 
     // Calculate dynamic viewport height for animated menu
-    const handleViewportHeight = () => {
+    const handleViewportHeight = (value: string) => {
+      setIsNavOpen(!!value);
       requestAnimationFrame(() => {
         const menuNode = menuRef.current;
         if (!menuNode) return;
@@ -92,12 +94,12 @@ export function Header({ header }: { header: HeaderType }) {
         onValueChange={handleViewportHeight}
         className="[--color-muted:color-mix(in_oklch,var(--color-foreground)_5%,transparent)] [--viewport-outer-px:2rem] **:data-[slot=navigation-menu-viewport]:rounded-none **:data-[slot=navigation-menu-viewport]:border-0 **:data-[slot=navigation-menu-viewport]:bg-transparent **:data-[slot=navigation-menu-viewport]:shadow-none **:data-[slot=navigation-menu-viewport]:ring-0 max-lg:hidden"
       >
-        <NavigationMenuList className="gap-3">
+        <NavigationMenuList className="gap-6">
           {header.nav?.items?.map((item, idx) => (
             <NavigationMenuItem key={idx} value={item.title || ''}>
               {item.children && item.children.length > 0 ? (
                 <>
-                  <NavigationMenuTrigger className="flex flex-row items-center gap-2 text-sm">
+                  <NavigationMenuTrigger className="flex flex-row items-center gap-2 text-sm font-cinzel font-bold uppercase tracking-widest text-foreground/80 hover:text-gold transition-colors bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent">
                     {item.icon && (
                       <SmartIcon
                         name={item.icon as string}
@@ -106,10 +108,10 @@ export function Header({ header }: { header: HeaderType }) {
                     )}
                     {item.title}
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="mt-4.5 origin-top pt-5 pb-14 shadow-none ring-0">
+                  <NavigationMenuContent className="mt-4.5 origin-top pt-5 pb-14 shadow-none ring-0 bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl">
                     <div className="divide-foreground/10 grid w-full min-w-6xl grid-cols-4 gap-4 divide-x pr-22">
                       <div className="col-span-2 row-span-2 grid grid-rows-subgrid gap-1 border-r-0">
-                        <span className="text-muted-foreground ml-2 text-xs">
+                        <span className="text-gold ml-2 text-xs font-bold tracking-widest uppercase">
                           {item.title}
                         </span>
                         <ul className="mt-1 grid grid-cols-2 gap-2">
@@ -135,10 +137,10 @@ export function Header({ header }: { header: HeaderType }) {
                   <Link
                     href={item.url || ''}
                     target={item.target || '_self'}
-                    className={`flex flex-row items-center gap-2 text-sm ${
+                    className={`flex flex-row items-center gap-2 text-sm font-cinzel font-bold uppercase tracking-widest transition-colors ${
                       item.is_active || pathname.endsWith(item.url as string)
-                        ? 'bg-muted text-muted-foreground'
-                        : ''
+                        ? 'text-gold'
+                        : 'text-foreground/80 hover:text-gold'
                     }`}
                   >
                     {item.icon && <SmartIcon name={item.icon as string} />}
@@ -174,7 +176,7 @@ export function Header({ header }: { header: HeaderType }) {
               >
                 {item.children && item.children.length > 0 ? (
                   <>
-                    <AccordionTrigger className="data-[state=open]:bg-muted flex items-center justify-between px-4 py-3 text-lg **:!font-normal">
+                    <AccordionTrigger className="data-[state=open]:bg-muted flex items-center justify-between px-4 py-3 text-lg font-cinzel font-bold uppercase tracking-widest **:!font-normal">
                       {item.title}
                     </AccordionTrigger>
                     <AccordionContent className="pb-5">
@@ -205,7 +207,7 @@ export function Header({ header }: { header: HeaderType }) {
                   <Link
                     href={item.url || ''}
                     onClick={closeMenu}
-                    className="data-[state=open]:bg-muted flex items-center justify-between px-4 py-3 text-lg **:!font-normal"
+                    className="data-[state=open]:bg-muted flex items-center justify-between px-4 py-3 text-lg font-cinzel font-bold uppercase tracking-widest **:!font-normal"
                   >
                     {item.title}
                   </Link>
@@ -233,12 +235,12 @@ export function Header({ header }: { header: HeaderType }) {
     return (
       <li {...props}>
         <NavigationMenuLink asChild>
-          <Link href={href} className="grid grid-cols-[auto_1fr] gap-3.5">
-            <div className="bg-background ring-foreground/10 relative flex size-9 items-center justify-center rounded border border-transparent shadow shadow-sm ring-1">
+          <Link href={href} className="grid grid-cols-[auto_1fr] gap-3.5 group">
+            <div className="bg-white/5 ring-white/10 relative flex size-9 items-center justify-center rounded border border-transparent shadow shadow-sm ring-1 group-hover:bg-gold/20 group-hover:ring-gold/50 transition-colors">
               {children}
             </div>
             <div className="space-y-0.5">
-              <div className="text-foreground text-sm font-medium">{title}</div>
+              <div className="text-foreground text-sm font-medium group-hover:text-gold transition-colors">{title}</div>
               <p className="text-muted-foreground line-clamp-1 text-xs">
                 {description}
               </p>
@@ -253,45 +255,50 @@ export function Header({ header }: { header: HeaderType }) {
     <>
       <header
         data-state={isMobileMenuOpen ? 'active' : 'inactive'}
+        data-nav-open={isNavOpen}
         {...(isScrolled && { 'data-scrolled': true })}
-        className="has-data-[state=open]:bg-background/50 fixed inset-x-0 top-0 z-50 has-data-[state=open]:h-screen has-data-[state=open]:backdrop-blur"
+        className="data-[nav-open=true]:bg-black/95 fixed inset-x-0 top-0 z-50 data-[nav-open=true]:backdrop-blur transition-all duration-300"
       >
         <div
           className={cn(
-            'absolute inset-x-0 top-0 z-50 h-18 border-transparent ring-1 ring-transparent transition-all duration-300',
-            'in-data-scrolled:border-foreground/5 in-data-scrolled:bg-background/75 in-data-scrolled:border-b in-data-scrolled:backdrop-blur',
-            'has-data-[state=open]:ring-foreground/5 has-data-[state=open]:bg-card/75 has-data-[state=open]:h-[calc(var(--navigation-menu-viewport-height)+3.4rem)] has-data-[state=open]:border-b has-data-[state=open]:shadow-lg has-data-[state=open]:shadow-black/10 has-data-[state=open]:backdrop-blur',
-            'max-lg:in-data-[state=active]:bg-background/75 max-lg:h-14 max-lg:overflow-hidden max-lg:border-b max-lg:in-data-[state=active]:h-screen max-lg:in-data-[state=active]:backdrop-blur'
+            'absolute inset-x-0 top-0 z-50 h-20 border-transparent transition-all duration-300',
+            'in-data-scrolled:bg-black/80 in-data-scrolled:backdrop-blur-md in-data-scrolled:border-b in-data-scrolled:border-white/5',
+            'in-data-[nav-open=true]:bg-black/95 in-data-[nav-open=true]:h-[calc(var(--navigation-menu-viewport-height)+5rem)] in-data-[nav-open=true]:border-b in-data-[nav-open=true]:border-white/5',
+            'max-lg:in-data-[state=active]:bg-black/95 max-lg:h-16 max-lg:overflow-hidden max-lg:border-b max-lg:in-data-[state=active]:h-screen'
           )}
         >
-          <div className="container">
-            <div className="relative flex flex-wrap items-center justify-between lg:py-5">
-              <div className="flex justify-between gap-8 max-lg:h-14 max-lg:w-full max-lg:border-b">
+          <div className="container h-full">
+            <div className="relative flex h-full items-center justify-between">
+              <div className="flex justify-between items-center gap-8 max-lg:w-full">
+                {/* Brand Logo */}
                 {/* Brand Logo */}
                 {header.brand && <BrandLogo brand={header.brand} />}
 
                 {/* Desktop Navigation Menu */}
                 {isLarge && <NavMenu />}
+                
                 {/* Hamburger menu button for mobile navigation */}
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   aria-label={
                     isMobileMenuOpen == true ? 'Close Menu' : 'Open Menu'
                   }
-                  className="relative z-20 -m-2.5 -mr-3 block cursor-pointer p-2.5 lg:hidden"
+                  className="relative z-20 -m-2.5 -mr-3 block cursor-pointer p-2.5 lg:hidden text-foreground"
                 >
-                  <Menu className="m-auto size-5 duration-200 in-data-[state=active]:scale-0 in-data-[state=active]:rotate-180 in-data-[state=active]:opacity-0" />
-                  <X className="absolute inset-0 m-auto size-5 scale-0 -rotate-180 opacity-0 duration-200 in-data-[state=active]:scale-100 in-data-[state=active]:rotate-0 in-data-[state=active]:opacity-100" />
+                  <Menu className="m-auto size-6 duration-200 in-data-[state=active]:scale-0 in-data-[state=active]:rotate-180 in-data-[state=active]:opacity-0" />
+                  <X className="absolute inset-0 m-auto size-6 scale-0 -rotate-180 opacity-0 duration-200 in-data-[state=active]:scale-100 in-data-[state=active]:rotate-0 in-data-[state=active]:opacity-100" />
                 </button>
               </div>
 
               {/* Show mobile menu if needed */}
               {!isLarge && isMobileMenuOpen && (
-                <MobileMenu closeMenu={() => setIsMobileMenuOpen(false)} />
+                <div className="absolute top-20 left-0 w-full bg-black/95 p-4 border-b border-white/10">
+                  <MobileMenu closeMenu={() => setIsMobileMenuOpen(false)} />
+                </div>
               )}
 
               {/* Header right section: theme toggler, locale selector, sign, buttons */}
-              <div className="mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 in-data-[state=active]:flex max-lg:in-data-[state=active]:mt-6 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
+              <div className="hidden w-full flex-wrap items-center justify-end space-y-8 in-data-[state=active]:flex max-lg:in-data-[state=active]:mt-6 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
                 <div className="flex w-full flex-row items-center gap-4 sm:flex-row sm:gap-6 sm:space-y-0 md:w-fit">
                   {header.show_locale ? <LocaleSelector /> : null}
                   <div className="flex-1 md:hidden"></div>
@@ -306,11 +313,11 @@ export function Header({ header }: { header: HeaderType }) {
                         href={button.url || ''}
                         target={button.target || '_self'}
                         className={cn(
-                          'focus-visible:ring-ring inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
-                          'h-7 px-3 ring-0',
+                          'focus-visible:ring-ring inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium whitespace-nowrap transition-all focus-visible:ring-1 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+                          'h-9 px-5 ring-0',
                           button.variant === 'outline'
-                            ? 'bg-background ring-foreground/10 hover:bg-muted/50 dark:ring-foreground/15 dark:hover:bg-muted/50 border border-transparent shadow-sm ring-1 shadow-black/15 duration-200'
-                            : 'bg-primary text-primary-foreground hover:bg-primary/90 border-[0.5px] border-white/25 shadow-md ring-1 shadow-black/20 ring-(--ring-color) [--ring-color:color-mix(in_oklab,var(--color-foreground)15%,var(--color-primary))]'
+                            ? 'bg-white/5 border border-white/10 hover:bg-white/10 text-foreground'
+                            : 'bg-gold text-black hover:bg-gold/90 shadow-gold hover:shadow-gold/80'
                         )}
                       >
                         {button.icon && (

@@ -18,6 +18,11 @@ export * from './cta';
 export * from './subscribe';
 export * from './pricing';
 
+export * from './video-comparison-slider';
+export * from './video-showcase-carousel';
+export * from './media-showcase';
+export * from './image-to-video-reveal';
+
 export * from './blog';
 export * from './blog-detail';
 export * from './page-detail';

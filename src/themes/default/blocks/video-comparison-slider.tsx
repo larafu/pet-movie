@@ -112,7 +112,7 @@ export function VideoComparisonSlider({
     setIsPlaying(!isPlaying);
   };
 
-  const renderMedia = (media: MediaItem, ref?: React.RefObject<HTMLVideoElement>) => {
+  const renderMedia = (media: MediaItem, ref?: React.RefObject<HTMLVideoElement | null>) => {
     if (media.type === 'video') {
       return (
         <video

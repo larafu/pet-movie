@@ -79,7 +79,7 @@
       {
         "title": "Create Movie Now",
         "icon": "Sparkles",
-        "url": "/ai-video-generator",
+        "url": "/pricing",
         "target": "_self",
         "variant": "default"
       },

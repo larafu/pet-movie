@@ -16,7 +16,7 @@ export function getWebsiteSchema() {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${envConfigs.app_url}/ai-video-generator?q={search_term_string}`,
+        urlTemplate: `${envConfigs.app_url}/pricing?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },

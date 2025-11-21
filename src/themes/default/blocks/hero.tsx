@@ -47,9 +47,9 @@ export function Hero({
 
   // Helper function to get correct URL based on login status
   const getButtonUrl = (originalUrl: string) => {
-    // If user is logged in and URL is /sign-up, redirect to video generator
+    // If user is logged in and URL is /sign-up, redirect to pricing
     if (user && originalUrl === '/sign-up') {
-      return '/ai-video-generator';
+      return '/pricing';
     }
     return originalUrl;
   };

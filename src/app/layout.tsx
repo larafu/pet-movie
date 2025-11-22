@@ -12,16 +12,23 @@ import { getAdsService } from '@/shared/services/ads';
 import { getAffiliateService } from '@/shared/services/affiliate';
 import { getAnalyticsService } from '@/shared/services/analytics';
 import { getCustomerService } from '@/shared/services/customer_service';
+import { ThirdPartyScripts } from '@/shared/components/ThirdPartyScripts';
 
 const merriweather = Merriweather({
   subsets: ['latin'],
   weight: ['300', '400', '700', '900'],
   variable: '--font-serif',
+  display: 'swap', // Prevent invisible text while loading
+  preload: true,
+  fallback: ['Georgia', 'serif'],
 });
 
 const cinzel = Cinzel({
   subsets: ['latin'],
   variable: '--font-cinzel',
+  display: 'swap', // Prevent invisible text while loading
+  preload: true,
+  fallback: ['Times New Roman', 'serif'],
 });
 
 export default async function RootLayout({
@@ -94,6 +101,12 @@ export default async function RootLayout({
         <link rel="icon" href="/favicon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+        {/* Performance optimization - Preconnect to critical third-party origins */}
+        <link rel="preconnect" href="https://client.crisp.chat" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://client.crisp.chat" />
+        <link rel="preconnect" href="https://accounts.google.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://accounts.google.com" />
+
         {/* inject locales */}
         {locales ? (
           <>
@@ -142,17 +155,13 @@ export default async function RootLayout({
 
         {children}
 
-        {/* inject ads body scripts */}
-        {adsBodyScripts}
-
-        {/* inject analytics body scripts */}
-        {analyticsBodyScripts}
-
-        {/* inject affiliate body scripts */}
-        {affiliateBodyScripts}
-
-        {/* inject customer service body scripts */}
-        {customerServiceBodyScripts}
+        {/* Defer third-party scripts to improve performance */}
+        <ThirdPartyScripts
+          analyticsScripts={analyticsBodyScripts}
+          customerServiceScripts={customerServiceBodyScripts}
+          adsScripts={adsBodyScripts}
+          affiliateScripts={affiliateBodyScripts}
+        />
       </body>
     </html>
   );

@@ -85,20 +85,24 @@ export function Hero({
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Initialize and setup videos
+  // Initialize and setup videos - Optimized for performance
   useEffect(() => {
     const video1 = video1Ref.current;
     const video2 = video2Ref.current;
 
     if (!video1 || !video2) return;
 
-    // Setup video 1 (first video to play)
+    // Setup video 1 (first video to play immediately)
     video1.src = BACKGROUND_VIDEOS[0];
     video1.load();
 
-    // Preload video 2 (next in sequence)
-    video2.src = BACKGROUND_VIDEOS[1 % BACKGROUND_VIDEOS.length];
-    video2.load();
+    // Delay loading video 2 by 3 seconds to prioritize initial page load
+    const timer = setTimeout(() => {
+      video2.src = BACKGROUND_VIDEOS[1 % BACKGROUND_VIDEOS.length];
+      video2.load();
+    }, 3000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   // Handle video transitions
@@ -158,16 +162,16 @@ export function Hero({
         id={hero.id}
         className={`relative overflow-hidden pt-32 pb-20 md:pb-32 min-h-[90vh] flex items-center ${hero.className} ${className}`}
       >
-        {/* Background Videos with Crossfade */}
+        {/* Background Videos with Crossfade - Optimized for performance */}
         <div className="absolute inset-0 w-full h-full overflow-hidden z-0 bg-black">
-          {/* Video 1 - Stable element, no remounting */}
+          {/* Video 1 - Lazy loaded, only metadata preloaded */}
           <video
             ref={video1Ref}
             autoPlay
             muted
             playsInline
             poster="/imgs/dog-funny-family-poster.jpg"
-            preload="auto"
+            preload="metadata"
             className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out"
             style={{
               opacity: isVideo1Active
@@ -178,12 +182,12 @@ export function Hero({
             }}
           />
 
-          {/* Video 2 - Stable element, no remounting */}
+          {/* Video 2 - Lazy loaded, only load when needed */}
           <video
             ref={video2Ref}
             muted
             playsInline
-            preload="auto"
+            preload="none"
             className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out"
             style={{
               opacity: !isVideo1Active

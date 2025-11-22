@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
+import Image from 'next/image';
 
 interface MediaShowcaseProps {
   beforeImage: string;
@@ -28,25 +29,52 @@ export function MediaShowcase({
 }: MediaShowcaseProps) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
+  const [isVideoInView, setIsVideoInView] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
+
+  // 视频懒加载 - 使用 Intersection Observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVideoInView(true);
+          // 延迟200ms加载视频，优先加载其他资源
+          setTimeout(() => setShouldLoadVideo(true), 200);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '50px' // 提前50px开始加载
+      }
+    );
+
+    if (videoContainerRef.current) {
+      observer.observe(videoContainerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
+    if (video && shouldLoadVideo) {
       if (isPlaying) {
         video.play().catch(() => setIsPlaying(false));
       } else {
         video.pause();
       }
     }
-  }, [isPlaying]);
+  }, [isPlaying, shouldLoadVideo]);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
+    if (video && shouldLoadVideo) {
       video.play().catch(() => setIsPlaying(false));
     }
-  }, []);
+  }, [shouldLoadVideo]);
 
   // 同步音量状态
   useEffect(() => {
@@ -94,10 +122,14 @@ export function MediaShowcase({
             className="relative group"
           >
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10">
-              <img
+              <Image
                 src={beforeImage}
-                alt="Original"
-                className="w-full h-full object-cover"
+                alt="Original Photo"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover"
+                loading="eager"
+                quality={85}
               />
               <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white/90 px-4 py-2 rounded-full text-sm font-bold tracking-wider border border-white/20">
                 {beforeLabel}
@@ -108,6 +140,7 @@ export function MediaShowcase({
 
           {/* After - Video */}
           <motion.div
+            ref={videoContainerRef}
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -115,15 +148,34 @@ export function MediaShowcase({
             className="relative group"
           >
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10">
+              {videoPoster && !shouldLoadVideo && (
+                <Image
+                  src={videoPoster}
+                  alt="Video preview"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover"
+                  loading="eager"
+                  quality={85}
+                />
+              )}
               <video
                 ref={videoRef}
-                src={afterVideo}
                 poster={videoPoster}
                 loop
                 muted
                 playsInline
+                preload={shouldLoadVideo ? 'auto' : 'none'}
                 className="w-full h-full object-cover"
-              />
+                style={{ opacity: shouldLoadVideo ? 1 : 0 }}
+              >
+                {shouldLoadVideo && (
+                  <>
+                    <source src={afterVideo} type="video/mp4" />
+                    <source src={afterVideo.replace('.mp4', '.webm')} type="video/webm" />
+                  </>
+                )}
+              </video>
               <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-md text-gold px-4 py-2 rounded-full text-sm font-bold tracking-wider border border-gold/30 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />
                 {afterLabel}

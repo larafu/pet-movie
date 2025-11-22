@@ -9,10 +9,14 @@ import { Features as FeaturesType } from '@/shared/types/blocks/landing';
 export function FeaturesList({
   features,
   className,
+  useH1 = false,
 }: {
   features: FeaturesType;
   className?: string;
+  useH1?: boolean;
 }) {
+  const TitleTag = useH1 ? 'h1' : 'h2';
+
   return (
     <section id={features.id} className={cn('overflow-x-hidden py-16 md:py-24', className)}>
       <div className="container overflow-x-hidden">
@@ -24,9 +28,9 @@ export function FeaturesList({
                 {features.label}
               </div>
             )}
-            <h2 className="text-foreground mb-4 text-4xl font-bold text-balance md:text-5xl">
+            <TitleTag className="text-foreground mb-4 text-4xl font-bold text-balance md:text-5xl">
               {features.title}
-            </h2>
+            </TitleTag>
             <p className="text-muted-foreground text-lg text-balance">
               {features.description}
             </p>

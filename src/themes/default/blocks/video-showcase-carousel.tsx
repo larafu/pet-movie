@@ -6,9 +6,17 @@ import { VideoCard } from '@/shared/components/ui/video-card';
 import { cn } from '@/shared/lib/utils';
 import { Showcases } from '@/shared/types/blocks/landing';
 
-export function VideoShowcaseCarousel({ showcases }: { showcases: Showcases }) {
+export function VideoShowcaseCarousel({
+  showcases,
+  useH1 = false
+}: {
+  showcases: Showcases;
+  useH1?: boolean;
+}) {
   const { id, label, title, description, items, className } = showcases;
   if (!items || items.length === 0) return null;
+
+  const TitleTag = useH1 ? 'h1' : 'h2';
 
   return (
     <section id={id} className={cn('relative py-24 md:py-32 overflow-hidden bg-background', className)}>
@@ -33,13 +41,13 @@ export function VideoShowcaseCarousel({ showcases }: { showcases: Showcases }) {
           )}
 
           {title && (
-            <h2 className="font-cinzel text-4xl md:text-6xl font-bold leading-tight">
+            <TitleTag className="font-cinzel text-2xl md:text-3xl font-bold leading-tight">
               {title}
-            </h2>
+            </TitleTag>
           )}
 
           {description && (
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-sm md:text-base">
               {description}
             </p>
           )}
@@ -62,7 +70,7 @@ export function VideoShowcaseCarousel({ showcases }: { showcases: Showcases }) {
         >
           {items.map((item, index) => (
             <div
-              key={index}
+              key={`video-${item.video?.src || index}`}
               className="flex-shrink-0 w-[400px] md:w-[500px]"
             >
               {item.video && (

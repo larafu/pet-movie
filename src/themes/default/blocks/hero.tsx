@@ -13,6 +13,12 @@ import { useAppContext } from '@/shared/contexts/app';
 
 import { SocialAvatars } from './social-avatars';
 
+// Background videos to play in sequence
+const BACKGROUND_VIDEOS = [
+  '/video/dog-funny-family.mp4',
+  '/video/prairie-adventure.mp4',
+];
+
 const createFadeInVariant = (delay: number) => ({
   initial: {
     opacity: 0,
@@ -58,6 +64,13 @@ export function Hero({
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLElement>(null);
 
+  // Video sequencing with crossfade - using stable refs
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isVideo1Active, setIsVideo1Active] = useState(true); // Track which video is currently showing
+  const video1Ref = useRef<HTMLVideoElement>(null);
+  const video2Ref = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!heroRef.current) return;
@@ -72,6 +85,72 @@ export function Hero({
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  // Initialize and setup videos
+  useEffect(() => {
+    const video1 = video1Ref.current;
+    const video2 = video2Ref.current;
+
+    if (!video1 || !video2) return;
+
+    // Setup video 1 (first video to play)
+    video1.src = BACKGROUND_VIDEOS[0];
+    video1.load();
+
+    // Preload video 2 (next in sequence)
+    video2.src = BACKGROUND_VIDEOS[1 % BACKGROUND_VIDEOS.length];
+    video2.load();
+  }, []);
+
+  // Handle video transitions
+  useEffect(() => {
+    const activeVideo = isVideo1Active ? video1Ref.current : video2Ref.current;
+    const inactiveVideo = isVideo1Active ? video2Ref.current : video1Ref.current;
+
+    if (!activeVideo || !inactiveVideo) return;
+
+    const handleVideoEnded = async () => {
+      // Calculate next video index
+      const nextIndex = (currentVideoIndex + 1) % BACKGROUND_VIDEOS.length;
+
+      // Ensure inactive video is ready
+      if (inactiveVideo.readyState < 3) {
+        await new Promise<void>((resolve) => {
+          const handleCanPlay = () => {
+            inactiveVideo.removeEventListener('canplay', handleCanPlay);
+            resolve();
+          };
+          inactiveVideo.addEventListener('canplay', handleCanPlay);
+          // Trigger load if not already loaded
+          if (inactiveVideo.readyState === 0) {
+            inactiveVideo.load();
+          }
+        });
+      }
+
+      // Start crossfade
+      setIsTransitioning(true);
+
+      // Play the inactive video
+      await inactiveVideo.play().catch(err => console.log('Video play failed:', err));
+
+      // After transition completes, swap active video
+      setTimeout(() => {
+        // Update state
+        setIsTransitioning(false);
+        setIsVideo1Active(!isVideo1Active);
+        setCurrentVideoIndex(nextIndex);
+
+        // Preload next video in the now-inactive video element
+        const nextNextIndex = (nextIndex + 1) % BACKGROUND_VIDEOS.length;
+        activeVideo.src = BACKGROUND_VIDEOS[nextNextIndex];
+        activeVideo.load();
+      }, 1600);
+    };
+
+    activeVideo.addEventListener('ended', handleVideoEnded);
+    return () => activeVideo.removeEventListener('ended', handleVideoEnded);
+  }, [currentVideoIndex, isVideo1Active]);
+
   return (
     <>
       <section
@@ -79,26 +158,49 @@ export function Hero({
         id={hero.id}
         className={`relative overflow-hidden pt-32 pb-20 md:pb-32 min-h-[90vh] flex items-center ${hero.className} ${className}`}
       >
-        {/* Background Video */}
-        <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+        {/* Background Videos with Crossfade */}
+        <div className="absolute inset-0 w-full h-full overflow-hidden z-0 bg-black">
+          {/* Video 1 - Stable element, no remounting */}
           <video
+            ref={video1Ref}
             autoPlay
-            loop
             muted
             playsInline
-            poster="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=2524&auto=format&fit=crop"
-            className="w-full h-full object-cover opacity-100"
-          >
-            <source src="/video/prairie-adventure.mp4" type="video/mp4" />
-          </video>
+            poster="/imgs/dog-funny-family-poster.jpg"
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out"
+            style={{
+              opacity: isVideo1Active
+                ? (isTransitioning ? 0 : 1)
+                : (isTransitioning ? 1 : 0),
+              zIndex: isVideo1Active ? 2 : 1,
+              pointerEvents: 'none'
+            }}
+          />
+
+          {/* Video 2 - Stable element, no remounting */}
+          <video
+            ref={video2Ref}
+            muted
+            playsInline
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out"
+            style={{
+              opacity: !isVideo1Active
+                ? (isTransitioning ? 0 : 1)
+                : (isTransitioning ? 1 : 0),
+              zIndex: !isVideo1Active ? 2 : 1,
+              pointerEvents: 'none'
+            }}
+          />
         </div>
 
         {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/80 z-0" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/80 z-[3] pointer-events-none" />
 
         {/* Pet Movie AI: Glow balls */}
         <div
-          className="absolute w-[800px] h-[800px] rounded-full bg-primary/20 blur-[120px] animate-glow-pulse pointer-events-none z-0"
+          className="absolute w-[800px] h-[800px] rounded-full bg-primary/20 blur-[120px] animate-glow-pulse pointer-events-none z-[4]"
           style={{
             left: `${mousePosition.x - 400}px`,
             top: `${mousePosition.y - 400}px`,
@@ -132,17 +234,17 @@ export function Hero({
 
           <motion.div {...createFadeInVariant(0.15)}>
             {texts && texts.length > 0 ? (
-              <h1 className="text-foreground font-cinzel font-bold leading-[0.9] tracking-tight text-balance drop-shadow-2xl" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
+              <div className="text-foreground font-cinzel font-bold leading-[0.9] tracking-tight text-balance drop-shadow-2xl" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
                 {texts[0]}
                 <span className="text-gradient block py-1" style={{ fontSize: 'clamp(2.5rem, 7vw, 6rem)' }}>
                   {highlightText}
                 </span>
                 {texts[1]}
-              </h1>
+              </div>
             ) : (
-              <h1 className="text-foreground font-cinzel font-bold leading-[0.9] tracking-tight text-balance drop-shadow-2xl" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
+              <div className="text-foreground font-cinzel font-bold leading-[0.9] tracking-tight text-balance drop-shadow-2xl" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
                 {hero.title}
-              </h1>
+              </div>
             )}
           </motion.div>
 

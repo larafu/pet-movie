@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { GripVertical, Play, Pause } from 'lucide-react';
+import { GripVertical, Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 
 interface MediaItem {
@@ -33,6 +33,7 @@ export function VideoComparisonSlider({
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const beforeVideoRef = useRef<HTMLVideoElement>(null);
@@ -53,6 +54,19 @@ export function VideoComparisonSlider({
       }
     }
   }, [isPlaying]);
+
+  // 同步两个视频的音量状态
+  useEffect(() => {
+    const beforeVideo = beforeVideoRef.current;
+    const afterVideo = afterVideoRef.current;
+
+    if (beforeVideo) {
+      beforeVideo.muted = isMuted;
+    }
+    if (afterVideo) {
+      afterVideo.muted = isMuted;
+    }
+  }, [isMuted]);
 
   // 自动播放视频
   useEffect(() => {
@@ -110,6 +124,10 @@ export function VideoComparisonSlider({
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
+  };
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
   };
 
   const renderMedia = (media: MediaItem, ref?: React.RefObject<HTMLVideoElement | null>) => {
@@ -198,24 +216,36 @@ export function VideoComparisonSlider({
             </div>
           </div>
 
-          {/* Play/Pause Button (Only show if videos exist) */}
+          {/* Control Buttons (Only show if videos exist) */}
           {(before.type === 'video' || after.type === 'video') && (
-            <button
-              onClick={togglePlayPause}
-              className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm font-medium border border-white/20 hover:bg-black/90 hover:border-gold/30 transition-all z-30 flex items-center gap-2"
-            >
-              {isPlaying ? (
-                <>
-                  <Pause size={16} />
-                  <span>Pause</span>
-                </>
-              ) : (
-                <>
-                  <Play size={16} />
-                  <span>Play</span>
-                </>
-              )}
-            </button>
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30">
+              {/* Play/Pause Button */}
+              <button
+                onClick={togglePlayPause}
+                className="bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm font-medium border border-white/20 hover:bg-black/90 hover:border-gold/30 transition-all flex items-center gap-2"
+              >
+                {isPlaying ? (
+                  <>
+                    <Pause size={16} />
+                    <span>Pause</span>
+                  </>
+                ) : (
+                  <>
+                    <Play size={16} />
+                    <span>Play</span>
+                  </>
+                )}
+              </button>
+
+              {/* Volume Button */}
+              <button
+                onClick={toggleMute}
+                className="bg-black/80 backdrop-blur-md text-white p-2 rounded-full text-sm font-medium border border-white/20 hover:bg-black/90 hover:border-gold/30 transition-all flex items-center justify-center"
+                title={isMuted ? 'Unmute' : 'Mute'}
+              >
+                {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+              </button>
+            </div>
           )}
 
           {/* Overlay Gradient for depth */}

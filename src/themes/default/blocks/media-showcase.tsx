@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 
 interface MediaShowcaseProps {
@@ -27,6 +27,7 @@ export function MediaShowcase({
   className,
 }: MediaShowcaseProps) {
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -47,8 +48,20 @@ export function MediaShowcase({
     }
   }, []);
 
+  // 同步音量状态
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.muted = isMuted;
+    }
+  }, [isMuted]);
+
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
+  };
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
   };
 
   return (
@@ -116,23 +129,35 @@ export function MediaShowcase({
                 {afterLabel}
               </div>
 
-              {/* Play/Pause Button */}
-              <button
-                onClick={togglePlayPause}
-                className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm font-medium border border-white/20 hover:bg-black/90 hover:border-gold/30 transition-all flex items-center gap-2 opacity-0 group-hover:opacity-100"
-              >
-                {isPlaying ? (
-                  <>
-                    <Pause size={16} />
-                    <span>Pause</span>
-                  </>
-                ) : (
-                  <>
-                    <Play size={16} />
-                    <span>Play</span>
-                  </>
-                )}
-              </button>
+              {/* Control Buttons */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 opacity-0 group-hover:opacity-100">
+                {/* Play/Pause Button */}
+                <button
+                  onClick={togglePlayPause}
+                  className="bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm font-medium border border-white/20 hover:bg-black/90 hover:border-gold/30 transition-all flex items-center gap-2"
+                >
+                  {isPlaying ? (
+                    <>
+                      <Pause size={16} />
+                      <span>Pause</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play size={16} />
+                      <span>Play</span>
+                    </>
+                  )}
+                </button>
+
+                {/* Volume Button */}
+                <button
+                  onClick={toggleMute}
+                  className="bg-black/80 backdrop-blur-md text-white p-2 rounded-full text-sm font-medium border border-white/20 hover:bg-black/90 hover:border-gold/30 transition-all flex items-center justify-center"
+                  title={isMuted ? 'Unmute' : 'Mute'}
+                >
+                  {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                </button>
+              </div>
 
               <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10 rounded-2xl" />
             </div>

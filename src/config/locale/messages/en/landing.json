@@ -66,9 +66,9 @@
   },
   "hero": {
     "id": "hero",
-    "title": "CREATE YOUR DOG MOVIE OR CAT MOVIE",
-    "highlight_text": "DOG MOVIE OR CAT MOVIE",
-    "description": "Transform your pet photos into cinematic dog movies and cat movies. Create heartfelt pet memorial videos and Rainbow Bridge tributes with AI.",
+    "title": "EVERY PET DESERVES A MOVIE",
+    "highlight_text": "DESERVES A MOVIE",
+    "description": "Upload your pet's photos and let AI turn them into a 4K cinematic movie — perfect for birthdays, daily life, and Rainbow Bridge memorials.",
     "announcement": {
       "badge": "New Feature",
       "title": "Now with 4K Cinema Grade Export",
@@ -212,10 +212,19 @@
   },
   "showcases": {
     "id": "gallery",
-    "label": "NOW STREAMING",
-    "title": "AI-Created Pet Masterpieces",
-    "description": "Watch these stunning transformations created by our AI",
+    "label": "AI PET MOVIES",
+    "title": "Create Dog Movies & Cat Movies with AI - Pet Memorial Videos for Rainbow Bridge",
+    "description": "Transform your pet photos into stunning dog movies and cat movies in 4K. Perfect for creating pet memorial videos, Rainbow Bridge tributes, birthday celebrations, and capturing precious daily moments with your beloved dogs and cats.",
     "items": [
+      {
+        "title": "Family Moments",
+        "description": "Heartwarming family moments with adorable dogs",
+        "video": {
+          "src": "/video/dog-funny-family.mp4",
+          "poster": "/imgs/dog-funny-family-poster.jpg",
+          "alt": "Dog Family Video"
+        }
+      },
       {
         "title": "Cat's Creative Vlog",
         "description": "Cinematic cat story with stunning visual effects",

@@ -12,7 +12,6 @@ import {
   FAQ,
   Features,
   FeaturesAccordion,
-  FeaturesList,
   FeaturesStep,
   Hero,
   Logos,
@@ -94,8 +93,8 @@ export default async function LandingPage({
         revealDuration={2.5}
       />
 
-      {/* {page.introduce && <FeaturesList features={page.introduce} />} */}
-      {page.showcases && <VideoShowcaseCarousel showcases={page.showcases} />}
+      {/* SEO Section - Carousel with H1 and all keywords */}
+      {page.showcases && <VideoShowcaseCarousel showcases={page.showcases} useH1={true} />}
       {page.logos && <Logos logos={page.logos} />}
 
       {/* Video Showcase Carousel - Auto-scrolling gallery */}

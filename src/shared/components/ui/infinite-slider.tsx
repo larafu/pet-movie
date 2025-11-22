@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/shared/lib/utils";
-import { useMotionValue, animate, motion } from "motion/react";
-import { useState, useEffect } from "react";
+import { useMotionValue, animate, motion, AnimationPlaybackControls } from "motion/react";
+import { useState, useEffect, useRef } from "react";
 import useMeasure from "react-use-measure";
 
 export type InfiniteSliderProps = {
@@ -23,78 +23,81 @@ export function InfiniteSlider({
   reverse = false,
   className,
 }: InfiniteSliderProps) {
-  const [currentSpeed, setCurrentSpeed] = useState(speed);
   const [ref, { width, height }] = useMeasure();
   const translation = useMotionValue(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const animationRef = useRef<AnimationPlaybackControls | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
+  // Initialize and manage the continuous animation
   useEffect(() => {
     const size = direction === "horizontal" ? width : height;
-    const contentSize = size + gap;
-    const from = reverse ? -contentSize / 2 : 0;
-    const to = reverse ? 0 : -contentSize / 2;
 
-    // If paused, don't start animation
-    if (isPaused) {
+    // If size is not ready, don't start animation
+    if (!size || size === 0) {
       return;
     }
 
-    const currentPosition = translation.get();
+    // Size is the total width/height of both copies of children
+    // We need to scroll exactly half of that distance for seamless loop
+    const singleContentSize = size / 2;
+    const from = reverse ? -singleContentSize : 0;
+    const to = reverse ? 0 : -singleContentSize;
 
-    // Calculate remaining distance from current position
-    let startPosition = currentPosition;
+    // Calculate duration based on speed
+    const distance = Math.abs(to - from);
+    const duration = distance / speed;
 
-    // If we're at or past the end, reset to start
-    if ((reverse && currentPosition >= to) || (!reverse && currentPosition <= to)) {
-      startPosition = from;
+    // Stop any existing animation
+    if (animationRef.current) {
+      animationRef.current.stop();
     }
 
-    const remainingDistance = Math.abs(to - startPosition);
-    const duration = remainingDistance / currentSpeed;
+    // Set initial position
+    translation.set(from);
 
-    const controls = animate(translation, [startPosition, to], {
+    // Create infinite looping animation
+    // repeatType "loop" automatically resets to 'from' position
+    const controls = animate(translation, to, {
       ease: "linear",
       duration: duration,
       repeat: Infinity,
       repeatType: "loop",
       repeatDelay: 0,
-      onRepeat: () => {
-        translation.set(from);
-      },
     });
 
-    return () => controls?.stop();
-  }, [
-    translation,
-    currentSpeed,
-    width,
-    height,
-    gap,
-    isPaused,
-    direction,
-    reverse,
-  ]);
+    animationRef.current = controls;
+
+    return () => {
+      controls.stop();
+    };
+  }, [width, height, gap, speed, direction, reverse, translation]);
+
+  // Handle hover pause/resume separately from main animation
+  useEffect(() => {
+    const animation = animationRef.current;
+    if (!animation) return;
+
+    if (isHovered && speedOnHover === 0) {
+      // Pause the animation smoothly without recreating it
+      animation.pause();
+    } else if (!isHovered && animation.state === "paused") {
+      // Resume the animation from where it paused
+      animation.play();
+    }
+    // Note: We intentionally don't handle speedOnHover !== 0 case to avoid animation recreation
+  }, [isHovered, speedOnHover]);
 
   const hoverProps = speedOnHover !== undefined
     ? {
-        onHoverStart: () => {
-          if (speedOnHover === 0) {
-            setIsPaused(true);
-          } else {
-            setCurrentSpeed(speedOnHover);
-          }
-        },
-        onHoverEnd: () => {
-          setIsPaused(false);
-          setCurrentSpeed(speed);
-        },
+        onMouseEnter: () => setIsHovered(true),
+        onMouseLeave: () => setIsHovered(false),
       }
     : {};
 
   return (
     <div className={cn("overflow-hidden", className)}>
       <motion.div
-        className="flex w-max"
+        className="flex w-max will-change-transform"
         style={{
           ...(direction === "horizontal"
             ? { x: translation }

@@ -134,21 +134,28 @@ async function getCanonicalUrl(canonicalUrl: string, locale: string) {
   }
 
   if (canonicalUrl.startsWith('http')) {
-    // full url
-    canonicalUrl = canonicalUrl;
-  } else {
-    // relative path
-    if (!canonicalUrl.startsWith('/')) {
-      canonicalUrl = `/${canonicalUrl}`;
-    }
+    // full url - already complete, just return
+    return canonicalUrl;
+  }
 
-    canonicalUrl = `${envConfigs.app_url}${
-      !locale || locale === 'en' ? '' : `/${locale}`
-    }${canonicalUrl}`;
+  // Normalize relative path
+  if (!canonicalUrl.startsWith('/')) {
+    canonicalUrl = `/${canonicalUrl}`;
+  }
 
-    if (locale !== 'en' && canonicalUrl.endsWith('/')) {
-      canonicalUrl = canonicalUrl.slice(0, -1);
-    }
+  // Normalize base URL (remove trailing slash)
+  const baseUrl = envConfigs.app_url.replace(/\/$/, '');
+
+  // Build canonical URL without double slashes
+  const localePath = !locale || locale === 'en' ? '' : `/${locale}`;
+  const pathname = canonicalUrl === '/' ? '' : canonicalUrl;
+
+  // Construct final URL
+  canonicalUrl = `${baseUrl}${localePath}${pathname}`;
+
+  // For non-root paths, ensure no trailing slash
+  if (canonicalUrl !== baseUrl && canonicalUrl.endsWith('/')) {
+    canonicalUrl = canonicalUrl.slice(0, -1);
   }
 
   return canonicalUrl;

@@ -50,6 +50,34 @@ export async function proxy(request: NextRequest) {
   intlResponse.headers.set('x-pathname', request.nextUrl.pathname);
   intlResponse.headers.set('x-url', request.url);
 
+  // Add X-Robots-Tag HTTP header for SEO
+  // This is different from <meta name="robots"> tag in HTML
+  // The HTTP header takes priority and is recognized by all search engines
+
+  // Allow indexing for public pages
+  if (
+    pathWithoutLocale === '/' ||
+    pathWithoutLocale === '' ||
+    pathWithoutLocale.startsWith('/pricing') ||
+    pathWithoutLocale.startsWith('/showcases') ||
+    pathWithoutLocale.startsWith('/blog') ||
+    pathWithoutLocale.startsWith('/legal')
+  ) {
+    intlResponse.headers.set('X-Robots-Tag', 'index, follow');
+  }
+  // Block indexing for private/internal pages
+  else if (
+    pathWithoutLocale.startsWith('/admin') ||
+    pathWithoutLocale.startsWith('/settings') ||
+    pathWithoutLocale.startsWith('/activity')
+  ) {
+    intlResponse.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  }
+  // Default: allow indexing for other public pages
+  else {
+    intlResponse.headers.set('X-Robots-Tag', 'index, follow');
+  }
+
   // For all other routes (including /, /sign-in, /sign-up, /sign-out), just return the intl response
   return intlResponse;
 }

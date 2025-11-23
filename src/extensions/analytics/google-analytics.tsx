@@ -27,15 +27,14 @@ export class GoogleAnalyticsProvider implements AnalyticsProvider {
   getHeadScripts(): ReactNode {
     return (
       <>
-        {/* Google tag (gtag.js) */}
+        {/* Google tag (gtag.js) - Deferred for performance */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${this.configs.gaId}`}
-          strategy="afterInteractive"
-          async
+          strategy="lazyOnload"
         />
         <Script
           id={this.name}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];

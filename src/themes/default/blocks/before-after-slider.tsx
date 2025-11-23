@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { GripVertical } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
@@ -80,11 +81,15 @@ export function BeforeAfterSlider({
       >
         {/* After Image (Background) */}
         <div className="absolute inset-0 w-full h-full">
-          <img 
-            src={afterImage} 
-            alt="After transformation" 
-            className="w-full h-full object-cover"
+          <Image
+            src={afterImage}
+            alt="After transformation"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            quality={85}
+            className="object-cover"
             draggable={false}
+            priority={true}
           />
           <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-gold px-3 py-1 rounded-full text-xs font-bold tracking-wider border border-gold/20">
             {afterLabel}
@@ -96,11 +101,15 @@ export function BeforeAfterSlider({
           className="absolute inset-0 w-full h-full overflow-hidden"
           style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
         >
-          <img 
-            src={beforeImage} 
-            alt="Before transformation" 
-            className="w-full h-full object-cover"
+          <Image
+            src={beforeImage}
+            alt="Before transformation"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            quality={85}
+            className="object-cover"
             draggable={false}
+            priority={true}
           />
           <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider border border-white/20">
             {beforeLabel}

@@ -19,6 +19,8 @@ const BACKGROUND_VIDEOS = [
   '/video/prairie-adventure.mp4',
 ];
 
+const BACKGROUND_TRANSITION_MS = 1500;
+
 const createFadeInVariant = (delay: number) => ({
   initial: {
     opacity: 0,
@@ -60,157 +62,197 @@ export function Hero({
     return originalUrl;
   };
 
-  // Pet Movie AI: Mouse tracking for glow effect
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const heroRef = useRef<HTMLElement>(null);
-
-  // Video sequencing with crossfade - using stable refs
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  // 视频循环 + 性能优化
+  const totalVideos = BACKGROUND_VIDEOS.length;
+  const hasMultipleVideos = totalVideos > 1;
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isVideo1Active, setIsVideo1Active] = useState(true); // Track which video is currently showing
+  const [isVideo1Active, setIsVideo1Active] = useState(true);
+  const [videoIndices, setVideoIndices] = useState(() => ({
+    video1: 0,
+    video2: hasMultipleVideos ? 1 : 0,
+  }));
+  const [hasPreloadedSecondary, setHasPreloadedSecondary] = useState(
+    !hasMultipleVideos
+  );
+  const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
   const video1Ref = useRef<HTMLVideoElement>(null);
   const video2Ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!heroRef.current) return;
-      const rect = heroRef.current.getBoundingClientRect();
-      setMousePosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // Initialize and setup videos - Optimized for performance
-  useEffect(() => {
     const video1 = video1Ref.current;
     const video2 = video2Ref.current;
+    if (!video1 || totalVideos === 0) {
+      return;
+    }
 
-    if (!video1 || !video2) return;
-
-    // Setup video 1 (first video to play immediately)
-    video1.src = BACKGROUND_VIDEOS[0];
-    video1.load();
-
-    // Delay loading video 2 by 3 seconds to prioritize initial page load
-    const timer = setTimeout(() => {
-      video2.src = BACKGROUND_VIDEOS[1 % BACKGROUND_VIDEOS.length];
-      video2.load();
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Handle video transitions
-  useEffect(() => {
-    const activeVideo = isVideo1Active ? video1Ref.current : video2Ref.current;
-    const inactiveVideo = isVideo1Active ? video2Ref.current : video1Ref.current;
-
-    if (!activeVideo || !inactiveVideo) return;
-
-    const handleVideoEnded = async () => {
-      // Calculate next video index
-      const nextIndex = (currentVideoIndex + 1) % BACKGROUND_VIDEOS.length;
-
-      // Ensure inactive video is ready
-      if (inactiveVideo.readyState < 3) {
-        await new Promise<void>((resolve) => {
-          const handleCanPlay = () => {
-            inactiveVideo.removeEventListener('canplay', handleCanPlay);
-            resolve();
-          };
-          inactiveVideo.addEventListener('canplay', handleCanPlay);
-          // Trigger load if not already loaded
-          if (inactiveVideo.readyState === 0) {
-            inactiveVideo.load();
-          }
-        });
+    const playVideo = (video?: HTMLVideoElement | null) => {
+      if (!video) {
+        return;
       }
-
-      // Start crossfade
-      setIsTransitioning(true);
-
-      // Play the inactive video
-      await inactiveVideo.play().catch(err => console.log('Video play failed:', err));
-
-      // After transition completes, swap active video
-      setTimeout(() => {
-        // Update state
-        setIsTransitioning(false);
-        setIsVideo1Active(!isVideo1Active);
-        setCurrentVideoIndex(nextIndex);
-
-        // Preload next video in the now-inactive video element
-        const nextNextIndex = (nextIndex + 1) % BACKGROUND_VIDEOS.length;
-        activeVideo.src = BACKGROUND_VIDEOS[nextNextIndex];
-        activeVideo.load();
-      }, 1600);
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => null);
+      }
     };
 
-    activeVideo.addEventListener('ended', handleVideoEnded);
-    return () => activeVideo.removeEventListener('ended', handleVideoEnded);
-  }, [currentVideoIndex, isVideo1Active]);
+    const clearTransitionTimer = () => {
+      if (transitionTimeoutRef.current) {
+        clearTimeout(transitionTimeoutRef.current);
+        transitionTimeoutRef.current = null;
+      }
+    };
+
+    const handleVideo1Ended = () => {
+      if (!hasMultipleVideos || !video2) {
+        video1.currentTime = 0;
+        playVideo(video1);
+        return;
+      }
+
+      setIsTransitioning(true);
+      video2.currentTime = 0;
+      playVideo(video2);
+
+      setVideoIndices((prev) => ({
+        video1: (prev.video2 + 1) % totalVideos,
+        video2: prev.video2,
+      }));
+
+      clearTransitionTimer();
+      transitionTimeoutRef.current = setTimeout(() => {
+        setIsTransitioning(false);
+        setIsVideo1Active(false);
+      }, BACKGROUND_TRANSITION_MS);
+    };
+
+    const handleVideo2Ended = () => {
+      if (!hasMultipleVideos || !video2 || !video1) {
+        if (video2) {
+          video2.currentTime = 0;
+        }
+        playVideo(video2);
+        return;
+      }
+
+      setIsTransitioning(true);
+      video1.currentTime = 0;
+      playVideo(video1);
+
+      setVideoIndices((prev) => ({
+        video1: prev.video1,
+        video2: (prev.video1 + 1) % totalVideos,
+      }));
+
+      clearTransitionTimer();
+      transitionTimeoutRef.current = setTimeout(() => {
+        setIsTransitioning(false);
+        setIsVideo1Active(true);
+      }, BACKGROUND_TRANSITION_MS);
+    };
+
+    const handleVideo1Playing = () => {
+      if (!hasMultipleVideos || hasPreloadedSecondary) {
+        return;
+      }
+      setHasPreloadedSecondary(true);
+    };
+
+    video1.addEventListener('ended', handleVideo1Ended);
+    video1.addEventListener('playing', handleVideo1Playing);
+    video2?.addEventListener('ended', handleVideo2Ended);
+
+    return () => {
+      clearTransitionTimer();
+      video1.removeEventListener('ended', handleVideo1Ended);
+      video1.removeEventListener('playing', handleVideo1Playing);
+      video2?.removeEventListener('ended', handleVideo2Ended);
+    };
+  }, [hasMultipleVideos, totalVideos, hasPreloadedSecondary]);
+
+  useEffect(() => {
+    const video1 = video1Ref.current;
+    if (!video1) {
+      return;
+    }
+    video1.load();
+  }, [videoIndices.video1]);
+
+  useEffect(() => {
+    if (!hasMultipleVideos || !hasPreloadedSecondary) {
+      return;
+    }
+    const video2 = video2Ref.current;
+    if (!video2) {
+      return;
+    }
+    video2.load();
+  }, [videoIndices.video2, hasMultipleVideos, hasPreloadedSecondary]);
+
+  const video1Source = BACKGROUND_VIDEOS[videoIndices.video1] ?? '';
+  const video2Source = hasMultipleVideos
+    ? BACKGROUND_VIDEOS[videoIndices.video2] ?? ''
+    : '';
 
   return (
     <>
       <section
-        ref={heroRef}
         id={hero.id}
         className={`relative overflow-hidden pt-32 pb-20 md:pb-32 min-h-[90vh] flex items-center ${hero.className} ${className}`}
       >
-        {/* Background Videos with Crossfade - Optimized for performance */}
+        {/* Background Videos with Crossfade */}
         <div className="absolute inset-0 w-full h-full overflow-hidden z-0 bg-black">
-          {/* Video 1 - Lazy loaded, only metadata preloaded */}
-          <video
-            ref={video1Ref}
-            autoPlay
-            muted
-            playsInline
-            poster="/imgs/dog-funny-family-poster.jpg"
-            preload="metadata"
-            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out"
-            style={{
-              opacity: isVideo1Active
-                ? (isTransitioning ? 0 : 1)
-                : (isTransitioning ? 1 : 0),
-              zIndex: isVideo1Active ? 2 : 1,
-              pointerEvents: 'none'
-            }}
-          />
+          {video1Source && (
+            <video
+              ref={video1Ref}
+              src={video1Source}
+              autoPlay
+              muted
+              playsInline
+              poster="/imgs/dog-funny-family-poster.jpg"
+              preload="metadata"
+              loop={!hasMultipleVideos}
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out"
+              style={{
+                opacity: isVideo1Active
+                  ? isTransitioning
+                    ? 0
+                    : 1
+                  : isTransitioning
+                    ? 1
+                    : 0,
+                zIndex: isVideo1Active ? 2 : 1,
+                pointerEvents: 'none',
+              }}
+            />
+          )}
 
-          {/* Video 2 - Lazy loaded, only load when needed */}
-          <video
-            ref={video2Ref}
-            muted
-            playsInline
-            preload="none"
-            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out"
-            style={{
-              opacity: !isVideo1Active
-                ? (isTransitioning ? 0 : 1)
-                : (isTransitioning ? 1 : 0),
-              zIndex: !isVideo1Active ? 2 : 1,
-              pointerEvents: 'none'
-            }}
-          />
+          {hasMultipleVideos && video2Source && (
+            <video
+              ref={video2Ref}
+              src={video2Source}
+              muted
+              playsInline
+              preload="none"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out"
+              style={{
+                opacity: !isVideo1Active
+                  ? isTransitioning
+                    ? 0
+                    : 1
+                  : isTransitioning
+                    ? 1
+                    : 0,
+                zIndex: !isVideo1Active ? 2 : 1,
+                pointerEvents: 'none',
+              }}
+            />
+          )}
         </div>
 
         {/* Overlay Gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/80 z-[3] pointer-events-none" />
-
-        {/* Pet Movie AI: Glow balls */}
-        <div
-          className="absolute w-[800px] h-[800px] rounded-full bg-primary/20 blur-[120px] animate-glow-pulse pointer-events-none z-[4]"
-          style={{
-            left: `${mousePosition.x - 400}px`,
-            top: `${mousePosition.y - 400}px`,
-            transition: 'left 0.3s ease-out, top 0.3s ease-out',
-          }}
-        />
 
         <div className="relative mx-auto max-w-5xl px-4 text-center z-10">
           {hero.announcement && (
@@ -271,8 +313,8 @@ export function Hero({
                     size="lg"
                     className={cn(
                       "rounded-full px-8 h-14 text-base font-semibold transition-all duration-300",
-                      button.variant === 'outline' 
-                        ? "glass-frosted border-white/20 hover:bg-white/10 text-foreground hover:scale-105" 
+                      button.variant === 'outline'
+                        ? "glass-frosted border-white/20 hover:bg-white/10 text-foreground hover:scale-105"
                         : "bg-gold text-black hover:opacity-90 shadow-gold hover:shadow-gold/80 hover:scale-105"
                     )}
                   >

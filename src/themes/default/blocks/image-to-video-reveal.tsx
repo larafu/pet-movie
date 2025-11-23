@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
@@ -141,10 +142,14 @@ export function ImageToVideoReveal({
                 ease: [0.32, 0.72, 0, 1], // Custom easing for smooth reveal
               }}
             >
-              <img
+              <Image
                 src={beforeImage}
                 alt="Original"
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                quality={85}
+                className="object-cover"
+                priority={true}
               />
               {/* Image Label */}
               <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white/90 px-4 py-2 rounded-full text-sm font-bold tracking-wider border border-white/20">
@@ -196,10 +201,13 @@ export function ImageToVideoReveal({
                 transition={{ duration: 0.5, ease: 'easeOut' }}
                 className="absolute bottom-4 right-4 w-32 h-20 md:w-40 md:h-24 rounded-lg overflow-hidden shadow-xl border-2 border-white/20 backdrop-blur-sm z-30"
               >
-                <img
+                <Image
                   src={beforeImage}
                   alt="Original reference"
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="160px"
+                  quality={75}
+                  className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-2">
                   <span className="text-white text-xs font-medium">

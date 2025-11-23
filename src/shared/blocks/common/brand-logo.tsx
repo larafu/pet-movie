@@ -33,7 +33,11 @@ export function BrandLogo({ brand }: { brand: BrandType }) {
         <LazyImage
           src={logo.src}
           alt={logo.alt || ''}
+          width={40}
+          height={40}
           className="h-10 w-auto"
+          priority={true}
+          quality={90}
         />
       )}
       {brand.title && (

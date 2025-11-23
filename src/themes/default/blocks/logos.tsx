@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 import { ScrollAnimation } from '@/shared/components/ui/scroll-animation';
 import { cn } from '@/shared/lib/utils';
 import { Logos as LogosType } from '@/shared/types/blocks/landing';
@@ -23,13 +25,15 @@ export function Logos({
         <ScrollAnimation delay={0.2}>
           <div className="mx-auto mt-12 flex max-w-4xl flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 sm:gap-y-12">
             {logos.items?.map((item, idx) => (
-              <img
+              <Image
                 key={idx}
-                className="h-8 w-fit dark:invert"
+                className="h-8 w-auto dark:invert"
                 src={item.image?.src ?? ''}
                 alt={item.image?.alt ?? ''}
-                height="20"
-                width="auto"
+                height={32}
+                width={120}
+                quality={85}
+                loading="lazy"
               />
             ))}
           </div>

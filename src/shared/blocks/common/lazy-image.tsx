@@ -1,8 +1,6 @@
 'use client';
 
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import Image from 'next/image';
 
 export function LazyImage({
   src,
@@ -15,6 +13,7 @@ export function LazyImage({
   fill,
   priority,
   sizes,
+  quality,
 }: {
   src: string;
   alt: string;
@@ -26,16 +25,25 @@ export function LazyImage({
   fill?: boolean;
   priority?: boolean;
   sizes?: string;
+  quality?: number;
 }) {
+  // Use Next.js Image component for automatic optimization
+  // Supports WebP/AVIF conversion, lazy loading, and responsive sizing
   return (
-    <LazyLoadImage
+    <Image
       src={src}
       alt={alt}
       width={width}
       height={height}
-      effect="blur" // 支持 blur、opacity 等
-      placeholderSrc={placeholderSrc} // 可选
       className={className}
+      title={title}
+      fill={fill}
+      priority={priority}
+      sizes={sizes}
+      quality={quality || 85}
+      loading={priority ? 'eager' : 'lazy'}
+      placeholder={placeholderSrc ? 'blur' : undefined}
+      blurDataURL={placeholderSrc}
     />
   );
 }

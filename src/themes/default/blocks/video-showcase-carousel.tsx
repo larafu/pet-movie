@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { InfiniteSlider } from '@/shared/components/ui/infinite-slider';
-import { VideoCard } from '@/shared/components/ui/video-card';
+import { SimpleVideoCard } from '@/shared/components/ui/simple-video-card';
 import { cn } from '@/shared/lib/utils';
 import { Showcases } from '@/shared/types/blocks/landing';
 
@@ -74,7 +74,7 @@ export function VideoShowcaseCarousel({
               className="flex-shrink-0 w-[400px] md:w-[500px]"
             >
               {item.video && (
-                <VideoCard
+                <SimpleVideoCard
                   src={item.video.src}
                   title={item.title}
                   description={item.description}

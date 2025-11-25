@@ -9,6 +9,7 @@ This is a Next.js 16 application (React 19) built as a SaaS template for AI cont
 ## Development Commands
 
 ### Setup and Installation
+
 ```bash
 pnpm install                    # Install dependencies
 cp .env.example .env           # Create environment file (configure DATABASE_URL and AUTH_SECRET)
@@ -17,6 +18,7 @@ pnpm db:migrate                # Run database migrations
 ```
 
 ### Development
+
 ```bash
 pnpm dev                       # Start development server with Turbopack
 pnpm db:studio                 # Open Drizzle Studio for database inspection
@@ -24,6 +26,7 @@ pnpm db:push                   # Push schema changes directly to database (dev o
 ```
 
 ### Database Operations
+
 ```bash
 pnpm db:generate               # Generate new migration from schema changes
 pnpm db:migrate                # Apply migrations to database
@@ -32,17 +35,20 @@ pnpm db:studio                 # Open Drizzle Studio
 ```
 
 ### RBAC Setup
+
 ```bash
 pnpm rbac:init                 # Initialize roles and permissions
 pnpm rbac:assign               # Assign roles to users
 ```
 
 ### Auth
+
 ```bash
 pnpm auth:generate             # Generate better-auth artifacts
 ```
 
 ### Build and Deploy
+
 ```bash
 pnpm build                     # Production build
 pnpm build:fast                # Production build with increased memory
@@ -50,6 +56,7 @@ pnpm start                     # Start production server
 ```
 
 ### Code Quality
+
 ```bash
 pnpm lint                      # Run ESLint
 pnpm format                    # Format code with Prettier
@@ -57,6 +64,7 @@ pnpm format:check              # Check code formatting
 ```
 
 ### Cloudflare Deployment
+
 ```bash
 pnpm cf:preview                # Preview Cloudflare deployment
 pnpm cf:deploy                 # Deploy to Cloudflare
@@ -67,6 +75,7 @@ pnpm cf:typegen                # Generate Cloudflare types
 ## Architecture
 
 ### Core Layer (`src/core/`)
+
 Foundation infrastructure shared across the application:
 
 - **auth**: better-auth configuration with dynamic auth initialization (`getAuth()` must be used in API routes for database access)
@@ -77,6 +86,7 @@ Foundation infrastructure shared across the application:
 - **theme**: Theme provider and configuration
 
 ### Config Layer (`src/config/`)
+
 Environment variables and configuration:
 
 - **db**: Database schema (`schema.ts`) and migrations (`migrations/`)
@@ -86,6 +96,7 @@ Environment variables and configuration:
 - **theme**: Theme configurations
 
 ### Shared Layer (`src/shared/`)
+
 Reusable components, utilities, and business logic:
 
 - **components**: Shared UI components (built on shadcn/ui and Radix UI)
@@ -98,6 +109,7 @@ Reusable components, utilities, and business logic:
 - **types**: TypeScript type definitions
 
 ### Extensions Layer (`src/extensions/`)
+
 Pluggable feature modules for third-party integrations:
 
 - **payment**: Payment providers (Stripe, PayPal, Creem for WeChat Pay/Alipay)
@@ -110,6 +122,7 @@ Pluggable feature modules for third-party integrations:
 - **ads**: Advertising integrations
 
 ### App Layer (`src/app/`)
+
 Next.js App Router with internationalization:
 
 - **[locale]**: All routes are wrapped in locale for i18n
@@ -123,21 +136,27 @@ Next.js App Router with internationalization:
 The database uses Drizzle ORM with PostgreSQL (configurable for other databases). Key tables:
 
 **Authentication & Users**:
+
 - `user`, `session`, `account`, `verification`
 
 **RBAC**:
+
 - `role`, `permission`, `role_permission`, `user_role`
 
 **Content Management**:
+
 - `post`, `taxonomy`, `config`
 
 **Payments & Subscriptions**:
+
 - `order`, `subscription`
 
 **Credits System**:
+
 - `credit` (FIFO-based credit consumption with expiration tracking)
 
 **Features**:
+
 - `apikey` (API key management)
 - `ai_task` (AI content generation tasks)
 - `chat`, `chat_message` (AI chatbot)
@@ -147,12 +166,14 @@ The database uses Drizzle ORM with PostgreSQL (configurable for other databases)
 ## Key Technical Details
 
 ### Database Configuration
+
 - Schema location: `src/config/db/schema.ts`
 - Migrations: `src/config/db/migrations/`
 - Database provider is configurable via `DATABASE_PROVIDER` env var (postgresql, mysql, sqlite, turso, etc.)
 - Drizzle config: `src/core/db/config.ts`
 
 ### Authentication
+
 - Uses better-auth library
 - Always use `getAuth()` in API routes (not static import) for database access
 - Auth config: `src/core/auth/config.ts`
@@ -160,38 +181,46 @@ The database uses Drizzle ORM with PostgreSQL (configurable for other databases)
 - Supports RBAC with roles and permissions
 
 ### Internationalization
+
 - All routes are wrapped in `[locale]` segment
 - Locale config: `src/core/i18n/config.ts`
 - Navigation utilities: `src/core/i18n/navigation.ts`
 - Request handling: `src/core/i18n/request.ts`
 
 ### Credits System
+
 The application uses a credits-based billing system:
+
 - Credits are granted via purchases/subscriptions
 - FIFO consumption (first to expire, first to use)
 - Track remaining credits and expiration dates
 - Credits are consumed by AI tasks
 
 ### AI Content Generation
+
 - Supports multiple providers (Replicate, OpenRouter, etc.)
 - Media types: video, image, audio, music, chat
 - Tasks are tracked in `ai_task` table with status updates
 - Cost tracking via `cost_credits` field
 
 ### Payment Processing
+
 - Multi-provider support: Stripe, PayPal, Creem (WeChat Pay/Alipay)
 - Order statuses: created, paid, failed
 - Subscription management with billing cycles
 - Invoice generation and retrieval
 
 ### Environment Configuration
+
 Key environment variables in `.env`:
+
 - `DATABASE_URL`: Database connection string
 - `AUTH_SECRET`: better-auth secret (generate with: `openssl rand -base64 32`)
 - `NEXT_PUBLIC_APP_URL`: Application URL
 - `DATABASE_PROVIDER`: Database type (postgresql, mysql, sqlite, turso, etc.)
 
 ### Next.js Configuration
+
 - React Strict Mode: disabled
 - React Compiler: enabled
 - Turbopack: enabled for dev with file system caching
@@ -202,6 +231,7 @@ Key environment variables in `.env`:
 ## Development Patterns
 
 ### Adding New Features
+
 1. Determine the layer: core, shared, extensions, or app
 2. Extensions are for third-party integrations (payment, AI, analytics, etc.)
 3. Shared is for reusable components and business logic
@@ -209,17 +239,28 @@ Key environment variables in `.env`:
 5. App is for routes and pages
 
 ### Database Migrations
+
 1. Update `src/config/db/schema.ts`
 2. Run `pnpm db:generate` to create migration
 3. Run `pnpm db:migrate` to apply migration
 4. For development, `pnpm db:push` skips migrations
 
 ### API Routes
+
 - Always use `getAuth()` for authentication in API routes
 - Follow REST conventions
 - Place routes in `src/app/api/{domain}/route.ts`
 
 ### RBAC
+
 - Initialize roles/permissions with `pnpm rbac:init`
 - Check permissions using the RBAC utilities in `src/core/rbac/`
 - Roles and permissions are defined in `scripts/init-rbac.ts`
+
+### 规则
+
+1、你需要用中文注释的方式
+2、新实现代码需要考虑规范性，合理检查已有实现。
+3、监控相关的上报不要影响主逻辑
+4、所有组件交互实现，优先从各个npm包中的开源组件中找能复用的，其次是看项目中是否有实现过的
+5、一切数据相关的写入和删除操作，你都不能直接执行，需要与我确认后才能执行

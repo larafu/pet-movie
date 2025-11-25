@@ -1,0 +1,76 @@
+{
+  "id": "christmas-dog-rescue",
+  "name": "Christmas Dog Rescue",
+  "description": "A heartwarming Christmas story about a brave dog saving its owner from a fire",
+  "previewVideo": "/video/dog-hero-Christmas.mp4",
+  "aspectRatio": "landscape",
+  "durations": {
+    "25": {
+      "nFrames": "25",
+      "credits": 70,
+      "available": true
+    },
+    "50": {
+      "nFrames": "50",
+      "credits": 140,
+      "available": false,
+      "comingSoon": true
+    }
+  },
+  "petDescriptionOriginal": "the same small brown toy poodle with fluffy curly fur and big expressive eyes",
+  "framePromptTemplate": "{PET_DESCRIPTION} wearing a red Christmas knitted sweater and a tiny jingle bell collar, standing next to a 13-year-old American middle school girl in cozy winter home clothes, Christmas Eve night in a modern apartment, decorated Christmas tree by a big window with soft snow outside, warm golden fairy lights, wrapped gifts on a fluffy rug, Pixar-style 3D animated look, cinematic wide shot, 16:9 aspect ratio, first frame for animation sequence",
+  "shots": [
+    {
+      "duration": 2,
+      "Scene": "Christmas Eve night in the same modern apartment, Pixar-style 3D animated look, {PET_DESCRIPTION} wearing a red Christmas knitted sweater and a tiny jingle bell collar, and the same young American middle school girl around 13 years old in cozy winter home clothes, stylized but consistent appearance across shots,\nwide establishing shot of a cozy living room, decorated Christmas tree by a big window with soft snow outside, warm golden fairy lights, wrapped gifts on a fluffy rug. The girl lies sideways on a soft sofa, wearing oversized gaming headphones, focused on a glowing laptop on her lap. The poodle runs playful circles on the rug at her feet, occasionally sliding in a cute Pixar-style exaggeration, tail wagging fast. Gentle handheld-style camera, warm inviting mood."
+    },
+    {
+      "duration": 1.5,
+      "Scene": "Christmas Eve night in the same modern apartment, Pixar-style 3D animated look, {PET_DESCRIPTION} wearing a red Christmas knitted sweater and a tiny jingle bell collar, and the same young American middle school girl around 13 years old in cozy winter home clothes, stylized but consistent appearance across shots,\nmedium shot at dog level beside the sofa. The poodle nudges the girl's leg with a squeaky toy, its big eyes shining with hope, the toy squeaking in a funny exaggerated way. The girl glances down, half-annoyed and half-amused, gently pushes the dog away without looking away from the game. Still focused on the screen, she casually reaches off-frame to turn a small space heater to maximum and plug an extra string of old Christmas lights into an already crowded power strip partly hidden behind the tall Christmas tree near the curtain, messy cartoonish tangle of cables on the floor, a tiny playful spark popping as she plugs it in."
+    },
+    {
+      "duration": 1.5,
+      "Scene": "Christmas Eve night in the same modern apartment, Pixar-style 3D animated look, {PET_DESCRIPTION} wearing a red Christmas knitted sweater and a tiny jingle bell collar, and the same young American middle school girl around 13 years old in cozy winter home clothes, stylized but consistent appearance across shots,\nclose-up at floor level behind the Christmas tree. Old Christmas lights plug jammed into an overloaded power strip, Pixar-style detailed plastic and cables. The plug casing faintly glows orange, tiny sparks and a thin curl of stylized gray smoke rising next to the base of a sheer curtain. The very bottom edge of the curtain just begins to smolder with a fingernail-sized glowing ember, no big flames yet. Outside the window, soft snow and distant city lights. Background audio: muffled cheerful video game sounds."
+    },
+    {
+      "duration": 1.5,
+      "Scene": "Christmas Eve night in the same modern apartment, Pixar-style 3D animated look, {PET_DESCRIPTION} wearing a red Christmas knitted sweater and a tiny jingle bell collar, and the same young American middle school girl around 13 years old in cozy winter home clothes, stylized but consistent appearance across shots,\nmedium low-angle shot from a corner of the room. The poodle lies on the rug with a partial view behind the Christmas tree. A faint orange glow flickers on the wall and on its fur. The dog's ears perk up, nose twitching as it sniffs the first hint of smoke, eyes widening in a Pixar-style exaggerated \"something's wrong\" expression. In the softly blurred background, the girl on the sofa faces away from the danger, completely unaware, still focused on her game."
+    },
+    {
+      "duration": 1.5,
+      "Scene": "Christmas Eve night in the same modern apartment, Pixar-style 3D animated look, {PET_DESCRIPTION} wearing a red Christmas knitted sweater and a tiny jingle bell collar, and the same young American middle school girl around 13 years old in cozy winter home clothes, stylized but consistent appearance across shots,\nmedium shot at dog level near the sofa. The poodle rushes over, barking urgently with slightly squeaky, cartoonish barks, scratching at the girl's leg with rapid little paws. The girl pulls off just one ear cup of her oversized headphones, the other side still blasting loud game sounds, frowns with teenage attitude and says, \"Shhh, I'm almost winning,\" in an impatient tone, gently pushing the dog away again. Deep in the background, only a very faint warm orange reflection leaks from behind the Christmas tree, easy for her to ignore."
+    },
+    {
+      "duration": 2,
+      "Scene": "Christmas Eve night in the same modern apartment, Pixar-style 3D animated look, {PET_DESCRIPTION} wearing a red Christmas knitted sweater and a tiny jingle bell collar, and the same young American middle school girl around 13 years old in cozy winter home clothes, stylized but consistent appearance across shots,\ndynamic handheld-style shot starting behind the Christmas tree. The small smolder on the curtain suddenly catches a loose strip of fabric, a thin tongue of flame racing upward in a stylized but believable way. A small burning piece of curtain drops onto wrapping paper by the gifts, causing a quick flare of orange fire. Smoke thickens near the ceiling. The camera whips back to the sofa as the poodle now frantically lunges at the coffee table, knocking over a drink in a slightly comedic splash, then bites the girl's sleeve and tugs hard toward the front door, paws sliding on the floor. The girl coughs once from the smoke, confused and off balance."
+    },
+    {
+      "duration": 2,
+      "Scene": "Christmas Eve night in the same modern apartment, Pixar-style 3D animated look, fully stylized 3D characters, not live-action, {PET_DESCRIPTION} wearing a red Christmas knitted sweater and a tiny jingle bell collar, and the same young American middle school girl around 13 years old with shoulder-length dark hair, wearing the same cozy sweatshirt and sweatpants, stylized but consistent appearance across shots,\ntight close-up on the girl's Pixar-style face as she is about to shout at the dog, mouth open mid-word, one oversized headphone cup still on her ear. Suddenly the smoke alarm shrieks loudly overhead with a harsh white strobe flash in the background. She freezes, blinks in slow motion, her pupils contracting. A wave of thicker gray smoke rolls in above her, and warm orange firelight slowly blooms across one side of her face. The camera holds on her expression as it shifts from irritation to confusion to fear, then quickly cuts to an over-the-shoulder view revealing the curtain and part of the Christmas tree clearly burning behind her in stylized, non-graphic flames, smoke crawling along the ceiling."
+    },
+    {
+      "duration": 2,
+      "Scene": "Christmas Eve night in the same modern apartment, Pixar-style 3D animated look, fully stylized 3D animation, not live-action, {PET_DESCRIPTION} in a red Christmas knitted sweater and jingle bell collar, and the same 13-year-old girl in the same cozy winter home clothes, stylized but consistent,\nmedium close-up in the hallway, handheld-style. The girl is bent down now, one headphone cup hanging off her neck, covering her nose and mouth with the crook of her arm, eyes wide and watery with fear. The poodle has its teeth firmly on the same sleeve of her light-colored sweatshirt, tugging her toward the front door, its bell jingling with every pull. The camera briefly cuts to a close-up of their feet running on the floor, the girl's socks and the dog's paws sliding a little as they move. In the blurred background through the doorway, stylized flames and smoke glow orange, but the focus stays on their movement and scared, determined expressions."
+    },
+    {
+      "duration": 2,
+      "Scene": "Christmas Eve night in the same modern apartment, Pixar-style 3D animated look, fully stylized 3D animation, not live-action, {PET_DESCRIPTION} red Christmas knitted sweater and tiny jingle bell collar, and the same 13-year-old American girl in the same cozy sweatshirt and sweatpants, stylized but consistent across shots,\nlow-angle medium shot in the smoky hallway toward the open front door. The girl stumbles out through the doorway, coughing, disappearing toward the dim stairwell. The poodle reaches the threshold right behind her, then skids to a stop, nails scraping on the floor. Tight close-up on the dog's face: smoke drifting past, eyes darting between the girl outside and the framed family photo on the entry console. Its ears fold back, then it makes a clear Pixar-style \"decision\" expression. The camera follows as it spins around and dashes back into the apartment toward the console, bell jingling, firelight flickering behind it. Background sound: smoke alarm beeping, muffled crackle of fire, no applause yet."
+    },
+    {
+      "duration": 2,
+      "Scene": "Christmas Eve night outside the same apartment building, Pixar-style 3D animated look, fully stylized 3D world, not live-action, the same 13-year-old girl and same dog design,\nstart with a brief wide shot of the apartment building at night: light snow falling through flashing red-blue emergency lights, a stylized fire truck and firefighters, neighbors standing around as Pixar-style characters. Then cut to a tight medium close-up of the girl sitting on the curb or sidewalk, wrapped in a metallic emergency blanket, her same dark shoulder-length hair a bit messy, cheeks flushed from cold and stress. In her hands she clutches the same broken red leash, fingers squeezing it hard. She looks up at the smoking, blackened apartment window, eyes glassy and filling with tears. The camera slowly pushes in closer on her face as her bottom lip trembles and a single tear rolls down, clearly believing her little dog did not make it out. Background sound: distant sirens, fire truck engine idling, soft murmurs from neighbors, no applause yet."
+    },
+    {
+      "duration": 2,
+      "Scene": "Christmas Eve night outside the same apartment building, Pixar-style 3D animated look, fully stylized 3D characters, not live-action footage, {PET_DESCRIPTION} red Christmas sweater and jingle bell collar, and the same 13-year-old girl in the same clothes,\nmedium shot on the building entrance as a firefighter in full stylized gear steps out of the smoky doorway carrying the sooty but lively poodle in their arms. Tight close-up on the dog's face: fur smudged with gray ash but eyes bright and alert, the framed family photo still held firmly in its mouth, the tiny bell on its collar jingling. Cut to a close-up of the girl's Pixar-style face as she notices the dog: her eyes go wide, then tears spill over and her expression flips from despair to overwhelming relief. Cut to a wider medium shot as she runs into frame, the firefighter lowering the dog into her arms; she hugs it tightly against her chest, the photo frame pressed between them. Around them, stylized neighbors and firefighters start clapping and cheering, some smiling and pointing at the dog. Background sound: clear wave of neighbor applause and light cheering, dog's bell jingling, firefighter radios and fire truck engine softly underneath. The firefighter says warmly, \"This little one's a real hero.\""
+    },
+    {
+      "duration": 2.5,
+      "Scene": "Later the same night, inside a simpler temporary home or relative's house, Pixar-style 3D animated look, fully stylized 3D, not live-action, the same girl and {PET_DESCRIPTION} design,\nmedium wide shot of a cozy living room corner. A small tabletop Christmas tree with a few modest decorations sits on a side table, warm lamp light filling the frame with a soft golden glow. In the background, a TV screen shows a local news segment with big on-screen title text: \"HERO DOG SAVES GIRL ON CHRISTMAS EVE.\" On the TV we see a still photo of the same girl and the same poodle, both smiling a little awkwardly for the camera, the dog wearing its red sweater and tiny bell. In the foreground, the real poodle sits proudly facing the TV, now wearing the red Christmas sweater plus a new shiny tag or small medal on its collar next to the bell. The girl sits on the floor beside it, leaning her shoulder gently against the dog, one hand resting on its back, a soft, grateful smile on her face. Background sound: quiet TV news voice, low indoor ambience, no more sirens, very faint leftover applause in the news clip."
+    },
+    {
+      "duration": 2.5,
+      "Scene": "Same night, Pixar-style 3D animated look, fully stylized 3D animation, not live-action, {PET_DESCRIPTION} red Christmas sweater and jingle bell collar, and the same 13-year-old girl in the same cozy winter home clothes,\nintimate close-up of the girl sitting on a small sofa beside the little Christmas tree, cradling the sleeping poodle curled in her arms. The dog's bell and new hero medal rest clearly against her sleeve. On the coffee table in the foreground we see the slightly smoke-stained rescued family photo frame and the same tiny medal catching the warm light. The camera very slowly pulls back to a soft wide shot with golden bokeh Christmas lights in the background, keeping the girl and dog in sharp focus, unmistakably Pixar-style with soft rounded shapes and vibrant but gentle colors, no realistic live-action textures. As the camera settles, large centered English text fades in over the lower half of the frame in warm, elegant typography:\n\"It was you who protected me, my little hero.\"\nBackground sound: very soft room tone, maybe a faint jingle of the dog's bell as it shifts in its sleep, then quiet."
+    }
+  ]
+}

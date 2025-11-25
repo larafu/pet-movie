@@ -2,7 +2,7 @@
 
 import { SmartIcon } from '@/shared/blocks/common';
 import { ScrollAnimation } from '@/shared/components/ui/scroll-animation';
-import { VideoCard } from '@/shared/components/ui/video-card';
+import { SimpleVideoCard } from '@/shared/components/ui/simple-video-card';
 import { cn } from '@/shared/lib/utils';
 import { Features as FeaturesType } from '@/shared/types/blocks/landing';
 
@@ -44,7 +44,7 @@ export function FeaturesList({
               {features.items.map((item, idx) => (
                 <div key={idx}>
                   {item.video ? (
-                    <VideoCard
+                    <SimpleVideoCard
                       src={item.video.src}
                       title={item.title}
                       description={item.description}

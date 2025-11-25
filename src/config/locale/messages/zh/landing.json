@@ -31,6 +31,11 @@
           "icon": "DollarSign"
         },
         {
+          "title": "我的电影",
+          "url": "/my-movies",
+          "icon": "Film"
+        },
+        {
           "title": "作品展示",
           "url": "/#gallery",
           "icon": "Images"
@@ -275,7 +280,7 @@
   "usage": {
     "id": "usage",
     "label": "使用流程",
-    "title": "5步创作您的狗狗电影或猫咪电影",
+    "title": "4步创作您的狗狗电影或猫咪电影",
     "description": "从珍贵照片到电影级宠物视频,完美的纪念片、庆祝视频或彩虹桥悼念。",
     "image": {
       "src": "/imgs/features/1.svg",
@@ -341,7 +346,7 @@
       },
       {
         "title": "即时预览",
-        "description": "5-10 分钟生成 4K 宠物电影。即刻下载和分享",
+        "description": "10 分钟生成 4K 宠物电影。即刻下载和分享",
         "icon": "Zap"
       }
     ]
@@ -572,5 +577,100 @@
     "show_built_with": true,
     "show_theme": false,
     "show_locale": true
+  },
+  "petVideoGen": {
+    "title": "宠物电影生成器",
+    "subtitle": "将您的宠物变成圣诞救援英雄",
+    "petPhoto": "宠物照片",
+    "uploadPrompt": "点击上传宠物照片",
+    "uploadHint": "支持 JPG/PNG/WEBP，最大 10MB",
+    "clickToChange": "点击更换",
+    "storyTemplate": "故事模板",
+    "christmasStory": "与您的{pet}一起的圣诞救援故事",
+    "videoDuration": "视频时长",
+    "soon": "即将推出",
+    "videoFormat": "视频格式",
+    "landscape": "横屏 (桌面)",
+    "portrait": "竖屏 (手机)",
+    "creditsRequired": "所需积分：",
+    "credits": "积分",
+    "createMovie": "创建电影",
+    "uploadPhotoFirst": "请先上传宠物照片",
+    "insufficientCredits": "积分不足。需要：{required}，可用：{available}",
+    "tabs": {
+      "inspiration": "灵感",
+      "myGenerations": "我的生成"
+    },
+    "status": {
+      "idle": "准备创建您的宠物电影",
+      "uploading": "完成并保存中 (1分钟)...",
+      "identifying_pet": "分析宠物特征中 (5-10秒)...",
+      "generating_frame": "转换为皮克斯风格中 (3分钟)...",
+      "generating_video": "生成电影中 (25分钟)...",
+      "applying_watermark": "添加水印中 (10-20秒)...",
+      "completed": "您的电影已准备好！",
+      "failed": "生成失败，请重试。"
+    },
+    "loading": {
+      "inspiration": "加载灵感中...",
+      "yourVideos": "加载您的视频中...",
+      "creating": "创建中..."
+    },
+    "empty": {
+      "noVideos": "暂无视频",
+      "beFirst": "成为第一个分享宠物电影的人！",
+      "noGenerations": "暂无生成记录",
+      "createFirst": "在左侧上传图片创建您的第一个宠物电影。"
+    },
+    "prompt": {
+      "dogHero": "圣诞狗狗救援 - {duration}秒",
+      "catHero": "圣诞猫咪救援 - {duration}秒",
+      "dogTemplate": "狗狗英雄 - {duration}秒",
+      "catTemplate": "猫咪英雄 - {duration}秒"
+    }
+  },
+  "videoCard": {
+    "download": "下载",
+    "noWatermark": "无水印",
+    "vip": "VIP",
+    "share": "分享",
+    "copyLink": "复制链接",
+    "makePrivate": "设为私密",
+    "report": "举报",
+    "sharedPublicly": "已公开分享",
+    "anonymous": "匿名用户",
+    "creating": "创建中..."
+  },
+  "videoShare": {
+    "aiGenerated": "AI生成",
+    "createdWithMagic": "魔法创作",
+    "aiDescription": "这个视频使用先进的AI技术生成，让您的宠物在独特的故事中栩栩如生。",
+    "petVideo": "宠物视频",
+    "adventure": "{name}的冒险",
+    "amazingPetVideo": "精彩宠物视频",
+    "watchDescription": "观看这个可爱的AI生成视频，展示一只特别的宠物在令人难以置信的冒险故事中。用爱和一点魔法创作！",
+    "videoDetails": "视频详情",
+    "format": "格式",
+    "duration": "时长",
+    "type": "类型",
+    "created": "创建时间",
+    "recently": "最近",
+    "download": "下载",
+    "share": "分享",
+    "copied": "已复制！",
+    "createYourOwn": "创建您自己的宠物视频",
+    "createDescription": "使用AI技术将您的宠物变成电影明星",
+    "tryNow": "立即试用",
+    "checkOutVideo": "看看这个精彩的宠物视频！",
+    "originalNotAvailable": "原始视频不可用",
+    "downloadingOriginal": "正在下载无水印版本"
+  },
+  "toast": {
+    "shareLinkCopied": "分享链接已复制！",
+    "linkCopied": "链接已复制！",
+    "copyFailed": "复制失败",
+    "setToPrivate": "已设为私密",
+    "originalNotAvailable": "原始视频不可用",
+    "downloadingOriginal": "正在下载无水印版本"
   }
 }

@@ -1,0 +1,204 @@
+/**
+ * Evolink AI Provider Client
+ * Supports both Chat API (pet identification) and Image Generation API (frame generation)
+ */
+
+import type {
+  EvolinkChatRequest,
+  EvolinkChatResponse,
+  EvolinkImageGenerationRequest,
+  EvolinkImageGenerationResponse,
+  EvolinkTaskStatusResponse,
+} from './types';
+
+const EVOLINK_BASE_URL = 'https://api.evolink.ai/v1';
+
+export class EvolinkClient {
+  private apiToken: string;
+
+  constructor(apiToken: string) {
+    if (!apiToken) {
+      throw new Error('Evolink API token is required');
+    }
+    this.apiToken = apiToken;
+  }
+
+  /**
+   * Call Chat Completion API (used for pet identification with vision)
+   */
+  async chatCompletion(
+    request: EvolinkChatRequest
+  ): Promise<EvolinkChatResponse> {
+    const response = await fetch(`${EVOLINK_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${this.apiToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(request),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(
+        `Evolink Chat API error (${response.status}): ${errorText}`
+      );
+    }
+
+    return response.json();
+  }
+
+  /**
+   * Identify pet characteristics from image using vision model
+   */
+  async identifyPet(imageUrl: string): Promise<string> {
+    const prompt = `You are a pet description expert for Pixar-style 3D CG animation. Analyze the uploaded pet photo and provide a detailed description of the pet that will be used as the main character in an animated Christmas rescue story.
+
+Requirements:
+1. Identify the species and breed (e.g., "toy poodle", "tabby cat", "golden retriever")
+2. Describe fur characteristics: color, pattern, length, texture
+3. Describe distinctive facial features: eye color/size, nose, ears
+4. Describe body size and build
+5. The description should match Pixar-style 3D CG animation aesthetic - appealing, expressive, stylized, suitable for family-friendly animated content
+
+Output format (provide ONLY this, no extra text):
+"A [size] [color/pattern] [breed] [species] with [fur texture] fur, [distinctive features including eyes, nose, ears], [body characteristics], Pixar-style 3D CG animated character design"
+
+Example outputs:
+- "A small brown toy poodle with fluffy curly fur, big expressive dark eyes, a tiny black nose, perky ears, and a compact energetic build, Pixar-style 3D CG animated character design"
+- "A medium-sized orange-and-cream striped tabby cat with soft fluffy fur, large round green eyes full of curiosity, a tiny pink nose, perky triangular ears, and an athletic graceful build, Pixar-style 3D CG animated character design"
+- "A large golden retriever with thick wavy golden fur, warm expressive brown eyes, a friendly black nose, floppy ears, and a strong athletic build, Pixar-style 3D CG animated character design"
+
+Provide only the description, nothing else.`;
+
+    const response = await this.chatCompletion({
+      model: 'gemini-2.5-flash',
+      messages: [
+        {
+          role: 'user',
+          content: [
+            {
+              type: 'text',
+              text: prompt,
+            },
+            {
+              type: 'image_url',
+              image_url: {
+                url: imageUrl,
+              },
+            },
+          ],
+        },
+      ],
+      temperature: 0.3, // Lower temperature for more consistent descriptions
+      max_tokens: 200,
+    });
+
+    const description = response.choices[0]?.message?.content?.trim();
+
+    if (!description) {
+      throw new Error('Failed to get pet description from Evolink');
+    }
+
+    return description;
+  }
+
+  /**
+   * Generate image using Evolink Image Generation API
+   */
+  async generateImage(
+    request: EvolinkImageGenerationRequest
+  ): Promise<EvolinkImageGenerationResponse> {
+    const response = await fetch(`${EVOLINK_BASE_URL}/images/generations`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${this.apiToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(request),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(
+        `Evolink Image Generation API error (${response.status}): ${errorText}`
+      );
+    }
+
+    return response.json();
+  }
+
+  /**
+   * Get task status (for image generation)
+   */
+  async getTaskStatus(taskId: string): Promise<EvolinkTaskStatusResponse> {
+    const response = await fetch(`${EVOLINK_BASE_URL}/tasks/${taskId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${this.apiToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(
+        `Evolink Task Status API error (${response.status}): ${errorText}`
+      );
+    }
+
+    return response.json();
+  }
+
+  /**
+   * Poll image generation task until completion or timeout
+   * Default: 10 minutes (120 attempts * 5s = 600s)
+   */
+  async pollImageGeneration(
+    taskId: string,
+    options: {
+      maxAttempts?: number;
+      intervalMs?: number;
+      onProgress?: (progress: number) => void;
+    } = {}
+  ): Promise<string> {
+    const { maxAttempts = 120, intervalMs = 5000, onProgress } = options;
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      const status = await this.getTaskStatus(taskId);
+
+      if (onProgress) {
+        onProgress(status.progress);
+      }
+
+      if (status.status === 'completed' && status.results?.[0]) {
+        return status.results[0];
+      }
+
+      if (status.status === 'failed') {
+        throw new Error(
+          `Image generation failed: ${status.error?.message || 'Unknown error'}`
+        );
+      }
+
+      // Wait before next poll
+      await new Promise((resolve) => setTimeout(resolve, intervalMs));
+    }
+
+    throw new Error('Image generation timeout after maximum polling attempts');
+  }
+}
+
+/**
+ * Create Evolink client instance
+ */
+export function createEvolinkClient(): EvolinkClient {
+  const apiToken = process.env.EVOLINK_API_TOKEN;
+
+  if (!apiToken) {
+    throw new Error(
+      'EVOLINK_API_TOKEN environment variable is not configured'
+    );
+  }
+
+  return new EvolinkClient(apiToken);
+}

@@ -6,6 +6,7 @@ import {
   text,
   timestamp,
 } from 'drizzle-orm/pg-core';
+import { relations } from 'drizzle-orm';
 
 export const user = pgTable(
   'user',
@@ -480,6 +481,23 @@ export const aiTask = pgTable(
     costCredits: integer('cost_credits').notNull().default(0),
     scene: text('scene').notNull().default(''),
     creditId: text('credit_id'), // credit consumption record id
+    // Pet video generation specific fields
+    petImageUrl: text('pet_image_url'), // User's uploaded pet image
+    templateType: text('template_type'), // 'dog' | 'cat'
+    petDescription: text('pet_description'), // AI-identified pet description
+    frameImageUrl: text('frame_image_url'), // Evolink generated frame image
+    frameTaskId: text('frame_task_id'), // Evolink frame generation task ID
+    videoTaskId: text('video_task_id'), // KIE video generation task ID
+    tempVideoUrl: text('temp_video_url'), // KIE temporary video URL
+    finalVideoUrl: text('final_video_url'), // R2 permanent video URL
+    originalVideoUrl: text('original_video_url'), // R2 original video URL (no watermark)
+    watermarkedVideoUrl: text('watermarked_video_url'), // R2 watermarked video URL
+    durationSeconds: integer('duration_seconds'), // Video duration: 25 or 50
+    aspectRatio: text('aspect_ratio'), // Video aspect ratio: '16:9' or '9:16'
+    retryCount: integer('retry_count').default(0), // Retry attempt count
+    errorLog: text('error_log'), // Error log in JSON format
+    isPublic: boolean('is_public').default(false).notNull(), // 是否公开分享 / Is publicly shared
+    likeCount: integer('like_count').default(0).notNull(), // 点赞数
   },
   (table) => [
     // Composite: Query user's AI tasks by status
@@ -488,8 +506,41 @@ export const aiTask = pgTable(
     // Composite: Query user's AI tasks by media type and provider
     // Can also be used for: WHERE mediaType = ? AND provider = ? (left-prefix)
     index('idx_ai_task_media_type_status').on(table.mediaType, table.status),
+    // Index for public videos sorted by likes
+    index('idx_ai_task_public_likes').on(table.isPublic, table.likeCount),
   ]
 );
+
+// 视频点赞表 - Video like table
+export const videoLike = pgTable(
+  'video_like',
+  {
+    id: text('id').primaryKey(),
+    videoId: text('video_id')
+      .notNull()
+      .references(() => aiTask.id, { onDelete: 'cascade' }),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+  (table) => [
+    index('idx_video_like_video_id').on(table.videoId),
+    index('idx_video_like_user_id').on(table.userId),
+    index('idx_video_like_user_video').on(table.userId, table.videoId),
+  ]
+);
+
+export const videoLikeRelations = relations(videoLike, ({ one }) => ({
+  video: one(aiTask, {
+    fields: [videoLike.videoId],
+    references: [aiTask.id],
+  }),
+  user: one(user, {
+    fields: [videoLike.userId],
+    references: [user.id],
+  }),
+}));
 
 export const chat = pgTable(
   'chat',
@@ -565,3 +616,101 @@ export const earlybirdSubscriber = pgTable(
     index('idx_earlybird_created').on(table.createdAt),
   ]
 );
+
+// 社区分享表 - Community share table
+// 用户可以将自己的AI生成作品分享到公共社区池
+export const communityShare = pgTable(
+  'community_share',
+  {
+    id: text('id').primaryKey(),
+    // 关联到AI任务
+    aiTaskId: text('ai_task_id')
+      .notNull()
+      .references(() => aiTask.id, { onDelete: 'cascade' }),
+    // 分享用户
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    // 分享内容
+    title: text('title').notNull(), // 分享标题
+    description: text('description'), // 分享描述
+    // 可见性和统计
+    isPublic: boolean('is_public').default(true).notNull(), // 是否公开
+    viewCount: integer('view_count').default(0).notNull(), // 浏览次数
+    likeCount: integer('like_count').default(0).notNull(), // 点赞数
+    shareCount: integer('share_count').default(0).notNull(), // 分享次数
+    downloadCount: integer('download_count').default(0).notNull(), // 下载次数
+    // 时间戳
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+    deletedAt: timestamp('deleted_at'),
+  },
+  (table) => [
+    // 查询用户的分享作品
+    index('idx_community_share_user_id').on(table.userId),
+    // 查询公开的分享作品，按点赞数排序（热门排序）
+    index('idx_community_share_public_likes').on(table.isPublic, table.likeCount),
+    // 查询公开的分享作品，按创建时间排序（最新排序）
+    index('idx_community_share_public_created').on(table.isPublic, table.createdAt),
+    // 确保一个ai_task只能分享一次
+    index('idx_community_share_ai_task').on(table.aiTaskId),
+  ]
+);
+
+// 社区点赞表 - Community like table
+// 记录用户对社区分享作品的点赞
+export const communityLike = pgTable(
+  'community_like',
+  {
+    id: text('id').primaryKey(),
+    // 关联到分享
+    shareId: text('share_id')
+      .notNull()
+      .references(() => communityShare.id, { onDelete: 'cascade' }),
+    // 点赞用户
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    // 时间戳
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+  (table) => [
+    // 查询用户点赞的作品
+    index('idx_community_like_user_id').on(table.userId),
+    // 查询某个分享的所有点赞
+    index('idx_community_like_share_id').on(table.shareId),
+    // 确保一个用户对一个分享只能点赞一次（复合唯一索引）
+    index('idx_community_like_user_share').on(table.userId, table.shareId),
+  ]
+);
+
+// ==================== Relations ====================
+// 定义表之间的关系，支持Drizzle的关联查询
+
+export const communityShareRelations = relations(communityShare, ({ one }) => ({
+  // 关联用户
+  user: one(user, {
+    fields: [communityShare.userId],
+    references: [user.id],
+  }),
+  // 关联AI任务
+  aiTask: one(aiTask, {
+    fields: [communityShare.aiTaskId],
+    references: [aiTask.id],
+  }),
+}));
+
+export const communityLikeRelations = relations(communityLike, ({ one }) => ({
+  // 关联分享
+  share: one(communityShare, {
+    fields: [communityLike.shareId],
+    references: [communityShare.id],
+  }),
+  // 关联用户
+  user: one(user, {
+    fields: [communityLike.userId],
+    references: [user.id],
+  }),
+}));

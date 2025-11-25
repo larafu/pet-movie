@@ -59,6 +59,12 @@ export class R2Provider implements StorageProvider {
 
       const { AwsClient } = await import('aws4fetch');
 
+      // Polyfill crypto for Node.js environment (aws4fetch requires Web Crypto API)
+      if (typeof crypto === 'undefined') {
+        const nodeCrypto = await import('crypto');
+        (globalThis as any).crypto = nodeCrypto.webcrypto;
+      }
+
       // R2 uses "auto" as region for S3 API compatibility
       const client = new AwsClient({
         accessKeyId: this.configs.accessKeyId,
@@ -81,9 +87,15 @@ export class R2Provider implements StorageProvider {
       const response = await client.fetch(request);
 
       if (!response.ok) {
+        const errorBody = await response.text();
+        console.error('❌ R2 Upload Error:');
+        console.error(`   Status: ${response.status} ${response.statusText}`);
+        console.error(`   URL: ${url}`);
+        console.error(`   Response: ${errorBody}`);
+
         return {
           success: false,
-          error: `Upload failed: ${response.statusText}`,
+          error: `Upload failed (${response.status}): ${response.statusText} - ${errorBody}`,
           provider: this.name,
         };
       }

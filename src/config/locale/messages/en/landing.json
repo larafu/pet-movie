@@ -36,6 +36,11 @@
           "icon": "DollarSign"
         },
         {
+          "title": "My Movies",
+          "url": "/my-movies",
+          "icon": "Film"
+        },
+        {
           "title": "FAQ",
           "url": "/#faq",
           "icon": "HelpCircle"
@@ -275,7 +280,7 @@
   "usage": {
     "id": "usage",
     "label": "HOW IT WORKS",
-    "title": "Create Your Dog Movie or Cat Movie in 5 Steps",
+    "title": "Create Your Dog Movie or Cat Movie in 4 Steps",
     "description": "From cherished photos to cinematic pet movies. Perfect for memorials, celebrations, or Rainbow Bridge tributes.",
     "image": {
       "src": "/imgs/features/1.svg",
@@ -354,7 +359,7 @@
       },
       {
         "title": "Instant Preview",
-        "description": "Generate 4K pet movie in 5-10 minutes. Download and share instantly",
+        "description": "Generate 4K pet movie in 10 minutes. Download and share instantly",
         "icon": "Zap"
       }
     ]
@@ -589,5 +594,100 @@
     "show_built_with": true,
     "show_theme": false,
     "show_locale": true
+  },
+  "petVideoGen": {
+    "title": "Pet Movie Generator",
+    "subtitle": "Transform your pet into a Christmas rescue hero",
+    "petPhoto": "Pet Photo",
+    "uploadPrompt": "Click to upload your pet photo",
+    "uploadHint": "JPG/PNG/WEBP up to 10MB",
+    "clickToChange": "Click to change",
+    "storyTemplate": "Story Template",
+    "christmasStory": "Christmas rescue story with your {pet}",
+    "videoDuration": "Video Duration",
+    "soon": "Soon",
+    "videoFormat": "Video Format",
+    "landscape": "Landscape (Desktop)",
+    "portrait": "Portrait (Mobile)",
+    "creditsRequired": "Credits required:",
+    "credits": "Credits",
+    "createMovie": "Create Movie",
+    "uploadPhotoFirst": "Please upload your pet photo first",
+    "insufficientCredits": "Insufficient credits. Required: {required}, Available: {available}",
+    "tabs": {
+      "inspiration": "Inspiration",
+      "myGenerations": "My Generations"
+    },
+    "status": {
+      "idle": "Ready to create your pet movie",
+      "uploading": "Finalizing and saving (1 min)...",
+      "identifying_pet": "Analyzing your pet's features (5-10s)...",
+      "generating_frame": "Transforming to Pixar style (3 min)...",
+      "generating_video": "Generating your cinematic movie (25 min)...",
+      "applying_watermark": "Adding watermark (10-20s)...",
+      "completed": "Your movie is ready!",
+      "failed": "Generation failed. Please try again."
+    },
+    "loading": {
+      "inspiration": "Loading inspiration...",
+      "yourVideos": "Loading your videos...",
+      "creating": "Creating..."
+    },
+    "empty": {
+      "noVideos": "No videos yet",
+      "beFirst": "Be the first to share your pet movie!",
+      "noGenerations": "No generations yet",
+      "createFirst": "Create your first pet movie by uploading an image on the left."
+    },
+    "prompt": {
+      "dogHero": "Christmas Dog Rescue - {duration}s",
+      "catHero": "Christmas Cat Rescue - {duration}s",
+      "dogTemplate": "Dog Hero - {duration}s",
+      "catTemplate": "Cat Hero - {duration}s"
+    }
+  },
+  "videoCard": {
+    "download": "Download",
+    "noWatermark": "No Watermark",
+    "vip": "VIP",
+    "share": "Share",
+    "copyLink": "Copy Link",
+    "makePrivate": "Make Private",
+    "report": "Report",
+    "sharedPublicly": "Shared publicly",
+    "anonymous": "Anonymous",
+    "creating": "Creating..."
+  },
+  "videoShare": {
+    "aiGenerated": "AI Generated",
+    "createdWithMagic": "Created with Magic",
+    "aiDescription": "This video was generated using advanced AI technology to bring your pet to life in a unique story.",
+    "petVideo": "Pet Video",
+    "adventure": "{name}'s Adventure",
+    "amazingPetVideo": "Amazing Pet Video",
+    "watchDescription": "Watch this adorable AI-generated video featuring a special pet in an incredible adventure story. Created with love and a touch of magic!",
+    "videoDetails": "Video Details",
+    "format": "Format",
+    "duration": "Duration",
+    "type": "Type",
+    "created": "Created",
+    "recently": "Recently",
+    "download": "Download",
+    "share": "Share",
+    "copied": "Copied!",
+    "createYourOwn": "Create Your Own Pet Video",
+    "createDescription": "Turn your pet into a movie star with AI-powered video generation",
+    "tryNow": "Try Now",
+    "checkOutVideo": "Check out this amazing pet video!",
+    "originalNotAvailable": "Original video not available",
+    "downloadingOriginal": "Downloading original version"
+  },
+  "toast": {
+    "shareLinkCopied": "Share link copied!",
+    "linkCopied": "Link copied!",
+    "copyFailed": "Copy failed",
+    "setToPrivate": "Set to private",
+    "originalNotAvailable": "Original video not available",
+    "downloadingOriginal": "Downloading original version"
   }
 }

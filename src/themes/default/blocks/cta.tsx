@@ -12,9 +12,13 @@ export function CTA({ cta, className }: { cta: CTAType; className?: string }) {
 
   // Helper function to get correct URL based on login status
   const getButtonUrl = (originalUrl: string) => {
-    // If user is logged in and URL is /sign-up, redirect to pricing
+    // If user is logged in and URL is /sign-up, redirect to create-pet-movie
     if (user && originalUrl === '/sign-up') {
-      return '/pricing';
+      return '/create-pet-movie';
+    }
+    // Redirect /pricing to /create-pet-movie (pricing not ready yet)
+    if (originalUrl === '/pricing') {
+      return '/create-pet-movie';
     }
     return originalUrl;
   };

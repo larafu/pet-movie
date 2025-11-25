@@ -49,15 +49,14 @@ export class R2StorageProvider implements StorageProvider {
     // Convert data to proper format
     let body: ArrayBuffer | Blob;
     if (data instanceof Buffer) {
-      body = data.buffer.slice(
-        data.byteOffset,
-        data.byteOffset + data.byteLength
-      );
+      // 使用 Uint8Array 复制数据以确保获得纯 ArrayBuffer
+      const uint8Array = new Uint8Array(data);
+      body = uint8Array.buffer;
     } else if (data instanceof Blob) {
       body = data;
     } else {
       // ReadableStream - need to convert to buffer
-      const reader = data.getReader();
+      const reader = (data as ReadableStream).getReader();
       const chunks: Uint8Array[] = [];
       while (true) {
         const { done, value } = await reader.read();
@@ -156,51 +155,36 @@ export class R2StorageProvider implements StorageProvider {
  */
 export async function createR2StorageProvider(): Promise<R2StorageProvider> {
   // Import here to avoid circular dependencies
-  const { getDb } = await import('@/core/db');
+  const { db } = await import('@/core/db');
   const { config: configTable } = await import('@/config/db/schema');
   const { eq } = await import('drizzle-orm');
 
-  const db = getDb();
-
-  // Fetch R2 configuration from database
-  const configs = await db
-    .select()
-    .from(configTable)
-    .where(
-      eq(configTable.name, 'r2_account_id')
-    );
-
-  const configMap = new Map<string, string>();
-  for (const row of configs) {
-    if (row.value) {
-      configMap.set(row.name, row.value);
-    }
-  }
+  const database = db();
 
   // Fetch all R2 configs in parallel
   const [accountIdRow, accessKeyRow, secretKeyRow, bucketRow, domainRow] =
     await Promise.all([
-      db
+      database
         .select()
         .from(configTable)
         .where(eq(configTable.name, 'r2_account_id'))
         .limit(1),
-      db
+      database
         .select()
         .from(configTable)
         .where(eq(configTable.name, 'r2_access_key'))
         .limit(1),
-      db
+      database
         .select()
         .from(configTable)
         .where(eq(configTable.name, 'r2_secret_key'))
         .limit(1),
-      db
+      database
         .select()
         .from(configTable)
         .where(eq(configTable.name, 'r2_bucket_name'))
         .limit(1),
-      db
+      database
         .select()
         .from(configTable)
         .where(eq(configTable.name, 'r2_domain'))

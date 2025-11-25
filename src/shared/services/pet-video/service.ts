@@ -100,6 +100,10 @@ export async function executePetVideoGeneration(taskId: string): Promise<void> {
       message: 'Starting frame generation (image-to-image)',
       level: 'info',
     });
+    if (!task.petImageUrl) {
+      throw new Error('Pet image URL is missing');
+    }
+
     console.log(
       '🖼️  [Service] Using uploaded pet image for frame generation:',
       task.petImageUrl

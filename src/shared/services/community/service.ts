@@ -5,7 +5,7 @@
 
 import { db } from '@/core/db';
 import { communityShare, communityLike, aiTask, user } from '@/config/db/schema';
-import { eq, and, desc, sql } from 'drizzle-orm';
+import { eq, and, desc, sql, inArray, isNull } from 'drizzle-orm';
 import { nanoid } from 'nanoid';
 import * as Sentry from '@sentry/nextjs';
 import type {
@@ -38,11 +38,14 @@ export async function createShare(
   userId: string,
   request: CreateShareRequest
 ): Promise<ShareResponse> {
+  const database = db();
   try {
     // 检查AI任务是否存在且属于该用户
-    const task = await db.query.aiTask.findFirst({
-      where: eq(aiTask.id, request.aiTaskId),
-    });
+    const [task] = await database
+      .select()
+      .from(aiTask)
+      .where(eq(aiTask.id, request.aiTaskId))
+      .limit(1);
 
     if (!task) {
       throw new Error('AI task not found');
@@ -57,9 +60,11 @@ export async function createShare(
     }
 
     // 检查是否已经分享过
-    const existingShare = await db.query.communityShare.findFirst({
-      where: eq(communityShare.aiTaskId, request.aiTaskId),
-    });
+    const [existingShare] = await database
+      .select()
+      .from(communityShare)
+      .where(eq(communityShare.aiTaskId, request.aiTaskId))
+      .limit(1);
 
     if (existingShare) {
       throw new Error('This task has already been shared');
@@ -70,7 +75,7 @@ export async function createShare(
 
     // 创建分享记录
     const shareId = nanoid();
-    const [share] = await db
+    await database
       .insert(communityShare)
       .values({
         id: shareId,
@@ -83,8 +88,7 @@ export async function createShare(
         likeCount: 0,
         shareCount: 0,
         downloadCount: 0,
-      })
-      .returning();
+      });
 
     return await getShareById(shareId, userId);
   } catch (error) {
@@ -105,11 +109,14 @@ export async function deleteShare(
   userId: string,
   shareId: string
 ): Promise<boolean> {
+  const database = db();
   try {
     // 检查分享是否存在且属于该用户
-    const share = await db.query.communityShare.findFirst({
-      where: eq(communityShare.id, shareId),
-    });
+    const [share] = await database
+      .select()
+      .from(communityShare)
+      .where(eq(communityShare.id, shareId))
+      .limit(1);
 
     if (!share) {
       throw new Error('Share not found');
@@ -120,7 +127,7 @@ export async function deleteShare(
     }
 
     // 软删除
-    await db
+    await database
       .update(communityShare)
       .set({
         deletedAt: new Date(),
@@ -146,6 +153,7 @@ export async function getShares(
   request: GetSharesRequest,
   currentUserId?: string
 ): Promise<ShareResponse[]> {
+  const database = db();
   try {
     const limit = request.limit || 20;
     const offset = request.offset || 0;
@@ -153,7 +161,7 @@ export async function getShares(
     // 构建查询条件
     const conditions = [
       eq(communityShare.isPublic, true),
-      sql`${communityShare.deletedAt} IS NULL`,
+      isNull(communityShare.deletedAt),
     ];
 
     if (request.userId) {
@@ -166,78 +174,80 @@ export async function getShares(
         ? desc(communityShare.likeCount)
         : desc(communityShare.createdAt);
 
-    // 查询分享列表
-    const shares = await db.query.communityShare.findMany({
-      where: and(...conditions),
-      orderBy: [orderBy],
-      limit,
-      offset,
-      with: {
+    // 查询分享列表（联表查询）
+    const shares = await database
+      .select({
+        share: communityShare,
         user: {
-          columns: {
-            id: true,
-            name: true,
-            image: true,
-          },
+          id: user.id,
+          name: user.name,
+          image: user.image,
         },
         aiTask: {
-          columns: {
-            id: true,
-            mediaType: true,
-            finalVideoUrl: true,
-            frameImageUrl: true,
-            durationSeconds: true,
-            aspectRatio: true,
-          },
+          id: aiTask.id,
+          mediaType: aiTask.mediaType,
+          finalVideoUrl: aiTask.finalVideoUrl,
+          frameImageUrl: aiTask.frameImageUrl,
+          durationSeconds: aiTask.durationSeconds,
+          aspectRatio: aiTask.aspectRatio,
         },
-      },
-    });
+      })
+      .from(communityShare)
+      .leftJoin(user, eq(communityShare.userId, user.id))
+      .leftJoin(aiTask, eq(communityShare.aiTaskId, aiTask.id))
+      .where(and(...conditions))
+      .orderBy(orderBy)
+      .limit(limit)
+      .offset(offset);
 
     // 如果有当前用户，查询点赞状态
     let likedShareIds: Set<string> = new Set();
     if (currentUserId && shares.length > 0) {
-      const shareIds = shares.map((s) => s.id);
-      const likes = await db.query.communityLike.findMany({
-        where: and(
-          eq(communityLike.userId, currentUserId),
-          sql`${communityLike.shareId} IN ${shareIds}`
-        ),
-      });
+      const shareIds = shares.map((s) => s.share.id);
+      const likes = await database
+        .select()
+        .from(communityLike)
+        .where(
+          and(
+            eq(communityLike.userId, currentUserId),
+            inArray(communityLike.shareId, shareIds)
+          )
+        );
       likedShareIds = new Set(likes.map((l) => l.shareId));
     }
 
     // 格式化响应
-    return shares.map((share) => ({
-      id: share.id,
-      aiTaskId: share.aiTaskId,
-      userId: share.userId,
-      title: share.title,
-      description: share.description,
-      isPublic: share.isPublic,
-      viewCount: share.viewCount,
-      likeCount: share.likeCount,
-      shareCount: share.shareCount,
-      downloadCount: share.downloadCount,
-      createdAt: share.createdAt.toISOString(),
-      updatedAt: share.updatedAt.toISOString(),
-      user: share.user
+    return shares.map((row) => ({
+      id: row.share.id,
+      aiTaskId: row.share.aiTaskId,
+      userId: row.share.userId,
+      title: row.share.title,
+      description: row.share.description,
+      isPublic: row.share.isPublic,
+      viewCount: row.share.viewCount,
+      likeCount: row.share.likeCount,
+      shareCount: row.share.shareCount,
+      downloadCount: row.share.downloadCount,
+      createdAt: row.share.createdAt.toISOString(),
+      updatedAt: row.share.updatedAt.toISOString(),
+      user: row.user
         ? {
-            id: share.user.id,
-            name: share.user.name,
-            image: share.user.image,
+            id: row.user.id,
+            name: row.user.name,
+            image: row.user.image,
           }
         : undefined,
-      aiTask: share.aiTask
+      aiTask: row.aiTask
         ? {
-            id: share.aiTask.id,
-            mediaType: share.aiTask.mediaType,
-            finalVideoUrl: share.aiTask.finalVideoUrl,
-            frameImageUrl: share.aiTask.frameImageUrl,
-            durationSeconds: share.aiTask.durationSeconds,
-            aspectRatio: share.aiTask.aspectRatio,
+            id: row.aiTask.id,
+            mediaType: row.aiTask.mediaType,
+            finalVideoUrl: row.aiTask.finalVideoUrl,
+            frameImageUrl: row.aiTask.frameImageUrl,
+            durationSeconds: row.aiTask.durationSeconds,
+            aspectRatio: row.aiTask.aspectRatio,
           }
         : undefined,
-      isLiked: likedShareIds.has(share.id),
+      isLiked: likedShareIds.has(row.share.id),
     }));
   } catch (error) {
     // 监控上报不影响主逻辑
@@ -257,77 +267,84 @@ export async function getShareById(
   shareId: string,
   currentUserId?: string
 ): Promise<ShareResponse> {
+  const database = db();
   try {
-    const share = await db.query.communityShare.findFirst({
-      where: and(
-        eq(communityShare.id, shareId),
-        sql`${communityShare.deletedAt} IS NULL`
-      ),
-      with: {
+    const [row] = await database
+      .select({
+        share: communityShare,
         user: {
-          columns: {
-            id: true,
-            name: true,
-            image: true,
-          },
+          id: user.id,
+          name: user.name,
+          image: user.image,
         },
         aiTask: {
-          columns: {
-            id: true,
-            mediaType: true,
-            finalVideoUrl: true,
-            frameImageUrl: true,
-            durationSeconds: true,
-            aspectRatio: true,
-          },
+          id: aiTask.id,
+          mediaType: aiTask.mediaType,
+          finalVideoUrl: aiTask.finalVideoUrl,
+          frameImageUrl: aiTask.frameImageUrl,
+          durationSeconds: aiTask.durationSeconds,
+          aspectRatio: aiTask.aspectRatio,
         },
-      },
-    });
+      })
+      .from(communityShare)
+      .leftJoin(user, eq(communityShare.userId, user.id))
+      .leftJoin(aiTask, eq(communityShare.aiTaskId, aiTask.id))
+      .where(
+        and(
+          eq(communityShare.id, shareId),
+          isNull(communityShare.deletedAt)
+        )
+      )
+      .limit(1);
 
-    if (!share) {
+    if (!row) {
       throw new Error('Share not found');
     }
 
     // 检查是否点赞
     let isLiked = false;
     if (currentUserId) {
-      const like = await db.query.communityLike.findFirst({
-        where: and(
-          eq(communityLike.shareId, shareId),
-          eq(communityLike.userId, currentUserId)
-        ),
-      });
+      const [like] = await database
+        .select()
+        .from(communityLike)
+        .where(
+          and(
+            eq(communityLike.shareId, shareId),
+            eq(communityLike.userId, currentUserId)
+          )
+        )
+        .limit(1);
       isLiked = !!like;
     }
 
     return {
-      id: share.id,
-      aiTaskId: share.aiTaskId,
-      userId: share.userId,
-      title: share.title,
-      description: share.description,
-      isPublic: share.isPublic,
-      viewCount: share.viewCount,
-      likeCount: share.likeCount,
-      shareCount: share.shareCount,
-      downloadCount: share.downloadCount,
-      createdAt: share.createdAt.toISOString(),
-      updatedAt: share.updatedAt.toISOString(),
-      user: share.user
+      id: row.share.id,
+      aiTaskId: row.share.aiTaskId,
+      userId: row.share.userId,
+      title: row.share.title,
+      description: row.share.description,
+      isPublic: row.share.isPublic,
+      viewCount: row.share.viewCount,
+      likeCount: row.share.likeCount,
+      shareCount: row.share.shareCount,
+      downloadCount: row.share.downloadCount,
+      createdAt: row.share.createdAt.toISOString(),
+      updatedAt: row.share.updatedAt.toISOString(),
+      user: row.user
         ? {
-            id: share.user.id,
-            name: share.user.name,
-            image: share.user.image,
+            id: row.user.id,
+            name: row.user.name,
+            image: row.user.image,
           }
         : undefined,
-      aiTask: share.aiTask
+      aiTask: row.aiTask
         ? {
-            id: share.aiTask.id,
-            mediaType: share.aiTask.mediaType,
-            finalVideoUrl: share.aiTask.finalVideoUrl,
-            frameImageUrl: share.aiTask.frameImageUrl,
-            durationSeconds: share.aiTask.durationSeconds,
-            aspectRatio: share.aiTask.aspectRatio,
+            id: row.aiTask.id,
+            mediaType: row.aiTask.mediaType,
+            finalVideoUrl: row.aiTask.finalVideoUrl,
+            frameImageUrl: row.aiTask.frameImageUrl,
+            durationSeconds: row.aiTask.durationSeconds,
+            aspectRatio: row.aiTask.aspectRatio,
           }
         : undefined,
       isLiked,
@@ -350,37 +367,46 @@ export async function toggleLike(
   userId: string,
   request: LikeRequest
 ): Promise<LikeResponse> {
+  const database = db();
   try {
     const { shareId } = request;
 
     // 检查分享是否存在
-    const share = await db.query.communityShare.findFirst({
-      where: and(
-        eq(communityShare.id, shareId),
-        sql`${communityShare.deletedAt} IS NULL`
-      ),
-    });
+    const [share] = await database
+      .select()
+      .from(communityShare)
+      .where(
+        and(
+          eq(communityShare.id, shareId),
+          isNull(communityShare.deletedAt)
+        )
+      )
+      .limit(1);
 
     if (!share) {
       throw new Error('Share not found');
     }
 
     // 检查是否已点赞
-    const existingLike = await db.query.communityLike.findFirst({
-      where: and(
-        eq(communityLike.shareId, shareId),
-        eq(communityLike.userId, userId)
-      ),
-    });
+    const [existingLike] = await database
+      .select()
+      .from(communityLike)
+      .where(
+        and(
+          eq(communityLike.shareId, shareId),
+          eq(communityLike.userId, userId)
+        )
+      )
+      .limit(1);
 
     if (existingLike) {
       // 取消点赞
-      await db
+      await database
         .delete(communityLike)
         .where(eq(communityLike.id, existingLike.id));
 
       // 减少点赞数
-      await db
+      await database
         .update(communityShare)
         .set({
           likeCount: sql`${communityShare.likeCount} - 1`,
@@ -394,14 +420,14 @@ export async function toggleLike(
       };
     } else {
       // 添加点赞
-      await db.insert(communityLike).values({
+      await database.insert(communityLike).values({
         id: nanoid(),
         shareId,
         userId,
       });
 
       // 增加点赞数
-      await db
+      await database
         .update(communityShare)
         .set({
           likeCount: sql`${communityShare.likeCount} + 1`,
@@ -432,8 +458,9 @@ export async function updateShareStats(
   shareId: string,
   statType: ShareStatType
 ): Promise<void> {
+  const database = db();
   try {
-    const fieldMap = {
+    const fieldMap: Record<ShareStatType, keyof typeof communityShare> = {
       view: 'viewCount',
       like: 'likeCount',
       share: 'shareCount',
@@ -445,7 +472,7 @@ export async function updateShareStats(
       throw new Error('Invalid stat type');
     }
 
-    await db
+    await database
       .update(communityShare)
       .set({
         [field]: sql`${communityShare[field]} + 1`,

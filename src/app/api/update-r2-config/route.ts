@@ -36,15 +36,12 @@ export async function POST(request: NextRequest) {
         if (existing.length > 0) {
           await database
             .update(config)
-            .set({ value, updatedAt: new Date() })
+            .set({ value })
             .where(eq(config.name, name));
         } else {
           await database.insert(config).values({
             name,
             value,
-            category: 'storage',
-            createdAt: new Date(),
-            updatedAt: new Date(),
           });
         }
       }

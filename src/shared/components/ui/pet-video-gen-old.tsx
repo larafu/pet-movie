@@ -228,7 +228,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
 
         if (data.success && data.task) {
           const task = data.task;
-          const newStatus = task.status;
+          const newStatus = task.status as GenerationStatus;
 
           // Update localStorage
           updateTaskInStorage(taskId, newStatus);
@@ -292,10 +292,9 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     const progressMap: Record<GenerationStatus, number> = {
       idle: 0,
       uploading: 2,              // Photo upload: ~30s
-      identifying_pet: 2,        // (Skipped now, but keep for compatibility)
+      identifying_pet: 5,        // Pet analysis: ~5-10s
       generating_frame: 12,      // Pixar style transform: ~3 min
       generating_video: 95,      // Video generation: ~25 min (MOST TIME!)
-      uploading: 99,             // R2 upload: ~1 min
       completed: 100,
       failed: 0,
     };

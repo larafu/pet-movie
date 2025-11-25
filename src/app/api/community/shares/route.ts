@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
     };
 
     // 获取当前用户（如果已登录）
-    const auth = getAuth();
+    const auth = await getAuth();
     const session = await auth.api.getSession({
       headers: request.headers,
     });

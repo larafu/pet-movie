@@ -24,7 +24,7 @@ export async function GET(
     const { shareId } = params;
 
     // 获取当前用户（如果已登录）
-    const auth = getAuth();
+    const auth = await getAuth();
     const session = await auth.api.getSession({
       headers: request.headers,
     });
@@ -66,7 +66,7 @@ export async function DELETE(
     const { shareId } = params;
 
     // 获取认证信息
-    const auth = getAuth();
+    const auth = await getAuth();
     const session = await auth.api.getSession({
       headers: request.headers,
     });

@@ -75,16 +75,16 @@
     "highlight_text": "DESERVES A MOVIE",
     "description": "Upload your pet's photos and let AI turn them into a 4K cinematic movie — perfect for birthdays, daily life, and Rainbow Bridge memorials.",
     "announcement": {
-      "badge": "New Feature",
+      "badge": "Free Trial",
       "title": "Now with 4K Cinema Grade Export",
-      "url": "/pricing"
+      "url": "/create-pet-movie"
     },
-    "tip": "✨ Early Bird -70% OFF, Limited Availability",
+    "tip": "✨ Free Trial Available - Create Your First Pet Movie",
     "buttons": [
       {
         "title": "Create Movie Now",
         "icon": "Sparkles",
-        "url": "/pricing",
+        "url": "/create-pet-movie",
         "target": "_self",
         "variant": "default"
       },
@@ -96,11 +96,6 @@
         "variant": "outline"
       }
     ],
-    "early_bird_badge": "Limited Time Offer",
-    "early_bird_button": {
-      "title": "Get Early Bird Deal",
-      "url": "/pricing"
-    },
     "stats": [],
     "show_avatars": false,
     "avatars_tip": "",
@@ -460,7 +455,7 @@
     "buttons": [
       {
         "title": "Start Free Trial",
-        "url": "/pricing",
+        "url": "/create-pet-movie",
         "target": "_self",
         "icon": "Sparkles"
       },

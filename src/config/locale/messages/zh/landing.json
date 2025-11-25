@@ -75,16 +75,16 @@
     "highlight_text": "拥有专属电影",
     "description": "上传宠物照片,让AI将它们转化为4K电影级作品 — 完美用于生日庆祝、日常记录和彩虹桥纪念。",
     "announcement": {
-      "badge": "AI 驱动的寵物電影工作室",
+      "badge": "免费试用",
       "title": "pet movie.ai - 让 AI 帮您永存这份爱",
-      "url": "/pricing"
+      "url": "/create-pet-movie"
     },
-    "tip": "✨ 早鸟优惠 -70%，限量发售中",
+    "tip": "✨ 免费试用 - 立即创建您的第一部宠物电影",
     "buttons": [
       {
-        "title": "限时7折优惠",
+        "title": "立即创建电影",
         "icon": "Sparkles",
-        "url": "/pricing",
+        "url": "/create-pet-movie",
         "target": "_self",
         "variant": "default"
       },
@@ -96,11 +96,6 @@
         "variant": "outline"
       }
     ],
-    "early_bird_badge": "限时优惠",
-    "early_bird_button": {
-      "title": "查看优惠价格",
-      "url": "/pricing"
-    },
     "stats": [],
     "show_avatars": false,
     "avatars_tip": "",
@@ -447,7 +442,7 @@
     "buttons": [
       {
         "title": "开始免费试用",
-        "url": "/pricing",
+        "url": "/create-pet-movie",
         "target": "_self",
         "icon": "Sparkles"
       },

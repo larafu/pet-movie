@@ -15,7 +15,7 @@
         "features_title": "Includes",
         "features": [
           "700 credits",
-          "~28 videos (25s) or 14 videos (50s)",
+          "~10 videos (25s) or 5 videos (50s)",
           "4K ultra HD output",
           "All story templates",
           "Priority processing",
@@ -41,11 +41,10 @@
       {
         "title": "Creator · Monthly",
         "description": "For frequent content creators",
-        "label": "Early Bird -70%",
         "features_title": "Includes",
         "features": [
           "350 credits auto-refilled monthly",
-          "~14 videos/month (25s) or 7 videos/month (50s)",
+          "~5 videos/month (25s) or 2 videos/month (50s)",
           "4K ultra HD output",
           "All story templates",
           "Priority processing queue",
@@ -59,7 +58,7 @@
         "original_price": "$49",
         "unit": "/ month",
         "is_featured": false,
-        "tip": "Early bird price $14.7/month (regular $49/month), auto-renewed monthly",
+        "tip": "Auto-renewed monthly, cancel anytime",
         "button": {
           "title": "Start Subscription",
           "url": "/#pricing",
@@ -73,12 +72,11 @@
       {
         "title": "Creator · Annual",
         "description": "Annual plan saves 15% vs monthly",
-        "label": "Early Bird -70%",
+        "label": "Best Value",
         "features_title": "Includes",
         "features": [
-          "350 credits auto-refilled monthly",
-          "4200 credits per year",
-          "~168 videos/year (25s) or 84 videos/year (50s)",
+          "350 credits auto-refilled monthly (4200/year total)",
+          "~5 videos/month (25s) or 2 videos/month (50s)",
           "4K ultra HD output",
           "All story templates",
           "Priority processing queue",
@@ -92,7 +90,7 @@
         "original_price": "$49",
         "unit": "/ month",
         "is_featured": true,
-        "tip": "Early bird price $149.7/year (equivalent to $12.48/month), save 15% vs monthly",
+        "tip": "$499/year (equivalent to $41.58/month), save 15% vs monthly",
         "button": {
           "title": "Start Subscription",
           "url": "/#pricing",

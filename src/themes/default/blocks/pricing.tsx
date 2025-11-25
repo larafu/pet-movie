@@ -90,7 +90,6 @@ export function Pricing({
   const t = useTranslations('pricing.page');
   const {
     user,
-    isShowPaymentModal,
     setIsShowSignModal,
     setIsShowPaymentModal,
     configs,

@@ -16,7 +16,7 @@ import * as Sentry from '@sentry/nextjs';
 export async function POST(request: NextRequest) {
   try {
     // 获取认证信息
-    const auth = getAuth();
+    const auth = await getAuth();
     const session = await auth.api.getSession({
       headers: request.headers,
     });

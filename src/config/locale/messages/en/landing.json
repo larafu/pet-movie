@@ -37,7 +37,7 @@
         },
         {
           "title": "My Movies",
-          "url": "/my-movies",
+          "url": "/create-pet-movie?tab=my-generations",
           "icon": "Film"
         },
         {

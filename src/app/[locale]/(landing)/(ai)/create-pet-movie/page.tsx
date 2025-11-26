@@ -1,5 +1,7 @@
+import { Suspense } from 'react';
 import { setRequestLocale } from 'next-intl/server';
 import { PetVideoGeneration } from '@/shared/components/ui/pet-video-gen';
+import { Loader2 } from 'lucide-react';
 
 export const metadata = {
   title: 'Create Pet Movie | AI Pet Video Generator - Turn Your Pet into a Movie Star',
@@ -31,7 +33,13 @@ export default async function CreatePetMoviePage({
             Transform your pet into an AI-generated movie star. Choose a Christmas rescue story template and watch your pet become the hero!
           </p>
         </div>
-        <PetVideoGeneration />
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-[400px]">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        }>
+          <PetVideoGeneration />
+        </Suspense>
       </div>
     </main>
   );

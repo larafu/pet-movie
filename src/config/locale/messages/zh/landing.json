@@ -32,7 +32,7 @@
         },
         {
           "title": "我的电影",
-          "url": "/my-movies",
+          "url": "/create-pet-movie?tab=my-generations",
           "icon": "Film"
         },
         {

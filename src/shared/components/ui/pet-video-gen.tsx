@@ -1,8 +1,8 @@
 "use client";
 
 /**
- * 宠物视频生成组件 - 集成社区功能
- * Pet Video Generation Component with Community Integration
+ * 宠物视频生成组件
+ * Pet Video Generation Component
  */
 
 import type React from "react";
@@ -10,6 +10,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Masonry from "react-masonry-css";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import {
   Upload,
   Loader2,
@@ -24,7 +25,6 @@ import { Card, CardContent } from "@/shared/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/shared/components/ui/tabs";
 import { Label } from "@/shared/components/ui/label";
 import { cn } from "@/shared/lib/utils";
-import type { ShareResponse } from "@/shared/services/community/types";
 import { VideoCard, type VideoCardData } from "./video-card";
 
 interface PetVideoGenProps {
@@ -115,6 +115,7 @@ const STAGE_PROGRESS: Record<GenerationStatus, { start: number; end: number }> =
 export function PetVideoGeneration({ className }: PetVideoGenProps) {
   const t = useTranslations("landing.petVideoGen");
   const tCard = useTranslations("landing.videoCard");
+  const searchParams = useSearchParams();
 
   // 获取状态消息的函数
   const getStatusMessage = (status: GenerationStatus): string => {
@@ -135,9 +136,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
   >("inspiration");
 
   const [userItems, setUserItems] = useState<GalleryItem[]>([]);
-  const [communityShares, setCommunityShares] = useState<ShareResponse[]>([]);
   const [publicVideos, setPublicVideos] = useState<GalleryItem[]>([]); // 公开分享的视频
-  const [loadingCommunity, setLoadingCommunity] = useState(false);
   const [loadingPublicVideos, setLoadingPublicVideos] = useState(false);
   const [loadingHistory, setLoadingHistory] = useState(false);
   const [pollStartTime, setPollStartTime] = useState<number | null>(null);
@@ -252,26 +251,24 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     }
   }, []); // 空依赖数组，函数永远不会重新创建
 
-  // 加载社区分享内容和公开分享的视频
+  // 从 URL 参数设置初始 tab
   useEffect(() => {
-    loadCommunityShares();
-    loadPublicVideos();
-  }, []);
-
-  const loadCommunityShares = async () => {
     try {
-      setLoadingCommunity(true);
-      const response = await fetch("/api/community/shares?sortBy=popular&limit=20");
-      if (response.ok) {
-        const data = await response.json();
-        setCommunityShares(data.shares || []);
+      const tab = searchParams?.get("tab");
+      console.log("URL tab parameter:", tab);
+      if (tab === "my-generations") {
+        setActiveTab("my-generations");
+        console.log("Switching to my-generations tab");
       }
     } catch (error) {
-      console.error("Failed to load community shares:", error);
-    } finally {
-      setLoadingCommunity(false);
+      console.error("Error reading search params:", error);
     }
-  };
+  }, [searchParams]);
+
+  // 加载公开分享的视频
+  useEffect(() => {
+    loadPublicVideos();
+  }, []);
 
   // 加载公开分享的视频
   const loadPublicVideos = async () => {
@@ -306,124 +303,6 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
       console.error("Failed to load public videos:", error);
     } finally {
       setLoadingPublicVideos(false);
-    }
-  };
-
-  // 处理社区卡片的各种操作
-  const handleCommunityLike = async (shareId: string) => {
-    try {
-      const response = await fetch("/api/community/like", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ shareId }),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        // 更新本地状态
-        setCommunityShares((prev) =>
-          prev.map((share) =>
-            share.id === shareId
-              ? {
-                  ...share,
-                  isLiked: result.isLiked,
-                  likeCount: result.likeCount,
-                }
-              : share
-          )
-        );
-      }
-    } catch (error) {
-      console.error("Failed to toggle like:", error);
-    }
-  };
-
-  const handleCommunityDownload = async (shareId: string) => {
-    const share = communityShares.find((s) => s.id === shareId);
-    if (!share?.aiTask?.finalVideoUrl) return;
-
-    try {
-      // 更新下载统计
-      fetch(`/api/community/share/${shareId}/download`, { method: "POST" }).catch(() => {});
-
-      // 触发下载
-      const link = document.createElement("a");
-      link.href = share.aiTask.finalVideoUrl;
-      link.download = `${share.title}.mp4`;
-      link.click();
-    } catch (error) {
-      console.error("Failed to download:", error);
-    }
-  };
-
-  const handleCommunityShare = async (shareId: string) => {
-    const share = communityShares.find((s) => s.id === shareId);
-    if (!share) return;
-
-    const shareUrl = `${window.location.origin}/community/share/${shareId}`;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: share.title,
-          text: share.description || "",
-          url: shareUrl,
-        });
-        // 更新分享统计
-        fetch(`/api/community/share/${shareId}/share`, { method: "POST" }).catch(() => {});
-      } catch (error) {
-        console.error("Failed to share:", error);
-      }
-    } else {
-      // 降级到复制链接
-      handleCommunityCopyLink(shareId);
-    }
-  };
-
-  const handleCommunityCopyLink = async (shareId: string) => {
-    const shareUrl = `${window.location.origin}/community/share/${shareId}`;
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      // TODO: 显示成功提示
-      fetch(`/api/community/share/${shareId}/share`, { method: "POST" }).catch(() => {});
-    } catch (error) {
-      console.error("Failed to copy link:", error);
-    }
-  };
-
-  const handleCommunityReport = async (shareId: string) => {
-    // TODO: 实现举报功能
-    console.log("Report:", shareId);
-  };
-
-  // 一键分享到社区
-  const handleQuickShare = async (videoId: string) => {
-    try {
-      const response = await fetch("/api/community/share", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          aiTaskId: videoId,
-          // title会自动生成
-        }),
-      });
-
-      if (response.ok) {
-        // 更新视频的分享状态
-        setUserItems((prev) =>
-          prev.map((item) =>
-            item.id === videoId ? { ...item, isShared: true } : item
-          )
-        );
-        // 刷新社区列表
-        loadCommunityShares();
-      } else {
-        const data = await response.json();
-        alert(data.error || "Failed to share");
-      }
-    } catch (error) {
-      console.error("Failed to share:", error);
-      alert("Failed to share");
     }
   };
 

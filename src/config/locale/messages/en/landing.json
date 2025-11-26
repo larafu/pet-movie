@@ -36,9 +36,15 @@
           "icon": "DollarSign"
         },
         {
+          "title": "Blog",
+          "url": "/blog",
+          "icon": "BookOpen"
+        },
+        {
           "title": "My Movies",
           "url": "/create-pet-movie?tab=my-generations",
-          "icon": "Film"
+          "icon": "Film",
+          "requiresAuth": true
         },
         {
           "title": "FAQ",

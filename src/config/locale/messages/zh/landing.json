@@ -31,9 +31,15 @@
           "icon": "DollarSign"
         },
         {
+          "title": "博客",
+          "url": "/blog",
+          "icon": "BookOpen"
+        },
+        {
           "title": "我的电影",
           "url": "/create-pet-movie?tab=my-generations",
-          "icon": "Film"
+          "icon": "Film",
+          "requiresAuth": true
         },
         {
           "title": "作品展示",

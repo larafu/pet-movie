@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
+import { useSession } from '@/core/auth/client';
 import { Link, usePathname, useRouter } from '@/core/i18n/navigation';
 import {
   BrandLogo,
@@ -49,6 +50,16 @@ export function Header({ header }: { header: HeaderType }) {
   const isLarge = useMedia('(min-width: 64rem)');
   const router = useRouter();
   const pathname = usePathname();
+  const { data: session } = useSession();
+
+  // Filter navigation items based on auth requirement
+  const filteredNavItems = header.nav?.items?.filter((item) => {
+    // If item requires auth and user is not logged in, hide it
+    if ((item as any).requiresAuth && !session) {
+      return false;
+    }
+    return true;
+  }) || [];
 
   useEffect(() => {
     // Listen to scroll event to enable header styles on scroll
@@ -95,7 +106,7 @@ export function Header({ header }: { header: HeaderType }) {
         className="[--color-muted:color-mix(in_oklch,var(--color-foreground)_5%,transparent)] [--viewport-outer-px:2rem] **:data-[slot=navigation-menu-viewport]:rounded-none **:data-[slot=navigation-menu-viewport]:border-0 **:data-[slot=navigation-menu-viewport]:bg-transparent **:data-[slot=navigation-menu-viewport]:shadow-none **:data-[slot=navigation-menu-viewport]:ring-0 max-lg:hidden"
       >
         <NavigationMenuList className="gap-6">
-          {header.nav?.items?.map((item, idx) => (
+          {filteredNavItems.map((item, idx) => (
             <NavigationMenuItem key={idx} value={item.title || ''}>
               {item.children && item.children.length > 0 ? (
                 <>
@@ -167,7 +178,7 @@ export function Header({ header }: { header: HeaderType }) {
           collapsible
           className="-mx-4 mt-0.5 space-y-0.5 **:hover:no-underline"
         >
-          {header.nav?.items?.map((item, idx) => {
+          {filteredNavItems.map((item, idx) => {
             return (
               <AccordionItem
                 key={idx}

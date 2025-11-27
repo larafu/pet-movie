@@ -9,6 +9,8 @@ import type {
   EvolinkImageGenerationRequest,
   EvolinkImageGenerationResponse,
   EvolinkTaskStatusResponse,
+  EvolinkSora2VideoRequest,
+  EvolinkSora2VideoResponse,
 } from './types';
 
 const EVOLINK_BASE_URL = 'https://api.evolink.ai/v1';
@@ -185,6 +187,122 @@ Provide only the description, nothing else.`;
     }
 
     throw new Error('Image generation timeout after maximum polling attempts');
+  }
+
+  // ==================== Sora-2 Video Generation ====================
+
+  /**
+   * Generate video using Sora-2 model
+   * 用于自定义剧本的每个15秒分镜视频生成
+   */
+  async generateSora2Video(
+    request: EvolinkSora2VideoRequest
+  ): Promise<EvolinkSora2VideoResponse> {
+    console.log('🎬 [Evolink] Creating Sora-2 video generation task...');
+    console.log('📝 [Evolink] Prompt:', request.prompt.substring(0, 100) + '...');
+    console.log('📐 [Evolink] Aspect ratio:', request.aspect_ratio || '16:9');
+    console.log('⏱️  [Evolink] Duration:', request.duration || 5, 'seconds');
+    console.log('🖼️  [Evolink] Image URLs:', request.image_urls?.length || 0);
+
+    const response = await fetch(`${EVOLINK_BASE_URL}/videos/generations`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${this.apiToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'sora-2',
+        prompt: request.prompt,
+        aspect_ratio: request.aspect_ratio || '16:9',
+        duration: request.duration || 15, // 默认15秒
+        ...(request.image_urls?.length ? { image_urls: request.image_urls } : {}),
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ [Evolink] Sora-2 video generation error:', errorText);
+      throw new Error(
+        `Evolink Sora-2 Video API error (${response.status}): ${errorText}`
+      );
+    }
+
+    const result = await response.json();
+    console.log('✅ [Evolink] Sora-2 task created:', result.id);
+    console.log('⏱️  [Evolink] Estimated time:', result.task_info?.estimated_time, 'seconds');
+    console.log('🎞️  [Evolink] Video duration:', result.task_info?.video_duration, 'seconds');
+
+    return result;
+  }
+
+  /**
+   * Get video task status (for Sora-2)
+   * 复用通用的 getTaskStatus，响应格式兼容
+   */
+  async getVideoTaskStatus(taskId: string): Promise<EvolinkSora2VideoResponse> {
+    const response = await fetch(`${EVOLINK_BASE_URL}/tasks/${taskId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${this.apiToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(
+        `Evolink Video Task Status API error (${response.status}): ${errorText}`
+      );
+    }
+
+    return response.json();
+  }
+
+  /**
+   * Poll Sora-2 video generation task until completion or timeout
+   * Default: 10 minutes (60 attempts * 10s = 600s)
+   * Sora-2 视频生成通常需要 3-5 分钟
+   */
+  async pollSora2VideoGeneration(
+    taskId: string,
+    options: {
+      maxAttempts?: number;
+      intervalMs?: number;
+      onProgress?: (progress: number, status: string) => void;
+    } = {}
+  ): Promise<string> {
+    const { maxAttempts = 60, intervalMs = 10000, onProgress } = options;
+
+    console.log('⏳ [Evolink] Starting to poll Sora-2 video task:', taskId);
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      const status = await this.getVideoTaskStatus(taskId);
+
+      console.log(`🔄 [Evolink] Poll ${attempt + 1}/${maxAttempts}:`, {
+        status: status.status,
+        progress: status.progress,
+      });
+
+      if (onProgress) {
+        onProgress(status.progress, status.status);
+      }
+
+      if (status.status === 'completed' && status.results?.[0]) {
+        console.log('🎉 [Evolink] Sora-2 video completed:', status.results[0]);
+        return status.results[0];
+      }
+
+      if (status.status === 'failed') {
+        console.error('❌ [Evolink] Sora-2 video generation failed:', status.error);
+        throw new Error(
+          `Sora-2 video generation failed: ${status.error?.message || 'Unknown error'}`
+        );
+      }
+
+      // Wait before next poll
+      await new Promise((resolve) => setTimeout(resolve, intervalMs));
+    }
+
+    throw new Error('Sora-2 video generation timeout after maximum polling attempts');
   }
 }
 

@@ -19,19 +19,28 @@ import {
   Sparkles,
   Monitor,
   Smartphone,
+  Wand2,
 } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import { Card, CardContent } from "@/shared/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/shared/components/ui/tabs";
 import { Label } from "@/shared/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/components/ui/select";
 import { cn } from "@/shared/lib/utils";
 import { VideoCard, type VideoCardData } from "./video-card";
+import { CustomScriptDialog } from "./custom-script-dialog";
 
 interface PetVideoGenProps {
   className?: string;
 }
 
-type TemplateType = "dog" | "cat";
+type TemplateType = "dog" | "cat" | "custom";
 type Duration = 25 | 50;
 type AspectRatio = "16:9" | "9:16";
 type GenerationStatus =
@@ -124,7 +133,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
 
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
-  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>("dog");
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>("custom");
   const [selectedDuration, setSelectedDuration] = useState<Duration>(25);
   const [selectedAspectRatio, setSelectedAspectRatio] = useState<AspectRatio>("16:9");
   const [generationStatus, setGenerationStatus] =
@@ -141,6 +150,23 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
   const [loadingHistory, setLoadingHistory] = useState(false);
   const [pollStartTime, setPollStartTime] = useState<number | null>(null);
   const [isVIP, setIsVIP] = useState(false); // 用户是否是VIP
+  const [showCustomScriptDialog, setShowCustomScriptDialog] = useState(false); // 自定义剧本弹窗
+  const [editingScriptId, setEditingScriptId] = useState<string | undefined>(undefined); // 正在编辑的剧本ID
+
+  // 自定义剧本列表
+  interface CustomScriptItem {
+    id: string;
+    status: string;
+    storyTitle: string | null;
+    durationSeconds: number;
+    aspectRatio: string;
+    creditsUsed: number;
+    createdAt: string;
+    completedScenes: number;
+    totalScenes: number;
+  }
+  const [customScripts, setCustomScripts] = useState<CustomScriptItem[]>([]);
+  const [loadingScripts, setLoadingScripts] = useState(false);
 
   // 当前用户数据（简化处理，实际应该从session获取）
   const [currentUser] = useState({
@@ -251,6 +277,87 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     }
   }, []); // 空依赖数组，函数永远不会重新创建
 
+  // 加载用户的自定义剧本列表
+  const loadCustomScripts = useCallback(async () => {
+    try {
+      setLoadingScripts(true);
+      console.log("🔄 Loading custom scripts...");
+      const response = await fetch("/api/custom-script?limit=20");
+
+      const data = await response.json();
+      console.log("📦 Custom scripts API response:", response.status, data);
+
+      if (response.ok && data.success && data.scripts) {
+        console.log("📋 All scripts:", data.scripts);
+
+        // 过滤出未完成的剧本（draft, creating, merging 状态）
+        const inProgressScripts = data.scripts
+          .filter((script: any) => {
+            const isInProgress = script.status !== 'completed' && script.status !== 'failed';
+            console.log(`📝 Script ${script.id}: status=${script.status}, inProgress=${isInProgress}`);
+            return isInProgress;
+          })
+          .map((script: any) => ({
+            id: script.id,
+            status: script.status,
+            storyTitle: script.storyTitle,
+            durationSeconds: script.durationSeconds,
+            aspectRatio: script.aspectRatio,
+            creditsUsed: script.creditsUsed,
+            createdAt: script.createdAt,
+            completedScenes: 0, // 需要从详情接口获取
+            totalScenes: script.durationSeconds / 15,
+          }));
+        console.log("✅ In-progress scripts:", inProgressScripts);
+        setCustomScripts(inProgressScripts);
+
+        // 将已完成的剧本视频添加到 userItems
+        const completedScriptVideos: GalleryItem[] = data.scripts
+          .filter((script: any) => script.status === 'completed' && script.finalVideoUrl)
+          .map((script: any) => ({
+            id: `custom-script-${script.id}`,
+            url: script.finalVideoUrl,
+            thumbnail: undefined, // 自定义剧本暂无缩略图
+            prompt: script.storyTitle || 'Custom Script',
+            timestamp: new Date(script.createdAt),
+            aspectRatio: (script.aspectRatio || '16:9') as AspectRatio,
+            isShared: false,
+            isPublic: false,
+            originalVideoUrl: script.finalVideoUrl,
+            watermarkedVideoUrl: undefined,
+          }));
+
+        if (completedScriptVideos.length > 0) {
+          console.log("✅ Completed script videos:", completedScriptVideos);
+          // 合并到 userItems，避免重复
+          setUserItems((prev) => {
+            const existingIds = new Set(prev.map(item => item.id));
+            const newVideos = completedScriptVideos.filter(v => !existingIds.has(v.id));
+            if (newVideos.length > 0) {
+              // 按时间排序，最新的在前
+              return [...prev, ...newVideos].sort((a, b) =>
+                b.timestamp.getTime() - a.timestamp.getTime()
+              );
+            }
+            return prev;
+          });
+        }
+      } else {
+        console.log("⚠️ No scripts or error:", data.error);
+      }
+    } catch (error) {
+      console.error("❌ Failed to load custom scripts:", error);
+    } finally {
+      setLoadingScripts(false);
+    }
+  }, []);
+
+  // 打开剧本编辑对话框
+  const handleEditScript = (scriptId: string) => {
+    setEditingScriptId(scriptId);
+    setShowCustomScriptDialog(true);
+  };
+
   // 从 URL 参数设置初始 tab
   useEffect(() => {
     try {
@@ -348,9 +455,10 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     }
   }, []);
 
-  // 组件挂载时加载用户视频历史
+  // 组件挂载时加载用户视频历史和自定义剧本
   useEffect(() => {
     loadHistory();
+    loadCustomScripts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // 只在挂载时加载一次
 
@@ -728,41 +836,51 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                 </div>
               </div>
 
-              {/* Template Selection */}
+              {/* Template Selection - 下拉选择 */}
               <div className="space-y-2">
                 <Label className="text-xs font-medium">{t("storyTemplate")}</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  {(["dog", "cat"] as const).map((template) => (
-                    <div
-                      key={template}
-                      onClick={() => setSelectedTemplate(template)}
-                      className={cn(
-                        "flex items-center justify-center gap-2 p-2 rounded-lg border cursor-pointer transition-all",
-                        selectedTemplate === template
-                          ? "border-primary bg-primary/10 text-primary"
-                          : "border-border/50 bg-background hover:bg-muted"
-                      )}
-                    >
-                      <div
-                        className={cn(
-                          "w-3 h-3 rounded-full border-2 flex items-center justify-center",
-                          selectedTemplate === template
-                            ? "border-primary"
-                            : "border-muted-foreground"
-                        )}
-                      >
-                        {selectedTemplate === template && (
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        )}
+                <Select
+                  value={selectedTemplate}
+                  onValueChange={(value: TemplateType) => {
+                    setSelectedTemplate(value);
+                    // 如果选择自定义剧本，打开对话框
+                    if (value === "custom") {
+                      if (uploadedImageUrl) {
+                        setShowCustomScriptDialog(true);
+                      } else {
+                        setError(t("uploadPhotoFirst"));
+                      }
+                    }
+                  }}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder={t("storyTemplate")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="custom">
+                      <div className="flex items-center gap-2">
+                        <Wand2 className="w-4 h-4 text-primary" />
+                        <span>{t("customScript")}</span>
                       </div>
-                      <span className="text-xs font-medium capitalize">
-                        {template}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+                    </SelectItem>
+                    <SelectItem value="dog">
+                      <div className="flex items-center gap-2">
+                        <span>🐕</span>
+                        <span>{t("templateDog")}</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="cat">
+                      <div className="flex items-center gap-2">
+                        <span>🐈</span>
+                        <span>{t("templateCat")}</span>
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
                 <p className="text-[10px] text-muted-foreground mt-1">
-                  {t("christmasStory", { pet: selectedTemplate })}
+                  {selectedTemplate === "custom"
+                    ? t("customScriptHint")
+                    : t("christmasStory", { pet: selectedTemplate })}
                 </p>
               </div>
 
@@ -989,27 +1107,74 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
 
                 {/* My Generations标签 - 用户的视频 */}
                 <TabsContent value="my-generations" className="mt-0 h-full">
-                  {loadingHistory && userItems.length === 0 ? (
-                    <div className="h-full flex flex-col items-center justify-center text-muted-foreground space-y-3 min-h-[300px]">
-                      <Loader2 className="w-8 h-8 animate-spin text-primary" />
-                      <p className="text-sm">{t("loading.yourVideos")}</p>
-                    </div>
-                  ) : userItems.length === 0 ? (
-                    <div className="h-full flex flex-col items-center justify-center text-muted-foreground space-y-3 min-h-[300px]">
-                      <div className="w-12 h-12 rounded-full bg-muted/10 flex items-center justify-center">
-                        <Film className="w-6 h-6 opacity-50" />
+                  <div className="space-y-6">
+                    {/* 正在制作的剧本 */}
+                    {customScripts.length > 0 && (
+                      <div className="space-y-3">
+                        <h3 className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                          <Film className="w-4 h-4" />
+                          {t("customScripts.inProgress")}
+                        </h3>
+                        <div className="grid gap-3">
+                          {customScripts.map((script) => (
+                            <div
+                              key={script.id}
+                              className="flex items-center justify-between p-4 rounded-xl border border-border/50 bg-card/50 hover:bg-card/80 transition-colors cursor-pointer"
+                              onClick={() => handleEditScript(script.id)}
+                            >
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2">
+                                  <span className="font-medium truncate">
+                                    {script.storyTitle || t("customScripts.untitled")}
+                                  </span>
+                                  <span className={cn(
+                                    "text-xs px-2 py-0.5 rounded-full",
+                                    script.status === 'creating' && "bg-blue-500/20 text-blue-500",
+                                    script.status === 'merging' && "bg-purple-500/20 text-purple-500",
+                                    script.status === 'draft' && "bg-zinc-500/20 text-zinc-400"
+                                  )}>
+                                    {script.status === 'creating' && t("customScripts.statusCreating")}
+                                    {script.status === 'merging' && t("customScripts.statusMerging")}
+                                    {script.status === 'draft' && t("customScripts.statusDraft")}
+                                  </span>
+                                </div>
+                                <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
+                                  <span>{script.durationSeconds}s</span>
+                                  <span>{script.aspectRatio}</span>
+                                  <span>{script.creditsUsed} {t("credits")}</span>
+                                </div>
+                              </div>
+                              <Button variant="outline" size="sm" className="shrink-0">
+                                {t("customScripts.continue")}
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                      <div className="text-center">
-                        <p className="text-sm font-medium text-foreground">
-                          {t("empty.noGenerations")}
-                        </p>
-                        <p className="text-xs max-w-xs mx-auto mt-1">
-                          {t("empty.createFirst")}
-                        </p>
+                    )}
+
+                    {/* 已完成的视频 */}
+                    {(loadingHistory && userItems.length === 0) ? (
+                      <div className="h-full flex flex-col items-center justify-center text-muted-foreground space-y-3 min-h-[300px]">
+                        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                        <p className="text-sm">{t("loading.yourVideos")}</p>
                       </div>
-                    </div>
-                  ) : (
-                    <Masonry
+                    ) : (userItems.length === 0 && customScripts.length === 0) ? (
+                      <div className="h-full flex flex-col items-center justify-center text-muted-foreground space-y-3 min-h-[300px]">
+                        <div className="w-12 h-12 rounded-full bg-muted/10 flex items-center justify-center">
+                          <Film className="w-6 h-6 opacity-50" />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-sm font-medium text-foreground">
+                            {t("empty.noGenerations")}
+                          </p>
+                          <p className="text-xs max-w-xs mx-auto mt-1">
+                            {t("empty.createFirst")}
+                          </p>
+                        </div>
+                      </div>
+                    ) : userItems.length > 0 ? (
+                      <Masonry
                       breakpointCols={{
                         default: 2,
                         1024: 2,
@@ -1130,13 +1295,28 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                         );
                       })}
                     </Masonry>
-                  )}
+                    ) : null}
+                  </div>
                 </TabsContent>
               </div>
             </Tabs>
           </CardContent>
         </Card>
       </div>
+
+      {/* 自定义剧本弹窗 */}
+      <CustomScriptDialog
+        isOpen={showCustomScriptDialog}
+        onClose={() => {
+          setShowCustomScriptDialog(false);
+          setEditingScriptId(undefined);
+          // 关闭弹窗后刷新剧本列表
+          loadCustomScripts();
+        }}
+        petImageUrl={uploadedImageUrl || ""}
+        aspectRatio={selectedAspectRatio}
+        existingScriptId={editingScriptId}
+      />
     </div>
   );
 }

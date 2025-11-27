@@ -348,6 +348,7 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
           ref={videoRef}
           src={data.videoUrl}
           poster={data.thumbnailUrl || undefined}
+          preload="metadata"
           className="h-full w-full object-cover"
           loop
           muted

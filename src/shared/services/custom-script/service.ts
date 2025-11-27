@@ -14,6 +14,7 @@ import { createR2ProviderFromDb } from '@/extensions/storage/db-config-loader';
 
 import { generateScenes, addMusicToPrompt } from './gemini-service';
 import { mergeVideosWithRetry } from '@/extensions/video/merge-service';
+import { refundCredits } from '@/shared/models/credit';
 import type {
   CreateScriptRequest,
   CustomScriptRecord,
@@ -488,6 +489,27 @@ export async function generateSceneFrame(
       })
       .where(eq(customScriptScene.id, sceneId));
 
+    // 退还积分（首帧图生成失败时退回已扣积分）
+    try {
+      await refundCredits({
+        userId,
+        credits: CUSTOM_SCRIPT_CREDITS.FRAME,
+        scene: 'custom-script-frame-refund',
+        description: `Refund for failed frame generation - Scene ${sceneId}`,
+        metadata: JSON.stringify({
+          scriptId,
+          sceneId,
+          error: error instanceof Error ? error.message : 'Unknown error',
+        }),
+      });
+      console.log(`✅ Refunded ${CUSTOM_SCRIPT_CREDITS.FRAME} credits to user ${userId}`);
+    } catch (refundError) {
+      console.error('❌ Failed to refund credits:', refundError);
+      Sentry.captureException(refundError, {
+        tags: { component: 'custom_script', action: 'refund_credits' },
+      });
+    }
+
     Sentry.captureException(error, {
       tags: { component: 'custom_script', action: 'generate_frame' },
     });
@@ -640,6 +662,27 @@ export async function generateSceneVideo(
         updatedAt: new Date(),
       })
       .where(eq(customScriptScene.id, sceneId));
+
+    // 退还积分（视频生成失败时退回已扣积分）
+    try {
+      await refundCredits({
+        userId,
+        credits: CUSTOM_SCRIPT_CREDITS.VIDEO,
+        scene: 'custom-script-video-refund',
+        description: `Refund for failed video generation - Scene ${sceneId}`,
+        metadata: JSON.stringify({
+          scriptId,
+          sceneId,
+          error: error instanceof Error ? error.message : 'Unknown error',
+        }),
+      });
+      console.log(`✅ Refunded ${CUSTOM_SCRIPT_CREDITS.VIDEO} credits to user ${userId}`);
+    } catch (refundError) {
+      console.error('❌ Failed to refund credits:', refundError);
+      Sentry.captureException(refundError, {
+        tags: { component: 'custom_script', action: 'refund_credits' },
+      });
+    }
 
     Sentry.captureException(error, {
       tags: { component: 'custom_script', action: 'generate_video' },

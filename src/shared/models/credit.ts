@@ -313,6 +313,41 @@ export async function getRemainingCredits(userId: string): Promise<number> {
   return parseInt(result?.total || '0');
 }
 
+// 退还积分（用于生成失败时退回已扣积分）
+// Refund credits (for refunding consumed credits when generation fails)
+export async function refundCredits({
+  userId,
+  credits,
+  scene,
+  description,
+  metadata,
+}: {
+  userId: string;
+  credits: number; // 要退还的积分数量
+  scene?: string;
+  description?: string;
+  metadata?: string;
+}) {
+  // 创建一条新的积分授予记录（退款）
+  const refundCredit: NewCredit = {
+    id: getUuid(),
+    transactionNo: getSnowId(),
+    transactionType: CreditTransactionType.GRANT,
+    transactionScene: scene || 'refund',
+    userId: userId,
+    status: CreditStatus.ACTIVE,
+    description: description || 'Refund for failed generation',
+    credits: credits,
+    remainingCredits: credits,
+    expiresAt: null, // 退款积分不过期
+    metadata: metadata,
+  };
+
+  const result = await createCredit(refundCredit);
+  console.log(`Refunded ${credits} credits to user ${userId}`);
+  return result;
+}
+
 // Grant free trial credits to new users
 export async function grantFreeTrialCredit(userId: string) {
   const freeTrialCredits = 5; // 5 credits = 1 free video generation

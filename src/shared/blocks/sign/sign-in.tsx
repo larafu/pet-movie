@@ -24,13 +24,14 @@ import { SocialProviders } from './social-providers';
 
 export function SignIn({
   configs,
-  callbackUrl = '/',
+  callbackUrl: initialCallbackUrl = '/',
 }: {
   configs: Record<string, string>;
   callbackUrl: string;
 }) {
   const router = useRouter();
   const t = useTranslations('common.sign');
+  const locale = useLocale(); // Hook 必须在组件顶层调用
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -42,15 +43,15 @@ export function SignIn({
     configs.email_auth_enabled !== 'false' ||
     (!isGoogleAuthEnabled && !isGithubAuthEnabled); // no social providers enabled, auto enable email auth
 
-  if (callbackUrl) {
-    const locale = useLocale();
-    if (
-      locale !== defaultLocale &&
-      callbackUrl.startsWith('/') &&
-      !callbackUrl.startsWith(`/${locale}`)
-    ) {
-      callbackUrl = `/${locale}${callbackUrl}`;
-    }
+  // 处理 callbackUrl 的 locale 前缀
+  let callbackUrl = initialCallbackUrl;
+  if (
+    callbackUrl &&
+    locale !== defaultLocale &&
+    callbackUrl.startsWith('/') &&
+    !callbackUrl.startsWith(`/${locale}`)
+  ) {
+    callbackUrl = `/${locale}${callbackUrl}`;
   }
 
   const handleSignIn = async () => {

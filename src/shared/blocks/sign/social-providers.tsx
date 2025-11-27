@@ -14,7 +14,7 @@ import { Button as ButtonType } from '@/shared/types/blocks/common';
 
 export function SocialProviders({
   configs,
-  callbackUrl,
+  callbackUrl: initialCallbackUrl,
   loading,
   setLoading,
 }: {
@@ -25,18 +25,19 @@ export function SocialProviders({
 }) {
   const t = useTranslations('common.sign');
   const router = useRouter();
+  const locale = useLocale(); // Hook 必须在组件顶层调用
 
   const { setIsShowSignModal } = useAppContext();
 
-  if (callbackUrl) {
-    const locale = useLocale();
-    if (
-      locale !== defaultLocale &&
-      callbackUrl.startsWith('/') &&
-      !callbackUrl.startsWith(`/${locale}`)
-    ) {
-      callbackUrl = `/${locale}${callbackUrl}`;
-    }
+  // 处理 callbackUrl 的 locale 前缀
+  let callbackUrl = initialCallbackUrl;
+  if (
+    callbackUrl &&
+    locale !== defaultLocale &&
+    callbackUrl.startsWith('/') &&
+    !callbackUrl.startsWith(`/${locale}`)
+  ) {
+    callbackUrl = `/${locale}${callbackUrl}`;
   }
 
   const handleSignIn = async ({ provider }: { provider: string }) => {

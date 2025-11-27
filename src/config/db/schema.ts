@@ -714,3 +714,117 @@ export const communityLikeRelations = relations(communityLike, ({ one }) => ({
     references: [user.id],
   }),
 }));
+
+// ==================== Custom Script Tables ====================
+// 自定义剧本表 - 用于存储用户创建的自定义视频剧本
+
+/**
+ * 自定义剧本主表
+ * 存储用户创建的完整剧本信息，包括原始输入、Gemini生成的分镜JSON、最终输出等
+ */
+export const customScript = pgTable(
+  'custom_script',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    // 状态: draft=草稿, creating=创作中, completed=已完成, failed=失败
+    status: text('status').notNull().default('draft'),
+
+    // 用户输入
+    petImageUrl: text('pet_image_url'), // 用户上传的宠物图片
+    userPrompt: text('user_prompt'), // 用户输入的原始提示词
+    musicPrompt: text('music_prompt'), // 配乐提示词（可选）
+    durationSeconds: integer('duration_seconds').notNull().default(60), // 总时长 60/120
+    aspectRatio: text('aspect_ratio').notNull().default('16:9'), // 16:9 / 9:16
+    styleId: text('style_id').default('pixar-3d'), // 视觉风格ID
+    customStyle: text('custom_style'), // 自定义风格描述（当styleId为custom时使用）
+
+    // Gemini 生成的分镜数据
+    scenesJson: text('scenes_json'), // 完整分镜JSON（备份用）
+    storyTitle: text('story_title'), // Gemini生成的故事标题
+
+    // 最终输出
+    finalVideoUrl: text('final_video_url'), // 拼接后的完整视频URL
+
+    // 积分
+    creditsUsed: integer('credits_used').notNull().default(0), // 已消耗积分
+
+    // 时间戳
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    // 查询用户的剧本列表
+    index('idx_custom_script_user_status').on(table.userId, table.status),
+    // 按创建时间排序
+    index('idx_custom_script_created_at').on(table.createdAt),
+  ]
+);
+
+/**
+ * 自定义剧本分镜段落表
+ * 存储每个分镜段落的详细信息，包括提示词、首帧图、视频等
+ */
+export const customScriptScene = pgTable(
+  'custom_script_scene',
+  {
+    id: text('id').primaryKey(),
+    scriptId: text('script_id')
+      .notNull()
+      .references(() => customScript.id, { onDelete: 'cascade' }),
+    sceneNumber: integer('scene_number').notNull(), // 段落序号 1,2,3...
+
+    // 提示词
+    prompt: text('prompt').notNull(), // 该段落的提示词（可编辑）
+    originalPrompt: text('original_prompt'), // Gemini生成的原始提示词（保留）
+    description: text('description'), // 段落说明（中文，给用户看）
+    descriptionEn: text('description_en'), // 段落说明（英文，给用户看）
+
+    // 首帧图
+    frameStatus: text('frame_status').notNull().default('pending'), // pending/generating/completed/failed
+    frameImageUrl: text('frame_image_url'),
+    frameTaskId: text('frame_task_id'), // Seedream任务ID
+
+    // 视频
+    videoStatus: text('video_status').notNull().default('pending'), // pending/generating/completed/failed
+    videoUrl: text('video_url'),
+    videoTaskId: text('video_task_id'), // Evolink Sora-2 任务ID
+
+    // 生成进度（0-100）
+    frameProgress: integer('frame_progress').default(0), // 首帧图生成进度
+    videoProgress: integer('video_progress').default(0), // 视频生成进度
+
+    // 错误日志
+    errorLog: text('error_log'),
+
+    // 时间戳
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    // 查询某个剧本的所有分镜（按序号排序）
+    index('idx_custom_script_scene_script_number').on(table.scriptId, table.sceneNumber),
+  ]
+);
+
+// 自定义剧本关系定义
+export const customScriptRelations = relations(customScript, ({ one, many }) => ({
+  user: one(user, {
+    fields: [customScript.userId],
+    references: [user.id],
+  }),
+  scenes: many(customScriptScene),
+}));
+
+export const customScriptSceneRelations = relations(customScriptScene, ({ one }) => ({
+  script: one(customScript, {
+    fields: [customScriptScene.scriptId],
+    references: [customScript.id],
+  }),
+}));

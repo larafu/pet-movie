@@ -28,7 +28,6 @@ import { Label } from '@/shared/components/ui/label';
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from '@/shared/components/ui/tooltip';
 import { cn } from '@/shared/lib/utils';
@@ -1097,21 +1096,19 @@ function SceneCard({
                     ) : scene.videoStatus === 'failed' ? (
                       // 视频生成失败状态
                       <div className="flex flex-col items-center gap-2 p-4">
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <div className="flex items-center gap-2 text-red-500 cursor-help">
-                                <AlertCircle className="w-6 h-6" />
-                                <span className="text-xs font-medium">{t('videoFailed')}</span>
-                              </div>
-                            </TooltipTrigger>
-                            <TooltipContent side="top" className="max-w-xs">
-                              <p className="text-xs">
-                                {t('videoFailedHint')}
-                              </p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <div className="flex items-center gap-2 text-red-500 cursor-help">
+                              <AlertCircle className="w-6 h-6" />
+                              <span className="text-xs font-medium">{t('videoFailed')}</span>
+                            </div>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="max-w-xs bg-zinc-800 text-zinc-100">
+                            <p className="text-xs">
+                              {t('videoFailedHint')}
+                            </p>
+                          </TooltipContent>
+                        </Tooltip>
                         <Button
                           size="sm"
                           variant="outline"

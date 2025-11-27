@@ -25,6 +25,12 @@ import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Label } from '@/shared/components/ui/label';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/shared/components/ui/tooltip';
 import { cn } from '@/shared/lib/utils';
 import { VIDEO_STYLES, type VideoStyleId } from '@/shared/services/custom-script/types';
 
@@ -42,6 +48,7 @@ interface SceneData {
   videoStatus: 'pending' | 'generating' | 'completed' | 'failed';
   videoUrl?: string;
   videoProgress?: number; // 视频生成进度 0-100
+  errorLog?: string; // 错误日志（JSON格式）
 }
 
 interface ScriptData {
@@ -329,7 +336,7 @@ export function CustomScriptDialog({
           if (data.success && data.scene) {
             const scene = data.scene;
 
-            // 更新本地状态（包括进度）
+            // 更新本地状态（包括进度和错误信息）
             setScriptData((prev) =>
               prev
                 ? {
@@ -344,6 +351,7 @@ export function CustomScriptDialog({
                             videoStatus: scene.videoStatus,
                             videoUrl: scene.videoUrl,
                             videoProgress: scene.videoProgress,
+                            errorLog: scene.errorLog,
                           }
                         : s
                     ),
@@ -1086,6 +1094,34 @@ function SceneCard({
                           </div>
                         )}
                       </>
+                    ) : scene.videoStatus === 'failed' ? (
+                      // 视频生成失败状态
+                      <div className="flex flex-col items-center gap-2 p-4">
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="flex items-center gap-2 text-red-500 cursor-help">
+                                <AlertCircle className="w-6 h-6" />
+                                <span className="text-xs font-medium">{t('videoFailed')}</span>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent side="top" className="max-w-xs">
+                              <p className="text-xs">
+                                {t('videoFailedHint')}
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={onGenerateVideo}
+                          disabled={isVideoLoading}
+                        >
+                          <RefreshCw className="w-3 h-3 mr-1" />
+                          {t('retry')}
+                        </Button>
+                      </div>
                     ) : scene.frameStatus === 'completed' ? (
                       <Button
                         onClick={onGenerateVideo}

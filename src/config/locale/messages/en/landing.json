@@ -743,6 +743,9 @@
     "styleLabel": "Visual Style",
     "customStyleLabel": "Custom Style Description",
     "customStylePlaceholder": "Describe your desired visual style... e.g., cyberpunk style, neon lights, futuristic city background",
-    "customStyleHint": "Tip: Describe color tones, lighting, art style and other visual characteristics"
+    "customStyleHint": "Tip: Describe color tones, lighting, art style and other visual characteristics",
+    "videoFailed": "Generation Failed",
+    "videoFailedHint": "Video generation was blocked by safety policy. This may be caused by copyrighted content (like specific song names) in your prompts. Please modify your prompt to use generic descriptions instead of specific brand names, song titles, or celebrity names.",
+    "retry": "Retry"
   }
 }

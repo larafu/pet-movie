@@ -726,6 +726,9 @@
     "styleLabel": "视觉风格",
     "customStyleLabel": "自定义风格描述",
     "customStylePlaceholder": "描述您想要的视觉风格... 例如：赛博朋克风格，霓虹灯光，未来城市背景",
-    "customStyleHint": "提示：描述色调、光影、美术风格等视觉特征"
+    "customStyleHint": "提示：描述色调、光影、美术风格等视觉特征",
+    "videoFailed": "生成失败",
+    "videoFailedHint": "视频生成被安全策略拦截。可能是提示词中包含版权内容（如特定歌曲名称）。请修改提示词，使用通用描述代替具体的品牌名、歌曲名或名人名字。",
+    "retry": "重试"
   }
 }

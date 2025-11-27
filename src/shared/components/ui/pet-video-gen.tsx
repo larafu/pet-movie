@@ -688,6 +688,12 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
       return;
     }
 
+    // 如果是自定义剧本，打开弹窗而不是调用普通生成API
+    if (selectedTemplate === "custom") {
+      setShowCustomScriptDialog(true);
+      return;
+    }
+
     setError(null);
     setActiveTab("my-generations");
 

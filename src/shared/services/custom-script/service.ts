@@ -290,14 +290,14 @@ export async function updateScenePrompt(
     return false;
   }
 
-  // 更新提示词，同时重置状态为 pending
+  // 只更新提示词，保留首帧图（用户可以选择是否重新生成）
+  // 视频状态重置为 pending，因为提示词变化后可能需要重新生成
   await database
     .update(customScriptScene)
     .set({
       prompt,
-      frameStatus: 'pending',
-      frameImageUrl: null,
-      frameTaskId: null,
+      // 保留首帧图，不重置 frameStatus、frameImageUrl、frameTaskId
+      // 只重置视频状态，让用户可以用现有首帧图重新生成视频
       videoStatus: 'pending',
       videoUrl: null,
       videoTaskId: null,

@@ -398,7 +398,8 @@ export function CustomScriptDialog({
         throw new Error(data.error || 'Failed to update prompt');
       }
 
-      // 更新本地状态（重置图片和视频状态）
+      // 更新本地状态（保留首帧图，只重置视频状态）
+      // 用户可以选择是否重新生成首帧图
       setScriptData((prev) =>
         prev
           ? {
@@ -408,8 +409,7 @@ export function CustomScriptDialog({
                   ? {
                       ...s,
                       prompt: newPrompt,
-                      frameStatus: 'pending',
-                      frameImageUrl: undefined,
+                      // 保留 frameStatus 和 frameImageUrl
                       videoStatus: 'pending',
                       videoUrl: undefined,
                     }

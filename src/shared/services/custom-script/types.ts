@@ -28,7 +28,12 @@ export interface GeneratedScenes {
 /**
  * 剧本状态
  */
-export type ScriptStatus = 'draft' | 'creating' | 'merging' | 'completed' | 'failed';
+export type ScriptStatus =
+  | 'draft'
+  | 'creating'
+  | 'merging'
+  | 'completed'
+  | 'failed';
 
 /**
  * 分镜段落状态
@@ -47,8 +52,8 @@ export interface CustomScriptRecord {
   musicPrompt: string | null;
   durationSeconds: number;
   aspectRatio: string;
-  styleId: string | null;      // 视觉风格ID
-  customStyle: string | null;  // 自定义风格描述
+  styleId: string | null; // 视觉风格ID
+  customStyle: string | null; // 自定义风格描述
   scenesJson: string | null;
   storyTitle: string | null;
   finalVideoUrl: string | null;
@@ -66,16 +71,16 @@ export interface CustomScriptSceneRecord {
   sceneNumber: number;
   prompt: string;
   originalPrompt: string | null;
-  description: string | null;      // 中文描述
-  descriptionEn: string | null;    // 英文描述
+  description: string | null; // 中文描述
+  descriptionEn: string | null; // 英文描述
   frameStatus: SceneItemStatus;
   frameImageUrl: string | null;
   frameTaskId: string | null;
   videoStatus: SceneItemStatus;
   videoUrl: string | null;
   videoTaskId: string | null;
-  frameProgress: number | null;  // 首帧图生成进度 0-100
-  videoProgress: number | null;  // 视频生成进度 0-100
+  frameProgress: number | null; // 首帧图生成进度 0-100
+  videoProgress: number | null; // 视频生成进度 0-100
   errorLog: string | null;
   createdAt: Date;
   updatedAt: Date;
@@ -92,8 +97,8 @@ export interface CreateScriptRequest {
   musicPrompt?: string;
   durationSeconds: 60 | 120;
   aspectRatio: '16:9' | '9:16';
-  styleId?: VideoStyleId;      // 风格ID，默认 'pixar-3d'
-  customStyle?: string;        // 自定义风格（当 styleId 为 'custom' 时使用）
+  styleId?: VideoStyleId; // 风格ID，默认 'pixar-3d'
+  customStyle?: string; // 自定义风格（当 styleId 为 'custom' 时使用）
 }
 
 /**
@@ -198,11 +203,11 @@ export type VideoStyleId =
  */
 export interface VideoStyle {
   id: VideoStyleId;
-  name: string;           // 英文名
-  nameCn: string;         // 中文名
-  prefix: string;         // 用于生成提示词的前缀
-  description: string;    // 英文描述
-  descriptionCn: string;  // 中文描述
+  name: string; // 英文名
+  nameCn: string; // 中文名
+  prefix: string; // 用于生成提示词的前缀
+  description: string; // 英文描述
+  descriptionCn: string; // 中文描述
 }
 
 /**
@@ -215,15 +220,18 @@ export const VIDEO_STYLES: VideoStyle[] = [
     id: 'pixar-3d',
     name: '3D Animation',
     nameCn: '3D动画风格',
-    prefix: 'High-quality 3D CG animation style, cinematic lighting, vibrant saturated colors, expressive cartoon characters, smooth rendering, professional studio quality',
-    description: 'Professional 3D animation with vibrant colors and expressive characters',
+    prefix:
+      'Pixar-style High-quality 3D CG animation style, cinematic lighting, vibrant saturated colors, expressive cartoon characters, smooth rendering, professional studio quality',
+    description:
+      'Professional Pixar-style 3D animation with vibrant colors and expressive characters',
     descriptionCn: '专业3D动画风格，色彩鲜艳，角色表情丰富',
   },
   {
     id: 'ghibli',
     name: 'Hand-drawn Fantasy',
     nameCn: '手绘幻想风格',
-    prefix: 'Hand-drawn 2D animation style, soft watercolor backgrounds, dreamy whimsical atmosphere, gentle natural lighting, detailed environmental art, nostalgic warmth',
+    prefix:
+      'Hand-drawn 2D animation style, soft watercolor backgrounds, dreamy whimsical atmosphere, gentle natural lighting, detailed environmental art, nostalgic warmth',
     description: 'Hand-drawn style with soft, dreamy watercolor aesthetics',
     descriptionCn: '手绘动画风格，柔和梦幻的水彩美学',
   },
@@ -231,7 +239,8 @@ export const VIDEO_STYLES: VideoStyle[] = [
     id: 'disney-classic',
     name: 'Classic 2D Animation',
     nameCn: '经典2D动画',
-    prefix: 'Classic 2D cel animation style, warm golden lighting, fairy tale aesthetic, magical sparkles and glows, storybook illustration quality',
+    prefix:
+      'Classic 2D cel animation style, warm golden lighting, fairy tale aesthetic, magical sparkles and glows, storybook illustration quality',
     description: 'Traditional 2D animation with fairy tale charm',
     descriptionCn: '传统2D动画风格，童话般的魅力',
   },
@@ -239,7 +248,8 @@ export const VIDEO_STYLES: VideoStyle[] = [
     id: 'realistic-cinematic',
     name: 'Realistic Cinematic',
     nameCn: '写实电影',
-    prefix: 'Photorealistic cinematic style, movie-grade lighting, dramatic shadows, film grain texture, anamorphic lens effects, professional cinematography',
+    prefix:
+      'Photorealistic cinematic style, movie-grade lighting, dramatic shadows, film grain texture, anamorphic lens effects, professional cinematography',
     description: 'Photorealistic movie quality with dramatic lighting',
     descriptionCn: '照片级写实电影质感，戏剧性光影效果',
   },
@@ -247,7 +257,8 @@ export const VIDEO_STYLES: VideoStyle[] = [
     id: 'anime',
     name: 'Anime Style',
     nameCn: '动漫风格',
-    prefix: 'Anime animation style, vibrant cel-shading, dynamic action lines, large expressive eyes, detailed colorful backgrounds, bold outlines',
+    prefix:
+      'Anime animation style, vibrant cel-shading, dynamic action lines, large expressive eyes, detailed colorful backgrounds, bold outlines',
     description: 'Modern anime style with dynamic visuals',
     descriptionCn: '现代动漫风格，动态视觉效果',
   },
@@ -255,7 +266,8 @@ export const VIDEO_STYLES: VideoStyle[] = [
     id: 'watercolor',
     name: 'Watercolor Art',
     nameCn: '水彩艺术',
-    prefix: 'Watercolor painting animation style, soft flowing brush strokes, pastel color palette, artistic and dreamy, gentle color transitions, paper texture',
+    prefix:
+      'Watercolor painting animation style, soft flowing brush strokes, pastel color palette, artistic and dreamy, gentle color transitions, paper texture',
     description: 'Soft watercolor painting style with artistic aesthetics',
     descriptionCn: '柔和水彩画风格，艺术感十足',
   },
@@ -279,7 +291,10 @@ export function getVideoStyleById(id: VideoStyleId): VideoStyle | undefined {
 /**
  * 获取风格前缀（支持自定义）
  */
-export function getStylePrefix(styleId: VideoStyleId, customStyle?: string): string {
+export function getStylePrefix(
+  styleId: VideoStyleId,
+  customStyle?: string
+): string {
   if (styleId === 'custom' && customStyle) {
     return customStyle;
   }

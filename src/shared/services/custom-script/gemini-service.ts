@@ -9,6 +9,12 @@ import { getStylePrefix, getVideoStyleById } from './types';
 
 /**
  * 生成分镜提示词的 Gemini prompt
+ *
+ * 结构说明：
+ * - 每个 scene 是一个 15 秒的场景段落
+ * - 每个场景段落内包含 3-4 个分镜（shots）设计
+ * - 分镜之间有自然的过渡和节奏变化
+ * - 整个场景控制在约 12 秒的实际内容（留有余量）
  */
 function buildGeminiPrompt(
   userPrompt: string,
@@ -25,16 +31,16 @@ function buildGeminiPrompt(
       : 'The video is in landscape mode (16:9), suitable for desktop viewing. Frame compositions should be horizontal.';
 
   const musicNote = musicPrompt
-    ? `\nBackground Music Style: ${musicPrompt}\nInclude this music atmosphere in each scene prompt.`
+    ? `\nBackground Music Style: ${musicPrompt} (use generic music style descriptions, avoid specific song names or artist names)`
     : '';
 
   // 获取风格前缀
   const stylePrefix = getStylePrefix(styleId, customStyle);
   const styleName = styleId === 'custom'
     ? 'custom style'
-    : (getVideoStyleById(styleId)?.name || 'Pixar 3D CG');
+    : (getVideoStyleById(styleId)?.name || '3D Animation');
 
-  return `You are a professional pet video storyboard artist specializing in ${styleName}. A user wants to create a ${durationSeconds}-second custom pet video.
+  return `You are a professional pet video storyboard artist and cinematographer specializing in ${styleName}. A user wants to create a ${durationSeconds}-second custom pet video.
 
 User's Creative Description:
 "${userPrompt}"
@@ -44,44 +50,57 @@ Visual Style: ${stylePrefix}
 ${orientationNote}
 ${musicNote}
 
-Please split this story into ${sceneCount} scenes, each 15 seconds long.
+Please split this story into ${sceneCount} scene segments, each approximately 12-15 seconds long.
 
-IMPORTANT REQUIREMENTS:
-1. Each scene prompt MUST start with the exact style prefix: "${stylePrefix}"
-2. Each scene prompt MUST include "the same pet" to maintain character consistency (the actual pet appearance will be provided via reference image)
-3. Each scene prompt should describe clear settings, actions, and camera movements
-4. Scene 1 is the opening, Scene ${sceneCount} is the ending (should have a satisfying conclusion)
-5. Each 15-second scene should have internal action progression (mini-scenes within)
-6. Maintain the ${styleName} style consistently throughout ALL scenes
-7. Include appropriate lighting, atmosphere, and emotional beats matching the style
-8. Prompts should be detailed enough for AI video generation (100-200 words each)
-9. NEVER use copyrighted brand names in prompts (no Pixar, Disney, Ghibli, Miyazaki, Marvel, etc.) - use generic descriptive terms instead
+## SCENE STRUCTURE REQUIREMENTS
 
-PROMPT STRUCTURE for each scene:
-"${stylePrefix}, [Setting/Environment], the same pet [specific actions and movements], [camera work], [atmosphere/mood], [any specific details]"
+Each scene segment (15 seconds) should contain 3-4 SHOTS (分镜) with:
+- **Shot 1 (0-3s)**: Establishing shot or transition from previous scene
+- **Shot 2 (3-7s)**: Main action or key moment
+- **Shot 3 (7-11s)**: Reaction, detail, or secondary action
+- **Shot 4 (11-15s)**: Conclusion or lead-in to next scene (optional)
 
-OUTPUT FORMAT (JSON only, no other text):
+## SHOT DESIGN ELEMENTS
+
+For each shot within a scene, include:
+1. **Camera type**: wide/medium/close-up/extreme close-up/aerial/low angle/tracking/pan/zoom
+2. **Camera movement**: static/dolly in/dolly out/pan left-right/tilt up-down/crane/handheld/orbit
+3. **Subject action**: specific pet movements and expressions
+4. **Environment details**: background elements, lighting changes
+5. **Timing cues**: pace indicators (slow motion, normal speed, quick cuts)
+
+## IMPORTANT REQUIREMENTS
+
+1. Each scene prompt MUST include "the same pet" to maintain character consistency
+2. Scene 1 is the opening (establish setting and character)
+3. Scene ${sceneCount} is the ending (satisfying emotional conclusion)
+4. Describe camera movements and transitions between shots clearly
+5. Include emotional beats and rhythm changes within each scene
+6. Total content per scene should be ~12 seconds (leaving buffer for AI generation)
+7. NEVER use copyrighted brand names (no Pixar, Disney, Ghibli, Marvel, specific song titles, artist names, etc.)
+8. Use generic descriptive terms for style and music
+
+## PROMPT STRUCTURE
+
+Write each scene prompt as a continuous cinematographic description that flows through multiple shots:
+
+"[Style description], SHOT 1: [camera type + movement], [setting], the same pet [action]. SHOT 2: [camera transition], [new angle/framing], the pet [continues action/new action], [environmental detail]. SHOT 3: [camera work], [close-up or detail shot], [emotion/expression], [atmosphere]. [Optional SHOT 4: transition element]."
+
+## OUTPUT FORMAT (JSON only, no other text):
+
 {
   "title": "Story Title in English",
   "scenes": [
     {
       "sceneNumber": 1,
-      "prompt": "${stylePrefix}, [full scene prompt in English]...",
-      "description": "简短的中文说明（一句话描述这个场景）",
-      "descriptionEn": "Brief English description (one sentence describing this scene)"
-    },
-    {
-      "sceneNumber": 2,
-      "prompt": "${stylePrefix}, [full scene prompt in English]...",
-      "description": "简短的中文说明",
-      "descriptionEn": "Brief English description"
+      "prompt": "[Complete multi-shot scene description in English, 150-250 words, describing 3-4 shots with camera work and transitions]",
+      "description": "场景概述（中文，一句话描述这个场景的主要内容和情感）",
+      "descriptionEn": "Scene overview (English, one sentence describing the main content and emotion)"
     }
   ]
 }
 
-IMPORTANT: Each scene MUST include both "description" (Chinese) and "descriptionEn" (English) fields.
-
-Generate exactly ${sceneCount} scenes. Output ONLY the JSON, nothing else.`;
+Generate exactly ${sceneCount} scenes. Each prompt should read like a mini-screenplay with clear visual directions. Output ONLY the JSON, nothing else.`;
 }
 
 /**

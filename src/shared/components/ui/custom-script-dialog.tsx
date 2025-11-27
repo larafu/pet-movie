@@ -105,11 +105,28 @@ export function CustomScriptDialog({
   // 轮询间隔
   const POLL_INTERVAL = 3000;
 
-  // ==================== 恢复已有剧本 ====================
+  // ==================== 弹窗打开/关闭时的状态管理 ====================
 
   useEffect(() => {
-    if (existingScriptId && isOpen) {
-      loadExistingScript(existingScriptId);
+    if (isOpen) {
+      if (existingScriptId) {
+        // 恢复已有剧本
+        loadExistingScript(existingScriptId);
+      } else {
+        // 创建新剧本：重置所有状态
+        setStep('input');
+        setUserPrompt('');
+        setMusicPrompt('');
+        setDuration(60);
+        setStyleId('pixar-3d');
+        setCustomStyle('');
+        setIsCreating(false);
+        setError(null);
+        setScriptId(null);
+        setScriptData(null);
+        setIsMerging(false);
+        setMergedVideoUrl(null);
+      }
     }
   }, [existingScriptId, isOpen]);
 

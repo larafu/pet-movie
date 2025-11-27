@@ -20,6 +20,7 @@ import {
   Monitor,
   Smartphone,
   Wand2,
+  Music,
 } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import { Card, CardContent } from "@/shared/components/ui/card";
@@ -33,8 +34,11 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select";
 import { cn } from "@/shared/lib/utils";
+import { Textarea } from "@/shared/components/ui/textarea";
+import { Input } from "@/shared/components/ui/input";
 import { VideoCard, type VideoCardData } from "./video-card";
 import { CustomScriptDialog } from "./custom-script-dialog";
+import { VIDEO_STYLES, type VideoStyleId } from "@/shared/services/custom-script/types";
 
 interface PetVideoGenProps {
   className?: string;
@@ -152,6 +156,14 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
   const [isVIP, setIsVIP] = useState(false); // 用户是否是VIP
   const [showCustomScriptDialog, setShowCustomScriptDialog] = useState(false); // 自定义剧本弹窗
   const [editingScriptId, setEditingScriptId] = useState<string | undefined>(undefined); // 正在编辑的剧本ID
+
+  // 自定义剧本输入状态（放在主界面）
+  const [customUserPrompt, setCustomUserPrompt] = useState("");
+  const [customMusicPrompt, setCustomMusicPrompt] = useState("");
+  const [customDuration, setCustomDuration] = useState<60 | 120>(60);
+  const [customStyleId, setCustomStyleId] = useState<VideoStyleId>("pixar-3d");
+  const [customStyleText, setCustomStyleText] = useState("");
+  const [isCreatingScript, setIsCreatingScript] = useState(false);
 
   // 自定义剧本列表
   interface CustomScriptItem {
@@ -682,15 +694,78 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     }
   };
 
+  // 创建自定义剧本并打开编辑弹窗
+  const handleCreateCustomScript = async () => {
+    if (!uploadedImageUrl) {
+      setError(t("uploadPhotoFirst"));
+      return;
+    }
+
+    if (!customUserPrompt.trim()) {
+      setError(t("customScript.errorPromptRequired") || "Please enter a story prompt");
+      return;
+    }
+
+    if (customStyleId === "custom" && !customStyleText.trim()) {
+      setError(t("customScript.errorCustomStyleRequired") || "Please enter custom style");
+      return;
+    }
+
+    setIsCreatingScript(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/custom-script", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          petImageUrl: uploadedImageUrl,
+          userPrompt: customUserPrompt.trim(),
+          musicPrompt: customMusicPrompt.trim() || undefined,
+          durationSeconds: customDuration,
+          aspectRatio: selectedAspectRatio,
+          styleId: customStyleId,
+          customStyle: customStyleId === "custom" ? customStyleText.trim() : undefined,
+        }),
+      });
+
+      const data = await response.json();
+
+      // 处理积分不足错误
+      if (response.status === 402) {
+        throw new Error(t("insufficientCredits", { required: data.required, available: data.available }));
+      }
+
+      if (!data.success) {
+        throw new Error(data.error || "Failed to create script");
+      }
+
+      // 创建成功，设置编辑ID并打开弹窗
+      setEditingScriptId(data.scriptId);
+      setShowCustomScriptDialog(true);
+
+      // 重置表单
+      setCustomUserPrompt("");
+      setCustomMusicPrompt("");
+      setCustomDuration(60);
+      setCustomStyleId("pixar-3d");
+      setCustomStyleText("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to create script");
+    } finally {
+      setIsCreatingScript(false);
+    }
+  };
+
   const handleGenerate = async () => {
     if (!uploadedImageUrl) {
       setError(t("uploadPhotoFirst"));
       return;
     }
 
-    // 如果是自定义剧本，打开弹窗而不是调用普通生成API
+    // 如果是自定义剧本，调用创建剧本函数
     if (selectedTemplate === "custom") {
-      setShowCustomScriptDialog(true);
+      await handleCreateCustomScript();
       return;
     }
 
@@ -890,46 +965,138 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                 </p>
               </div>
 
-              {/* Duration Selection */}
-              <div className="space-y-2">
-                <Label className="text-xs font-medium">{t("videoDuration")}</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  <div
-                    onClick={() => setSelectedDuration(25)}
-                    className={cn(
-                      "flex flex-col items-center gap-1 p-2 rounded-lg border cursor-pointer transition-all",
-                      selectedDuration === 25
-                        ? "border-primary bg-primary/10 text-primary"
-                        : "border-border/50 bg-background hover:bg-muted"
-                    )}
-                  >
-                    <div
-                      className={cn(
-                        "w-3 h-3 rounded-full border-2 flex items-center justify-center",
-                        selectedDuration === 25
-                          ? "border-primary"
-                          : "border-muted-foreground"
-                      )}
-                    >
-                      {selectedDuration === 25 && (
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      )}
-                    </div>
-                    <span className="text-xs font-medium">25s</span>
-                    <span className="text-[10px] text-muted-foreground">
-                      70 {t("credits")}
-                    </span>
+              {/* 自定义剧本配置 - 只在选择custom时显示 */}
+              {selectedTemplate === "custom" && (
+                <>
+                  {/* 故事提示词 */}
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium">{t("customScript.promptLabel") || "Your Story"}</Label>
+                    <Textarea
+                      value={customUserPrompt}
+                      onChange={(e) => setCustomUserPrompt(e.target.value)}
+                      placeholder={t("customScript.promptPlaceholder") || "Describe the story you want to create..."}
+                      className="min-h-[80px] resize-none text-sm"
+                    />
                   </div>
 
-                  <div className="flex flex-col items-center gap-1 p-2 rounded-lg border opacity-50 cursor-not-allowed border-border/50 bg-background/50">
-                    <div className="w-3 h-3 rounded-full border-2 border-muted-foreground" />
-                    <span className="text-xs font-medium">50s</span>
-                    <span className="text-[10px] text-muted-foreground">
-                      {t("soon")}
-                    </span>
+                  {/* 配乐 */}
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium flex items-center gap-1.5">
+                      <Music className="w-3 h-3" />
+                      {t("customScript.musicLabel") || "Music Style"}
+                      <span className="text-[10px] text-muted-foreground">({t("customScript.optional") || "optional"})</span>
+                    </Label>
+                    <Input
+                      value={customMusicPrompt}
+                      onChange={(e) => setCustomMusicPrompt(e.target.value)}
+                      placeholder={t("customScript.musicPlaceholder") || "e.g., upbeat adventure music"}
+                      className="h-8 text-sm"
+                    />
+                  </div>
+
+                  {/* 风格选择 - 使用下拉 */}
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium">{t("customScript.styleLabel") || "Visual Style"}</Label>
+                    <Select
+                      value={customStyleId}
+                      onValueChange={(v: VideoStyleId) => setCustomStyleId(v)}
+                    >
+                      <SelectTrigger className="h-8 text-sm">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {VIDEO_STYLES.map((style) => (
+                          <SelectItem key={style.id} value={style.id}>
+                            <span>{style.name} / {style.nameCn}</span>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {customStyleId === "custom" && (
+                      <Textarea
+                        value={customStyleText}
+                        onChange={(e) => setCustomStyleText(e.target.value)}
+                        placeholder={t("customScript.customStylePlaceholder") || "Describe your visual style..."}
+                        className="min-h-[60px] resize-none text-sm mt-2"
+                      />
+                    )}
+                  </div>
+
+                  {/* 时长选择 */}
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium">{t("customScript.durationLabel") || "Duration"}</Label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div
+                        onClick={() => setCustomDuration(60)}
+                        className={cn(
+                          "flex flex-col items-center gap-0.5 p-2 rounded-lg border cursor-pointer transition-all",
+                          customDuration === 60
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-border/50 bg-background hover:bg-muted"
+                        )}
+                      >
+                        <span className="text-xs font-medium">1 {t("customScript.minute") || "min"}</span>
+                        <span className="text-[10px] text-muted-foreground">4 {t("customScript.scenes") || "scenes"}</span>
+                      </div>
+                      <div
+                        onClick={() => setCustomDuration(120)}
+                        className={cn(
+                          "flex flex-col items-center gap-0.5 p-2 rounded-lg border cursor-pointer transition-all",
+                          customDuration === 120
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-border/50 bg-background hover:bg-muted"
+                        )}
+                      >
+                        <span className="text-xs font-medium">2 {t("customScript.minutes") || "min"}</span>
+                        <span className="text-[10px] text-muted-foreground">8 {t("customScript.scenes") || "scenes"}</span>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* Duration Selection - 只在非custom时显示 */}
+              {selectedTemplate !== "custom" && (
+                <div className="space-y-2">
+                  <Label className="text-xs font-medium">{t("videoDuration")}</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div
+                      onClick={() => setSelectedDuration(25)}
+                      className={cn(
+                        "flex flex-col items-center gap-1 p-2 rounded-lg border cursor-pointer transition-all",
+                        selectedDuration === 25
+                          ? "border-primary bg-primary/10 text-primary"
+                          : "border-border/50 bg-background hover:bg-muted"
+                      )}
+                    >
+                      <div
+                        className={cn(
+                          "w-3 h-3 rounded-full border-2 flex items-center justify-center",
+                          selectedDuration === 25
+                            ? "border-primary"
+                            : "border-muted-foreground"
+                        )}
+                      >
+                        {selectedDuration === 25 && (
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        )}
+                      </div>
+                      <span className="text-xs font-medium">25s</span>
+                      <span className="text-[10px] text-muted-foreground">
+                        70 {t("credits")}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col items-center gap-1 p-2 rounded-lg border opacity-50 cursor-not-allowed border-border/50 bg-background/50">
+                      <div className="w-3 h-3 rounded-full border-2 border-muted-foreground" />
+                      <span className="text-xs font-medium">50s</span>
+                      <span className="text-[10px] text-muted-foreground">
+                        {t("soon")}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* Aspect Ratio Selection */}
               <div className="space-y-2">
@@ -984,17 +1151,27 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                   <span>{t("creditsRequired")}</span>
                 </div>
                 <span className="font-medium text-foreground">
-                  {selectedDuration === 25 ? "70" : "140"} {t("credits")}
+                  {selectedTemplate === "custom"
+                    ? `${customDuration === 60 ? "60" : "100"}+`
+                    : selectedDuration === 25 ? "70" : "140"
+                  } {t("credits")}
                 </span>
               </div>
 
               <Button
                 className="w-full h-10 text-sm font-medium bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg shadow-primary/20 rounded-xl"
                 onClick={handleGenerate}
-                disabled={!uploadedImageUrl}
+                disabled={!uploadedImageUrl || isCreatingScript || (selectedTemplate === "custom" && !customUserPrompt.trim())}
               >
-                <Sparkles className="w-4 h-4 mr-2" />
-                {t("createMovie")}
+                {isCreatingScript ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <Sparkles className="w-4 h-4 mr-2" />
+                )}
+                {isCreatingScript
+                  ? (t("customScript.creating") || "Creating...")
+                  : t("createMovie")
+                }
               </Button>
             </div>
           </CardContent>

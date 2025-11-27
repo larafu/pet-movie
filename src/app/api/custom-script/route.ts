@@ -10,6 +10,7 @@ import { headers } from 'next/headers';
 import {
   createCustomScript,
   getUserScripts,
+  generateSceneFrame,
   CUSTOM_SCRIPT_CREDITS,
 } from '@/shared/services/custom-script';
 import { getRemainingCredits, consumeCredits } from '@/shared/models/credit';
@@ -102,12 +103,36 @@ export async function POST(request: NextRequest) {
       customStyle,
     });
 
+    // 自动开始生成第一个分镜的首帧图（异步，不阻塞响应）
+    // 这可以鼓励用户继续创作
+    if (result.scenes && result.scenes.length > 0) {
+      const firstScene = result.scenes[0];
+
+      // 先扣除首帧图的积分
+      try {
+        await consumeCredits({
+          userId,
+          credits: CUSTOM_SCRIPT_CREDITS.FRAME,
+          scene: 'custom-script-frame',
+          description: `Custom script frame generation - Scene ${firstScene.id} (auto)`,
+        });
+
+        // 异步生成首帧图
+        generateSceneFrame(firstScene.id, result.scriptId, userId).catch((error) => {
+          console.error('Auto generate first frame error:', error);
+        });
+      } catch (creditError) {
+        // 积分扣除失败不影响剧本创建
+        console.error('Failed to consume credits for first frame:', creditError);
+      }
+    }
+
     return NextResponse.json({
       success: true,
       scriptId: result.scriptId,
       title: result.title,
       scenes: result.scenes,
-      creditsUsed: CUSTOM_SCRIPT_CREDITS.INIT,
+      creditsUsed: CUSTOM_SCRIPT_CREDITS.INIT + CUSTOM_SCRIPT_CREDITS.FRAME, // 包含首帧图的积分
     });
   } catch (error) {
     console.error('Create custom script error:', error);

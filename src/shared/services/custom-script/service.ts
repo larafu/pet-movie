@@ -90,14 +90,15 @@ export async function createCustomScript(
     console.log('\n💾 Step 3: Saving scenes to database...');
     const sceneRecords = generatedScenes.scenes.map((scene, index) => {
       const sceneId = nanoid();
-      // 如果有配乐提示词，添加到每个场景
+      // 如果有配乐提示词，添加到每个场景的视频提示词
       const promptWithMusic = addMusicToPrompt(scene.prompt, request.musicPrompt);
 
       return {
         id: sceneId,
         scriptId,
         sceneNumber: scene.sceneNumber,
-        prompt: promptWithMusic,
+        prompt: promptWithMusic, // 视频生成用完整提示词
+        firstFramePrompt: scene.firstFramePrompt || null, // 首帧图用简化提示词
         originalPrompt: scene.prompt,
         description: scene.description || null,
         descriptionEn: scene.descriptionEn || null,
@@ -383,11 +384,16 @@ export async function generateSceneFrame(
     const customStyle = scriptData.script.customStyle || undefined;
     const stylePrefix = getStylePrefix(styleId, customStyle);
 
-    // 构建图生图提示词（使用用户选择的风格）
-    const styleTransferPrompt = `Transform this pet into ${stylePrefix}, ${scene.prompt}`;
+    // 使用 firstFramePrompt（专门为静态图片设计的提示词）
+    // 如果没有 firstFramePrompt，则使用完整 prompt 的简化版本
+    const framePrompt = scene.firstFramePrompt || scene.prompt;
+
+    // 构建图生图提示词（使用用户选择的风格 + 首帧提示词）
+    const styleTransferPrompt = `Transform this pet into ${stylePrefix}, ${framePrompt}`;
 
     console.log('🎨 Style ID:', styleId);
     console.log('🎨 Style prefix:', stylePrefix.substring(0, 50) + '...');
+    console.log('🖼️  First frame prompt:', framePrompt.substring(0, 80) + '...');
     console.log('🎨 Style transfer prompt:', styleTransferPrompt.substring(0, 100) + '...');
     console.log('🖼️  Pet image URL:', scriptData.script.petImageUrl);
     console.log('📐 Aspect ratio:', scriptData.script.aspectRatio);

@@ -69,16 +69,37 @@ For each shot within a scene, include:
 4. **Environment details**: background elements, lighting changes
 5. **Timing cues**: pace indicators (slow motion, normal speed, quick cuts)
 
-## IMPORTANT REQUIREMENTS
+## CRITICAL PET REFERENCE RULES (MUST FOLLOW)
 
-1. Each scene prompt MUST include "the same pet" to maintain character consistency
-2. Scene 1 is the opening (establish setting and character)
-3. Scene ${sceneCount} is the ending (satisfying emotional conclusion)
-4. Describe camera movements and transitions between shots clearly
-5. Include emotional beats and rhythm changes within each scene
-6. Total content per scene should be ~12 seconds (leaving buffer for AI generation)
-7. NEVER use copyrighted brand names (no Pixar, Disney, Ghibli, Marvel, specific song titles, artist names, etc.)
-8. Use generic descriptive terms for style and music
+**ALWAYS use "the same pet" or "the pet" to refer to the animal subject.**
+
+NEVER use specific pet descriptions such as:
+- NO breed names (golden retriever, persian cat, husky, corgi, etc.)
+- NO color descriptions (orange cat, white dog, black puppy, etc.)
+- NO size descriptions (small dog, big cat, tiny kitten, etc.)
+- NO species details (fluffy dog, tabby cat, spotted puppy, etc.)
+
+CORRECT examples:
+- "the same pet looks up curiously"
+- "the pet runs through the forest"
+- "close-up on the pet's expressive eyes"
+
+INCORRECT examples (DO NOT USE):
+- "the golden retriever runs through the forest" ❌
+- "the orange cat looks up curiously" ❌
+- "the fluffy white puppy plays" ❌
+
+The actual pet appearance comes from the user's uploaded photo via image-to-image generation. Your prompts must be pet-appearance-agnostic.
+
+## OTHER IMPORTANT REQUIREMENTS
+
+1. Scene 1 is the opening (establish setting and character)
+2. Scene ${sceneCount} is the ending (satisfying emotional conclusion)
+3. Describe camera movements and transitions between shots clearly
+4. Include emotional beats and rhythm changes within each scene
+5. Total content per scene should be ~12 seconds (leaving buffer for AI generation)
+6. NEVER use copyrighted brand names (no Pixar, Disney, Ghibli, Marvel, specific song titles, artist names, etc.)
+7. Use generic descriptive terms for style and music
 
 ## PROMPT STRUCTURE
 
@@ -93,14 +114,23 @@ Write each scene prompt as a continuous cinematographic description that flows t
   "scenes": [
     {
       "sceneNumber": 1,
-      "prompt": "[Complete multi-shot scene description in English, 150-250 words, describing 3-4 shots with camera work and transitions]",
-      "description": "场景概述（中文，一句话描述这个场景的主要内容和情感）",
-      "descriptionEn": "Scene overview (English, one sentence describing the main content and emotion)"
+      "prompt": "[Complete multi-shot scene description for VIDEO generation, 150-250 words]",
+      "firstFramePrompt": "[First frame/keyframe prompt for IMAGE generation - describe ONLY the opening shot (Shot 1), single static image, 30-50 words, focus on: setting, pet pose/position, lighting, atmosphere. NO camera movements, NO transitions, NO multiple shots]",
+      "description": "场景概述（中文）",
+      "descriptionEn": "Scene overview (English)"
     }
   ]
 }
 
-Generate exactly ${sceneCount} scenes. Each prompt should read like a mini-screenplay with clear visual directions. Output ONLY the JSON, nothing else.`;
+IMPORTANT for firstFramePrompt:
+- This is for generating a SINGLE STATIC IMAGE (the first frame/keyframe)
+- Describe ONE moment in time, NOT a sequence
+- Focus on: environment, pet's pose, expression, lighting, mood
+- Do NOT include camera movements or transitions
+- Keep it concise (30-50 words)
+- MUST use "the same pet" or "the pet" - NEVER use breed/color/size descriptions
+
+Generate exactly ${sceneCount} scenes. Output ONLY the JSON, nothing else.`;
 }
 
 /**
@@ -133,6 +163,12 @@ export async function generateScenes(
 
   console.log('🤖 Calling Gemini via Evolink...');
 
+  // 根据场景数量动态计算 token 限制
+  // 每个场景约需 500-800 tokens（包含 prompt + firstFramePrompt + descriptions）
+  const sceneCount = durationSeconds / 15;
+  const estimatedTokensPerScene = 800;
+  const maxTokens = Math.max(8000, sceneCount * estimatedTokensPerScene + 1000);
+
   try {
     const response = await evolinkClient.chatCompletion({
       model: 'gemini-2.5-flash',
@@ -143,7 +179,7 @@ export async function generateScenes(
         },
       ],
       temperature: 0.7, // 稍高一点的温度以获得更有创意的内容
-      max_tokens: 4000, // 足够容纳多个场景
+      max_tokens: maxTokens, // 动态计算，确保足够容纳所有场景
     });
 
     const content = response.choices[0]?.message?.content?.trim();
@@ -153,6 +189,7 @@ export async function generateScenes(
     }
 
     console.log('📄 Gemini raw response length:', content.length);
+    console.log('📄 Max tokens requested:', maxTokens);
 
     // 解析 JSON 响应
     // 尝试提取 JSON（Gemini 可能会在 JSON 前后添加额外文本或 markdown 代码块）
@@ -176,12 +213,28 @@ export async function generateScenes(
     // 清理可能的尾部空白和换行
     jsonContent = jsonContent.trim();
 
+    // 检查 JSON 是否被截断（没有正确闭合）
+    const openBraces = (jsonContent.match(/\{/g) || []).length;
+    const closeBraces = (jsonContent.match(/\}/g) || []).length;
+    const openBrackets = (jsonContent.match(/\[/g) || []).length;
+    const closeBrackets = (jsonContent.match(/\]/g) || []).length;
+
+    if (openBraces !== closeBraces || openBrackets !== closeBrackets) {
+      console.error('❌ JSON appears to be truncated (mismatched braces/brackets)');
+      console.error(`Braces: ${openBraces} open, ${closeBraces} close`);
+      console.error(`Brackets: ${openBrackets} open, ${closeBrackets} close`);
+      console.error('Raw content (last 500 chars):', content.substring(content.length - 500));
+      throw new Error('Gemini response was truncated - JSON incomplete');
+    }
+
     let parsed: GeneratedScenes;
     try {
       parsed = JSON.parse(jsonContent);
     } catch (parseError) {
       console.error('❌ Failed to parse Gemini response as JSON');
-      console.error('Raw content:', content.substring(0, 500));
+      console.error('Parse error:', parseError);
+      console.error('Raw content (first 500):', content.substring(0, 500));
+      console.error('Raw content (last 500):', content.substring(content.length - 500));
       throw new Error('Failed to parse Gemini response as JSON');
     }
 

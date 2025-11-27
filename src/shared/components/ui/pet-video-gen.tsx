@@ -128,6 +128,7 @@ const STAGE_PROGRESS: Record<GenerationStatus, { start: number; end: number }> =
 export function PetVideoGeneration({ className }: PetVideoGenProps) {
   const t = useTranslations("landing.petVideoGen");
   const tCard = useTranslations("landing.videoCard");
+  const tScript = useTranslations("landing.customScript"); // 自定义剧本翻译
   const searchParams = useSearchParams();
 
   // 获取状态消息的函数
@@ -702,12 +703,12 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     }
 
     if (!customUserPrompt.trim()) {
-      setError(t("customScript.errorPromptRequired") || "Please enter a story prompt");
+      setError(tScript("errorPromptRequired"));
       return;
     }
 
     if (customStyleId === "custom" && !customStyleText.trim()) {
-      setError(t("customScript.errorCustomStyleRequired") || "Please enter custom style");
+      setError(tScript("errorCustomStyleRequired"));
       return;
     }
 
@@ -970,11 +971,11 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                 <>
                   {/* 故事提示词 */}
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium">{t("customScript.promptLabel") || "Your Story"}</Label>
+                    <Label className="text-xs font-medium">{tScript("promptLabel")}</Label>
                     <Textarea
                       value={customUserPrompt}
                       onChange={(e) => setCustomUserPrompt(e.target.value)}
-                      placeholder={t("customScript.promptPlaceholder") || "Describe the story you want to create..."}
+                      placeholder={tScript("promptPlaceholder")}
                       className="min-h-[80px] resize-none text-sm"
                     />
                   </div>
@@ -983,20 +984,20 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                   <div className="space-y-1.5">
                     <Label className="text-xs font-medium flex items-center gap-1.5">
                       <Music className="w-3 h-3" />
-                      {t("customScript.musicLabel") || "Music Style"}
-                      <span className="text-[10px] text-muted-foreground">({t("customScript.optional") || "optional"})</span>
+                      {tScript("musicLabel")}
+                      <span className="text-[10px] text-muted-foreground">({tScript("optional")})</span>
                     </Label>
                     <Input
                       value={customMusicPrompt}
                       onChange={(e) => setCustomMusicPrompt(e.target.value)}
-                      placeholder={t("customScript.musicPlaceholder") || "e.g., upbeat adventure music"}
+                      placeholder={tScript("musicPlaceholder")}
                       className="h-8 text-sm"
                     />
                   </div>
 
                   {/* 风格选择 - 使用下拉 */}
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium">{t("customScript.styleLabel") || "Visual Style"}</Label>
+                    <Label className="text-xs font-medium">{tScript("styleLabel")}</Label>
                     <Select
                       value={customStyleId}
                       onValueChange={(v: VideoStyleId) => setCustomStyleId(v)}
@@ -1007,7 +1008,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                       <SelectContent>
                         {VIDEO_STYLES.map((style) => (
                           <SelectItem key={style.id} value={style.id}>
-                            <span>{style.name} / {style.nameCn}</span>
+                            <span>{style.name}</span>
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -1016,7 +1017,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                       <Textarea
                         value={customStyleText}
                         onChange={(e) => setCustomStyleText(e.target.value)}
-                        placeholder={t("customScript.customStylePlaceholder") || "Describe your visual style..."}
+                        placeholder={tScript("customStylePlaceholder")}
                         className="min-h-[60px] resize-none text-sm mt-2"
                       />
                     )}
@@ -1024,7 +1025,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
 
                   {/* 时长选择 */}
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium">{t("customScript.durationLabel") || "Duration"}</Label>
+                    <Label className="text-xs font-medium">{tScript("durationLabel")}</Label>
                     <div className="grid grid-cols-2 gap-2">
                       <div
                         onClick={() => setCustomDuration(60)}
@@ -1035,8 +1036,8 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                             : "border-border/50 bg-background hover:bg-muted"
                         )}
                       >
-                        <span className="text-xs font-medium">1 {t("customScript.minute") || "min"}</span>
-                        <span className="text-[10px] text-muted-foreground">4 {t("customScript.scenes") || "scenes"}</span>
+                        <span className="text-xs font-medium">1 {tScript("minute")}</span>
+                        <span className="text-[10px] text-muted-foreground">4 {tScript("scenes")}</span>
                       </div>
                       <div
                         onClick={() => setCustomDuration(120)}
@@ -1047,8 +1048,8 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                             : "border-border/50 bg-background hover:bg-muted"
                         )}
                       >
-                        <span className="text-xs font-medium">2 {t("customScript.minutes") || "min"}</span>
-                        <span className="text-[10px] text-muted-foreground">8 {t("customScript.scenes") || "scenes"}</span>
+                        <span className="text-xs font-medium">2 {tScript("minutes")}</span>
+                        <span className="text-[10px] text-muted-foreground">8 {tScript("scenes")}</span>
                       </div>
                     </div>
                   </div>
@@ -1169,7 +1170,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                   <Sparkles className="w-4 h-4 mr-2" />
                 )}
                 {isCreatingScript
-                  ? (t("customScript.creating") || "Creating...")
+                  ? tScript("creating")
                   : t("createMovie")
                 }
               </Button>

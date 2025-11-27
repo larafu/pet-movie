@@ -779,7 +779,8 @@ export const customScriptScene = pgTable(
     sceneNumber: integer('scene_number').notNull(), // 段落序号 1,2,3...
 
     // 提示词
-    prompt: text('prompt').notNull(), // 该段落的提示词（可编辑）
+    prompt: text('prompt').notNull(), // 该段落的完整提示词，用于视频生成（可编辑）
+    firstFramePrompt: text('first_frame_prompt'), // 首帧图专用提示词（只描述第一个shot的静态画面）
     originalPrompt: text('original_prompt'), // Gemini生成的原始提示词（保留）
     description: text('description'), // 段落说明（中文，给用户看）
     descriptionEn: text('description_en'), // 段落说明（英文，给用户看）

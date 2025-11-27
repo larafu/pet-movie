@@ -10,7 +10,8 @@
  */
 export interface GeneratedScene {
   sceneNumber: number;
-  prompt: string; // 英文提示词，用于视频生成
+  prompt: string; // 完整场景提示词，用于视频生成（包含多个shot）
+  firstFramePrompt: string; // 首帧图提示词，用于图片生成（只描述第一个shot的静态画面）
   description: string; // 中文说明，给用户看
   descriptionEn: string; // 英文说明，给用户看
 }
@@ -69,7 +70,8 @@ export interface CustomScriptSceneRecord {
   id: string;
   scriptId: string;
   sceneNumber: number;
-  prompt: string;
+  prompt: string; // 完整场景提示词，用于视频生成
+  firstFramePrompt: string | null; // 首帧图专用提示词
   originalPrompt: string | null;
   description: string | null; // 中文描述
   descriptionEn: string | null; // 英文描述

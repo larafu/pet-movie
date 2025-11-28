@@ -629,6 +629,13 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
         }),
       });
 
+      // 检查响应是否为 JSON，避免解析非 JSON 错误响应
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        throw new Error(text || `Server error: ${response.status}`);
+      }
+
       const data = await response.json();
 
       // 处理积分不足错误

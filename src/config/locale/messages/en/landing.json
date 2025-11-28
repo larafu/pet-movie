@@ -601,7 +601,7 @@
     "subtitle": "Transform your pet into a Christmas rescue hero",
     "petPhoto": "Pet Photo",
     "uploadPrompt": "Click to upload your pet photo",
-    "uploadHint": "JPG/PNG/WEBP up to 10MB",
+    "uploadHint": "JPG/PNG/WEBP",
     "clickToChange": "Click to change",
     "storyTemplate": "Story Template",
     "christmasStory": "Christmas rescue story with your {pet}",
@@ -645,6 +645,12 @@
       "catHero": "Christmas Cat Rescue - {duration}s",
       "dogTemplate": "Dog Hero - {duration}s",
       "catTemplate": "Cat Hero - {duration}s"
+    },
+    "uploadError": {
+      "title": "Upload Failed",
+      "invalidType": "Please upload a JPG, PNG, or WebP image.",
+      "uploadFailed": "Upload failed. Please try again.",
+      "networkError": "Network error. Please check your connection and try again."
     }
   },
   "videoCard": {

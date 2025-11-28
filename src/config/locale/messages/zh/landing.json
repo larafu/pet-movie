@@ -584,7 +584,7 @@
     "subtitle": "将您的宠物变成圣诞救援英雄",
     "petPhoto": "宠物照片",
     "uploadPrompt": "点击上传宠物照片",
-    "uploadHint": "支持 JPG/PNG/WEBP，最大 10MB",
+    "uploadHint": "支持 JPG/PNG/WEBP",
     "clickToChange": "点击更换",
     "storyTemplate": "故事模板",
     "christmasStory": "与您的{pet}一起的圣诞救援故事",
@@ -628,6 +628,12 @@
       "catHero": "圣诞猫咪救援 - {duration}秒",
       "dogTemplate": "狗狗英雄 - {duration}秒",
       "catTemplate": "猫咪英雄 - {duration}秒"
+    },
+    "uploadError": {
+      "title": "上传失败",
+      "invalidType": "请上传 JPG、PNG 或 WebP 格式的图片。",
+      "uploadFailed": "上传失败，请重试。",
+      "networkError": "网络错误，请检查网络连接后重试。"
     }
   },
   "videoCard": {

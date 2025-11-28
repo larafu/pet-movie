@@ -9,6 +9,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { nanoid } from 'nanoid';
 import { createR2ProviderFromDb } from '@/extensions/storage/db-config-loader';
 
+// 配置请求体大小限制为 10MB（覆盖 Vercel 默认的 4.5MB 限制）
+// 注意：App Router 使用 route segment config
+export const maxDuration = 60; // 最大执行时间 60 秒
+
 export async function POST(request: NextRequest) {
   console.log('\n📤 ========== Pet Image Upload ==========');
 

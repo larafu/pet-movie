@@ -24,6 +24,13 @@ import { Button } from "@/shared/components/ui/button";
 import { Card, CardContent } from "@/shared/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/shared/components/ui/tabs";
 import { Label } from "@/shared/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/shared/components/ui/dialog";
 import { cn } from "@/shared/lib/utils";
 import { VideoCard, type VideoCardData } from "./video-card";
 
@@ -112,9 +119,16 @@ const STAGE_PROGRESS: Record<GenerationStatus, { start: number; end: number }> =
   failed: { start: 0, end: 0 },
 };
 
+// 上传错误弹窗的类型
+interface UploadErrorState {
+  open: boolean;
+  message: string;
+}
+
 export function PetVideoGeneration({ className }: PetVideoGenProps) {
   const t = useTranslations("landing.petVideoGen");
   const tCard = useTranslations("landing.videoCard");
+  const tUploadError = useTranslations("landing.petVideoGen.uploadError"); // 上传错误翻译
   const searchParams = useSearchParams();
 
   // 获取状态消息的函数
@@ -131,6 +145,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     useState<GenerationStatus>("idle");
   const [taskId, setTaskId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState<UploadErrorState>({ open: false, message: "" });
   const [activeTab, setActiveTab] = useState<
     "my-generations" | "inspiration"
   >("inspiration");
@@ -443,10 +458,10 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
             prev.map((item) =>
               item.id === taskId
                 ? {
-                    ...item,
-                    loadingText: getStatusMessage(newStatus),
-                    progress: getProgressForStatus(newStatus, taskId, startTime),
-                  }
+                  ...item,
+                  loadingText: getStatusMessage(newStatus),
+                  progress: getProgressForStatus(newStatus, taskId, startTime),
+                }
                 : item
             )
           );
@@ -460,13 +475,13 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
               prev.map((item) =>
                 item.id === taskId
                   ? {
-                      ...item,
-                      isLoading: false,
-                      url: videoUrl,
-                      thumbnail: uploadedImage || undefined,
-                      originalVideoUrl: task.originalVideoUrl,
-                      watermarkedVideoUrl: task.watermarkedVideoUrl,
-                    }
+                    ...item,
+                    isLoading: false,
+                    url: videoUrl,
+                    thumbnail: uploadedImage || undefined,
+                    originalVideoUrl: task.originalVideoUrl,
+                    watermarkedVideoUrl: task.watermarkedVideoUrl,
+                  }
                   : item
               )
             );
@@ -542,34 +557,67 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // 检查文件类型
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      setUploadError({ open: true, message: tUploadError("invalidType") });
+      return;
+    }
+
     setError(null);
     setGenerationStatus("uploading");
 
+    // 先显示预览图
     const reader = new FileReader();
     reader.onload = (e) => {
       setUploadedImage(e.target?.result as string);
     };
     reader.readAsDataURL(file);
 
-    const formData = new FormData();
-    formData.append("file", file);
-
     try {
-      const response = await fetch("/api/pet-video/upload", {
+      // 1. 获取预签名上传 URL
+      const presignResponse = await fetch("/api/pet-video/presign", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contentType: file.type,
+          fileExtension: file.name.split(".").pop(),
+        }),
       });
 
-      const data = await response.json();
-
-      if (!data.success) {
-        throw new Error(data.error || "Upload failed");
+      if (!presignResponse.ok) {
+        throw new Error(tUploadError("uploadFailed"));
       }
 
-      setUploadedImageUrl(data.url);
+      const presignData = await presignResponse.json();
+      if (!presignData.success) {
+        throw new Error(presignData.error || tUploadError("uploadFailed"));
+      }
+
+      // 2. 直接上传到 R2（绑过 Vercel 4.5MB 限制）
+      const uploadResponse = await fetch(presignData.presignedUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": file.type,
+        },
+        body: file,
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error(tUploadError("uploadFailed"));
+      }
+
+      // 3. 上传成功，设置公共 URL
+      setUploadedImageUrl(presignData.publicUrl);
       setGenerationStatus("idle");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Upload failed");
+      console.error("Upload failed:", err);
+      // 判断是否是网络错误
+      const errorMessage = err instanceof TypeError
+        ? tUploadError("networkError")
+        : (err instanceof Error ? err.message : tUploadError("uploadFailed"));
+      setUploadError({ open: true, message: errorMessage });
+      setUploadedImage(null);
       setGenerationStatus("idle");
     }
   };
@@ -675,6 +723,26 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
 
   return (
     <div className={cn("w-full max-w-[1200px] mx-auto p-4", className)}>
+      {/* 上传错误弹窗 */}
+      <Dialog open={uploadError.open} onOpenChange={(open) => setUploadError({ ...uploadError, open })}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-destructive">
+              <AlertCircle className="w-5 h-5" />
+              {tUploadError("title")}
+            </DialogTitle>
+            <DialogDescription className="text-base pt-2">
+              {uploadError.message}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end">
+            <Button onClick={() => setUploadError({ open: false, message: "" })}>
+              OK
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* LEFT PANEL - Configuration (保持原有代码) */}
         <Card className="lg:col-span-4 border-border bg-zinc-900 shadow-lg h-fit">
@@ -931,66 +999,66 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                       </div>
                     </div>
                   ) : (
-                  <Masonry
-                    breakpointCols={{
-                      default: 2,
-                      1024: 2,
-                      640: 1,
-                    }}
-                    className="flex -ml-4 w-auto"
-                    columnClassName="pl-4 bg-clip-padding"
-                  >
-                    {/* 公开分享的视频（包含系统示例，按点赞数排序） */}
-                    {publicVideos.map((item) => {
-                      const videoData: VideoCardData = {
-                        id: item.id,
-                        videoUrl: item.url,
-                        thumbnailUrl: item.thumbnail,
-                        title: item.prompt,
-                        user: {
-                          name: item.userName || tCard("anonymous"),
-                          avatarUrl: item.userImage || undefined,
-                        },
-                        likeCount: item.likeCount || 0,
-                        isLiked: item.isLiked || false,
-                        aspectRatio: item.aspectRatio,
-                        isPublic: true,
-                        // 水印相关（公开视频也支持下载）
-                        originalVideoUrl: item.originalVideoUrl,
-                        watermarkedVideoUrl: item.watermarkedVideoUrl || item.url,
-                        isVIP: isVIP,
-                      };
+                    <Masonry
+                      breakpointCols={{
+                        default: 2,
+                        1024: 2,
+                        640: 1,
+                      }}
+                      className="flex -ml-4 w-auto"
+                      columnClassName="pl-4 bg-clip-padding"
+                    >
+                      {/* 公开分享的视频（包含系统示例，按点赞数排序） */}
+                      {publicVideos.map((item) => {
+                        const videoData: VideoCardData = {
+                          id: item.id,
+                          videoUrl: item.url,
+                          thumbnailUrl: item.thumbnail,
+                          title: item.prompt,
+                          user: {
+                            name: item.userName || tCard("anonymous"),
+                            avatarUrl: item.userImage || undefined,
+                          },
+                          likeCount: item.likeCount || 0,
+                          isLiked: item.isLiked || false,
+                          aspectRatio: item.aspectRatio,
+                          isPublic: true,
+                          // 水印相关（公开视频也支持下载）
+                          originalVideoUrl: item.originalVideoUrl,
+                          watermarkedVideoUrl: item.watermarkedVideoUrl || item.url,
+                          isVIP: isVIP,
+                        };
 
-                      return (
-                        <VideoCard
-                          key={`public-${item.id}`}
-                          data={videoData}
-                          variant="inspiration"
-                          actions={{
-                            onLike: (id, newLikeCount, isLiked) => {
-                              // 同步更新 userItems 中相同视频的点赞数
-                              setUserItems((prev) =>
-                                prev.map((i) =>
-                                  i.id === id
-                                    ? { ...i, likeCount: newLikeCount ?? (i.likeCount || 0) }
-                                    : i
-                                )
-                              );
-                              // 同步更新 publicVideos 中的点赞数
-                              setPublicVideos((prev) =>
-                                prev.map((i) =>
-                                  i.id === id
-                                    ? { ...i, likeCount: newLikeCount ?? (i.likeCount || 0), isLiked }
-                                    : i
-                                )
-                              );
-                            },
-                          }}
-                        />
-                      );
-                    })}
+                        return (
+                          <VideoCard
+                            key={`public-${item.id}`}
+                            data={videoData}
+                            variant="inspiration"
+                            actions={{
+                              onLike: (id, newLikeCount, isLiked) => {
+                                // 同步更新 userItems 中相同视频的点赞数
+                                setUserItems((prev) =>
+                                  prev.map((i) =>
+                                    i.id === id
+                                      ? { ...i, likeCount: newLikeCount ?? (i.likeCount || 0) }
+                                      : i
+                                  )
+                                );
+                                // 同步更新 publicVideos 中的点赞数
+                                setPublicVideos((prev) =>
+                                  prev.map((i) =>
+                                    i.id === id
+                                      ? { ...i, likeCount: newLikeCount ?? (i.likeCount || 0), isLiked }
+                                      : i
+                                  )
+                                );
+                              },
+                            }}
+                          />
+                        );
+                      })}
 
-                  </Masonry>
+                    </Masonry>
                   )}
                 </TabsContent>
 

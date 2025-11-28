@@ -122,6 +122,59 @@ export class R2Provider implements StorageProvider {
     }
   }
 
+  /**
+   * 生成预签名上传 URL，允许前端直接上传到 R2
+   * @param key 文件存储路径
+   * @param contentType 文件类型
+   * @param expiresIn URL 有效期（秒），默认 3600 秒
+   */
+  async getPresignedUploadUrl(
+    key: string,
+    contentType: string,
+    expiresIn: number = 3600
+  ): Promise<{ url: string; publicUrl: string }> {
+    const { AwsClient } = await import('aws4fetch');
+
+    // Polyfill crypto for Node.js environment
+    if (typeof crypto === 'undefined') {
+      const nodeCrypto = await import('crypto');
+      (globalThis as any).crypto = nodeCrypto.webcrypto;
+    }
+
+    const endpoint =
+      this.configs.endpoint ||
+      `https://${this.configs.accountId}.r2.cloudflarestorage.com`;
+    const url = `${endpoint}/${this.configs.bucket}/${key}`;
+
+    const client = new AwsClient({
+      accessKeyId: this.configs.accessKeyId,
+      secretAccessKey: this.configs.secretAccessKey,
+      region: this.configs.region || 'auto',
+    });
+
+    // 生成带签名的 URL
+    const signedRequest = await client.sign(
+      new Request(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': contentType,
+        },
+      }),
+      {
+        aws: { signQuery: true },
+      }
+    );
+
+    const publicUrl = this.configs.publicDomain
+      ? `${this.configs.publicDomain}/${key}`
+      : url;
+
+    return {
+      url: signedRequest.url,
+      publicUrl,
+    };
+  }
+
   async downloadAndUpload(
     options: StorageDownloadUploadOptions
   ): Promise<StorageUploadResult> {

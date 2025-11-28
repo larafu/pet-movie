@@ -138,7 +138,7 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
   const handleMouseEnter = () => {
     setIsHovered(true);
     if (videoRef.current && data.videoUrl) {
-      videoRef.current.play().catch(() => {});
+      videoRef.current.play().catch(() => { });
     }
   };
 
@@ -344,10 +344,14 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
     >
       {/* 视频内容 */}
       <div className="relative w-full h-full">
+        {/*
+          不使用 poster 属性，让浏览器通过 preload="metadata" 自动加载视频首帧
+          这样可以避免缩略图 URL 失效导致的黑屏问题
+        */}
         <video
           ref={videoRef}
           src={data.videoUrl}
-          poster={data.thumbnailUrl || undefined}
+          preload="metadata"
           className="h-full w-full object-cover"
           loop
           muted

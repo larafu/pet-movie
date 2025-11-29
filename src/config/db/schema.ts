@@ -829,3 +829,97 @@ export const customScriptSceneRelations = relations(customScriptScene, ({ one })
     references: [customScript.id],
   }),
 }));
+
+// ==================== Script Template Tables ====================
+// 脚本模板表 - 用于存储管理员创建的视频模板（类似 dog-hero、cat-hero）
+// 支持草稿和正式模板统一管理，通过 status 字段区分
+
+/**
+ * 脚本模板主表（含草稿）
+ * 存储可复用的视频模板，用户可以选择模板后上传自己的宠物图片生成视频
+ * status: draft=草稿, published=已发布, disabled=已禁用
+ */
+export const scriptTemplate = pgTable(
+  'script_template',
+  {
+    id: text('id').primaryKey(),
+
+    // 状态: draft=草稿, published=已发布, disabled=已禁用
+    status: text('status').notNull().default('draft'),
+
+    // 基本信息
+    name: text('name').notNull().default(''), // 模板名称，如 "Christmas Dog Rescue"
+    nameCn: text('name_cn'), // 中文名称
+    description: text('description'), // 模板描述（英文）
+    descriptionCn: text('description_cn'), // 模板描述（中文）
+    thumbnailUrl: text('thumbnail_url'), // 封面图/预览图
+    previewVideoUrl: text('preview_video_url'), // 预览视频URL（合成后的示例视频）
+
+    // 分类和筛选
+    category: text('category').notNull().default('dog'), // dog/cat/other
+    tags: text('tags'), // JSON数组，用于标签筛选，如 ["christmas", "rescue", "heartwarming"]
+
+    // 视频配置
+    styleId: text('style_id').notNull().default('pixar-3d'), // 视觉风格ID
+    globalStylePrefix: text('global_style_prefix'), // 全局风格前缀（视觉风格 + 角色一致性描述模板）
+    // 角色定义 JSON 数组
+    // 格式: [{ id, role, name, nameCn, description, descriptionCn }]
+    // - id: 角色标识符，如 "pet", "owner", "firefighter"
+    // - role: "primary" | "secondary"
+    // - name: 英文名称，如 "Hero Cat"
+    // - nameCn: 中文名称，如 "英雄猫咪"
+    // - description: 英文详细描述（用于提示词生成）
+    // - descriptionCn: 中文详细描述（用于展示）
+    charactersJson: text('characters_json'), // 角色定义数组
+    characterSheetUrl: text('character_sheet_url'), // 角色参考卡图片URL
+    durationSeconds: integer('duration_seconds').notNull().default(60), // 总时长 60/120
+    aspectRatio: text('aspect_ratio').notNull().default('16:9'), // 16:9 / 9:16
+    musicPrompt: text('music_prompt'), // 配乐提示词
+
+    // 分镜模板数据
+    // 草稿状态: { scenes: [{ id, sceneNumber, characterIds, prompt, firstFramePrompt, description, descriptionEn, frameStatus, frameImageUrl, videoStatus, videoUrl }] }
+    // 发布状态: { scenes: [{ sceneNumber, characterIds, prompt, firstFramePrompt, description, descriptionEn }] }
+    // - characterIds: 该场景首帧图中应出现的角色ID数组，如 ["pet", "owner"]
+    scenesJson: text('scenes_json'),
+
+    // 草稿专用字段
+    petImageUrl: text('pet_image_url'), // 测试用宠物图片
+    mergedVideoUrl: text('merged_video_url'), // 草稿合并后的预览视频
+
+    // 排序（发布后有效）
+    sortOrder: integer('sort_order').notNull().default(0), // 排序（越小越靠前）
+
+    // 统计（发布后有效）
+    useCount: integer('use_count').notNull().default(0), // 使用次数
+
+    // 积分定价（可选，默认使用全局配置）
+    creditsRequired: integer('credits_required'), // 使用此模板所需积分（null则使用默认）
+
+    // 创建者信息
+    createdBy: text('created_by')
+      .references(() => user.id, { onDelete: 'set null' }), // 创建者（管理员）
+
+    // 时间戳
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    // 查询已发布的模板列表（按分类和排序）
+    index('idx_script_template_status_category').on(table.status, table.category, table.sortOrder),
+    // 查询创建者的草稿列表
+    index('idx_script_template_created_by_status').on(table.createdBy, table.status),
+    // 按创建时间排序
+    index('idx_script_template_created_at').on(table.createdAt),
+  ]
+);
+
+// 脚本模板关系定义
+export const scriptTemplateRelations = relations(scriptTemplate, ({ one }) => ({
+  creator: one(user, {
+    fields: [scriptTemplate.createdBy],
+    references: [user.id],
+  }),
+}));
+

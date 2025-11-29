@@ -60,6 +60,11 @@ export const PERMISSIONS = {
   AITASKS_READ: 'admin.ai-tasks.read',
   AITASKS_WRITE: 'admin.ai-tasks.write',
   AITASKS_DELETE: 'admin.ai-tasks.delete',
+
+  // Script Templates (模板创建和管理)
+  SCRIPT_TEMPLATES_READ: 'admin.script-templates.read',
+  SCRIPT_TEMPLATES_WRITE: 'admin.script-templates.write',
+  SCRIPT_TEMPLATES_DELETE: 'admin.script-templates.delete',
 } as const;
 
 /**

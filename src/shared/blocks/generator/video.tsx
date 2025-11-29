@@ -15,6 +15,7 @@ import { toast } from 'sonner';
 
 import { Link } from '@/core/i18n/navigation';
 import { AIMediaType, AITaskStatus } from '@/extensions/ai';
+import { VIDEO_MODELS } from '@/extensions/ai/providers/evolink/models';
 import { Button } from '@/shared/components/ui/button';
 import { TempImageUploader } from './temp-image-uploader';
 import {
@@ -327,7 +328,7 @@ export function VideoGenerator({ srOnlyTitle }: VideoGeneratorProps) {
       const requestBody: any = {
         mediaType: AIMediaType.VIDEO,
         provider: 'evolink',
-        model: 'sora-2',
+        model: VIDEO_MODELS.SORA_2,
         prompt: prompt.trim(),
       };
 

@@ -1073,6 +1073,11 @@ export function ScriptCreator() {
       return;
     }
 
+    if (!petImageUrl) {
+      alert('请先上传宠物图片，参考卡需要基于宠物图片生成以保持角色一致性');
+      return;
+    }
+
     setIsGeneratingCharacterSheet(true);
     setCharacterSheetProgress(0);
 
@@ -1624,9 +1629,15 @@ A heartwarming Christmas story about a brave cat who saves its owner from a hous
                   </label>
                   <button
                     onClick={handleGenerateCharacterSheet}
-                    disabled={isGeneratingCharacterSheet || !config.globalStylePrefix}
+                    disabled={isGeneratingCharacterSheet || !config.globalStylePrefix || !petImageUrl}
                     className="flex items-center gap-1 px-3 py-1 text-xs bg-purple-500 text-white rounded hover:bg-purple-600 disabled:opacity-50 disabled:cursor-not-allowed"
-                    title={!config.globalStylePrefix ? '请先设置全局风格前缀' : '生成角色参考卡'}
+                    title={
+                      !petImageUrl
+                        ? '请先上传宠物图片'
+                        : !config.globalStylePrefix
+                          ? '请先设置全局风格前缀'
+                          : '基于宠物图片生成角色参考卡'
+                    }
                   >
                     {isGeneratingCharacterSheet ? (
                       <>
@@ -1679,8 +1690,10 @@ A heartwarming Christmas story about a brave cat who saves its owner from a hous
                           />
                         </div>
                       </div>
+                    ) : !petImageUrl ? (
+                      <span className="text-amber-600 dark:text-amber-400">请先上传宠物图片，参考卡需要基于宠物图片生成</span>
                     ) : (
-                      <span>点击「生成参考卡」按钮，AI 将生成包含所有角色的参考卡图片，用于保持后续生成的角色一致性</span>
+                      <span>点击「生成参考卡」按钮，AI 将基于上传的宠物图片生成风格化角色参考卡</span>
                     )}
                   </div>
                 )}

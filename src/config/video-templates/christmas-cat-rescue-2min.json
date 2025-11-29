@@ -1,0 +1,357 @@
+{
+  "config": {
+    "name": "Christmas Cat Rescue Extended",
+    "nameCn": "圣诞猫咪救援（完整版）",
+    "description": "An epic Christmas tale of a heroic cat who saves its owner from fire",
+    "descriptionCn": "一个史诗级的圣诞故事，讲述英勇猫咪从火灾中救出主人",
+    "tags": ["cat", "christmas", "rescue", "hero", "heartwarming", "extended"],
+    "styleId": "pixar-3d",
+    "globalStylePrefix": "Pixar-style 3D animated feature film look, full CG animation, stylized 3D characters with soft rounded shapes, consistent appearance across all shots",
+    "characters": [
+      {
+        "id": "pet",
+        "role": "primary",
+        "name": "Hero Cat",
+        "nameCn": "英雄猫咪",
+        "description": "a small fluffy orange tabby cat with big expressive round eyes, tiny pink nose, wearing a red Christmas sweater with jingle bell collar",
+        "descriptionCn": "一只毛茸茸的橘色虎斑猫，大圆眼睛，粉色小鼻子，穿着红色圣诞毛衣，戴着铃铛项圈"
+      },
+      {
+        "id": "owner",
+        "role": "primary",
+        "name": "The Boy",
+        "nameCn": "男孩",
+        "description": "a 13-year-old boy with short dark brown hair, wearing a white hoodie and dark jogger pants",
+        "descriptionCn": "一个13岁的男孩，深棕色短发，穿着白色连帽衫和深色运动裤"
+      },
+      {
+        "id": "firefighter",
+        "role": "secondary",
+        "name": "Firefighter",
+        "nameCn": "消防员",
+        "description": "a kind firefighter in full protective gear with helmet",
+        "descriptionCn": "一位穿戴整齐防护装备的消防员，戴着头盔"
+      }
+    ],
+    "characterSheetUrl": "",
+    "durationSeconds": 120,
+    "aspectRatio": "16:9",
+    "musicPrompt": "Epic Christmas orchestral score, warm opening, suspenseful tension, triumphant finale"
+  },
+  "scenes": [
+    {
+      "sceneNumber": 1,
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Christmas Eve afternoon. Warm sunlit living room. Boy standing by tall tree, reaching up to place star. Cat in red sweater at his feet watching. Old photo of young boy with kitten on side table. Loving atmosphere.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Wide shot of sunlit living room. Boy stands on tiptoe placing star on Christmas tree top.",
+          "cameraMovement": "wide"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "Cat in red sweater watches from floor, head tilted curiously, tail swishing.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "Cat bats at low-hanging ornament, making it spin and tinkle. Boy laughs warmly.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "Boy kneels, scratches behind cat's ears. Cat leans into hand, eyes closing happily.",
+          "cameraMovement": "close-up"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "Close-up of old photo: young boy holding tiny kitten. Golden light catches frame.",
+          "cameraMovement": "close-up insert"
+        }
+      ],
+      "description": "圣诞前夕午后，男孩和猫咪一起装饰圣诞树。旁边老照片记录着他们多年前的初遇。",
+      "descriptionEn": "Christmas Eve afternoon. Boy and cat decorate tree together. An old photo captures their first meeting years ago."
+    },
+    {
+      "sceneNumber": 2,
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Christmas Eve night. Dark room lit by tree lights and laptop. Boy on sofa with headphones, gaming. Cat standing at his feet with yarn ball, looking up hopefully. Lonely atmosphere.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Wide shot, night. Room dark except tree lights and laptop glow. Boy gaming on sofa.",
+          "cameraMovement": "wide"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "Cat pads over with yarn ball in mouth, drops it at boy's feet, meows hopefully.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "Boy glances down briefly. 'Later buddy.' Looks back at screen. Cat's ears droop.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "Cat jumps onto sofa arm, paws at boy's shoulder insistently, meowing.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "Boy pushes cat away. 'I'm in a ranked match.' Cat lands softly, sits alone on rug, watching sadly.",
+          "cameraMovement": "medium pullback"
+        }
+      ],
+      "description": "夜幕降临，男孩沉浸游戏。猫咪叼来毛线球想陪伴，却一次次被忽视，只好独自坐着。",
+      "descriptionEn": "Night falls. Boy is lost in gaming. Cat brings yarn ball but is ignored repeatedly, sits alone watching."
+    },
+    {
+      "sceneNumber": 3,
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Night apartment. Boy on sofa reaching to adjust heater dial to max with one hand, other hand holding old light cable. Cat on rug watching curiously. Casual moment before danger.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Boy's hand turns space heater dial to maximum without looking from game.",
+          "cameraMovement": "close-up"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "Other hand grabs old Christmas lights, plugs into crowded power strip behind tree.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "Close-up of power strip. Messy cables, one old plug showing discoloration.",
+          "cameraMovement": "close-up"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "Discolored plug begins glowing faintly orange, pulsing with heat.",
+          "cameraMovement": "extreme close-up"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "Tiny spark jumps. Ember appears where curtain touches plug. Thin smoke rises.",
+          "cameraMovement": "close-up"
+        }
+      ],
+      "description": "男孩随手把暖气调到最大，在过载电源板插更多灯。插头过热，火星跳出，窗帘开始冒烟。",
+      "descriptionEn": "Boy maxes heater, plugs more lights. The plug overheats, sparks jump, curtain starts smoking."
+    },
+    {
+      "sceneNumber": 4,
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Living room corner. Cat on rug, eyes half-closed drowsy. Faint orange glow starting behind tree. Boy on sofa with back turned. Quiet moment before tension.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Cat lies on rug, eyes half-closed. Suddenly ears twitch sharply, nose twitches.",
+          "cameraMovement": "low angle"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "Cat lifts head, sniffs air urgently. Something is wrong. Eyes widening.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "Faint orange glow reflects in cat's wide eyes. Coming from behind tree branches.",
+          "cameraMovement": "close-up"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "Cat stands up rigid, tail puffing in alarm, staring at the growing glow.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "Wide shot: tense cat foreground. Small flame on curtain behind tree. Boy with headphones, back turned, unaware.",
+          "cameraMovement": "wide contrast"
+        }
+      ],
+      "description": "猫咪从昏睡中惊醒，闻到异常。它看到墙上橙色光反射，站起身紧绷。火焰蔓延而男孩毫无察觉。",
+      "descriptionEn": "Cat wakes from drowse, senses danger. Sees orange glow on wall, stands tense. Fire spreads while boy is unaware."
+    },
+    {
+      "sceneNumber": 5,
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Apartment. Cat on hind legs at sofa edge, paw reaching toward boy's arm, mouth open meowing urgently. Boy annoyed, one headphone off. Fire glow growing behind. Tense atmosphere.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Cat rushes to sofa, jumps up, meows loudly, tapping boy's arm urgently.",
+          "cameraMovement": "handheld"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "Boy frowns, pulls one headphone off. 'Not now Milo!' Pushes cat down.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "Cat immediately jumps back up, more desperate, tries to bite his sleeve gently.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "Boy pushes cat away again. Behind them, flame catches more curtain fabric.",
+          "cameraMovement": "medium wide"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "Cat paces anxiously at sofa foot, looking between boy and fire, panic in eyes.",
+          "cameraMovement": "medium"
+        }
+      ],
+      "description": "猫咪冲向沙发拼命警告男孩，却被推开。再跳上来咬袖子，又被推。火势增大，它焦急踱步。",
+      "descriptionEn": "Cat rushes to warn boy but is pushed away. Jumps back, bites sleeve, pushed again. Fire grows as it paces in panic."
+    },
+    {
+      "sceneNumber": 6,
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Apartment. Cat on coffee table, drink cup knocked over splashing. Boy sitting up startled, laptop sliding. Thick smoke in upper frame. Intense fire glow. Crisis moment.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Fire now fully ablaze on curtain, catching tree branches. Thick smoke at ceiling.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "Cat leaps onto coffee table, skids, knocks over drink with dramatic splash.",
+          "cameraMovement": "dynamic"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "Cat jumps to boy, bites hoodie sleeve firmly, tugs hard with whole body weight.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "Boy jolts, laptop slides. He coughs, turns head. Smoke alarm shrieks with strobe.",
+          "cameraMovement": "close-up"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "Boy's eyes widen seeing burning tree. Face shows pure terror. 'Oh no...'",
+          "cameraMovement": "close-up reaction"
+        }
+      ],
+      "description": "猫咪决定性一跃——跳上茶几打翻饮料，扑向男孩咬住衣袖。男孩惊醒，烟雾报警器响起，他看到燃烧的圣诞树，脸上写满恐惧。",
+      "descriptionEn": "Cat makes decisive leap - knocks drink, bites sleeve hard. Boy wakes, alarm screams, he sees burning tree with pure terror."
+    },
+    {
+      "sceneNumber": 7,
+      "characterIds": ["pet", "owner", "firefighter"],
+      "firstFramePrompt": "Smoky hallway. Boy stumbling toward door, arm covering nose. Cat ahead gripping his sleeve, pulling forward. Orange flames behind. Desperate escape.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Boy stumbles through smoky hallway, arm covering nose, eyes watering.",
+          "cameraMovement": "tracking"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "Cat runs ahead, teeth gripping sleeve, pulling him forward. Bell jingling.",
+          "cameraMovement": "low tracking"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "Boy reaches door, firefighter guides him out. Cat stops at threshold suddenly.",
+          "cameraMovement": "low angle"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "Close-up: cat sees family photo frame on console inside. Eyes narrow with determination.",
+          "cameraMovement": "POV close-up"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "Cat spins, darts back into smoky apartment, jumps to console, bites photo frame.",
+          "cameraMovement": "dynamic"
+        }
+      ],
+      "description": "男孩在猫咪引领下穿过烟雾逃向门口。但猫咪在门槛停下——看到全家福照片，毅然冲回火场叼起它。",
+      "descriptionEn": "Boy flees through smoke led by cat. But cat stops at threshold - sees family photo, darts back to save it."
+    },
+    {
+      "sceneNumber": 8,
+      "characterIds": ["owner"],
+      "firstFramePrompt": "Night outside building. Emergency lights, snow falling. Boy on curb in silver blanket, head down, clutching cat collar, tear on cheek. Somber before hope.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Wide shot of building exterior. Fire truck, emergency lights. Snow falling gently.",
+          "cameraMovement": "wide crane"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "Boy on curb in emergency blanket, clutching cat collar. Tear rolls down cheek.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "Building entrance. Firefighter emerges carrying sooty cat, photo frame still in mouth.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "Boy looks up in disbelief. Firefighter kneels, hands cat over. Boy hugs tightly.",
+          "cameraMovement": "medium close-up"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "Later: cozy room, TV shows 'HERO CAT'. Boy with medal-wearing cat, photo on table. Cat purrs.",
+          "cameraMovement": "slow pullback"
+        }
+      ],
+      "description": "男孩绝望等待，握着项圈泪流满面。消防员抱着叼着照片的猫走出，男孩含泪拥抱。后来戴勋章的猫咪依偎看新闻。",
+      "descriptionEn": "Boy waits in despair clutching collar. Firefighter emerges with cat holding photo. They embrace. Later, medal-wearing cat watches news."
+    }
+  ],
+  "previewVideoUrl": "",
+  "thumbnailUrl": ""
+}

@@ -49,6 +49,11 @@
               "title": "Posts",
               "icon": "FileText",
               "url": "/admin/posts"
+            },
+            {
+              "title": "Script Templates",
+              "icon": "Film",
+              "url": "/admin/script-templates"
             }
           ]
         },

@@ -49,6 +49,11 @@
               "title": "文章",
               "icon": "FileText",
               "url": "/admin/posts"
+            },
+            {
+              "title": "脚本模板",
+              "icon": "Film",
+              "url": "/admin/script-templates"
             }
           ]
         },

@@ -10,11 +10,14 @@ import { nanoid } from 'nanoid';
 import { db } from '@/core/db';
 import { customScript, customScriptScene } from '@/config/db/schema';
 import { createEvolinkClient } from '@/extensions/ai/providers/evolink/client';
+import { IMAGE_MODELS, VIDEO_MODELS } from '@/extensions/ai/providers/evolink/models';
 import { createR2ProviderFromDb } from '@/extensions/storage/db-config-loader';
 
-import { generateScenes, addMusicToPrompt } from './gemini-service';
+import { generateScenesWithPetImage, addMusicToPrompt } from './gemini-service';
 import { mergeVideosWithRetry } from '@/extensions/video/merge-service';
 import { refundCredits } from '@/shared/models/credit';
+import { createAITask } from '@/shared/models/ai_task';
+import { AITaskStatus } from '@/extensions/ai';
 import type {
   CreateScriptRequest,
   CustomScriptRecord,
@@ -55,9 +58,10 @@ export async function createCustomScript(
   console.log('⏱️  Duration:', request.durationSeconds, 'seconds');
 
   try {
-    // Step 1: 调用 Gemini 生成分镜
-    console.log('\n📝 Step 1: Generating scenes with Gemini...');
-    const generatedScenes = await generateScenes(
+    // Step 1: 使用 Gemini Vision 一次调用完成：宠物识别 + 分镜生成
+    console.log('\n🐾📝 Step 1: Gemini Vision (pet identification + scene generation)...');
+    const generatedResult = await generateScenesWithPetImage(
+      request.petImageUrl,
       request.userPrompt,
       request.durationSeconds as 60 | 120,
       request.aspectRatio as '16:9' | '9:16',
@@ -65,8 +69,11 @@ export async function createCustomScript(
       request.customStyle,
       request.musicPrompt
     );
+    console.log('✅ Pet identified:', generatedResult.pet.species, '-', generatedResult.pet.description.substring(0, 50) + '...');
+    console.log('🎨 Global style:', generatedResult.globalStylePrefix?.substring(0, 50) + '...');
+    console.log('📖 Title:', generatedResult.title);
 
-    // Step 2: 创建剧本主记录
+    // Step 2: 创建剧本主记录（包含宠物信息和全局风格）
     console.log('\n💾 Step 2: Saving script to database...');
     await database.insert(customScript).values({
       id: scriptId,
@@ -79,8 +86,8 @@ export async function createCustomScript(
       aspectRatio: request.aspectRatio,
       styleId: request.styleId || 'pixar-3d',
       customStyle: request.customStyle || null,
-      scenesJson: JSON.stringify(generatedScenes),
-      storyTitle: generatedScenes.title,
+      scenesJson: JSON.stringify(generatedResult), // 包含 pet + globalStylePrefix + scenes
+      storyTitle: generatedResult.title,
       creditsUsed: 15, // 初始化扣除的积分
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -88,7 +95,7 @@ export async function createCustomScript(
 
     // Step 3: 创建分镜段落记录
     console.log('\n💾 Step 3: Saving scenes to database...');
-    const sceneRecords = generatedScenes.scenes.map((scene, index) => {
+    const sceneRecords = generatedResult.scenes.map((scene) => {
       const sceneId = nanoid();
       // 如果有配乐提示词，添加到每个场景的视频提示词
       const promptWithMusic = addMusicToPrompt(scene.prompt, request.musicPrompt);
@@ -112,12 +119,13 @@ export async function createCustomScript(
     await database.insert(customScriptScene).values(sceneRecords);
 
     console.log('✅ Custom script created successfully!');
-    console.log('📖 Title:', generatedScenes.title);
+    console.log('🐾 Pet:', generatedResult.pet.species, '-', generatedResult.pet.descriptionCn);
+    console.log('📖 Title:', generatedResult.title);
     console.log('🎬 Scene count:', sceneRecords.length);
 
     return {
       scriptId,
-      title: generatedScenes.title,
+      title: generatedResult.title,
       scenes: sceneRecords.map((record) => ({
         id: record.id,
         sceneNumber: record.sceneNumber,
@@ -386,23 +394,114 @@ export async function generateSceneFrame(
 
     // 使用 firstFramePrompt（专门为静态图片设计的提示词）
     // 如果没有 firstFramePrompt，则使用完整 prompt 的简化版本
-    const framePrompt = scene.firstFramePrompt || scene.prompt;
+    let framePrompt = scene.firstFramePrompt || scene.prompt;
 
-    // 构建图生图提示词（使用用户选择的风格 + 首帧提示词）
-    const styleTransferPrompt = `Transform this pet into ${stylePrefix}, ${framePrompt}`;
+    // 安全检查：确保 firstFramePrompt 包含宠物引用（图生图必须有主体）
+    // 如果没有 "the same cat/dog" 或 "the cat/dog"，则添加一个默认的宠物描述
+    const hasPetReference = /the\s+(same\s+)?(cat|dog|pet)/i.test(framePrompt);
+    if (!hasPetReference) {
+      console.warn('⚠️  firstFramePrompt missing pet reference, adding default');
+      // 从 scenesJson 中获取宠物信息
+      let petSpecies = 'pet';
+      try {
+        const scenesData = JSON.parse(scriptData.script.scenesJson || '{}');
+        if (scenesData.pet?.species) {
+          petSpecies = scenesData.pet.species;
+        }
+      } catch {
+        // 忽略解析错误
+      }
+      // 在提示词开头添加宠物引用
+      framePrompt = `the same ${petSpecies} in the scene, ${framePrompt}`;
+    }
+
+    // 构建图生图提示词
+    // 使用与模板功能相似的格式："Transform this pet into [style], [scene description]"
+    // 这个格式在 Seedream 图生图中更稳定
+    const styleTransferPrompt = `Transform this pet into ${stylePrefix} style, ${framePrompt}`;
 
     console.log('🎨 Style ID:', styleId);
-    console.log('🎨 Style prefix:', stylePrefix.substring(0, 50) + '...');
-    console.log('🖼️  First frame prompt:', framePrompt.substring(0, 80) + '...');
-    console.log('🎨 Style transfer prompt:', styleTransferPrompt.substring(0, 100) + '...');
+    console.log('🎨 Style prefix length:', stylePrefix.length);
+    console.log('🖼️  First frame prompt length:', framePrompt.length);
+    console.log('🎨 Total prompt length:', styleTransferPrompt.length);
     console.log('🖼️  Pet image URL:', scriptData.script.petImageUrl);
     console.log('📐 Aspect ratio:', scriptData.script.aspectRatio);
 
-    // 创建图生图任务
+    // 验证图片 URL 是否可访问，并检查格式
+    let petImageUrl = scriptData.script.petImageUrl;
+    try {
+      const imageCheckResponse = await fetch(petImageUrl, { method: 'HEAD' });
+      const contentType = imageCheckResponse.headers.get('content-type');
+      console.log('🔍 Pet image URL check:', imageCheckResponse.status, contentType);
+
+      if (!imageCheckResponse.ok) {
+        console.warn('⚠️  Pet image URL may not be accessible:', imageCheckResponse.status);
+      }
+
+      // 检查是否为 WebP 格式 - Seedream 不支持 WebP 作为图生图输入
+      if (contentType?.includes('webp') || petImageUrl.toLowerCase().endsWith('.webp')) {
+        console.log('🔄 WebP detected, converting to PNG for Seedream compatibility...');
+
+        try {
+          // 使用 sharp 进行真正的图片格式转换
+          const sharp = (await import('sharp')).default;
+
+          // 下载原始图片
+          const imageResponse = await fetch(petImageUrl);
+          if (!imageResponse.ok) {
+            throw new Error(`Failed to download image: ${imageResponse.status}`);
+          }
+          const webpBuffer = Buffer.from(await imageResponse.arrayBuffer());
+
+          // 使用 sharp 将 WebP 转换为 PNG
+          const pngBuffer = await sharp(webpBuffer)
+            .png()
+            .toBuffer();
+
+          console.log(`✅ Image converted: WebP(${webpBuffer.length} bytes) -> PNG(${pngBuffer.length} bytes)`);
+
+          // 上传转换后的 PNG 到 R2
+          const r2Provider = await createR2ProviderFromDb();
+          const convertedKey = `custom-script/${scriptId}/pet-image-converted.png`;
+
+          const uploadResult = await r2Provider.uploadFile({
+            body: pngBuffer,
+            key: convertedKey,
+            contentType: 'image/png',
+            disposition: 'inline',
+          });
+
+          if (uploadResult.success && uploadResult.url) {
+            petImageUrl = uploadResult.url;
+            console.log('✅ PNG uploaded to R2:', petImageUrl);
+          } else {
+            console.warn('⚠️  Failed to upload converted PNG:', uploadResult.error);
+          }
+        } catch (convertError) {
+          console.warn('⚠️  Failed to convert WebP to PNG:', convertError);
+          // 继续使用原始 URL，让 Seedream API 决定是否能处理
+        }
+      }
+    } catch (urlError) {
+      console.warn('⚠️  Failed to check pet image URL:', urlError);
+    }
+
+    // 限制提示词长度（Seedream 可能对长提示词不友好）
+    const maxPromptLength = 500;
+    let finalPrompt = styleTransferPrompt;
+    if (finalPrompt.length > maxPromptLength) {
+      console.warn(`⚠️  Prompt too long (${finalPrompt.length}), truncating to ${maxPromptLength}`);
+      finalPrompt = finalPrompt.substring(0, maxPromptLength);
+    }
+
+    console.log('📝 Final prompt:', finalPrompt);
+
+    // 创建图生图任务（使用可能已转换的 petImageUrl）
+    console.log('🖼️  Using pet image URL:', petImageUrl);
     const response = await evolinkClient.generateImage({
-      model: 'doubao-seedream-4.0',
-      prompt: styleTransferPrompt,
-      image_urls: [scriptData.script.petImageUrl],
+      model: IMAGE_MODELS.SEEDREAM_4,
+      prompt: finalPrompt,
+      image_urls: [petImageUrl], // 使用可能已从 WebP 转换的 URL
       aspect_ratio: scriptData.script.aspectRatio,
     });
 
@@ -566,14 +665,34 @@ export async function generateSceneVideo(
   try {
     const evolinkClient = createEvolinkClient();
 
-    console.log('🎨 Video prompt:', scene.prompt.substring(0, 100) + '...');
+    // 从 scenesJson 中获取全局风格前缀（包含视觉风格 + 角色一致性描述）
+    let globalStylePrefix = '';
+    try {
+      const scenesData = JSON.parse(scriptData.script.scenesJson || '{}') as GeneratedScenes;
+      if (scenesData.globalStylePrefix) {
+        globalStylePrefix = scenesData.globalStylePrefix;
+      }
+    } catch {
+      // 忽略解析错误，使用空前缀
+    }
+
+    // 构建完整的视频提示词：全局风格前缀 + 场景提示词（已包含音乐）
+    // globalStylePrefix 包含：视觉风格 + 角色描述（宠物外观一致性）
+    // scene.prompt 包含：场景动作描述 + 音乐提示词（在创建时已添加）
+    const fullVideoPrompt = globalStylePrefix
+      ? `${globalStylePrefix}. ${scene.prompt}`
+      : scene.prompt;
+
+    console.log('🎨 Global style prefix:', globalStylePrefix ? globalStylePrefix.substring(0, 80) + '...' : '(none)');
+    console.log('🎬 Scene prompt:', scene.prompt.substring(0, 100) + '...');
+    console.log('📝 Full video prompt length:', fullVideoPrompt.length);
     console.log('🖼️  Frame image URL:', scene.frameImageUrl);
     console.log('📐 Aspect ratio:', scriptData.script.aspectRatio);
 
     // 创建 Sora-2 视频生成任务（每个分镜15秒）
     const response = await evolinkClient.generateSora2Video({
-      model: 'sora-2',
-      prompt: scene.prompt,
+      model: VIDEO_MODELS.SORA_2,
+      prompt: fullVideoPrompt,
       aspect_ratio: scriptData.script.aspectRatio as '16:9' | '9:16',
       duration: 15, // 每个分镜固定15秒
       image_urls: [scene.frameImageUrl], // 使用首帧图作为参考
@@ -825,6 +944,61 @@ export async function mergeScriptVideos(
         updatedAt: new Date(),
       })
       .where(eq(customScript.id, scriptId));
+
+    // 创建 ai_task 记录，让视频显示在 /activity/ai-tasks 页面
+    // 注意：积分已在各分镜生成时扣除，这里不再扣除
+    try {
+      // 获取剧本标题和宠物描述
+      let storyTitle = scriptData.script.storyTitle || 'Custom Script Video';
+      let petDescription = '';
+      try {
+        const scenesData = JSON.parse(scriptData.script.scenesJson || '{}') as GeneratedScenes;
+        if (scenesData.pet?.descriptionCn) {
+          petDescription = scenesData.pet.descriptionCn;
+        }
+      } catch {
+        // 忽略解析错误
+      }
+
+      await createAITask(
+        {
+          id: nanoid(),
+          userId,
+          mediaType: 'video',
+          provider: 'custom-script',
+          model: VIDEO_MODELS.SORA_2,
+          prompt: scriptData.script.userPrompt || storyTitle,
+          options: JSON.stringify({
+            scriptId,
+            durationSeconds: scriptData.script.durationSeconds,
+            aspectRatio: scriptData.script.aspectRatio,
+            styleId: scriptData.script.styleId,
+            sceneCount: scriptData.scenes.length,
+          }),
+          status: AITaskStatus.COMPLETED,
+          costCredits: scriptData.script.creditsUsed,
+          scene: 'custom-script',
+          petImageUrl: scriptData.script.petImageUrl,
+          petDescription,
+          finalVideoUrl: result.mergedUrl,
+          durationSeconds: scriptData.script.durationSeconds,
+          aspectRatio: scriptData.script.aspectRatio,
+          taskInfo: JSON.stringify({
+            scriptId,
+            storyTitle,
+            sceneCount: scriptData.scenes.length,
+          }),
+        },
+        { skipCreditConsumption: true } // 积分已在分镜生成时扣除
+      );
+      console.log('✅ AI task record created for custom script');
+    } catch (aiTaskError) {
+      // ai_task 创建失败不影响主流程，只记录日志
+      console.error('⚠️  Failed to create ai_task record:', aiTaskError);
+      Sentry.captureException(aiTaskError, {
+        tags: { component: 'custom_script', action: 'create_ai_task' },
+      });
+    }
 
     return result.mergedUrl;
   } catch (error) {

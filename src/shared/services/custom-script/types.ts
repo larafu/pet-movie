@@ -3,10 +3,19 @@
  * 自定义剧本相关类型定义
  */
 
-// ==================== 分镜相关类型 ====================
+// ==================== 宠物和分镜相关类型 ====================
 
 /**
- * Gemini 生成的单个分镜
+ * 宠物外观描述（从图片识别）
+ */
+export interface PetAppearance {
+  species: string; // 物种（cat/dog）
+  description: string; // 完整的外观描述（英文）
+  descriptionCn: string; // 中文描述
+}
+
+/**
+ * Gemini 生成的单个分镜（包含多个shots）
  */
 export interface GeneratedScene {
   sceneNumber: number;
@@ -17,10 +26,13 @@ export interface GeneratedScene {
 }
 
 /**
- * Gemini 分镜生成结果
+ * Gemini 分镜生成结果（包含宠物信息和全局风格）
+ * 通过一次 Vision API 调用完成：宠物识别 + 分镜生成
  */
 export interface GeneratedScenes {
   title: string; // 故事标题
+  pet: PetAppearance; // 宠物外观（从图片识别）
+  globalStylePrefix: string; // 全局风格前缀（画面风格 + 角色一致性）
   scenes: GeneratedScene[];
 }
 

@@ -1,22 +1,28 @@
 /**
  * Gemini Scene Generation Service
- * 使用 Gemini 将用户提示词转换为分镜提示词
+ * 使用 Gemini Vision 同时识别宠物外观并生成分镜提示词
+ * 一次调用完成：宠物识别 + 角色一致性 + 画面风格 + 分镜设计
  */
 
 import { createEvolinkClient } from '@/extensions/ai/providers/evolink/client';
-import type { GeneratedScenes, VideoStyleId } from './types';
+import type { VideoStyleId, GeneratedScenes, PetAppearance } from './types';
 import { getStylePrefix, getVideoStyleById } from './types';
 
+// 重新导出类型供外部使用
+export type { PetAppearance, GeneratedScenes };
+
+// ==================== 分镜生成（合并宠物识别）====================
+
 /**
- * 生成分镜提示词的 Gemini prompt
+ * 构建合并的 Gemini Vision prompt
+ * 一次调用完成：宠物识别 + 分镜生成
  *
  * 结构说明：
- * - 每个 scene 是一个 15 秒的场景段落
- * - 每个场景段落内包含 3-4 个分镜（shots）设计
- * - 分镜之间有自然的过渡和节奏变化
- * - 整个场景控制在约 12 秒的实际内容（留有余量）
+ * - 先识别图片中的宠物外观
+ * - 生成全局风格前缀（包含画面风格+角色一致性）
+ * - 每个 scene 是一个 15 秒的场景段落，包含 3-4 个 shots
  */
-function buildGeminiPrompt(
+function buildGeminiVisionPrompt(
   userPrompt: string,
   durationSeconds: 60 | 120,
   aspectRatio: '16:9' | '9:16',
@@ -24,15 +30,11 @@ function buildGeminiPrompt(
   customStyle?: string,
   musicPrompt?: string
 ): string {
-  const sceneCount = durationSeconds / 15; // 每段15秒
+  const sceneCount = durationSeconds / 15;
   const orientationNote =
     aspectRatio === '9:16'
-      ? 'The video is in portrait mode (9:16), suitable for mobile viewing. Frame compositions should be vertical.'
-      : 'The video is in landscape mode (16:9), suitable for desktop viewing. Frame compositions should be horizontal.';
-
-  const musicNote = musicPrompt
-    ? `\nBackground Music Style: ${musicPrompt} (use generic music style descriptions, avoid specific song names or artist names)`
-    : '';
+      ? 'Portrait mode (9:16), vertical frame compositions for mobile viewing.'
+      : 'Landscape mode (16:9), horizontal frame compositions for desktop viewing.';
 
   // 获取风格前缀
   const stylePrefix = getStylePrefix(styleId, customStyle);
@@ -40,103 +42,98 @@ function buildGeminiPrompt(
     ? 'custom style'
     : (getVideoStyleById(styleId)?.name || '3D Animation');
 
-  return `You are a professional pet video storyboard artist and cinematographer specializing in ${styleName}. A user wants to create a ${durationSeconds}-second custom pet video.
+  const musicSection = musicPrompt
+    ? `\n**Background Music**: ${musicPrompt} (use generic style descriptions, no specific song/artist names)`
+    : '';
 
-User's Creative Description:
-"${userPrompt}"
+  return `You are a professional pet video storyboard artist. Analyze the uploaded pet photo and create a complete ${durationSeconds}-second video storyboard.
 
-Visual Style: ${stylePrefix}
+## TASK 1: IDENTIFY THE PET (from the uploaded image)
 
-${orientationNote}
-${musicNote}
+Carefully analyze the pet in the photo:
+- Species (cat or dog)
+- Fur: color, pattern, length, texture
+- Face: eye color/shape, nose, ears, distinctive markings
+- Body: size, build, unique features
 
-Please split this story into ${sceneCount} scene segments, each approximately 12-15 seconds long.
+## TASK 2: CREATE STORYBOARD
 
-## SCENE STRUCTURE REQUIREMENTS
+**User's Story Idea**: "${userPrompt}"
 
-Each scene segment (15 seconds) should contain 3-4 SHOTS (分镜) with:
-- **Shot 1 (0-3s)**: Establishing shot or transition from previous scene
-- **Shot 2 (3-7s)**: Main action or key moment
-- **Shot 3 (7-11s)**: Reaction, detail, or secondary action
-- **Shot 4 (11-15s)**: Conclusion or lead-in to next scene (optional)
+**Visual Style**: ${styleName} - ${stylePrefix}
 
-## SHOT DESIGN ELEMENTS
+**Format**: ${orientationNote}
+${musicSection}
 
-For each shot within a scene, include:
-1. **Camera type**: wide/medium/close-up/extreme close-up/aerial/low angle/tracking/pan/zoom
-2. **Camera movement**: static/dolly in/dolly out/pan left-right/tilt up-down/crane/handheld/orbit
-3. **Subject action**: specific pet movements and expressions
-4. **Environment details**: background elements, lighting changes
-5. **Timing cues**: pace indicators (slow motion, normal speed, quick cuts)
+Create ${sceneCount} scene segments (each ~15 seconds).
 
-## CRITICAL PET REFERENCE RULES (MUST FOLLOW)
+## SCENE STRUCTURE
 
-**ALWAYS use "the same pet" or "the pet" to refer to the animal subject.**
+Each scene contains 3-4 SHOTS:
+- **Shot 1 (0-3s)**: Establishing shot / transition
+- **Shot 2 (3-7s)**: Main action / key moment
+- **Shot 3 (7-11s)**: Reaction / detail / secondary action
+- **Shot 4 (11-15s)**: Conclusion / lead-in to next (optional)
 
-NEVER use specific pet descriptions such as:
-- NO breed names (golden retriever, persian cat, husky, corgi, etc.)
-- NO color descriptions (orange cat, white dog, black puppy, etc.)
-- NO size descriptions (small dog, big cat, tiny kitten, etc.)
-- NO species details (fluffy dog, tabby cat, spotted puppy, etc.)
+## SHOT ELEMENTS
 
-CORRECT examples:
-- "the same pet looks up curiously"
-- "the pet runs through the forest"
-- "close-up on the pet's expressive eyes"
+Include for each shot:
+1. Camera: wide/medium/close-up/aerial/low-angle/tracking
+2. Movement: static/dolly/pan/tilt/crane/orbit
+3. Pet action: specific movements and expressions
+4. Environment: background, lighting
+5. Emotion: mood and atmosphere
 
-INCORRECT examples (DO NOT USE):
-- "the golden retriever runs through the forest" ❌
-- "the orange cat looks up curiously" ❌
-- "the fluffy white puppy plays" ❌
+## CRITICAL RULES
 
-The actual pet appearance comes from the user's uploaded photo via image-to-image generation. Your prompts must be pet-appearance-agnostic.
+1. **Pet Reference**: ALWAYS use "the same [species]" or "the [species]" - NEVER use breed names, colors, or specific descriptions in prompts
+2. **No Copyrights**: No brand names (Pixar, Disney, Ghibli, etc.)
+3. **Story Arc**: Scene 1 = opening, Scene ${sceneCount} = satisfying ending
 
-## OTHER IMPORTANT REQUIREMENTS
-
-1. Scene 1 is the opening (establish setting and character)
-2. Scene ${sceneCount} is the ending (satisfying emotional conclusion)
-3. Describe camera movements and transitions between shots clearly
-4. Include emotional beats and rhythm changes within each scene
-5. Total content per scene should be ~12 seconds (leaving buffer for AI generation)
-6. NEVER use copyrighted brand names (no Pixar, Disney, Ghibli, Marvel, specific song titles, artist names, etc.)
-7. Use generic descriptive terms for style and music
-
-## PROMPT STRUCTURE
-
-Write each scene prompt as a continuous cinematographic description that flows through multiple shots:
-
-"[Style description], SHOT 1: [camera type + movement], [setting], the same pet [action]. SHOT 2: [camera transition], [new angle/framing], the pet [continues action/new action], [environmental detail]. SHOT 3: [camera work], [close-up or detail shot], [emotion/expression], [atmosphere]. [Optional SHOT 4: transition element]."
-
-## OUTPUT FORMAT (JSON only, no other text):
+## OUTPUT FORMAT (JSON only):
 
 {
-  "title": "Story Title in English",
+  "title": "Story Title",
+  "pet": {
+    "species": "cat" or "dog",
+    "description": "[English description of the pet from the photo, 50-80 words, for character consistency reference]",
+    "descriptionCn": "[中文描述，30-50字]"
+  },
+  "globalStylePrefix": "[Combined style prefix: visual style + character description, ~50 words. Example: 'High-quality 3D animation style, cinematic lighting, vibrant colors. The main character is a fluffy cat with expressive eyes, maintaining consistent appearance throughout.']",
   "scenes": [
     {
       "sceneNumber": 1,
-      "prompt": "[Complete multi-shot scene description for VIDEO generation, 150-250 words]",
-      "firstFramePrompt": "[First frame/keyframe prompt for IMAGE generation - describe ONLY the opening shot (Shot 1), single static image, 30-50 words, focus on: setting, pet pose/position, lighting, atmosphere. NO camera movements, NO transitions, NO multiple shots]",
+      "prompt": "[Complete scene with all shots, 150-250 words. Format: 'SHOT 1: [camera] [setting] the same [species] [action]. SHOT 2: [camera] the [species] [action]...' Use 'the same cat/dog' or 'the cat/dog' throughout]",
+      "firstFramePrompt": "[CRITICAL: MUST include 'the same cat' or 'the same dog'. Static image prompt for Shot 1, 30-50 words. Format: '[setting description], the same [species] [pose/action], [lighting], [mood]'. Example: 'A cozy living room with warm lighting, the same cat sitting on a windowsill looking outside, soft afternoon sunlight, peaceful atmosphere']",
       "description": "场景概述（中文）",
-      "descriptionEn": "Scene overview (English)"
+      "descriptionEn": "Scene overview"
     }
   ]
 }
 
-IMPORTANT for firstFramePrompt:
-- This is for generating a SINGLE STATIC IMAGE (the first frame/keyframe)
-- Describe ONE moment in time, NOT a sequence
-- Focus on: environment, pet's pose, expression, lighting, mood
-- Do NOT include camera movements or transitions
-- Keep it concise (30-50 words)
-- MUST use "the same pet" or "the pet" - NEVER use breed/color/size descriptions
+CRITICAL RULES FOR firstFramePrompt:
+1. MUST contain "the same cat" or "the same dog" - this is REQUIRED for image-to-image generation
+2. Describe the pet's pose/action in the scene
+3. NO camera movements, NO transitions - static image only
+4. Keep it 30-50 words
 
-Generate exactly ${sceneCount} scenes. Output ONLY the JSON, nothing else.`;
+Generate exactly ${sceneCount} scenes. Output ONLY valid JSON.`;
 }
 
 /**
- * 使用 Gemini 生成分镜提示词
+ * 使用 Gemini Vision 生成分镜提示词（合并宠物识别）
+ * 一次调用完成：宠物外观识别 + 角色一致性 + 画面风格 + 分镜设计
+ *
+ * @param petImageUrl 宠物图片URL（必需，用于识别宠物外观）
+ * @param userPrompt 用户故事描述
+ * @param durationSeconds 视频时长（60或120秒）
+ * @param aspectRatio 视频比例
+ * @param styleId 视觉风格ID
+ * @param customStyle 自定义风格描述
+ * @param musicPrompt 配乐风格描述
  */
-export async function generateScenes(
+export async function generateScenesWithPetImage(
+  petImageUrl: string,
   userPrompt: string,
   durationSeconds: 60 | 120,
   aspectRatio: '16:9' | '9:16',
@@ -144,7 +141,8 @@ export async function generateScenes(
   customStyle?: string,
   musicPrompt?: string
 ): Promise<GeneratedScenes> {
-  console.log('\n🎬 ========== Gemini Scene Generation ==========');
+  console.log('\n🎬 ========== Gemini Vision Scene Generation ==========');
+  console.log('🖼️  Pet image URL:', petImageUrl);
   console.log('📝 User prompt:', userPrompt.substring(0, 100) + '...');
   console.log('⏱️  Duration:', durationSeconds, 'seconds');
   console.log('📐 Aspect ratio:', aspectRatio);
@@ -152,7 +150,7 @@ export async function generateScenes(
   console.log('🎵 Music prompt:', musicPrompt || 'None');
 
   const evolinkClient = createEvolinkClient();
-  const geminiPrompt = buildGeminiPrompt(
+  const geminiPrompt = buildGeminiVisionPrompt(
     userPrompt,
     durationSeconds,
     aspectRatio,
@@ -161,25 +159,37 @@ export async function generateScenes(
     musicPrompt
   );
 
-  console.log('🤖 Calling Gemini via Evolink...');
+  console.log('🤖 Calling Gemini Vision via Evolink (pet identification + scene generation)...');
 
   // 根据场景数量动态计算 token 限制
-  // 每个场景约需 500-800 tokens（包含 prompt + firstFramePrompt + descriptions）
+  // 每个场景约需 500-800 tokens + 宠物描述约 200 tokens
   const sceneCount = durationSeconds / 15;
   const estimatedTokensPerScene = 800;
-  const maxTokens = Math.max(8000, sceneCount * estimatedTokensPerScene + 1000);
+  const maxTokens = Math.max(8000, sceneCount * estimatedTokensPerScene + 1500);
 
   try {
+    // 使用 Vision API，同时传入图片和文本
     const response = await evolinkClient.chatCompletion({
       model: 'gemini-2.5-flash',
       messages: [
         {
           role: 'user',
-          content: geminiPrompt,
+          content: [
+            {
+              type: 'text',
+              text: geminiPrompt,
+            },
+            {
+              type: 'image_url',
+              image_url: {
+                url: petImageUrl,
+              },
+            },
+          ],
         },
       ],
-      temperature: 0.7, // 稍高一点的温度以获得更有创意的内容
-      max_tokens: maxTokens, // 动态计算，确保足够容纳所有场景
+      temperature: 0.7, // 稍高温度获得更有创意的内容
+      max_tokens: maxTokens,
     });
 
     const content = response.choices[0]?.message?.content?.trim();
@@ -192,17 +202,16 @@ export async function generateScenes(
     console.log('📄 Max tokens requested:', maxTokens);
 
     // 解析 JSON 响应
-    // 尝试提取 JSON（Gemini 可能会在 JSON 前后添加额外文本或 markdown 代码块）
     let jsonContent = content;
 
-    // 移除 markdown 代码块标记 ```json ... ```
+    // 移除 markdown 代码块标记
     if (jsonContent.includes('```json')) {
       jsonContent = jsonContent.replace(/```json\s*/g, '').replace(/```\s*/g, '');
     } else if (jsonContent.includes('```')) {
       jsonContent = jsonContent.replace(/```\s*/g, '');
     }
 
-    // 尝试找到 JSON 对象的开始和结束
+    // 找到 JSON 对象
     const jsonStart = jsonContent.indexOf('{');
     const jsonEnd = jsonContent.lastIndexOf('}');
 
@@ -210,17 +219,16 @@ export async function generateScenes(
       jsonContent = jsonContent.substring(jsonStart, jsonEnd + 1);
     }
 
-    // 清理可能的尾部空白和换行
     jsonContent = jsonContent.trim();
 
-    // 检查 JSON 是否被截断（没有正确闭合）
+    // 检查 JSON 是否被截断
     const openBraces = (jsonContent.match(/\{/g) || []).length;
     const closeBraces = (jsonContent.match(/\}/g) || []).length;
     const openBrackets = (jsonContent.match(/\[/g) || []).length;
     const closeBrackets = (jsonContent.match(/\]/g) || []).length;
 
     if (openBraces !== closeBraces || openBrackets !== closeBrackets) {
-      console.error('❌ JSON appears to be truncated (mismatched braces/brackets)');
+      console.error('❌ JSON appears to be truncated');
       console.error(`Braces: ${openBraces} open, ${closeBraces} close`);
       console.error(`Brackets: ${openBrackets} open, ${closeBrackets} close`);
       console.error('Raw content (last 500 chars):', content.substring(content.length - 500));
@@ -239,15 +247,23 @@ export async function generateScenes(
     }
 
     // 验证响应结构
-    if (!parsed.title || !Array.isArray(parsed.scenes) || parsed.scenes.length === 0) {
-      throw new Error('Invalid Gemini response structure');
+    if (!parsed.title || !parsed.pet || !Array.isArray(parsed.scenes) || parsed.scenes.length === 0) {
+      throw new Error('Invalid Gemini response structure: missing title, pet, or scenes');
+    }
+
+    // 验证宠物信息
+    if (!parsed.pet.species || !parsed.pet.description) {
+      console.warn('⚠️  Pet information incomplete, using defaults');
+      parsed.pet = {
+        species: parsed.pet.species || 'pet',
+        description: parsed.pet.description || 'a cute pet with expressive eyes',
+        descriptionCn: parsed.pet.descriptionCn || '一只可爱的宠物',
+      };
     }
 
     const expectedSceneCount = durationSeconds / 15;
     if (parsed.scenes.length !== expectedSceneCount) {
-      console.warn(
-        `⚠️  Expected ${expectedSceneCount} scenes, got ${parsed.scenes.length}`
-      );
+      console.warn(`⚠️  Expected ${expectedSceneCount} scenes, got ${parsed.scenes.length}`);
     }
 
     // 验证每个场景
@@ -257,13 +273,15 @@ export async function generateScenes(
       }
     }
 
-    console.log('✅ Gemini scenes generated successfully!');
+    console.log('✅ Gemini Vision generation successful!');
+    console.log('🐾 Pet identified:', parsed.pet.species, '-', parsed.pet.description.substring(0, 50) + '...');
+    console.log('🎨 Global style:', parsed.globalStylePrefix?.substring(0, 50) + '...' || 'Not set');
     console.log('📖 Story title:', parsed.title);
     console.log('🎬 Scene count:', parsed.scenes.length);
 
     return parsed;
   } catch (error) {
-    console.error('❌ Gemini scene generation failed:', error);
+    console.error('❌ Gemini Vision scene generation failed:', error);
     throw error;
   }
 }

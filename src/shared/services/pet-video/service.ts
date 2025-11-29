@@ -10,6 +10,7 @@ import { nanoid } from 'nanoid';
 import { db } from '@/core/db';
 import { aiTask } from '@/config/db/schema';
 import { createEvolinkClient } from '@/extensions/ai/providers/evolink/client';
+import { IMAGE_MODELS, VIDEO_MODELS } from '@/extensions/ai/providers/evolink/models';
 import { createKieClient } from '@/extensions/ai/providers/kie/client';
 import { createR2ProviderFromDb } from '@/extensions/storage/db-config-loader';
 
@@ -45,7 +46,7 @@ export async function createPetVideoTask(
     userId: request.userId,
     mediaType: 'video',
     provider: 'kie',
-    model: 'sora-2-pro-storyboard',
+    model: VIDEO_MODELS.SORA_2_PRO_STORYBOARD,
     prompt: `Pet video - ${request.templateType} template`,
     status: 'pending',
     costCredits: creditsCost,
@@ -392,7 +393,7 @@ async function generateFrameWithRetry(
       console.log('🖼️  [Service] Source image:', petImageUrl);
 
       const response = await evolinkClient.generateImage({
-        model: 'doubao-seedream-4.0',
+        model: IMAGE_MODELS.SEEDREAM_4,
         prompt: styleTransferPrompt,
         image_urls: [petImageUrl], // Image-to-image source
         aspect_ratio: taskAspectRatio, // 传递用户选择的宽高比
@@ -511,7 +512,7 @@ async function generateVideoWithRetry(
     try {
       // Create video generation task
       const requestPayload = {
-        model: 'sora-2-pro-storyboard',
+        model: VIDEO_MODELS.SORA_2_PRO_STORYBOARD,
         input: {
           n_frames: nFrames as '10' | '15' | '25' | '50',
           image_urls: [frameImageUrl],

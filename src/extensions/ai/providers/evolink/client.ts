@@ -211,7 +211,7 @@ Provide only the description, nothing else.`;
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'sora-2',
+        model: request.model, // 使用传入的模型名称
         prompt: request.prompt,
         aspect_ratio: request.aspect_ratio || '16:9',
         duration: request.duration || 15, // 默认15秒

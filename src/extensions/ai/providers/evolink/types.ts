@@ -49,7 +49,9 @@ export interface EvolinkImageGenerationRequest {
   prompt: string;
   aspect_ratio?: string;
   n?: number;
-  image_urls?: string[]; // For image-to-image generation
+  image_urls?: string[]; // For image-to-image generation (multiple images)
+  image_url?: string; // For image-to-image generation (single image)
+  strength?: number; // Image-to-image strength (0-1)
 }
 
 export interface EvolinkImageGenerationResponse {
@@ -101,7 +103,7 @@ export interface EvolinkTaskStatusResponse {
  * 用于自定义剧本的每个15秒分镜视频生成
  */
 export interface EvolinkSora2VideoRequest {
-  model: 'sora-2'; // 固定使用 sora-2 模型
+  model: string; // 视频生成模型，如 'sora-2'
   prompt: string; // 视频描述提示词，最多5000 tokens
   aspect_ratio?: '16:9' | '9:16'; // 视频比例
   duration?: number; // 视频时长（秒），默认 5s，可选 5/10/15/20

@@ -8,17 +8,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date();
 
   // Homepage - highest priority, frequent updates
+  // 注意：移除 alternates 属性，避免生成 xhtml 命名空间导致浏览器无法渲染 XML 树形结构
   const homepageUrls = locales.map((locale) => ({
     url: locale === 'en' ? baseUrl : `${baseUrl}/${locale}`,
     lastModified: currentDate,
     changeFrequency: 'daily' as const,
     priority: 1.0,
-    alternates: {
-      languages: {
-        en: baseUrl,
-        zh: `${baseUrl}/zh`,
-      },
-    },
   }));
 
   // Key landing pages - high priority
@@ -34,12 +29,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: page.changeFrequency,
       priority: page.priority,
-      alternates: {
-        languages: {
-          en: `${baseUrl}/${page.path}`,
-          zh: `${baseUrl}/zh/${page.path}`,
-        },
-      },
     }))
   );
 
@@ -62,12 +51,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'weekly' as const,
       priority: 0.8,
-      alternates: {
-        languages: {
-          en: `${baseUrl}/ai/${page}`,
-          zh: `${baseUrl}/zh/ai/${page}`,
-        },
-      },
     }))
   );
 

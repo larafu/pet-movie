@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Link } from '@/core/i18n/navigation';
 import { nanoid } from 'nanoid';
-import { Loader2, Plus, Trash2, Play, Image as ImageIcon, Save, Upload, RefreshCw, FileJson, Sparkles } from 'lucide-react';
+import { Loader2, Plus, Trash2, Play, Image as ImageIcon, Save, Upload, RefreshCw, FileJson, Sparkles, X, ZoomIn } from 'lucide-react';
 
 // 角色数据结构
 interface CharacterData {
@@ -128,6 +128,13 @@ export function ScriptCreator() {
   // 角色参考卡生成状态
   const [isGeneratingCharacterSheet, setIsGeneratingCharacterSheet] = useState(false);
   const [characterSheetProgress, setCharacterSheetProgress] = useState(0);
+
+  // 媒体预览状态
+  const [previewMedia, setPreviewMedia] = useState<{
+    type: 'image' | 'video';
+    url: string;
+    title: string;
+  } | null>(null);
 
   // 加载模板数据（编辑模式）
   const loadTemplate = useCallback(async (templateId: string) => {
@@ -1820,7 +1827,20 @@ A heartwarming Christmas story about a brave cat who saves its owner from a hous
                       </span>
                     ) : scene.frameStatus === 'completed' && scene.frameImageUrl ? (
                       <div className="flex items-center gap-2">
-                        <img src={scene.frameImageUrl} alt="Frame" className="w-12 h-12 object-cover rounded" />
+                        <button
+                          onClick={() => setPreviewMedia({
+                            type: 'image',
+                            url: scene.frameImageUrl!,
+                            title: `Scene ${scene.sceneNumber} - 首帧图`
+                          })}
+                          className="relative group"
+                          title="点击预览大图"
+                        >
+                          <img src={scene.frameImageUrl} alt="Frame" className="w-12 h-12 object-cover rounded cursor-pointer hover:opacity-80 transition-opacity" />
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded">
+                            <ZoomIn className="w-4 h-4 text-white" />
+                          </div>
+                        </button>
                         <button
                           onClick={() => handleGenerateFrame(scene.id)}
                           className="p-1 text-xs text-gray-500 hover:text-blue-500 disabled:opacity-50"
@@ -1848,9 +1868,18 @@ A heartwarming Christmas story about a brave cat who saves its owner from a hous
                       </span>
                     ) : scene.videoStatus === 'completed' && scene.videoUrl ? (
                       <div className="flex items-center gap-2">
-                        <a href={scene.videoUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-green-600 underline">
-                          View Video
-                        </a>
+                        <button
+                          onClick={() => setPreviewMedia({
+                            type: 'video',
+                            url: scene.videoUrl!,
+                            title: `Scene ${scene.sceneNumber} - 视频`
+                          })}
+                          className="flex items-center gap-1 px-2 py-1 text-sm text-green-600 hover:text-green-700 hover:bg-green-50 dark:hover:bg-green-900/30 rounded transition-colors"
+                          title="点击播放视频"
+                        >
+                          <Play className="w-3 h-3" />
+                          预览视频
+                        </button>
                         <button
                           onClick={() => handleGenerateVideo(scene.id)}
                           className="p-1 text-xs text-gray-500 hover:text-purple-500 disabled:opacity-50"
@@ -2066,6 +2095,48 @@ A heartwarming Christmas story about a brave cat who saves its owner from a hous
           </div>
         )}
       </div>
+
+      {/* 媒体预览弹窗 */}
+      {previewMedia && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+          onClick={() => setPreviewMedia(null)}
+        >
+          <div
+            className="relative max-w-4xl max-h-[90vh] w-full mx-4"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* 关闭按钮 */}
+            <button
+              onClick={() => setPreviewMedia(null)}
+              className="absolute -top-10 right-0 p-2 text-white hover:text-gray-300 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* 标题 */}
+            <div className="absolute -top-10 left-0 text-white text-sm">
+              {previewMedia.title}
+            </div>
+
+            {/* 内容 */}
+            {previewMedia.type === 'image' ? (
+              <img
+                src={previewMedia.url}
+                alt={previewMedia.title}
+                className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
+              />
+            ) : (
+              <video
+                src={previewMedia.url}
+                controls
+                autoPlay
+                className="w-full h-auto max-h-[85vh] rounded-lg"
+              />
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -22,8 +22,8 @@ interface TargetCharacter {
 
 interface TargetShot {
   shotNumber: number;
-  durationSeconds: number;
-  prompt: string;
+  durationSeconds: number; // 镜头时长（秒），支持小数如 1.2, 3.5
+  prompt: string; // 详细镜头描述，支持占位符 [PET] [OWNER]
   cameraMovement: string;
 }
 
@@ -63,13 +63,13 @@ interface ParseTextRequest {
 }
 
 /**
- * 构建 Gemini 提示词，从长文本中提取并生成模板结构
+ * 构建 Gemini 提示词，从长文本中提取并生成专业分镜脚本
  *
  * 设计要点：
- * 1. 明确角色定位：专业宠物视频编剧 + 分镜师
- * 2. 用户输入可能不完整，需要 AI 补充细节
- * 3. 严格约束输出格式，确保 JSON 有效
- * 4. 提供具体示例帮助 AI 理解期望输出
+ * 1. 使用占位符 [PET] [OWNER] 支持模板复用
+ * 2. 每个镜头使用 durationSeconds 控制时长（支持小数如 1.2, 3.5）
+ * 3. 每个镜头 prompt 需要详细描述（60-80字）
+ * 4. 镜头描述需要逻辑连贯，解释角色状态
  */
 function buildTextToTemplatePrompt(
   textContent: string,
@@ -82,10 +82,12 @@ function buildTextToTemplatePrompt(
     : '横屏模式，适合电脑/电视观看，可以展示更多环境';
 
   return `# 角色设定
-你是一位专业的宠物视频编剧和分镜师，擅长将简单的故事想法转化为完整的视频分镜脚本。你的工作是：
-1. 理解用户的故事创意（可能很简短或不完整）
-2. 补充缺失的细节（角色外观、场景描述、情节发展）
-3. 创建专业的分镜脚本，适合 AI 视频生成
+你是一位专业的宠物视频编剧和分镜师，擅长创建高质量的 AI 视频生成分镜脚本。
+
+你的工作目标是创建【可复用的模板】：
+- 使用占位符 [PET] 和 [OWNER] 代替具体角色描述
+- 运行时会将这些占位符替换为角色的完整外观描述
+- 这样同一个模板可以用于不同的宠物和主人
 
 # 用户输入的故事创意
 """
@@ -95,35 +97,44 @@ ${textContent}
 # 你的任务
 将上述创意转化为一个 ${durationSeconds} 秒的视频模板，包含 ${sceneCount} 个场景。
 画面比例：${aspectRatio}（${orientationNote}）
+每个场景 15 秒，对应一次 Sora2 API 调用。
+
+# 关键概念：镜头 (Shot) 是分镜描述而非视频切片
+
+**重要理解**：每个 15 秒场景是一次完整的 AI 视频生成调用。
+Shots（镜头）的作用是将 15 秒分解为多个时间段的详细描述，让 AI 更好理解每个时间点应该发生什么。
+所有 shots 的描述会合并成一个连贯的 15 秒视频。
+
+# 占位符系统
+
+使用以下占位符，运行时会被替换：
+- [PET] → 宠物的完整外观描述（如 "fluffy orange tabby cat with big amber eyes and red Christmas sweater"）
+- [OWNER] → 主人的完整外观描述（如 "young boy with brown hair wearing blue pajamas"）
+
+示例占位符用法：
+- "[PET] sits by the Christmas tree, ears perked up"
+- "[OWNER] kneels down beside [PET], hand reaching out"
 
 # 重要补充规则
-如果用户输入缺少以下信息，你需要合理补充：
 
-## 角色补充
-- 如果没有描述宠物外观 → 根据故事氛围设计（如：温馨故事用橘猫，冒险故事用边牧）
-- 如果没有描述人类角色 → 设计符合故事的角色（如：主人、小孩、消防员）
-- 每个角色都需要详细的外观描述（毛色、体型、服装等）
+## 角色定义
+- characters 数组定义角色的完整外观描述
+- 这些描述会在运行时替换对应的占位符
+- 每个角色都需要详细的外观描述（50-80字）
 
-## 故事结构补充
+## 故事结构
 - ${sceneCount} 个场景需要有完整的故事弧线：
   - 场景 1-${Math.ceil(sceneCount * 0.25)}: 开场/日常/铺垫
   - 场景 ${Math.ceil(sceneCount * 0.25) + 1}-${Math.ceil(sceneCount * 0.75)}: 冲突/高潮/转折
   - 场景 ${Math.ceil(sceneCount * 0.75) + 1}-${sceneCount}: 解决/结局/情感升华
 
-## 细节补充
-- 补充场景环境（室内/室外、天气、时间、灯光）
-- 补充角色动作和表情
-- 补充情感氛围
-
 # 输出格式（严格遵守）
-
-你必须输出一个有效的 JSON 对象，格式如下：
 
 {
   "config": {
-    "name": "英文模板名称（简洁有吸引力，如 Christmas Cat Rescue）",
-    "nameCn": "中文模板名称（如 圣诞猫咪救援）",
-    "description": "英文故事简介（1-2句话概括故事）",
+    "name": "英文模板名称（简洁有吸引力）",
+    "nameCn": "中文模板名称",
+    "description": "英文故事简介（1-2句话）",
     "descriptionCn": "中文故事简介",
     "tags": ["cat/dog", "主题标签", "情感标签"],
     "styleId": "pixar-3d",
@@ -132,55 +143,45 @@ ${textContent}
       {
         "id": "pet",
         "role": "primary",
-        "name": "英文名（如 Milo）",
-        "nameCn": "中文名（如 米洛）",
-        "description": "详细英文外观描述，50-80字。包括：毛色、花纹、眼睛颜色、体型、特征、服装配饰。示例：A fluffy orange tabby cat with big round amber eyes, small pink nose, white chest patch, wearing a red Christmas sweater with golden jingle bell collar",
+        "name": "英文名",
+        "nameCn": "中文名",
+        "description": "详细英文外观描述，50-80字。这是 [PET] 占位符的替换值。包括：毛色、花纹、眼睛颜色、体型、特征、服装配饰",
+        "descriptionCn": "中文外观描述"
+      },
+      {
+        "id": "owner",
+        "role": "secondary",
+        "name": "英文名",
+        "nameCn": "中文名",
+        "description": "详细英文外观描述。这是 [OWNER] 占位符的替换值。包括：年龄、发型、服装、特征",
         "descriptionCn": "中文外观描述"
       }
     ],
     "characterSheetUrl": "",
     "durationSeconds": ${durationSeconds},
     "aspectRatio": "${aspectRatio}",
-    "musicPrompt": "背景音乐风格描述（如 Heartwarming orchestral, building tension, triumphant finale）"
+    "musicPrompt": "背景音乐风格描述"
   },
   "scenes": [
     {
       "sceneNumber": 1,
       "characterIds": ["pet", "owner"],
-      "firstFramePrompt": "首帧图提示词（重要！）。这是一个静态画面描述，用于生成场景的第一帧图片。要求：1）描述环境和灯光 2）描述角色位置和姿态 3）描述情绪氛围 4）不要包含动作或镜头运动词汇。30-50字。示例：Cozy living room with warm afternoon sunlight. Christmas tree with fairy lights by the window. Boy kneeling on rug, cat sitting beside him looking up adoringly. Peaceful holiday atmosphere.",
+      "firstFramePrompt": "【首帧图 50-80 字，必须包含 [PET] 和 [OWNER] 占位符！】静态画面。必须详细描述：1)环境场景+灯光 2)[PET]的位置、姿态、表情、眼神、耳朵尾巴状态 3)[OWNER]的位置、姿态、表情、眼神 4)角色间空间关系 5)整体氛围。示例：Warm cozy living room bathed in golden afternoon sunlight streaming through frost-edged windows, soft shadows on wooden floor. Christmas tree in right corner with twinkling lights. [OWNER] kneels on beige carpet center-frame, body leaning forward eagerly, eyes sparkling with wonder, gentle smile, gazing up at tree. [PET] sits close beside him on left, fluffy tail wrapped around paws, head tilted upward, round amber eyes wide with curiosity, ears perked forward, whiskers twitching. Peaceful holiday warmth radiates through the scene.",
       "shots": [
         {
           "shotNumber": 1,
-          "durationSeconds": 3,
-          "prompt": "镜头1动作（简短！只描述一个动作，15字以内）。示例：Wide shot of cozy living room. Boy reaches up to place star on tree top.",
+          "durationSeconds": 1.2,
+          "prompt": "【详细分镜描述 60-80 字】使用占位符。描述：1)画面构图 2)角色动作 3)角色状态原因 4)环境细节 5)情绪氛围。示例：Wide establishing shot of a cozy living room bathed in warm afternoon sunlight. [OWNER] reaches up on tiptoes to place a golden star on top of the Christmas tree. [PET] sits nearby on the soft carpet, watching with curious amber eyes, tail wrapped around paws, unaware of any danger because this is a peaceful, normal moment of holiday decorating.",
           "cameraMovement": "wide"
         },
         {
           "shotNumber": 2,
-          "durationSeconds": 3,
-          "prompt": "镜头2动作。示例：Cat watches curiously, head tilted, tail swishing gently.",
+          "durationSeconds": 2.3,
+          "prompt": "【详细分镜描述】Medium shot focusing on [PET]. The cat's ears perk up slightly, head tilting to one side with innocent curiosity. [PET] does not notice the small smoke wisp beginning to rise from behind the tree because the cat is completely focused on watching [OWNER]'s movements, mesmerized by the swinging ornaments.",
           "cameraMovement": "medium"
-        },
-        {
-          "shotNumber": 3,
-          "durationSeconds": 3,
-          "prompt": "镜头3动作（通常是特写/反应）。示例：Close-up of cat's face, eyes sparkling with interest.",
-          "cameraMovement": "close-up"
-        },
-        {
-          "shotNumber": 4,
-          "durationSeconds": 3,
-          "prompt": "镜头4动作。示例：Boy kneels down, scratches behind cat's ears lovingly.",
-          "cameraMovement": "medium"
-        },
-        {
-          "shotNumber": 5,
-          "durationSeconds": 3,
-          "prompt": "镜头5动作（场景收尾/过渡）。示例：Cat purrs contentedly, leaning into boy's hand.",
-          "cameraMovement": "close-up"
         }
       ],
-      "description": "场景中文描述（20-40字，概括这个场景讲什么）",
+      "description": "场景中文描述（20-40字）",
       "descriptionEn": "Scene description in English"
     }
   ]
@@ -188,33 +189,86 @@ ${textContent}
 
 # 关键规则
 
-## 角色 ID 规则
-- 宠物主角必须用 id="pet"，role="primary"
-- 人类主人用 id="owner"
-- 其他人类用描述性 id：如 "child"、"firefighter"、"veterinarian"
-- characterIds 数组列出该场景中出现的所有角色
+## 角色 ID 和占位符对应
+- id="pet" → 使用 [PET] 占位符
+- id="owner" → 使用 [OWNER] 占位符
+- 其他角色如 id="firefighter" → 使用 [FIREFIGHTER] 占位符
 
-## 镜头 (shots) 规则
-- 每个场景固定 5 个镜头，每个 3 秒
-- 每个镜头只描述一个简单动作
-- prompt 必须简短（15-25 字英文）
-- cameraMovement 可选值：wide, medium, close-up, extreme close-up, low angle, high angle, tracking, handheld, POV
+## 镜头 (shots) 规则 - 非常重要！
 
-## firstFramePrompt 规则（非常重要！）
-- 这是用于图生图的静态画面描述
-- 必须描述：环境 + 角色位置 + 姿态 + 灯光 + 氛围
-- 不能包含：动作动词（running, jumping）、镜头词汇（pan, zoom）
-- 长度：30-50 个英文单词
+### 时长规则
+- 每个场景总时长 15 秒
+- 使用 durationSeconds 定义每个镜头的时长
+- 支持小数点（如 1.2, 2.5, 3.0 秒）
+- 镜头数量灵活（8-15个），根据叙事节奏调整
+- 所有镜头的 durationSeconds 之和应等于 15 秒
+
+### Prompt 详细描述规则（最重要！）
+每个 shot.prompt 必须包含以下要素，60-80 个英文单词：
+
+1. **画面构图**：描述镜头类型和视角
+2. **角色动作**：具体描述角色正在做什么
+3. **状态原因**：如果角色应该注意到某事但没有，必须解释为什么
+   - 例如：为什么没注意到火？→ 背对着、戴着耳机、专注于其他事
+   - 例如：为什么没听到声音？→ 音乐太大声、睡着了
+4. **环境细节**：光线、氛围、周围物品
+5. **情绪表达**：角色的表情和情绪状态
+
+### Prompt 示例
+✓ 好的描述（详细、有逻辑）：
+"Medium shot of the kitchen. [PET] sits on the counter near the stove, back turned to the pot, completely absorbed in watching a bird through the window. Steam rises from the pot behind the cat, but [PET] doesn't notice because their attention is captured by the fluttering sparrow outside. Warm sunlight streams through the window, creating a cozy but subtly tense atmosphere."
+
+✗ 差的描述（太简短、无逻辑）：
+"Cat sits on counter. Steam rises from pot."
+
+## cameraMovement 可选值
+wide, medium, close-up, extreme close-up, low angle, high angle, tracking, handheld, POV, over-the-shoulder
+
+## firstFramePrompt 规则（最重要！强制约束！）
+
+首帧图决定了整个场景的视觉基调，必须极其详细！50-80 个英文单词。
+
+### 强制要求：
+- **必须包含 [PET] 占位符**：描述宠物的位置、姿态、表情、眼神
+- **如果场景有主人，必须包含 [OWNER] 占位符**：描述主人的位置、姿态、表情、眼神
+- **占位符必须与 characterIds 数组对应**：characterIds 中的每个角色都必须在 firstFramePrompt 中用占位符描述
+
+### 必须包含的 6 个要素：
+
+1. **环境场景**：具体描述场景细节（家具、装饰、物品摆放、背景元素）
+2. **灯光氛围**：光源位置、光线质感、色温、阴影效果（如 golden sunlight streaming through windows, soft warm glow from fireplace）
+3. **[PET] 角色描述**：
+   - 具体位置（在画面哪里：左侧、中央、前景）
+   - 身体姿态（坐着、站着、趴着、蜷缩）
+   - 面部表情（好奇、开心、担忧、警觉）
+   - 眼神方向（看向哪里、眼睛状态）
+   - 身体细节（耳朵、尾巴、爪子的状态）
+4. **[OWNER] 角色描述**（如有）：
+   - 具体位置和身体姿态
+   - 面部表情和眼神方向
+   - 与宠物的空间关系
+5. **角色间互动暗示**：两个角色之间的视觉联系（是否对视、距离远近）
+6. **整体情绪氛围**：画面传达的情感基调（温馨、紧张、欢乐、悲伤）
+
+### firstFramePrompt 示例
+
+✓ 好的首帧描述（详细、有占位符）：
+"Warm cozy living room bathed in golden afternoon sunlight streaming through frost-edged windows, casting long soft shadows across the wooden floor. A tall Christmas tree stands in the right corner, decorated with twinkling fairy lights and red ornaments. [OWNER] kneels on the soft beige carpet in the center, body leaning forward with eager anticipation, eyes sparkling with childlike wonder, gentle smile on face, gazing lovingly up at the tree top. [PET] sits close beside him on the left, fluffy tail wrapped contentedly around front paws, head tilted slightly upward, round amber eyes wide with innocent curiosity, small ears perked forward attentively, whiskers twitching slightly. The warm atmosphere radiates peaceful holiday joy and the tender bond between pet and owner."
+
+✗ 差的首帧描述（太简单、缺少细节）：
+"Living room with Christmas tree. [OWNER] and [PET] near the tree. Cozy atmosphere."
+
+✗ 错误的首帧描述（缺少占位符）：
+"A boy kneels in the living room. A cat sits beside him." ← 必须使用 [PET] [OWNER] 占位符！
 
 ## 标签 (tags) 规则
 - 必须包含宠物类型：cat, dog
-- 包含主题：christmas, adventure, rescue, family, friendship
-- 包含情感：heartwarming, funny, exciting, emotional
+- 包含主题：christmas, adventure, rescue, family
+- 包含情感：heartwarming, funny, exciting
 
 # 输出要求
 直接输出 JSON 对象，不要有任何解释、markdown 代码块或其他文字。
-确保 JSON 语法正确，可以被直接解析。
-从 { 开始，以 } 结束。`;
+确保 JSON 语法正确，从 { 开始，以 } 结束。`;
 }
 
 export async function POST(request: NextRequest) {
@@ -336,11 +390,11 @@ export async function POST(request: NextRequest) {
       if (!scene.shots || scene.shots.length === 0) {
         console.warn(`⚠️  Scene ${i + 1} missing shots, generating default`);
         scene.shots = [
-          { shotNumber: 1, durationSeconds: 3, prompt: 'Scene establishing shot', cameraMovement: 'wide' },
-          { shotNumber: 2, durationSeconds: 3, prompt: 'Main action begins', cameraMovement: 'medium' },
-          { shotNumber: 3, durationSeconds: 3, prompt: 'Character reaction', cameraMovement: 'close-up' },
-          { shotNumber: 4, durationSeconds: 3, prompt: 'Action continues', cameraMovement: 'medium' },
-          { shotNumber: 5, durationSeconds: 3, prompt: 'Scene conclusion', cameraMovement: 'wide' },
+          { shotNumber: 1, durationSeconds: 3, prompt: '[PET] in scene establishing shot', cameraMovement: 'wide' },
+          { shotNumber: 2, durationSeconds: 3, prompt: 'Main action begins with [PET]', cameraMovement: 'medium' },
+          { shotNumber: 3, durationSeconds: 3, prompt: '[PET] reaction shot', cameraMovement: 'close-up' },
+          { shotNumber: 4, durationSeconds: 3, prompt: 'Action continues with [PET]', cameraMovement: 'medium' },
+          { shotNumber: 5, durationSeconds: 3, prompt: 'Scene conclusion with [PET]', cameraMovement: 'wide' },
         ];
       }
 
@@ -349,12 +403,12 @@ export async function POST(request: NextRequest) {
         shot.shotNumber = j + 1;
         if (!shot.durationSeconds) shot.durationSeconds = 3;
         if (!shot.cameraMovement) shot.cameraMovement = 'medium';
-        if (!shot.prompt) shot.prompt = `Shot ${j + 1} action`;
+        if (!shot.prompt) shot.prompt = `Shot ${j + 1} action with [PET]`;
       });
 
       // 确保有 firstFramePrompt
       if (!scene.firstFramePrompt) {
-        scene.firstFramePrompt = scene.shots[0]?.prompt || 'Scene establishing shot';
+        scene.firstFramePrompt = scene.shots[0]?.prompt || '[PET] in scene establishing shot';
       }
 
       // 确保有描述

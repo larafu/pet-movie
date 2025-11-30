@@ -19,8 +19,8 @@ interface CharacterData {
 // 单个镜头数据结构
 interface ShotData {
   shotNumber: number; // 镜头编号
-  durationSeconds: number; // 该镜头时长（秒）
-  prompt: string; // 镜头提示词
+  durationSeconds: number; // 该镜头时长（秒），支持小数如 1.2, 3.5
+  prompt: string; // 镜头提示词，支持占位符如 [PET] [OWNER]
   cameraMovement: string; // 镜头运动描述
 }
 
@@ -55,6 +55,29 @@ interface TemplateConfig {
   durationSeconds: 60 | 120;
   aspectRatio: '16:9' | '9:16';
   musicPrompt: string;
+}
+
+/**
+ * 占位符替换工具函数
+ * 将 prompt 中的 [PET] [OWNER] 等占位符替换为角色的详细描述
+ *
+ * @param prompt 原始 prompt，包含占位符如 [PET] sits on the couch
+ * @param characters 角色数组，包含 id 和 description
+ * @returns 替换后的 prompt，如 "fluffy orange tabby cat with amber eyes sits on the couch"
+ */
+function replacePlaceholders(prompt: string, characters: CharacterData[]): string {
+  let result = prompt;
+
+  // 为每个角色创建占位符映射
+  // 占位符格式：[ROLE_ID]，如 [PET]、[OWNER]、[FIREFIGHTER]
+  for (const character of characters) {
+    // 生成占位符正则，匹配 [id] 格式（大小写不敏感）
+    const placeholder = new RegExp(`\\[${character.id.toUpperCase()}\\]`, 'gi');
+    // 使用角色的英文描述替换占位符
+    result = result.replace(placeholder, character.description);
+  }
+
+  return result;
 }
 
 // 预设标签（可以添加更多）
@@ -202,8 +225,13 @@ export function ScriptCreator() {
             // 处理 shots：优先使用新格式，兼容旧的单个 prompt
             let shots: ShotData[];
             if (s.shots && Array.isArray(s.shots) && s.shots.length > 0) {
-              // 新格式：直接使用 shots 数组
-              shots = s.shots.map(shot => ({
+              // 直接使用 shots 数组
+              shots = s.shots.map((shot: {
+                shotNumber: number;
+                durationSeconds?: number;
+                prompt?: string;
+                cameraMovement?: string;
+              }) => ({
                 shotNumber: shot.shotNumber,
                 durationSeconds: shot.durationSeconds || 5,
                 prompt: shot.prompt || '',
@@ -386,7 +414,7 @@ export function ScriptCreator() {
       if (scene.id !== sceneId) return scene;
       const newShot: ShotData = {
         shotNumber: scene.shots.length + 1,
-        durationSeconds: 5,
+        durationSeconds: 3, // 默认3秒
         prompt: '',
         cameraMovement: '',
       };
@@ -586,6 +614,10 @@ export function ScriptCreator() {
     try {
       const sceneIndex = scenes.findIndex(s => s.id === sceneId);
 
+      // 替换 firstFramePrompt 中的占位符（如 [PET] [OWNER]）为实际角色描述
+      const resolvedFirstFramePrompt = replacePlaceholders(scene.firstFramePrompt, config.characters);
+      console.log('🖼️ Resolved firstFramePrompt:', resolvedFirstFramePrompt.substring(0, 200) + '...');
+
       // 直接调用生成 API，传入表单数据
       // 包含 characters + characterIds 用于构建角色提示词
       const response = await fetch('/api/admin/script-creator/generate-frame-direct', {
@@ -593,7 +625,7 @@ export function ScriptCreator() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           petImageUrl,
-          firstFramePrompt: scene.firstFramePrompt,
+          firstFramePrompt: resolvedFirstFramePrompt, // 使用替换后的 prompt
           globalStylePrefix: config.globalStylePrefix,
           characters: config.characters, // 所有角色定义
           characterIds: scene.characterIds, // 该场景应出现的角色
@@ -645,15 +677,17 @@ export function ScriptCreator() {
       const sceneIndex = scenes.findIndex(s => s.id === sceneId);
 
       // 将 shots 合并成一个完整的视频提示词
-      // 格式：[Shot 1 (5s): camera movement] prompt. [Shot 2 (5s): camera movement] prompt. ...
+      // 格式：[Shot N (Xs): camera movement] prompt. 每个镜头的 prompt 先替换占位符
       const mergedPrompt = scene.shots
         .map(shot => {
+          // 替换占位符（如 [PET] [OWNER]）为实际角色描述
+          const resolvedPrompt = replacePlaceholders(shot.prompt, config.characters);
           const cameraInfo = shot.cameraMovement ? ` ${shot.cameraMovement}.` : '';
-          return `${cameraInfo} ${shot.prompt}`.trim();
+          return `[Shot ${shot.shotNumber} (${shot.durationSeconds}s):${cameraInfo}] ${resolvedPrompt}`.trim();
         })
         .join(' ');
 
-      console.log('📽️ Merged prompt for video:', mergedPrompt.substring(0, 200) + '...');
+      console.log('📽️ Merged prompt for video:', mergedPrompt.substring(0, 300) + '...');
 
       // 直接调用生成 API，传入表单数据
       // 包含 characters + characterIds 用于构建角色提示词
@@ -662,7 +696,7 @@ export function ScriptCreator() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           frameImageUrl: scene.frameImageUrl,
-          prompt: mergedPrompt, // 合并后的 prompt
+          prompt: mergedPrompt, // 合并后且替换占位符后的 prompt
           globalStylePrefix: config.globalStylePrefix,
           characters: config.characters, // 所有角色定义
           characterIds: scene.characterIds, // 该场景应出现的角色
@@ -1028,7 +1062,7 @@ export function ScriptCreator() {
           characterIds?: string[];
           shots?: Array<{
             shotNumber: number;
-            durationSeconds: number;
+            durationSeconds?: number;
             prompt: string;
             cameraMovement: string;
           }>;
@@ -1941,19 +1975,21 @@ A heartwarming Christmas story about a brave cat who saves its owner from a hous
                     <div className="space-y-2">
                       {scene.shots.map((shot, shotIdx) => (
                         <div key={shotIdx} className="flex gap-2 items-start p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600">
-                          {/* 镜头编号和时长 */}
-                          <div className="flex flex-col gap-1 min-w-[80px]">
+                          {/* 镜头编号和时间轴 */}
+                          <div className="flex flex-col gap-1 min-w-[100px]">
                             <span className="text-xs font-bold text-purple-600 dark:text-purple-400">
                               Shot {shot.shotNumber}
                             </span>
+                            {/* 时长输入（支持小数） */}
                             <div className="flex items-center gap-1">
                               <input
                                 type="number"
                                 value={shot.durationSeconds}
-                                onChange={e => updateShot(scene.id, shotIdx, { durationSeconds: parseInt(e.target.value) || 0 })}
-                                className="w-12 px-1 py-0.5 text-xs border rounded dark:bg-gray-700 dark:border-gray-600"
-                                min={1}
+                                onChange={e => updateShot(scene.id, shotIdx, { durationSeconds: parseFloat(e.target.value) || 0 })}
+                                className="w-14 px-1 py-0.5 text-xs border rounded dark:bg-gray-700 dark:border-gray-600"
+                                min={0.1}
                                 max={15}
+                                step={0.1}
                               />
                               <span className="text-xs text-gray-400">秒</span>
                             </div>
@@ -1971,8 +2007,8 @@ A heartwarming Christmas story about a brave cat who saves its owner from a hous
                             value={shot.prompt}
                             onChange={e => updateShot(scene.id, shotIdx, { prompt: e.target.value })}
                             className="flex-1 px-2 py-1 text-xs border rounded dark:bg-gray-700 dark:border-gray-600"
-                            rows={2}
-                            placeholder="Shot prompt..."
+                            rows={3}
+                            placeholder="Shot prompt... 支持占位符: [PET] [OWNER]"
                           />
 
                           {/* 删除按钮 */}

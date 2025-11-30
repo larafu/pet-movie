@@ -1073,7 +1073,9 @@ export function ScriptCreator() {
       return;
     }
 
-    if (!petImageUrl) {
+    // 参考图：优先使用宠物原图，其次使用已有的角色参考卡
+    const referenceImageUrl = petImageUrl || config.characterSheetUrl;
+    if (!referenceImageUrl) {
       alert('请先上传宠物图片，参考卡需要基于宠物图片生成以保持角色一致性');
       return;
     }
@@ -1088,7 +1090,7 @@ export function ScriptCreator() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           characters: config.characters,
-          petImageUrl: petImageUrl || undefined, // 如果有宠物图，用于图生图
+          petImageUrl: referenceImageUrl, // 优先宠物原图，其次已有参考卡
           globalStylePrefix: config.globalStylePrefix,
           aspectRatio: config.aspectRatio,
         }),
@@ -1621,18 +1623,17 @@ A heartwarming Christmas story about a brave cat who saves its owner from a hous
             )}
 
             {/* 角色参考卡 - 生成按钮和展示 */}
-            {config.characters.length > 0 && (
-              <div className="mt-3 pt-3 border-t border-purple-200 dark:border-purple-700">
+            <div className="mt-3 pt-3 border-t border-purple-200 dark:border-purple-700">
                 <div className="flex items-center justify-between mb-2">
                   <label className="block text-xs font-medium text-purple-600 dark:text-purple-400">
                     角色参考卡 Character Sheet
                   </label>
                   <button
                     onClick={handleGenerateCharacterSheet}
-                    disabled={isGeneratingCharacterSheet || !config.globalStylePrefix || !petImageUrl}
+                    disabled={isGeneratingCharacterSheet || !config.globalStylePrefix || (!petImageUrl && !config.characterSheetUrl)}
                     className="flex items-center gap-1 px-3 py-1 text-xs bg-purple-500 text-white rounded hover:bg-purple-600 disabled:opacity-50 disabled:cursor-not-allowed"
                     title={
-                      !petImageUrl
+                      !petImageUrl && !config.characterSheetUrl
                         ? '请先上传宠物图片'
                         : !config.globalStylePrefix
                           ? '请先设置全局风格前缀'
@@ -1698,7 +1699,6 @@ A heartwarming Christmas story about a brave cat who saves its owner from a hous
                   </div>
                 )}
               </div>
-            )}
           </div>
 
           {/* Style ID - 仅作为标识 */}

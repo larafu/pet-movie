@@ -5,6 +5,7 @@ import {
   hasAnyPermission,
   hasAnyRole,
   hasPermission,
+  hasPermissionOptimized,
   hasRole,
 } from '@/shared/services/rbac';
 
@@ -86,6 +87,7 @@ export async function canAccessAdmin(userId: string): Promise<boolean> {
 
 /**
  * Check if current user has permission, throw error if not
+ * 优化：使用 hasPermissionOptimized 减少数据库往返（2次 -> 1次）
  */
 export async function requirePermission({
   code,
@@ -105,7 +107,8 @@ export async function requirePermission({
     throw new PermissionDeniedError('User not authenticated');
   }
 
-  const allowed = await hasPermission(user.id, code);
+  // 使用优化后的权限检查，单次查询获取所有权限
+  const allowed = await hasPermissionOptimized(user.id, code);
 
   if (!allowed) {
     if (redirectUrl) {

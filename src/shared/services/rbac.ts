@@ -241,6 +241,68 @@ export const getUserRoles = cache(async (userId: string): Promise<Role[]> => {
 });
 
 /**
+ * 优化：一次查询获取用户的所有权限码
+ * 合并了 getUserRoles + getUserPermissions 为单次数据库查询
+ * 将 2 次数据库往返减少为 1 次
+ */
+export const getUserPermissionCodes = cache(
+  async (userId: string): Promise<string[]> => {
+    const now = new Date();
+
+    // 单次查询：user_role -> role -> role_permission -> permission
+    const result = await db()
+      .selectDistinct({
+        code: permission.code,
+      })
+      .from(userRole)
+      .innerJoin(role, eq(userRole.roleId, role.id))
+      .innerJoin(rolePermission, eq(role.id, rolePermission.roleId))
+      .innerJoin(permission, eq(rolePermission.permissionId, permission.id))
+      .where(
+        and(
+          eq(userRole.userId, userId),
+          eq(role.status, RoleStatus.ACTIVE),
+          // 检查角色是否未过期
+          isNull(userRole.expiresAt) || gt(userRole.expiresAt, now)
+        )
+      );
+
+    return result.map((r) => r.code);
+  }
+);
+
+/**
+ * 优化版：检查用户是否拥有指定权限
+ * 使用 getUserPermissionCodes 单次查询，支持通配符匹配
+ */
+export const hasPermissionOptimized = cache(
+  async (userId: string, permissionCode: string): Promise<boolean> => {
+    const permissionCodes = await getUserPermissionCodes(userId);
+
+    // 精确匹配
+    if (permissionCodes.includes(permissionCode)) {
+      return true;
+    }
+
+    // 通配符匹配：如果用户拥有 "admin.*"，则拥有所有 "admin.xxx" 权限
+    const parts = permissionCode.split('.');
+    for (let i = parts.length - 1; i > 0; i--) {
+      const wildcard = parts.slice(0, i).join('.') + '.*';
+      if (permissionCodes.includes(wildcard)) {
+        return true;
+      }
+    }
+
+    // 检查是否拥有超级管理员权限 "*"
+    if (permissionCodes.includes('*')) {
+      return true;
+    }
+
+    return false;
+  }
+);
+
+/**
  * Get user's permissions (through roles)
  */
 export const getUserPermissions = cache(

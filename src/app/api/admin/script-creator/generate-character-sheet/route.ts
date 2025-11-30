@@ -9,9 +9,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAuth } from '@/core/auth';
 import { createEvolinkClient } from '@/extensions/ai/providers/evolink/client';
 import { IMAGE_MODELS } from '@/extensions/ai/providers/evolink/models';
-import { createR2ProviderFromDb } from '@/extensions/storage/db-config-loader';
 import { checkScriptTemplateWritePermission } from '../_lib/check-admin';
-import { nanoid } from 'nanoid';
 
 // 角色数据结构
 interface CharacterData {
@@ -34,43 +32,51 @@ interface GenerateCharacterSheetRequest {
  * 构建角色参考卡的提示词
  * 基于用户上传的宠物图片，生成风格化的角色参考卡
  * 用于后续生成时保持角色一致性
+ *
+ * 布局：每个角色一行，每行显示该角色的多个角度（正面、3/4、侧面）
  */
 function buildCharacterSheetPrompt(
   characters: CharacterData[],
   globalStylePrefix: string
 ): string {
-  // 找到主角（宠物）
-  const petCharacter = characters.find(c => c.id === 'pet' || c.role === 'primary');
-  const otherCharacters = characters.filter(c => c.id !== 'pet' && c.role !== 'primary');
+  // 找到宠物角色（id 为 'pet' 的角色）
+  const petCharacter = characters.find(c => c.id === 'pet');
+  // 其他所有角色（非宠物）
+  const otherCharacters = characters.filter(c => c.id !== 'pet');
 
-  // 构建提示词 - 强调基于原图转换风格
+  // 构建提示词 - 每行一个角色，多角度展示
   let prompt = `${globalStylePrefix}.
 
-Transform this pet photo into a stylized character reference sheet.
+Professional character model sheet with ${characters.length} rows, one character per row.
 
-MAIN CHARACTER (center, based on the uploaded pet image):
+ROW 1 - ${petCharacter?.name?.toUpperCase() || 'MAIN CHARACTER'} (based on the uploaded pet image):
 ${petCharacter ? `${petCharacter.name}: ${petCharacter.description}` : 'The pet from the uploaded image'}
-
+This row shows: front view | 3/4 view | side view | back view
 Keep the pet's distinctive features (fur color, markings, eye color, body shape) while applying the animation style.`;
 
-  // 如果有其他角色，添加到参考卡中
+  // 其他角色，每个角色一行
   if (otherCharacters.length > 0) {
-    const otherDescriptions = otherCharacters
-      .map((char, index) => {
-        const position = index === 0 ? 'left side' : 'right side';
-        return `${char.name} (${position}): ${char.description}`;
-      })
-      .join('. ');
+    otherCharacters.forEach((char, index) => {
+      prompt += `
 
-    prompt += `
-
-SUPPORTING CHARACTERS:
-${otherDescriptions}`;
+ROW ${index + 2} - ${char.name.toUpperCase()}:
+${char.description}
+This row shows: front view | 3/4 view | side view | back view`;
+    });
   }
 
   prompt += `
 
-Character reference sheet layout. Each character clearly visible, facing forward or 3/4 view, full body. Clean simple background. Consistent art style across all characters. High quality, detailed.`;
+Layout requirements:
+- ${characters.length} horizontal rows stacked vertically
+- Each row dedicated to ONE character only
+- Each row contains 3-4 poses of the SAME character: front view, 3/4 view, side view, back view
+- Character name label on the left of each row
+- Clean white background
+- Thin black lines separating each row
+- Consistent ${globalStylePrefix.split(',')[0]} art style across all characters
+- Professional animation model sheet format
+- High quality, detailed`;
 
   return prompt;
 }
@@ -105,15 +111,21 @@ export async function POST(request: NextRequest) {
 
     console.log('\n🎨 ========== Generate Character Sheet ==========');
     console.log('👥 Characters:', characters.length);
+    console.log('👥 Characters detail:', JSON.stringify(characters, null, 2));
     console.log('🖼️  Pet image URL:', petImageUrl);
+    console.log('🎨 Global style prefix:', globalStylePrefix);
     console.log('📐 Aspect ratio:', aspectRatio);
 
     const evolinkClient = createEvolinkClient();
 
     // 构建提示词
     const prompt = buildCharacterSheetPrompt(characters, globalStylePrefix);
+
+    // 打印完整提示词用于调试
+    console.log('📝 ========== FULL PROMPT ==========');
+    console.log(prompt);
+    console.log('📝 ========== END PROMPT ==========');
     console.log('📝 Prompt length:', prompt.length);
-    console.log('📝 Prompt preview:', prompt.substring(0, 200) + '...');
 
     // 调用图片生成 API（图生图模式，基于宠物原图）
     // 使用较低的 strength 保留更多原图特征（宠物外观）
@@ -126,7 +138,6 @@ export async function POST(request: NextRequest) {
     });
 
     console.log('🖼️  Using image-to-image mode with pet reference');
-    console.log('✅ Seedream task created:', response.id);
     console.log('✅ Seedream task created:', response.id);
 
     // 返回任务 ID，前端轮询获取结果

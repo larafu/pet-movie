@@ -65,11 +65,13 @@ export async function POST(request: NextRequest) {
     const sceneCharacters = characters?.filter(c => characterIds?.includes(c.id)) || [];
     const excludedCharacters = characters?.filter(c => !characterIds?.includes(c.id)) || [];
 
-    // 构建提示词，按照设计的结构：
-    // {globalStylePrefix} scene.
-    // Use ONLY the following character(s) from the reference image: {activeCharacterNames}
-    // {firstFramePrompt}
-    // DO NOT include: {excludedCharacterNames}
+    // 构建提示词，增强版结构：
+    // 1. {globalStylePrefix} scene.
+    // 2. CHARACTERS IN THIS SCENE (必须匹配参考卡中的角色外观):
+    //    - {角色名}: {角色详细描述}
+    // 3. SCENE DESCRIPTION: {firstFramePrompt}
+    // 4. IMPORTANT: 场景约束和角色一致性要求
+    // 5. DO NOT include: {excludedCharacterNames}
     const promptParts: string[] = [];
 
     // 1. 全局风格前缀
@@ -77,19 +79,32 @@ export async function POST(request: NextRequest) {
       promptParts.push(`${globalStylePrefix} scene.`);
     }
 
-    // 2. 应出现的角色（从参考图中选取）
+    // 2. 出场角色的详细描述（关键改进：包含完整角色外观描述）
     if (sceneCharacters.length > 0) {
-      const activeCharacterNames = sceneCharacters.map(c => c.name).join(', ');
-      promptParts.push(`Use ONLY the following character(s) from the reference image: ${activeCharacterNames}`);
+      let characterSection = 'CHARACTERS IN THIS SCENE (must match the reference image exactly):';
+      sceneCharacters.forEach(char => {
+        characterSection += `\n- ${char.name}: ${char.description}`;
+      });
+      promptParts.push(characterSection);
     }
 
-    // 3. 首帧提示词（场景描述）
-    promptParts.push(firstFramePrompt);
+    // 3. 场景描述
+    promptParts.push(`SCENE DESCRIPTION:\n${firstFramePrompt}`);
 
-    // 4. 不应出现的角色
+    // 4. 重要约束：角色一致性和场景合理性
+    if (sceneCharacters.length > 0) {
+      const characterNames = sceneCharacters.map(c => c.name).join(' and ');
+      promptParts.push(`IMPORTANT REQUIREMENTS:
+- ${characterNames} must appear in this frame with their exact appearance from the reference image
+- All characters must be clearly visible and recognizable
+- The scene composition must be logical and coherent
+- Character poses and positions should match the scene description`);
+    }
+
+    // 5. 不应出现的角色
     if (excludedCharacters.length > 0) {
       const excludedCharacterNames = excludedCharacters.map(c => c.name).join(', ');
-      promptParts.push(`DO NOT include: ${excludedCharacterNames}`);
+      promptParts.push(`DO NOT include these characters: ${excludedCharacterNames}`);
     }
 
     const styleTransferPrompt = promptParts.join('\n\n');
@@ -101,7 +116,11 @@ export async function POST(request: NextRequest) {
     // 角色参考卡是预先生成的风格化角色图，用于保持角色外观一致性
     const referenceImageUrl = characterSheetUrl || petImageUrl;
 
-    console.log('🎨 Prompt length:', styleTransferPrompt.length);
+    // 打印完整提示词用于调试
+    console.log('📝 ========== FULL FRAME PROMPT ==========');
+    console.log(styleTransferPrompt);
+    console.log('📝 ========== END FRAME PROMPT ==========');
+    console.log('📝 Prompt length:', styleTransferPrompt.length);
     console.log('🖼️  Reference image:', characterSheetUrl ? 'Character Sheet' : 'Pet Image');
     console.log('🖼️  Reference URL:', referenceImageUrl);
     console.log('📐 Aspect ratio:', aspectRatio);

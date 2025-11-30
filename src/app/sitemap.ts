@@ -2,7 +2,8 @@ import { MetadataRoute } from 'next';
 import { envConfigs } from '@/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = envConfigs.app_url;
+  // 移除 baseUrl 末尾的斜杠，避免生成双斜杠 URL
+  const baseUrl = envConfigs.app_url.replace(/\/+$/, '');
   const locales = ['en', 'zh'];
   const currentDate = new Date();
 

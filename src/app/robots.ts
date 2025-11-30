@@ -2,7 +2,8 @@ import { MetadataRoute } from 'next';
 import { envConfigs } from '@/config';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = envConfigs.app_url;
+  // 移除 baseUrl 末尾的斜杠，保持 URL 一致性
+  const baseUrl = envConfigs.app_url.replace(/\/+$/, '');
 
   return {
     rules: [

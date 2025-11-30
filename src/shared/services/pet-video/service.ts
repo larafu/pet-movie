@@ -371,7 +371,7 @@ async function generateFrameWithRetry(
   const styleTransferPrompt = `Transform this pet into Pixar 3D CG animated style, ${framePrompt}`;
 
   // 用户选择的宽高比
-  const taskAspectRatio = task.aspectRatio || '16:9';
+  const taskAspectRatio = (task.aspectRatio || '16:9') as '16:9' | '9:16';
 
   console.log('🎨 [Service] Template type:', task.templateType);
   console.log('📝 [Service] Original frame prompt:', framePrompt);
@@ -392,11 +392,17 @@ async function generateFrameWithRetry(
       );
       console.log('🖼️  [Service] Source image:', petImageUrl);
 
+      // 根据宽高比计算具体尺寸（与视频保持一致）
+      const size = taskAspectRatio === '16:9' ? '1280x720' : '720x1280';
+      console.log('📐 [Service] Aspect ratio:', taskAspectRatio);
+      console.log('📐 [Service] Image size:', size);
+
       const response = await evolinkClient.generateImage({
         model: IMAGE_MODELS.SEEDREAM_4,
         prompt: styleTransferPrompt,
         image_urls: [petImageUrl], // Image-to-image source
         aspect_ratio: taskAspectRatio, // 传递用户选择的宽高比
+        size, // 具体尺寸，确保与视频一致
       });
 
       console.log('✅ [Service] Image task created, task ID:', response.id);

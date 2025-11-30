@@ -496,13 +496,20 @@ export async function generateSceneFrame(
 
     console.log('📝 Final prompt:', finalPrompt);
 
+    // 根据宽高比计算具体尺寸（与视频保持一致）
+    const aspectRatio = scriptData.script.aspectRatio as '16:9' | '9:16';
+    const size = aspectRatio === '16:9' ? '1280x720' : '720x1280';
+    console.log('📐 Aspect ratio:', aspectRatio);
+    console.log('📐 Image size:', size);
+
     // 创建图生图任务（使用可能已转换的 petImageUrl）
     console.log('🖼️  Using pet image URL:', petImageUrl);
     const response = await evolinkClient.generateImage({
       model: IMAGE_MODELS.SEEDREAM_4,
       prompt: finalPrompt,
       image_urls: [petImageUrl], // 使用可能已从 WebP 转换的 URL
-      aspect_ratio: scriptData.script.aspectRatio,
+      aspect_ratio: aspectRatio,
+      size, // 具体尺寸，确保与视频一致
     });
 
     console.log('✅ Image task created:', response.id);

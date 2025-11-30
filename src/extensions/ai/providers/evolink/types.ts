@@ -47,7 +47,8 @@ export interface EvolinkChatResponse {
 export interface EvolinkImageGenerationRequest {
   model: string;
   prompt: string;
-  aspect_ratio?: string;
+  aspect_ratio?: '16:9' | '9:16' | '1:1' | '4:3' | '3:4'; // 宽高比
+  size?: string; // 具体尺寸，如 "1280x720"、"720x1280"
   n?: number;
   image_urls?: string[]; // For image-to-image generation (multiple images)
   image_url?: string; // For image-to-image generation (single image)

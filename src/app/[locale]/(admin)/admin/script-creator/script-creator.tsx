@@ -1855,10 +1855,19 @@ A heartwarming Christmas story about a brave cat who saves its owner from a hous
                   <div className="flex items-center gap-2">
                     {/* 首帧图状态/按钮 */}
                     {scene.frameStatus === 'generating' ? (
-                      <span className="text-sm text-blue-500 flex items-center gap-1">
-                        <Loader2 className="w-3 h-3 animate-spin" />
-                        Generating frame... {scene.frameProgress}%
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-blue-500 flex items-center gap-1">
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                          Generating frame... {scene.frameProgress}%
+                        </span>
+                        <button
+                          onClick={() => updateScene(scene.id, { frameStatus: 'pending', frameProgress: 0 })}
+                          className="p-1 text-xs text-gray-400 hover:text-red-500 transition-colors"
+                          title="重置首帧图生成状态"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
                     ) : scene.frameStatus === 'completed' && scene.frameImageUrl ? (
                       <div className="flex items-center gap-2">
                         <button
@@ -1896,10 +1905,19 @@ A heartwarming Christmas story about a brave cat who saves its owner from a hous
 
                     {/* 视频状态/按钮 */}
                     {scene.videoStatus === 'generating' ? (
-                      <span className="text-sm text-blue-500 flex items-center gap-1">
-                        <Loader2 className="w-3 h-3 animate-spin" />
-                        Generating video... {scene.videoProgress}%
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-blue-500 flex items-center gap-1">
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                          Generating video... {scene.videoProgress}%
+                        </span>
+                        <button
+                          onClick={() => updateScene(scene.id, { videoStatus: 'pending', videoProgress: 0 })}
+                          className="p-1 text-xs text-gray-400 hover:text-red-500 transition-colors"
+                          title="重置视频生成状态"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
                     ) : scene.videoStatus === 'completed' && scene.videoUrl ? (
                       <div className="flex items-center gap-2">
                         <button

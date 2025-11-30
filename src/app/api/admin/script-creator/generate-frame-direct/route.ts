@@ -125,12 +125,18 @@ export async function POST(request: NextRequest) {
     console.log('🖼️  Reference URL:', referenceImageUrl);
     console.log('📐 Aspect ratio:', aspectRatio);
 
+    // 根据宽高比计算具体尺寸（与视频保持一致）
+    // 16:9 -> 1280x720, 9:16 -> 720x1280
+    const size = aspectRatio === '16:9' ? '1280x720' : '720x1280';
+    console.log('📐 Image size:', size);
+
     // 调用图片生成 API（图生图模式）
     // 只支持单张参考图，优先使用角色参考卡
     const response = await evolinkClient.generateImage({
       model: IMAGE_MODELS.SEEDREAM_4,
       prompt: styleTransferPrompt,
       aspect_ratio: aspectRatio,
+      size, // 具体尺寸，确保与视频一致
       image_url: referenceImageUrl, // 优先角色参考卡，否则宠物原图
       strength: 0.65, // 图生图强度
     });

@@ -2,6 +2,7 @@
  * 直接合并视频 API（不依赖数据库）
  * POST /api/admin/script-creator/merge-direct
  * 直接使用传入的视频 URL 列表进行合并
+ * 同时生成原版和水印版视频
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -9,6 +10,7 @@ import { nanoid } from 'nanoid';
 
 import { getAuth } from '@/core/auth';
 import { mergeVideosWithRetry } from '@/extensions/video/merge-service';
+import { applyWatermarkWithRetry } from '@/extensions/video/watermark-service';
 import { checkScriptTemplateWritePermission } from '../_lib/check-admin';
 
 interface MergeDirectRequest {
@@ -58,9 +60,29 @@ export async function POST(request: NextRequest) {
 
     console.log('✅ Merged video URL:', result.mergedUrl);
 
+    // 生成水印版本
+    console.log('💧 开始生成水印版本...');
+    let watermarkedUrl: string | undefined;
+
+    try {
+      const watermarkResult = await applyWatermarkWithRetry(result.mergedUrl, taskId);
+
+      if (watermarkResult.success && watermarkResult.watermarkedUrl) {
+        watermarkedUrl = watermarkResult.watermarkedUrl;
+        console.log('✅ Watermarked video URL:', watermarkedUrl);
+      } else {
+        // 水印失败不影响主流程，仅记录警告
+        console.warn('⚠️ 水印生成失败:', watermarkResult.error);
+      }
+    } catch (watermarkError) {
+      // 水印失败不影响主流程，仅记录警告
+      console.warn('⚠️ 水印生成异常:', watermarkError instanceof Error ? watermarkError.message : 'Unknown error');
+    }
+
     return NextResponse.json({
       success: true,
       videoUrl: result.mergedUrl,
+      watermarkedUrl, // 水印版本URL（可能为undefined）
     });
   } catch (error) {
     console.error('Merge direct error:', error);

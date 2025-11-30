@@ -8,9 +8,9 @@ import type {
   EvolinkChatResponse,
   EvolinkImageGenerationRequest,
   EvolinkImageGenerationResponse,
-  EvolinkTaskStatusResponse,
   EvolinkSora2VideoRequest,
   EvolinkSora2VideoResponse,
+  EvolinkTaskStatusResponse,
 } from './types';
 
 const EVOLINK_BASE_URL = 'https://api.evolink.ai/v1';
@@ -74,7 +74,7 @@ Example outputs:
 Provide only the description, nothing else.`;
 
     const response = await this.chatCompletion({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-pro',
       messages: [
         {
           role: 'user',
@@ -199,7 +199,10 @@ Provide only the description, nothing else.`;
     request: EvolinkSora2VideoRequest
   ): Promise<EvolinkSora2VideoResponse> {
     console.log('🎬 [Evolink] Creating Sora-2 video generation task...');
-    console.log('📝 [Evolink] Prompt:', request.prompt.substring(0, 100) + '...');
+    console.log(
+      '📝 [Evolink] Prompt:',
+      request.prompt.substring(0, 100) + '...'
+    );
     console.log('📐 [Evolink] Aspect ratio:', request.aspect_ratio || '16:9');
     console.log('⏱️  [Evolink] Duration:', request.duration || 5, 'seconds');
     console.log('🖼️  [Evolink] Image URLs:', request.image_urls?.length || 0);
@@ -215,7 +218,9 @@ Provide only the description, nothing else.`;
         prompt: request.prompt,
         aspect_ratio: request.aspect_ratio || '16:9',
         duration: request.duration || 15, // 默认15秒
-        ...(request.image_urls?.length ? { image_urls: request.image_urls } : {}),
+        ...(request.image_urls?.length
+          ? { image_urls: request.image_urls }
+          : {}),
       }),
     });
 
@@ -229,8 +234,16 @@ Provide only the description, nothing else.`;
 
     const result = await response.json();
     console.log('✅ [Evolink] Sora-2 task created:', result.id);
-    console.log('⏱️  [Evolink] Estimated time:', result.task_info?.estimated_time, 'seconds');
-    console.log('🎞️  [Evolink] Video duration:', result.task_info?.video_duration, 'seconds');
+    console.log(
+      '⏱️  [Evolink] Estimated time:',
+      result.task_info?.estimated_time,
+      'seconds'
+    );
+    console.log(
+      '🎞️  [Evolink] Video duration:',
+      result.task_info?.video_duration,
+      'seconds'
+    );
 
     return result;
   }
@@ -292,7 +305,10 @@ Provide only the description, nothing else.`;
       }
 
       if (status.status === 'failed') {
-        console.error('❌ [Evolink] Sora-2 video generation failed:', status.error);
+        console.error(
+          '❌ [Evolink] Sora-2 video generation failed:',
+          status.error
+        );
         throw new Error(
           `Sora-2 video generation failed: ${status.error?.message || 'Unknown error'}`
         );
@@ -302,7 +318,9 @@ Provide only the description, nothing else.`;
       await new Promise((resolve) => setTimeout(resolve, intervalMs));
     }
 
-    throw new Error('Sora-2 video generation timeout after maximum polling attempts');
+    throw new Error(
+      'Sora-2 video generation timeout after maximum polling attempts'
+    );
   }
 }
 
@@ -313,9 +331,7 @@ export function createEvolinkClient(): EvolinkClient {
   const apiToken = process.env.EVOLINK_API_TOKEN;
 
   if (!apiToken) {
-    throw new Error(
-      'EVOLINK_API_TOKEN environment variable is not configured'
-    );
+    throw new Error('EVOLINK_API_TOKEN environment variable is not configured');
   }
 
   return new EvolinkClient(apiToken);

@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { getAuth } from '@/core/auth';
 import { createEvolinkClient } from '@/extensions/ai/providers/evolink/client';
+
 import { checkScriptTemplateWritePermission } from '../_lib/check-admin';
 
 // 目标表单结构（与前端 SceneData、CharacterData 一致）
@@ -77,9 +78,10 @@ function buildTextToTemplatePrompt(
   aspectRatio: '16:9' | '9:16'
 ): string {
   const sceneCount = durationSeconds / 15;
-  const orientationNote = aspectRatio === '9:16'
-    ? '竖屏模式，适合手机观看，构图更聚焦于角色'
-    : '横屏模式，适合电脑/电视观看，可以展示更多环境';
+  const orientationNote =
+    aspectRatio === '9:16'
+      ? '竖屏模式，适合手机观看，构图更聚焦于角色'
+      : '横屏模式，适合电脑/电视观看，可以展示更多环境';
 
   return `# 角色设定
 你是一位专业的宠物视频编剧和分镜师，擅长创建高质量的 AI 视频生成分镜脚本。
@@ -127,6 +129,8 @@ Shots（镜头）的作用是将 15 秒分解为多个时间段的详细描述�
   - 场景 1-${Math.ceil(sceneCount * 0.25)}: 开场/日常/铺垫
   - 场景 ${Math.ceil(sceneCount * 0.25) + 1}-${Math.ceil(sceneCount * 0.75)}: 冲突/高潮/转折
   - 场景 ${Math.ceil(sceneCount * 0.75) + 1}-${sceneCount}: 解决/结局/情感升华
+  - 保证故事连贯，有起承转合，每个scenes链接画面需要自然过渡。
+  - 画面合理，逻辑自洽。
 
 # 输出格式（严格遵守）
 
@@ -277,26 +281,36 @@ export async function POST(request: NextRequest) {
     const auth = await getAuth();
     const session = await auth.api.getSession({ headers: request.headers });
     if (!session?.user) {
-      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
     }
 
     // 验证管理员权限
-    const permissionError = await checkScriptTemplateWritePermission(session.user.id);
+    const permissionError = await checkScriptTemplateWritePermission(
+      session.user.id
+    );
     if (permissionError) return permissionError;
 
     const body: ParseTextRequest = await request.json();
-    const {
-      textContent,
-      durationSeconds = 60,
-      aspectRatio = '16:9'
-    } = body;
+    const { textContent, durationSeconds = 60, aspectRatio = '16:9' } = body;
 
     if (!textContent || textContent.trim().length === 0) {
-      return NextResponse.json({ success: false, error: '请输入故事或剧本内容' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: '请输入故事或剧本内容' },
+        { status: 400 }
+      );
     }
 
     if (textContent.trim().length < 50) {
-      return NextResponse.json({ success: false, error: '内容太短，请输入更详细的故事描述（至少50字）' }, { status: 400 });
+      return NextResponse.json(
+        {
+          success: false,
+          error: '内容太短，请输入更详细的故事描述（至少50字）',
+        },
+        { status: 400 }
+      );
     }
 
     console.log('\n📄 ========== Parse Text to Template ==========');
@@ -306,12 +320,16 @@ export async function POST(request: NextRequest) {
 
     // 调用 Gemini 进行文本转模板
     const evolinkClient = createEvolinkClient();
-    const prompt = buildTextToTemplatePrompt(textContent, durationSeconds, aspectRatio);
+    const prompt = buildTextToTemplatePrompt(
+      textContent,
+      durationSeconds,
+      aspectRatio
+    );
 
     console.log('🤖 Calling Gemini for text-to-template conversion...');
 
     const response = await evolinkClient.chatCompletion({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-pro',
       messages: [
         {
           role: 'user',
@@ -353,25 +371,40 @@ export async function POST(request: NextRequest) {
     } catch (parseError) {
       console.error('❌ Failed to parse Gemini response:', parseError);
       console.error('Raw response (first 1000):', content.substring(0, 1000));
-      console.error('Raw response (last 500):', content.substring(content.length - 500));
-      return NextResponse.json({
-        success: false,
-        error: 'AI 生成的格式有误，请重试',
-      }, { status: 500 });
+      console.error(
+        'Raw response (last 500):',
+        content.substring(content.length - 500)
+      );
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'AI 生成的格式有误，请重试',
+        },
+        { status: 500 }
+      );
     }
 
     // 验证结构
-    if (!parsedTemplate.config || !parsedTemplate.scenes || !Array.isArray(parsedTemplate.scenes)) {
-      return NextResponse.json({
-        success: false,
-        error: '生成的模板结构不完整，请重试',
-      }, { status: 500 });
+    if (
+      !parsedTemplate.config ||
+      !parsedTemplate.scenes ||
+      !Array.isArray(parsedTemplate.scenes)
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: '生成的模板结构不完整，请重试',
+        },
+        { status: 500 }
+      );
     }
 
     // 验证场景数量
     const expectedSceneCount = durationSeconds / 15;
     if (parsedTemplate.scenes.length !== expectedSceneCount) {
-      console.warn(`⚠️  Expected ${expectedSceneCount} scenes, got ${parsedTemplate.scenes.length}`);
+      console.warn(
+        `⚠️  Expected ${expectedSceneCount} scenes, got ${parsedTemplate.scenes.length}`
+      );
     }
 
     // 验证并修复 scenes
@@ -390,11 +423,36 @@ export async function POST(request: NextRequest) {
       if (!scene.shots || scene.shots.length === 0) {
         console.warn(`⚠️  Scene ${i + 1} missing shots, generating default`);
         scene.shots = [
-          { shotNumber: 1, durationSeconds: 3, prompt: '[PET] in scene establishing shot', cameraMovement: 'wide' },
-          { shotNumber: 2, durationSeconds: 3, prompt: 'Main action begins with [PET]', cameraMovement: 'medium' },
-          { shotNumber: 3, durationSeconds: 3, prompt: '[PET] reaction shot', cameraMovement: 'close-up' },
-          { shotNumber: 4, durationSeconds: 3, prompt: 'Action continues with [PET]', cameraMovement: 'medium' },
-          { shotNumber: 5, durationSeconds: 3, prompt: 'Scene conclusion with [PET]', cameraMovement: 'wide' },
+          {
+            shotNumber: 1,
+            durationSeconds: 3,
+            prompt: '[PET] in scene establishing shot',
+            cameraMovement: 'wide',
+          },
+          {
+            shotNumber: 2,
+            durationSeconds: 3,
+            prompt: 'Main action begins with [PET]',
+            cameraMovement: 'medium',
+          },
+          {
+            shotNumber: 3,
+            durationSeconds: 3,
+            prompt: '[PET] reaction shot',
+            cameraMovement: 'close-up',
+          },
+          {
+            shotNumber: 4,
+            durationSeconds: 3,
+            prompt: 'Action continues with [PET]',
+            cameraMovement: 'medium',
+          },
+          {
+            shotNumber: 5,
+            durationSeconds: 3,
+            prompt: 'Scene conclusion with [PET]',
+            cameraMovement: 'wide',
+          },
         ];
       }
 
@@ -408,7 +466,8 @@ export async function POST(request: NextRequest) {
 
       // 确保有 firstFramePrompt
       if (!scene.firstFramePrompt) {
-        scene.firstFramePrompt = scene.shots[0]?.prompt || '[PET] in scene establishing shot';
+        scene.firstFramePrompt =
+          scene.shots[0]?.prompt || '[PET] in scene establishing shot';
       }
 
       // 确保有描述
@@ -417,15 +476,20 @@ export async function POST(request: NextRequest) {
     }
 
     // 确保 characters 存在
-    if (!parsedTemplate.config.characters || parsedTemplate.config.characters.length === 0) {
-      parsedTemplate.config.characters = [{
-        id: 'pet',
-        role: 'primary',
-        name: 'Main Character',
-        nameCn: '主角',
-        description: 'The main character of the story',
-        descriptionCn: '故事的主角',
-      }];
+    if (
+      !parsedTemplate.config.characters ||
+      parsedTemplate.config.characters.length === 0
+    ) {
+      parsedTemplate.config.characters = [
+        {
+          id: 'pet',
+          role: 'primary',
+          name: 'Main Character',
+          nameCn: '主角',
+          description: 'The main character of the story',
+          descriptionCn: '故事的主角',
+        },
+      ];
     }
 
     // 确保 config 字段完整
@@ -437,7 +501,10 @@ export async function POST(request: NextRequest) {
     if (!parsedTemplate.config.styleId) {
       parsedTemplate.config.styleId = 'pixar-3d';
     }
-    if (!parsedTemplate.config.tags || parsedTemplate.config.tags.length === 0) {
+    if (
+      !parsedTemplate.config.tags ||
+      parsedTemplate.config.tags.length === 0
+    ) {
       parsedTemplate.config.tags = ['pet'];
     }
 
@@ -452,11 +519,13 @@ export async function POST(request: NextRequest) {
       template: parsedTemplate,
       message: `成功生成模板：${parsedTemplate.scenes.length} 个场景，${durationSeconds} 秒`,
     });
-
   } catch (error) {
     console.error('Parse text error:', error);
     return NextResponse.json(
-      { success: false, error: error instanceof Error ? error.message : '解析失败，请重试' },
+      {
+        success: false,
+        error: error instanceof Error ? error.message : '解析失败，请重试',
+      },
       { status: 500 }
     );
   }

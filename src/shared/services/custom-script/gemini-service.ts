@@ -5,8 +5,14 @@
  */
 
 import { createEvolinkClient } from '@/extensions/ai/providers/evolink/client';
-import type { VideoStyleId, GeneratedScenes, PetAppearance } from './types';
-import { getStylePrefix, getVideoStyleById } from './types';
+
+import {
+  getStylePrefix,
+  getVideoStyleById,
+  type GeneratedScenes,
+  type PetAppearance,
+  type VideoStyleId,
+} from './types';
 
 // 重新导出类型供外部使用
 export type { PetAppearance, GeneratedScenes };
@@ -38,9 +44,10 @@ function buildGeminiVisionPrompt(
 
   // 获取风格前缀
   const stylePrefix = getStylePrefix(styleId, customStyle);
-  const styleName = styleId === 'custom'
-    ? 'custom style'
-    : (getVideoStyleById(styleId)?.name || '3D Animation');
+  const styleName =
+    styleId === 'custom'
+      ? 'custom style'
+      : getVideoStyleById(styleId)?.name || '3D Animation';
 
   const musicSection = musicPrompt
     ? `\n**Background Music**: ${musicPrompt} (use generic style descriptions, no specific song/artist names)`
@@ -146,7 +153,11 @@ export async function generateScenesWithPetImage(
   console.log('📝 User prompt:', userPrompt.substring(0, 100) + '...');
   console.log('⏱️  Duration:', durationSeconds, 'seconds');
   console.log('📐 Aspect ratio:', aspectRatio);
-  console.log('🎨 Style:', styleId, customStyle ? `(custom: ${customStyle.substring(0, 50)}...)` : '');
+  console.log(
+    '🎨 Style:',
+    styleId,
+    customStyle ? `(custom: ${customStyle.substring(0, 50)}...)` : ''
+  );
   console.log('🎵 Music prompt:', musicPrompt || 'None');
 
   const evolinkClient = createEvolinkClient();
@@ -159,7 +170,9 @@ export async function generateScenesWithPetImage(
     musicPrompt
   );
 
-  console.log('🤖 Calling Gemini Vision via Evolink (pet identification + scene generation)...');
+  console.log(
+    '🤖 Calling Gemini Vision via Evolink (pet identification + scene generation)...'
+  );
 
   // 根据场景数量动态计算 token 限制
   // 每个场景约需 500-800 tokens + 宠物描述约 200 tokens
@@ -170,7 +183,7 @@ export async function generateScenesWithPetImage(
   try {
     // 使用 Vision API，同时传入图片和文本
     const response = await evolinkClient.chatCompletion({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-pro',
       messages: [
         {
           role: 'user',
@@ -206,7 +219,9 @@ export async function generateScenesWithPetImage(
 
     // 移除 markdown 代码块标记
     if (jsonContent.includes('```json')) {
-      jsonContent = jsonContent.replace(/```json\s*/g, '').replace(/```\s*/g, '');
+      jsonContent = jsonContent
+        .replace(/```json\s*/g, '')
+        .replace(/```\s*/g, '');
     } else if (jsonContent.includes('```')) {
       jsonContent = jsonContent.replace(/```\s*/g, '');
     }
@@ -231,7 +246,10 @@ export async function generateScenesWithPetImage(
       console.error('❌ JSON appears to be truncated');
       console.error(`Braces: ${openBraces} open, ${closeBraces} close`);
       console.error(`Brackets: ${openBrackets} open, ${closeBrackets} close`);
-      console.error('Raw content (last 500 chars):', content.substring(content.length - 500));
+      console.error(
+        'Raw content (last 500 chars):',
+        content.substring(content.length - 500)
+      );
       throw new Error('Gemini response was truncated - JSON incomplete');
     }
 
@@ -242,13 +260,23 @@ export async function generateScenesWithPetImage(
       console.error('❌ Failed to parse Gemini response as JSON');
       console.error('Parse error:', parseError);
       console.error('Raw content (first 500):', content.substring(0, 500));
-      console.error('Raw content (last 500):', content.substring(content.length - 500));
+      console.error(
+        'Raw content (last 500):',
+        content.substring(content.length - 500)
+      );
       throw new Error('Failed to parse Gemini response as JSON');
     }
 
     // 验证响应结构
-    if (!parsed.title || !parsed.pet || !Array.isArray(parsed.scenes) || parsed.scenes.length === 0) {
-      throw new Error('Invalid Gemini response structure: missing title, pet, or scenes');
+    if (
+      !parsed.title ||
+      !parsed.pet ||
+      !Array.isArray(parsed.scenes) ||
+      parsed.scenes.length === 0
+    ) {
+      throw new Error(
+        'Invalid Gemini response structure: missing title, pet, or scenes'
+      );
     }
 
     // 验证宠物信息
@@ -256,14 +284,17 @@ export async function generateScenesWithPetImage(
       console.warn('⚠️  Pet information incomplete, using defaults');
       parsed.pet = {
         species: parsed.pet.species || 'pet',
-        description: parsed.pet.description || 'a cute pet with expressive eyes',
+        description:
+          parsed.pet.description || 'a cute pet with expressive eyes',
         descriptionCn: parsed.pet.descriptionCn || '一只可爱的宠物',
       };
     }
 
     const expectedSceneCount = durationSeconds / 15;
     if (parsed.scenes.length !== expectedSceneCount) {
-      console.warn(`⚠️  Expected ${expectedSceneCount} scenes, got ${parsed.scenes.length}`);
+      console.warn(
+        `⚠️  Expected ${expectedSceneCount} scenes, got ${parsed.scenes.length}`
+      );
     }
 
     // 验证每个场景
@@ -274,8 +305,16 @@ export async function generateScenesWithPetImage(
     }
 
     console.log('✅ Gemini Vision generation successful!');
-    console.log('🐾 Pet identified:', parsed.pet.species, '-', parsed.pet.description.substring(0, 50) + '...');
-    console.log('🎨 Global style:', parsed.globalStylePrefix?.substring(0, 50) + '...' || 'Not set');
+    console.log(
+      '🐾 Pet identified:',
+      parsed.pet.species,
+      '-',
+      parsed.pet.description.substring(0, 50) + '...'
+    );
+    console.log(
+      '🎨 Global style:',
+      parsed.globalStylePrefix?.substring(0, 50) + '...' || 'Not set'
+    );
     console.log('📖 Story title:', parsed.title);
     console.log('🎬 Scene count:', parsed.scenes.length);
 
@@ -289,7 +328,10 @@ export async function generateScenesWithPetImage(
 /**
  * 为单个场景添加配乐提示词
  */
-export function addMusicToPrompt(scenePrompt: string, musicPrompt?: string): string {
+export function addMusicToPrompt(
+  scenePrompt: string,
+  musicPrompt?: string
+): string {
   if (!musicPrompt) {
     return scenePrompt;
   }

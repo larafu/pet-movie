@@ -198,15 +198,6 @@ Provide only the description, nothing else.`;
   async generateSora2Video(
     request: EvolinkSora2VideoRequest
   ): Promise<EvolinkSora2VideoResponse> {
-    console.log('🎬 [Evolink] Creating Sora-2 video generation task...');
-    console.log(
-      '📝 [Evolink] Prompt:',
-      request.prompt.substring(0, 100) + '...'
-    );
-    console.log('📐 [Evolink] Aspect ratio:', request.aspect_ratio || '16:9');
-    console.log('⏱️  [Evolink] Duration:', request.duration || 5, 'seconds');
-    console.log('🖼️  [Evolink] Image URLs:', request.image_urls?.length || 0);
-
     const response = await fetch(`${EVOLINK_BASE_URL}/videos/generations`, {
       method: 'POST',
       headers: {
@@ -226,26 +217,12 @@ Provide only the description, nothing else.`;
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('❌ [Evolink] Sora-2 video generation error:', errorText);
       throw new Error(
         `Evolink Sora-2 Video API error (${response.status}): ${errorText}`
       );
     }
 
-    const result = await response.json();
-    console.log('✅ [Evolink] Sora-2 task created:', result.id);
-    console.log(
-      '⏱️  [Evolink] Estimated time:',
-      result.task_info?.estimated_time,
-      'seconds'
-    );
-    console.log(
-      '🎞️  [Evolink] Video duration:',
-      result.task_info?.video_duration,
-      'seconds'
-    );
-
-    return result;
+    return response.json();
   }
 
   /**
@@ -285,30 +262,18 @@ Provide only the description, nothing else.`;
   ): Promise<string> {
     const { maxAttempts = 60, intervalMs = 10000, onProgress } = options;
 
-    console.log('⏳ [Evolink] Starting to poll Sora-2 video task:', taskId);
-
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       const status = await this.getVideoTaskStatus(taskId);
-
-      console.log(`🔄 [Evolink] Poll ${attempt + 1}/${maxAttempts}:`, {
-        status: status.status,
-        progress: status.progress,
-      });
 
       if (onProgress) {
         onProgress(status.progress, status.status);
       }
 
       if (status.status === 'completed' && status.results?.[0]) {
-        console.log('🎉 [Evolink] Sora-2 video completed:', status.results[0]);
         return status.results[0];
       }
 
       if (status.status === 'failed') {
-        console.error(
-          '❌ [Evolink] Sora-2 video generation failed:',
-          status.error
-        );
         throw new Error(
           `Sora-2 video generation failed: ${status.error?.message || 'Unknown error'}`
         );

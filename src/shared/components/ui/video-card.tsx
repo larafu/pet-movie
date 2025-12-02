@@ -18,6 +18,9 @@ import {
   Link2,
   Flag,
   Lock,
+  AlertCircle,
+  Trash2,
+  RefreshCw,
 } from "lucide-react";
 import { toast } from "sonner";
 import { UserInfo } from "./user-info";
@@ -54,6 +57,7 @@ export interface VideoCardData {
   isLoading?: boolean; // 加载状态
   progress?: number; // 加载进度
   loadingText?: string; // 加载文本
+  isFailed?: boolean; // 是否生成失败
   // 水印相关字段
   originalVideoUrl?: string;    // 原始无水印视频URL
   watermarkedVideoUrl?: string; // 带水印视频URL
@@ -67,6 +71,8 @@ export interface VideoCardActions {
   onCopyLink?: (id: string) => void;
   onMakePrivate?: (id: string) => void; // 取消公开分享回调
   onReport?: (id: string) => void;
+  onDelete?: (id: string) => void; // 删除失败任务回调
+  onRetry?: (id: string) => void; // 重试失败任务回调
 }
 
 export interface VideoCardProps {
@@ -127,6 +133,79 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
                 className="h-full bg-primary transition-all duration-300 ease-out"
                 style={{ width: `${data.progress}%` }}
               />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 失败状态渲染
+  if (data.isFailed) {
+    const failedAspectRatioClass =
+      aspectRatio === "9:16" ? "aspect-[9/16]" : "aspect-[16/9]";
+
+    const handleDelete = () => {
+      actions?.onDelete?.(data.id);
+    };
+
+    const handleRetry = () => {
+      actions?.onRetry?.(data.id);
+    };
+
+    return (
+      <div className={cn("bg-background/50 overflow-hidden rounded-xl mb-2 relative", className)}>
+        <div
+          className={cn(
+            "relative w-full flex flex-col items-center justify-center bg-gradient-to-tr from-red-500/5 via-transparent to-transparent",
+            failedAspectRatioClass
+          )}
+        >
+          {/* 背景缩略图（如果有） */}
+          {data.thumbnailUrl && (
+            <div
+              className="absolute inset-0 bg-cover bg-center opacity-20"
+              style={{ backgroundImage: `url(${data.thumbnailUrl})` }}
+            />
+          )}
+
+          <div className="relative flex flex-col items-center gap-4 p-4 text-center w-full">
+            {/* 失败图标 */}
+            <div className="relative w-12 h-12 flex items-center justify-center rounded-full bg-red-500/10 border-2 border-red-500/30">
+              <AlertCircle className="w-6 h-6 text-red-500" />
+            </div>
+
+            {/* 失败提示文本 */}
+            <div className="space-y-1 max-w-[180px]">
+              <h3 className="text-sm font-medium text-red-400">
+                {t("failed")}
+              </h3>
+              <p className="text-[10px] text-muted-foreground">
+                {t("failedDescription")}
+              </p>
+            </div>
+
+            {/* 操作按钮 */}
+            <div className="flex items-center gap-3 mt-2">
+              {/* 删除按钮 */}
+              <button
+                onClick={handleDelete}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white text-xs transition-colors"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                {t("delete")}
+              </button>
+
+              {/* 重试按钮（如果提供了回调） */}
+              {actions?.onRetry && (
+                <button
+                  onClick={handleRetry}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs transition-colors"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  {t("retry")}
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -250,7 +329,7 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
     return `${appUrl}/share/${data.id}`;
   };
 
-  // 处理分享 - 所有变体都使用分享页链接
+  // 处理分享 - 所有变体都使用分享页链接（乐观更新）
   const handleShare = async () => {
     // 统一使用分享页链接
     const shareLink = getShareLink();
@@ -265,21 +344,32 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
 
     // 仅用户自己的视频需要设置公开状态
     if (variant === "user") {
+      // 乐观更新UI
       setIsPublic(true);
-      // 通知父组件刷新列表
       actions?.onShare?.(data.id);
-      // 后台调用API设置公开状态
-      fetch('/api/pet-video/share', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ videoId: data.id, setPublic: true }),
-      }).catch((error) => {
+
+      // 后台调用API，失败时回滚
+      try {
+        const response = await fetch('/api/pet-video/share', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ videoId: data.id, setPublic: true }),
+        });
+        if (!response.ok) {
+          // 回滚
+          setIsPublic(false);
+          toast.error(tToast('shareFailed'));
+        }
+      } catch (error) {
+        // 回滚
+        setIsPublic(false);
+        toast.error(tToast('shareFailed'));
         console.error('Share API error:', error);
-      });
+      }
     }
   };
 
-  // 处理复制链接 - 所有变体都使用分享页链接
+  // 处理复制链接 - 所有变体都使用分享页链接（乐观更新）
   const handleCopyLink = async () => {
     // 统一使用分享页链接
     const shareLink = getShareLink();
@@ -294,37 +384,56 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
 
     // 仅用户自己的视频需要设置公开状态
     if (variant === "user") {
+      // 乐观更新UI
       setIsPublic(true);
-      // 通知父组件刷新列表
       actions?.onCopyLink?.(data.id);
-      // 后台调用API设置公开状态
-      fetch('/api/pet-video/share', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ videoId: data.id, setPublic: true }),
-      }).catch((error) => {
+
+      // 后台调用API，失败时回滚
+      try {
+        const response = await fetch('/api/pet-video/share', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ videoId: data.id, setPublic: true }),
+        });
+        if (!response.ok) {
+          // 回滚
+          setIsPublic(false);
+          toast.error(tToast('shareFailed'));
+        }
+      } catch (error) {
+        // 回滚
+        setIsPublic(false);
+        toast.error(tToast('shareFailed'));
         console.error('Copy link API error:', error);
-      });
+      }
     }
   };
 
-  // 处理取消公开
+  // 处理取消公开（乐观更新）
   const handleMakePrivate = async () => {
-    // 立即更新UI
+    // 乐观更新UI
     setIsPublic(false);
     toast.success(tToast('setToPrivate'));
-
-    // 通知父组件更新状态（移除绿点、从inspiration列表移除）
     actions?.onMakePrivate?.(data.id);
 
-    // 后台调用API
-    fetch('/api/pet-video/share', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ videoId: data.id, setPublic: false }),
-    }).catch((error) => {
+    // 后台调用API，失败时回滚
+    try {
+      const response = await fetch('/api/pet-video/share', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ videoId: data.id, setPublic: false }),
+      });
+      if (!response.ok) {
+        // 回滚
+        setIsPublic(true);
+        toast.error(tToast('makePrivateFailed'));
+      }
+    } catch (error) {
+      // 回滚
+      setIsPublic(true);
+      toast.error(tToast('makePrivateFailed'));
       console.error('Make private API error:', error);
-    });
+    }
   };
 
   // 处理举报

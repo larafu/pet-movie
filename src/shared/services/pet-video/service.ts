@@ -89,10 +89,6 @@ export async function executePetVideoGeneration(taskId: string): Promise<void> {
     // Step 1: Identify pet characteristics (SKIPPED - using image-to-image instead)
     // With image-to-image generation, we don't need text description of the pet
     // The uploaded pet image is used directly as source for style transfer
-    // Note: identifyPetWithRetry() could still be useful for analytics/logging if needed in the future
-    console.log(
-      '⏭️  [Service] Skipping pet identification - using image-to-image generation'
-    );
 
     // Step 2: Generate frame image using image-to-image
     await updateTaskStatus(taskId, 'generating_frame');
@@ -105,10 +101,6 @@ export async function executePetVideoGeneration(taskId: string): Promise<void> {
       throw new Error('Pet image URL is missing');
     }
 
-    console.log(
-      '🖼️  [Service] Using uploaded pet image for frame generation:',
-      task.petImageUrl
-    );
     const frameImageUrl = await generateFrameWithRetry(
       taskId,
       task.petImageUrl
@@ -131,11 +123,6 @@ export async function executePetVideoGeneration(taskId: string): Promise<void> {
       level: 'info',
     });
     const originalVideoUrl = await uploadToR2WithRetry(taskId, tempVideoUrl);
-    console.log('✅ [Service] Original video uploaded:', originalVideoUrl);
-
-    console.log('\n💧 ========== STEP 4.5: Apply Watermark ==========');
-    console.log('📝 [Service] Task ID:', taskId);
-    console.log('🔗 [Service] Original video URL:', originalVideoUrl);
 
     // Step 4.5: Apply watermark (不阻塞主流程，失败时降级到原视频)
     await updateTaskStatus(taskId, 'applying_watermark');
@@ -159,10 +146,6 @@ export async function executePetVideoGeneration(taskId: string): Promise<void> {
     let watermarkedVideoUrl: string | null = null;
 
     if (watermarkResult.success && watermarkResult.watermarkedUrl) {
-      console.log('✅ [Service] Watermark applied successfully!');
-      console.log('🔗 [Service] Watermarked URL:', watermarkResult.watermarkedUrl);
-      console.log('⏱️  [Service] Processing time:', watermarkResult.processingTimeMs, 'ms');
-
       watermarkedVideoUrl = watermarkResult.watermarkedUrl;
       finalVideoUrl = watermarkResult.watermarkedUrl; // 默认返回带水印版本
 
@@ -177,9 +160,6 @@ export async function executePetVideoGeneration(taskId: string): Promise<void> {
         },
       });
     } else {
-      console.warn('⚠️  [Service] Watermark application failed, using original video');
-      console.warn('   Error:', watermarkResult.error);
-
       finalVideoUrl = originalVideoUrl; // 降级到原视频
       watermarkedVideoUrl = null;
 
@@ -194,20 +174,8 @@ export async function executePetVideoGeneration(taskId: string): Promise<void> {
       });
     }
 
-    console.log('\n💰 ========== STEP 5: Deduct Credits ==========');
-    console.log('📝 [Service] Task ID:', taskId);
-    console.log('⏳ [Service] Deducting credits...');
-
     // Step 5: Deduct credits (only after successful completion)
     await deductCredits(taskId);
-    console.log('✅ [Service] Credits deducted successfully!');
-
-    console.log('\n✅ ========== STEP 6: Mark as Completed ==========');
-    console.log('📝 [Service] Task ID:', taskId);
-    console.log('🔗 [Service] Final video URL:', finalVideoUrl);
-    console.log('🔗 [Service] Original video URL:', originalVideoUrl);
-    console.log('🔗 [Service] Watermarked video URL:', watermarkedVideoUrl || 'N/A');
-    console.log('⏳ [Service] Updating task status to completed...');
 
     // Step 6: Mark as completed
     await database
@@ -221,17 +189,8 @@ export async function executePetVideoGeneration(taskId: string): Promise<void> {
       })
       .where(eq(aiTask.id, taskId));
 
-    console.log('✅ [Service] Task marked as completed in database!');
-
     // Track successful completion
     const duration = Date.now() - startTime;
-
-    console.log(
-      `\n🎉 ========== VIDEO GENERATION COMPLETED ==========`
-    );
-    console.log('📝 [Service] Task ID:', taskId);
-    console.log('⏱️  [Service] Total duration:', duration, 'ms');
-    console.log('🔗 [Service] Final video URL:', finalVideoUrl);
 
     Sentry.addBreadcrumb({
       category: 'task',
@@ -267,8 +226,6 @@ export async function executePetVideoGeneration(taskId: string): Promise<void> {
         currentStatus,
       },
     });
-
-    console.error(`Pet video generation failed for task ${taskId}:`, error);
   } finally {
     // Clean up Sentry context
     Sentry.setUser(null);
@@ -277,11 +234,9 @@ export async function executePetVideoGeneration(taskId: string): Promise<void> {
 
 /**
  * Identify pet characteristics with retry
+ * 注：当前使用 image-to-image 流程，此函数暂未使用，保留供后续扩展
  */
 async function identifyPetWithRetry(taskId: string): Promise<string> {
-  console.log('\n🐾 ========== STEP 1: Identify Pet ==========');
-  console.log('📝 [Service] Task ID:', taskId);
-
   const database = db();
   const task = await getTask(taskId);
 
@@ -289,19 +244,11 @@ async function identifyPetWithRetry(taskId: string): Promise<string> {
     throw new Error('Pet image URL is missing');
   }
 
-  console.log('🖼️  [Service] Pet image URL:', task.petImageUrl);
-
   const evolinkClient = createEvolinkClient();
 
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
-    console.log(
-      `\n🔄 [Service] Identify attempt ${attempt + 1}/${MAX_RETRIES}`
-    );
-
     try {
       const petDescription = await evolinkClient.identifyPet(task.petImageUrl);
-      console.log('✅ [Service] Pet identified successfully!');
-      console.log('📄 [Service] Description:', petDescription);
 
       // Save pet description
       await database
@@ -312,12 +259,8 @@ async function identifyPetWithRetry(taskId: string): Promise<string> {
         })
         .where(eq(aiTask.id, taskId));
 
-      console.log('💾 [Service] Pet description saved to database');
-
       return petDescription;
     } catch (error) {
-      console.error(`Pet identification attempt ${attempt + 1} failed:`, error);
-
       // Add breadcrumb for retry
       Sentry.addBreadcrumb({
         category: 'retry',
@@ -333,7 +276,6 @@ async function identifyPetWithRetry(taskId: string): Promise<string> {
       if (attempt < MAX_RETRIES - 1) {
         await sleep(EVOLINK_RETRY_DELAY);
       } else {
-        // Track final failure
         throw new Error(
           `Pet identification failed after ${MAX_RETRIES} attempts`
         );
@@ -351,12 +293,6 @@ async function generateFrameWithRetry(
   taskId: string,
   petImageUrl: string
 ): Promise<string> {
-  console.log(
-    '\n🖼️  ========== STEP 2: Generate Frame (Image-to-Image) =========='
-  );
-  console.log('📝 [Service] Task ID:', taskId);
-  console.log('🖼️  [Service] Pet image URL:', petImageUrl);
-
   const database = db();
   const task = await getTask(taskId);
 
@@ -373,29 +309,12 @@ async function generateFrameWithRetry(
   // 用户选择的宽高比
   const taskAspectRatio = (task.aspectRatio || '16:9') as '16:9' | '9:16';
 
-  console.log('🎨 [Service] Template type:', task.templateType);
-  console.log('📝 [Service] Original frame prompt:', framePrompt);
-  console.log('🎭 [Service] Style transfer prompt:', styleTransferPrompt);
-  console.log('📐 [Service] Aspect ratio:', taskAspectRatio);
-
   const evolinkClient = createEvolinkClient();
 
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
-    console.log(
-      `\n🔄 [Service] Frame generation attempt ${attempt + 1}/${MAX_RETRIES}`
-    );
-
     try {
-      // Create image-to-image generation task
-      console.log(
-        '🌐 [Service] Creating image-to-image generation task with model: doubao-seedream-4.0'
-      );
-      console.log('🖼️  [Service] Source image:', petImageUrl);
-
       // 根据宽高比计算具体尺寸（与视频保持一致）
       const size = taskAspectRatio === '16:9' ? '1280x720' : '720x1280';
-      console.log('📐 [Service] Aspect ratio:', taskAspectRatio);
-      console.log('📐 [Service] Image size:', size);
 
       const response = await evolinkClient.generateImage({
         model: IMAGE_MODELS.SEEDREAM_4,
@@ -404,8 +323,6 @@ async function generateFrameWithRetry(
         aspect_ratio: taskAspectRatio, // 传递用户选择的宽高比
         size, // 具体尺寸，确保与视频一致
       });
-
-      console.log('✅ [Service] Image task created, task ID:', response.id);
 
       // Save frame task ID
       await database
@@ -416,12 +333,8 @@ async function generateFrameWithRetry(
         })
         .where(eq(aiTask.id, taskId));
 
-      console.log('💾 [Service] Frame task ID saved to database');
-
-      // Poll for completion
-      console.log('⏳ [Service] Waiting for image generation to complete...');
-
-      const frameImageUrl = await evolinkClient.pollImageGeneration(
+      // 轮询等待完成，获取临时 URL
+      const tempFrameImageUrl = await evolinkClient.pollImageGeneration(
         response.id,
         {
           maxAttempts: 60,
@@ -429,10 +342,24 @@ async function generateFrameWithRetry(
         }
       );
 
-      console.log('🎉 [Service] Frame image generated successfully!');
-      console.log('🔗 [Service] Frame URL:', frameImageUrl);
+      // 上传到 R2 永久存储，避免临时链接过期
+      const r2Provider = await createR2ProviderFromDb();
+      const r2Key = `pet-video/${taskId}/frame.png`;
 
-      // Save frame image URL
+      const uploadResult = await r2Provider.downloadAndUpload({
+        url: tempFrameImageUrl,
+        key: r2Key,
+        contentType: 'image/png',
+        disposition: 'inline',
+      });
+
+      if (!uploadResult.success || !uploadResult.url) {
+        throw new Error(`Failed to upload frame to R2: ${uploadResult.error}`);
+      }
+
+      const frameImageUrl = uploadResult.url;
+
+      // Save frame image URL (now permanent R2 URL)
       await database
         .update(aiTask)
         .set({
@@ -441,12 +368,8 @@ async function generateFrameWithRetry(
         })
         .where(eq(aiTask.id, taskId));
 
-      console.log('💾 [Service] Frame URL saved to database');
-
       return frameImageUrl;
     } catch (error) {
-      console.error(`Frame generation attempt ${attempt + 1} failed:`, error);
-
       // Add breadcrumb for retry
       Sentry.addBreadcrumb({
         category: 'retry',
@@ -462,7 +385,6 @@ async function generateFrameWithRetry(
       if (attempt < MAX_RETRIES - 1) {
         await sleep(EVOLINK_RETRY_DELAY);
       } else {
-        // Track final failure
         throw new Error(
           `Frame generation failed after ${MAX_RETRIES} attempts`
         );
@@ -480,10 +402,6 @@ async function generateVideoWithRetry(
   taskId: string,
   frameImageUrl: string
 ): Promise<string> {
-  console.log('\n🎬 ========== STEP 3: Generate Video ==========');
-  console.log('📝 [Service] Task ID:', taskId);
-  console.log('🔗 [Service] Frame image URL:', frameImageUrl);
-
   const database = db();
   const task = await getTask(taskId);
 
@@ -501,20 +419,9 @@ async function generateVideoWithRetry(
   const kieAspectRatio: 'portrait' | 'landscape' =
     taskAspectRatio === '9:16' ? 'portrait' : 'landscape';
 
-  console.log('🎨 [Service] Template type:', task.templateType);
-  console.log('⏱️  [Service] Duration:', task.durationSeconds, 'seconds');
-  console.log('🎞️  [Service] Number of frames:', nFrames);
-  console.log('📐 [Service] User aspect ratio:', taskAspectRatio);
-  console.log('📐 [Service] KIE aspect ratio:', kieAspectRatio);
-  console.log('🎭 [Service] Video shots:', JSON.stringify(shots, null, 2));
-
   const kieClient = createKieClient();
 
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
-    console.log(
-      `\n🔄 [Service] Video generation attempt ${attempt + 1}/${MAX_RETRIES}`
-    );
-
     try {
       // Create video generation task
       const requestPayload = {
@@ -527,18 +434,7 @@ async function generateVideoWithRetry(
         },
       };
 
-      console.log('🌐 [Service] Creating video generation task...');
-      console.log(
-        '📦 [Service] Request payload:',
-        JSON.stringify(requestPayload, null, 2)
-      );
-
       const response = await kieClient.createTask(requestPayload);
-
-      console.log(
-        '✅ [Service] Video task created, task ID:',
-        response.data.taskId
-      );
 
       // Save video task ID
       await database
@@ -549,11 +445,7 @@ async function generateVideoWithRetry(
         })
         .where(eq(aiTask.id, taskId));
 
-      console.log('💾 [Service] Video task ID saved to database');
-
       // Poll for completion
-      console.log('⏳ [Service] Waiting for video generation to complete...');
-
       const tempVideoUrl = await kieClient.pollVideoGeneration(
         response.data.taskId,
         {
@@ -561,9 +453,6 @@ async function generateVideoWithRetry(
           intervalMs: 10000,
         }
       );
-
-      console.log('🎉 [Service] Video generated successfully!');
-      console.log('🔗 [Service] Video URL:', tempVideoUrl);
 
       // Save temp video URL
       await database
@@ -574,12 +463,8 @@ async function generateVideoWithRetry(
         })
         .where(eq(aiTask.id, taskId));
 
-      console.log('💾 [Service] Video URL saved to database');
-
       return tempVideoUrl;
     } catch (error) {
-      console.error(`Video generation attempt ${attempt + 1} failed:`, error);
-
       // Add breadcrumb for retry
       Sentry.addBreadcrumb({
         category: 'retry',
@@ -595,7 +480,6 @@ async function generateVideoWithRetry(
       if (attempt < MAX_RETRIES - 1) {
         await sleep(KIE_RETRY_DELAY);
       } else {
-        // Track final failure
         throw new Error(
           `Video generation failed after ${MAX_RETRIES} attempts`
         );
@@ -613,17 +497,8 @@ async function uploadToR2WithRetry(
   taskId: string,
   tempVideoUrl: string
 ): Promise<string> {
-  console.log('\n☁️  ========== STEP 4: Upload to R2 ==========');
-  console.log('📝 [Service] Task ID:', taskId);
-  console.log('🔗 [Service] Temp video URL:', tempVideoUrl);
-
   // Check if this is a mock video URL (use local test video)
   if (tempVideoUrl.includes('mock-video-url.com')) {
-    console.log(
-      '🎭 [Service] Mock video URL detected - using local test video'
-    );
-
-    const database = db();
     const r2Provider = await createR2ProviderFromDb();
 
     // Read local test video file
@@ -634,16 +509,9 @@ async function uploadToR2WithRetry(
       'public/video/dog-funny-family.mp4'
     );
 
-    console.log('📁 [Service] Reading local test video:', testVideoPath);
     const videoBuffer = await fs.readFile(testVideoPath);
-    console.log(
-      '📦 [Service] Video size:',
-      (videoBuffer.length / 1024 / 1024).toFixed(2),
-      'MB'
-    );
 
     const key = `pet-videos/${taskId}.mp4`;
-    console.log('⬆️  [Service] Uploading test video to R2...');
 
     const result = await r2Provider.uploadFile({
       key,
@@ -656,30 +524,15 @@ async function uploadToR2WithRetry(
       throw new Error(result.error || 'R2 upload of test video failed');
     }
 
-    console.log('✅ [Service] Test video uploaded successfully!');
-    console.log('🔗 [Service] R2 URL:', result.url);
     return result.url;
   }
 
-  const database = db();
   const r2Provider = await createR2ProviderFromDb();
 
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
-    console.log(
-      `\n🔄 [Service] R2 upload attempt ${attempt + 1}/${MAX_RETRIES}`
-    );
-
     try {
       // Download video from temp URL and upload to R2
       const key = `pet-videos/${taskId}.mp4`;
-
-      console.log('📦 [Service] Upload parameters:');
-      console.log('   - Key:', key);
-      console.log('   - Content type: video/mp4');
-      console.log('   - Disposition: inline');
-
-      console.log('⬇️  [Service] Downloading video from temp URL...');
-      console.log('⬆️  [Service] Uploading to R2 storage...');
 
       const result = await r2Provider.downloadAndUpload({
         url: tempVideoUrl,
@@ -688,23 +541,12 @@ async function uploadToR2WithRetry(
         disposition: 'inline',
       });
 
-      console.log('📊 [Service] R2 upload result:', {
-        success: result.success,
-        hasUrl: !!result.url,
-        error: result.error,
-      });
-
       if (!result.success || !result.url) {
         throw new Error(result.error || 'R2 upload failed');
       }
 
-      console.log('🎉 [Service] Video uploaded to R2 successfully!');
-      console.log('🔗 [Service] Final video URL:', result.url);
-
       return result.url;
     } catch (error) {
-      console.error(`R2 upload attempt ${attempt + 1} failed:`, error);
-
       // Add breadcrumb for retry
       Sentry.addBreadcrumb({
         category: 'retry',
@@ -720,7 +562,6 @@ async function uploadToR2WithRetry(
       if (attempt < MAX_RETRIES - 1) {
         await sleep(R2_RETRY_DELAY);
       } else {
-        // Track final failure
         throw new Error(`R2 upload failed after ${MAX_RETRIES} attempts`);
       }
     }
@@ -741,7 +582,6 @@ async function deductCredits(taskId: string): Promise<void> {
   const creditsCost = task.costCredits;
 
   if (!creditsCost || creditsCost <= 0) {
-    console.log('⚠️  [Service] No credits to deduct for task:', taskId);
     return;
   }
 
@@ -762,9 +602,6 @@ async function deductCredits(taskId: string): Promise<void> {
       }),
     });
 
-    console.log('✅ [Service] Credits deducted:', creditsCost);
-    console.log('   Transaction No:', result.transactionNo);
-
     // 更新任务记录，关联积分交易
     await database
       .update(aiTask)
@@ -774,7 +611,6 @@ async function deductCredits(taskId: string): Promise<void> {
       })
       .where(eq(aiTask.id, taskId));
   } catch (error) {
-    console.error('❌ [Service] Failed to deduct credits:', error);
     // 积分扣除失败不应该阻止视频交付，记录错误但继续
     Sentry.captureException(error, {
       tags: {
@@ -863,7 +699,27 @@ export async function getPetVideoTaskStatus(
 }
 
 /**
+ * 从 Rainbow Bridge 任务的 taskInfo 中提取第一个场景的首帧图
+ */
+function getFirstSceneFrameUrl(taskInfo: string | null): string | undefined {
+  if (!taskInfo) return undefined;
+  try {
+    const info = JSON.parse(taskInfo);
+    // Rainbow Bridge 任务的 scenes 数组中，每个场景有 frameUrl
+    if (info.scenes && Array.isArray(info.scenes) && info.scenes.length > 0) {
+      // 返回第一个已完成的场景首帧图
+      const completedScene = info.scenes.find((s: any) => s.frameUrl);
+      return completedScene?.frameUrl;
+    }
+  } catch {
+    // 解析失败，返回 undefined
+  }
+  return undefined;
+}
+
+/**
  * Get user's pet video history
+ * 获取用户的宠物视频历史（包括旧版和 Rainbow Bridge 任务）
  */
 export async function getUserPetVideoHistory(
   userId: string,
@@ -872,37 +728,51 @@ export async function getUserPetVideoHistory(
 ) {
   const database = db();
 
+  // 查询所有宠物视频任务（包括旧版和 Rainbow Bridge）
   const tasks = await database
     .select()
     .from(aiTask)
     .where(
       and(
         eq(aiTask.userId, userId),
-        eq(aiTask.scene, 'pet-video-generation')
+        inArray(aiTask.scene, ['pet-video-generation', 'rainbow-bridge'])
       )
     )
     .orderBy(desc(aiTask.createdAt)) // Newest first
     .limit(limit)
     .offset(offset);
 
-  return tasks.map((task) => ({
-    id: task.id,
-    templateType: task.templateType as 'dog' | 'cat',
-    status: task.status,
-    petImageUrl: task.petImageUrl,
-    frameImageUrl: task.frameImageUrl, // AI-generated Pixar style frame
-    finalVideoUrl: task.finalVideoUrl,
-    tempVideoUrl: task.tempVideoUrl,
-    originalVideoUrl: task.originalVideoUrl, // 原始无水印视频
-    watermarkedVideoUrl: task.watermarkedVideoUrl, // 带水印视频
-    durationSeconds: task.durationSeconds,
-    aspectRatio: task.aspectRatio,
-    costCredits: task.costCredits,
-    isPublic: task.isPublic, // 是否公开分享
-    likeCount: task.likeCount, // 点赞数
-    createdAt: task.createdAt,
-    updatedAt: task.updatedAt,
-  }));
+  return tasks.map((task) => {
+    // 对于 Rainbow Bridge 任务，优先使用第一个场景的首帧图
+    let displayThumbnail = task.frameImageUrl;
+    if (task.scene === 'rainbow-bridge') {
+      const sceneFrameUrl = getFirstSceneFrameUrl(task.taskInfo);
+      if (sceneFrameUrl) {
+        displayThumbnail = sceneFrameUrl;
+      }
+    }
+
+    return {
+      id: task.id,
+      templateType: task.templateType as 'dog' | 'cat',
+      status: task.status,
+      scene: task.scene, // 返回 scene 字段用于前端区分任务类型
+      petImageUrl: task.petImageUrl,
+      frameImageUrl: displayThumbnail, // 优先使用场景首帧图
+      characterSheetUrl: task.frameImageUrl, // 角色参考卡 URL（原 frameImageUrl）
+      finalVideoUrl: task.finalVideoUrl,
+      tempVideoUrl: task.tempVideoUrl,
+      originalVideoUrl: task.originalVideoUrl, // 原始无水印视频
+      watermarkedVideoUrl: task.watermarkedVideoUrl, // 带水印视频
+      durationSeconds: task.durationSeconds,
+      aspectRatio: task.aspectRatio,
+      costCredits: task.costCredits,
+      isPublic: task.isPublic, // 是否公开分享
+      likeCount: task.likeCount, // 点赞数
+      createdAt: task.createdAt,
+      updatedAt: task.updatedAt,
+    };
+  });
 }
 
 /**

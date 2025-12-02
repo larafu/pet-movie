@@ -52,14 +52,8 @@ export async function createCustomScript(
   const database = db();
   const scriptId = nanoid();
 
-  console.log('\n🎬 ========== Creating Custom Script ==========');
-  console.log('📝 Script ID:', scriptId);
-  console.log('👤 User ID:', userId);
-  console.log('⏱️  Duration:', request.durationSeconds, 'seconds');
-
   try {
     // Step 1: 使用 Gemini Vision 一次调用完成：宠物识别 + 分镜生成
-    console.log('\n🐾📝 Step 1: Gemini Vision (pet identification + scene generation)...');
     const generatedResult = await generateScenesWithPetImage(
       request.petImageUrl,
       request.userPrompt,
@@ -69,12 +63,8 @@ export async function createCustomScript(
       request.customStyle,
       request.musicPrompt
     );
-    console.log('✅ Pet identified:', generatedResult.pet.species, '-', generatedResult.pet.description.substring(0, 50) + '...');
-    console.log('🎨 Global style:', generatedResult.globalStylePrefix?.substring(0, 50) + '...');
-    console.log('📖 Title:', generatedResult.title);
 
     // Step 2: 创建剧本主记录（包含宠物信息和全局风格）
-    console.log('\n💾 Step 2: Saving script to database...');
     await database.insert(customScript).values({
       id: scriptId,
       userId,
@@ -94,7 +84,6 @@ export async function createCustomScript(
     });
 
     // Step 3: 创建分镜段落记录
-    console.log('\n💾 Step 3: Saving scenes to database...');
     const sceneRecords = generatedResult.scenes.map((scene) => {
       const sceneId = nanoid();
       // 如果有配乐提示词，添加到每个场景的视频提示词
@@ -118,11 +107,6 @@ export async function createCustomScript(
 
     await database.insert(customScriptScene).values(sceneRecords);
 
-    console.log('✅ Custom script created successfully!');
-    console.log('🐾 Pet:', generatedResult.pet.species, '-', generatedResult.pet.descriptionCn);
-    console.log('📖 Title:', generatedResult.title);
-    console.log('🎬 Scene count:', sceneRecords.length);
-
     return {
       scriptId,
       title: generatedResult.title,
@@ -134,8 +118,6 @@ export async function createCustomScript(
       })),
     };
   } catch (error) {
-    console.error('❌ Failed to create custom script:', error);
-
     // 如果失败，记录错误但保留剧本记录（状态为 failed）
     try {
       await database.insert(customScript).values({
@@ -151,7 +133,10 @@ export async function createCustomScript(
         updatedAt: new Date(),
       });
     } catch (dbError) {
-      console.error('Failed to save failed script record:', dbError);
+      // 记录数据库错误到 Sentry，但不阻断主错误
+      Sentry.captureException(dbError, {
+        tags: { component: 'custom_script', action: 'save_failed_record' },
+      });
     }
 
     Sentry.captureException(error, {
@@ -272,8 +257,6 @@ export async function saveScript(scriptId: string): Promise<void> {
     .update(customScript)
     .set({ status: newStatus, updatedAt: new Date() })
     .where(eq(customScript.id, scriptId));
-
-  console.log(`💾 Script ${scriptId} saved with status: ${newStatus}`);
 }
 
 // ==================== 分镜管理 ====================
@@ -359,10 +342,6 @@ export async function generateSceneFrame(
 ): Promise<string> {
   const database = db();
 
-  console.log('\n🖼️  ========== Generating Scene Frame ==========');
-  console.log('📝 Scene ID:', sceneId);
-  console.log('📝 Script ID:', scriptId);
-
   // 获取剧本和分镜信息
   const scriptData = await getCustomScript(scriptId, userId);
   if (!scriptData) {
@@ -400,7 +379,6 @@ export async function generateSceneFrame(
     // 如果没有 "the same cat/dog" 或 "the cat/dog"，则添加一个默认的宠物描述
     const hasPetReference = /the\s+(same\s+)?(cat|dog|pet)/i.test(framePrompt);
     if (!hasPetReference) {
-      console.warn('⚠️  firstFramePrompt missing pet reference, adding default');
       // 从 scenesJson 中获取宠物信息
       let petSpecies = 'pet';
       try {
@@ -420,28 +398,14 @@ export async function generateSceneFrame(
     // 这个格式在 Seedream 图生图中更稳定
     const styleTransferPrompt = `Transform this pet into ${stylePrefix} style, ${framePrompt}`;
 
-    console.log('🎨 Style ID:', styleId);
-    console.log('🎨 Style prefix length:', stylePrefix.length);
-    console.log('🖼️  First frame prompt length:', framePrompt.length);
-    console.log('🎨 Total prompt length:', styleTransferPrompt.length);
-    console.log('🖼️  Pet image URL:', scriptData.script.petImageUrl);
-    console.log('📐 Aspect ratio:', scriptData.script.aspectRatio);
-
     // 验证图片 URL 是否可访问，并检查格式
     let petImageUrl = scriptData.script.petImageUrl;
     try {
       const imageCheckResponse = await fetch(petImageUrl, { method: 'HEAD' });
       const contentType = imageCheckResponse.headers.get('content-type');
-      console.log('🔍 Pet image URL check:', imageCheckResponse.status, contentType);
-
-      if (!imageCheckResponse.ok) {
-        console.warn('⚠️  Pet image URL may not be accessible:', imageCheckResponse.status);
-      }
 
       // 检查是否为 WebP 格式 - Seedream 不支持 WebP 作为图生图输入
       if (contentType?.includes('webp') || petImageUrl.toLowerCase().endsWith('.webp')) {
-        console.log('🔄 WebP detected, converting to PNG for Seedream compatibility...');
-
         try {
           // 使用 sharp 进行真正的图片格式转换
           const sharp = (await import('sharp')).default;
@@ -458,8 +422,6 @@ export async function generateSceneFrame(
             .png()
             .toBuffer();
 
-          console.log(`✅ Image converted: WebP(${webpBuffer.length} bytes) -> PNG(${pngBuffer.length} bytes)`);
-
           // 上传转换后的 PNG 到 R2
           const r2Provider = await createR2ProviderFromDb();
           const convertedKey = `custom-script/${scriptId}/pet-image-converted.png`;
@@ -473,37 +435,39 @@ export async function generateSceneFrame(
 
           if (uploadResult.success && uploadResult.url) {
             petImageUrl = uploadResult.url;
-            console.log('✅ PNG uploaded to R2:', petImageUrl);
-          } else {
-            console.warn('⚠️  Failed to upload converted PNG:', uploadResult.error);
           }
         } catch (convertError) {
-          console.warn('⚠️  Failed to convert WebP to PNG:', convertError);
-          // 继续使用原始 URL，让 Seedream API 决定是否能处理
+          // 记录转换失败，但继续使用原始 URL
+          Sentry.addBreadcrumb({
+            category: 'custom_script',
+            message: 'WebP to PNG conversion failed',
+            level: 'warning',
+            data: { error: convertError instanceof Error ? convertError.message : 'Unknown' },
+          });
         }
       }
     } catch (urlError) {
-      console.warn('⚠️  Failed to check pet image URL:', urlError);
+      // 记录 URL 检查失败
+      Sentry.addBreadcrumb({
+        category: 'custom_script',
+        message: 'Pet image URL check failed',
+        level: 'warning',
+        data: { error: urlError instanceof Error ? urlError.message : 'Unknown' },
+      });
     }
 
     // 限制提示词长度（Seedream 可能对长提示词不友好）
     const maxPromptLength = 500;
     let finalPrompt = styleTransferPrompt;
     if (finalPrompt.length > maxPromptLength) {
-      console.warn(`⚠️  Prompt too long (${finalPrompt.length}), truncating to ${maxPromptLength}`);
       finalPrompt = finalPrompt.substring(0, maxPromptLength);
     }
-
-    console.log('📝 Final prompt:', finalPrompt);
 
     // 根据宽高比计算具体尺寸（与视频保持一致）
     const aspectRatio = scriptData.script.aspectRatio as '16:9' | '9:16';
     const size = aspectRatio === '16:9' ? '1280x720' : '720x1280';
-    console.log('📐 Aspect ratio:', aspectRatio);
-    console.log('📐 Image size:', size);
 
     // 创建图生图任务（使用可能已转换的 petImageUrl）
-    console.log('🖼️  Using pet image URL:', petImageUrl);
     const response = await evolinkClient.generateImage({
       model: IMAGE_MODELS.SEEDREAM_4,
       prompt: finalPrompt,
@@ -511,8 +475,6 @@ export async function generateSceneFrame(
       aspect_ratio: aspectRatio,
       size, // 具体尺寸，确保与视频一致
     });
-
-    console.log('✅ Image task created:', response.id);
 
     // 保存任务 ID，初始化进度为0
     await database
@@ -532,11 +494,9 @@ export async function generateSceneFrame(
           .update(customScriptScene)
           .set({ frameProgress: adjustedProgress, updatedAt: new Date() })
           .where(eq(customScriptScene.id, sceneId))
-          .catch((err) => console.error('Failed to update frame progress:', err));
+          .catch(() => {}); // 进度更新失败不影响主流程
       },
     });
-
-    console.log('🎉 Frame image generated (temp):', tempFrameImageUrl);
 
     // 更新进度为 85%（开始上传到 R2）
     await database
@@ -545,7 +505,6 @@ export async function generateSceneFrame(
       .where(eq(customScriptScene.id, sceneId));
 
     // 上传到 R2 永久存储
-    console.log('⬆️  Uploading frame image to R2...');
     const r2Provider = await createR2ProviderFromDb();
     const r2Key = `custom-script/${scriptId}/frames/${sceneId}.png`;
 
@@ -561,7 +520,6 @@ export async function generateSceneFrame(
     }
 
     const frameImageUrl = uploadResult.url;
-    console.log('✅ Frame image uploaded to R2:', frameImageUrl);
 
     // 更新状态为完成，进度100%
     await database
@@ -585,8 +543,6 @@ export async function generateSceneFrame(
 
     return frameImageUrl;
   } catch (error) {
-    console.error('❌ Frame generation failed:', error);
-
     // 更新状态为失败
     await database
       .update(customScriptScene)
@@ -614,9 +570,7 @@ export async function generateSceneFrame(
           error: error instanceof Error ? error.message : 'Unknown error',
         }),
       });
-      console.log(`✅ Refunded ${CUSTOM_SCRIPT_CREDITS.FRAME} credits to user ${userId}`);
     } catch (refundError) {
-      console.error('❌ Failed to refund credits:', refundError);
       Sentry.captureException(refundError, {
         tags: { component: 'custom_script', action: 'refund_credits' },
       });
@@ -642,10 +596,6 @@ export async function generateSceneVideo(
   userId: string
 ): Promise<string> {
   const database = db();
-
-  console.log('\n🎬 ========== Generating Scene Video ==========');
-  console.log('📝 Scene ID:', sceneId);
-  console.log('📝 Script ID:', scriptId);
 
   // 获取剧本和分镜信息
   const scriptData = await getCustomScript(scriptId, userId);
@@ -690,12 +640,6 @@ export async function generateSceneVideo(
       ? `${globalStylePrefix}. ${scene.prompt}`
       : scene.prompt;
 
-    console.log('🎨 Global style prefix:', globalStylePrefix ? globalStylePrefix.substring(0, 80) + '...' : '(none)');
-    console.log('🎬 Scene prompt:', scene.prompt.substring(0, 100) + '...');
-    console.log('📝 Full video prompt length:', fullVideoPrompt.length);
-    console.log('🖼️  Frame image URL:', scene.frameImageUrl);
-    console.log('📐 Aspect ratio:', scriptData.script.aspectRatio);
-
     // 创建 Sora-2 视频生成任务（每个分镜15秒）
     const response = await evolinkClient.generateSora2Video({
       model: VIDEO_MODELS.SORA_2,
@@ -704,8 +648,6 @@ export async function generateSceneVideo(
       duration: 15, // 每个分镜固定15秒
       image_urls: [scene.frameImageUrl], // 使用首帧图作为参考
     });
-
-    console.log('✅ Video task created:', response.id);
 
     // 保存任务 ID，初始化进度为0
     await database
@@ -717,8 +659,7 @@ export async function generateSceneVideo(
     const tempVideoUrl = await evolinkClient.pollSora2VideoGeneration(response.id, {
       maxAttempts: 60, // 10分钟超时
       intervalMs: 10000,
-      onProgress: async (progress: number, status: string) => {
-        console.log(`📊 Video progress: ${progress}% (${status})`);
+      onProgress: async (progress: number) => {
         // 保存进度到数据库（进度更新不阻塞主流程）
         // 进度 0-80% 为 AI 生成阶段
         const adjustedProgress = Math.floor(progress * 0.8);
@@ -726,11 +667,9 @@ export async function generateSceneVideo(
           .update(customScriptScene)
           .set({ videoProgress: adjustedProgress, updatedAt: new Date() })
           .where(eq(customScriptScene.id, sceneId))
-          .catch((err) => console.error('Failed to update video progress:', err));
+          .catch(() => {}); // 进度更新失败不影响主流程
       },
     });
-
-    console.log('🎉 Video generated (temp):', tempVideoUrl);
 
     // 更新进度为 85%（开始上传到 R2）
     await database
@@ -739,7 +678,6 @@ export async function generateSceneVideo(
       .where(eq(customScriptScene.id, sceneId));
 
     // 上传到 R2 永久存储
-    console.log('⬆️  Uploading video to R2...');
     const r2Provider = await createR2ProviderFromDb();
     const r2Key = `custom-script/${scriptId}/videos/${sceneId}.mp4`;
 
@@ -755,7 +693,6 @@ export async function generateSceneVideo(
     }
 
     const videoUrl = uploadResult.url;
-    console.log('✅ Video uploaded to R2:', videoUrl);
 
     // 更新状态为完成，进度100%
     await database
@@ -779,8 +716,6 @@ export async function generateSceneVideo(
 
     return videoUrl;
   } catch (error) {
-    console.error('❌ Video generation failed:', error);
-
     // 更新状态为失败
     await database
       .update(customScriptScene)
@@ -808,9 +743,7 @@ export async function generateSceneVideo(
           error: error instanceof Error ? error.message : 'Unknown error',
         }),
       });
-      console.log(`✅ Refunded ${CUSTOM_SCRIPT_CREDITS.VIDEO} credits to user ${userId}`);
     } catch (refundError) {
-      console.error('❌ Failed to refund credits:', refundError);
       Sentry.captureException(refundError, {
         tags: { component: 'custom_script', action: 'refund_credits' },
       });
@@ -898,9 +831,6 @@ export async function mergeScriptVideos(
 ): Promise<string> {
   const database = db();
 
-  console.log('\n🎬 ========== Merging Script Videos ==========');
-  console.log('📝 Script ID:', scriptId);
-
   // 获取剧本和分镜
   const scriptData = await getCustomScript(scriptId, userId);
   if (!scriptData) {
@@ -931,16 +861,12 @@ export async function mergeScriptVideos(
       .map((scene) => scene.videoUrl!)
       .filter(Boolean);
 
-    console.log('📼 Video URLs to merge:', videoUrls.length);
-
     // 调用合并服务
     const result = await mergeVideosWithRetry(videoUrls, scriptId);
 
     if (!result.success || !result.mergedUrl) {
       throw new Error(result.error || 'Video merge failed');
     }
-
-    console.log('🎉 Merged video URL:', result.mergedUrl);
 
     // 更新剧本状态为 completed，保存最终视频URL
     await database
@@ -982,7 +908,7 @@ export async function mergeScriptVideos(
             styleId: scriptData.script.styleId,
             sceneCount: scriptData.scenes.length,
           }),
-          status: AITaskStatus.COMPLETED,
+          status: AITaskStatus.SUCCESS,
           costCredits: scriptData.script.creditsUsed,
           scene: 'custom-script',
           petImageUrl: scriptData.script.petImageUrl,
@@ -998,10 +924,8 @@ export async function mergeScriptVideos(
         },
         { skipCreditConsumption: true } // 积分已在分镜生成时扣除
       );
-      console.log('✅ AI task record created for custom script');
     } catch (aiTaskError) {
-      // ai_task 创建失败不影响主流程，只记录日志
-      console.error('⚠️  Failed to create ai_task record:', aiTaskError);
+      // ai_task 创建失败不影响主流程，只记录到 Sentry
       Sentry.captureException(aiTaskError, {
         tags: { component: 'custom_script', action: 'create_ai_task' },
       });
@@ -1009,7 +933,6 @@ export async function mergeScriptVideos(
 
     return result.mergedUrl;
   } catch (error) {
-    console.error('❌ Video merge failed:', error);
 
     // 更新状态为 failed
     await database

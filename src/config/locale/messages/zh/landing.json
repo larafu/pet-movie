@@ -580,19 +580,22 @@
     "show_locale": true
   },
   "petVideoGen": {
+    "pageTitle": "创作宠物电影",
+    "pageSubtitle": "将宠物照片转化为温馨感人的 AI 电影，为您挚爱的伙伴创作美丽的纪念影片和动人故事。",
     "title": "宠物电影生成器",
-    "subtitle": "将您的宠物变成圣诞救援英雄",
+    "subtitle": "将宠物照片转化为温馨感人的 AI 电影",
     "petPhoto": "宠物照片",
     "uploadPrompt": "点击上传宠物照片",
     "uploadHint": "支持 JPG/PNG/WEBP，最大 10MB",
     "clickToChange": "点击更换",
     "storyTemplate": "故事模板",
-    "christmasStory": "与您的{pet}一起的圣诞救援故事",
+    "templateDescription": "为您的{pet}制作一段温馨的彩虹桥纪念视频",
     "customScript": "自定义剧本",
     "customScriptHint": "使用 AI 辅助创建您自己的故事",
-    "templateDog": "狗狗英雄",
-    "templateCat": "猫咪英雄",
+    "templateDog": "狗狗纪念",
+    "templateCat": "猫咪纪念",
     "videoDuration": "视频时长",
+    "scenes": "个场景",
     "soon": "即将推出",
     "videoFormat": "视频格式",
     "landscape": "横屏 (桌面)",
@@ -611,7 +614,11 @@
       "uploading": "完成并保存中 (1分钟)...",
       "identifying_pet": "分析宠物特征中 (5-10秒)...",
       "generating_frame": "转换为皮克斯风格中 (3分钟)...",
+      "generating_frames": "生成场景首帧中 (3分钟)...",
       "generating_video": "生成电影中 (25分钟)...",
+      "generating_videos": "生成视频片段中 (20分钟)...",
+      "generating_character_sheet": "生成角色参考卡中 (1分钟)...",
+      "merging": "合并视频中 (2分钟)...",
       "applying_watermark": "添加水印中 (10-20秒)...",
       "completed": "您的电影已准备好！",
       "failed": "生成失败，请重试。"
@@ -640,7 +647,9 @@
       "statusMerging": "合并中",
       "statusDraft": "草稿",
       "continue": "继续编辑"
-    }
+    },
+    "deleteSuccess": "任务已删除",
+    "deleteFailed": "删除失败"
   },
   "videoCard": {
     "download": "下载",
@@ -652,7 +661,11 @@
     "report": "举报",
     "sharedPublicly": "已公开分享",
     "anonymous": "匿名用户",
-    "creating": "创建中..."
+    "creating": "创建中...",
+    "failed": "生成失败",
+    "failedDescription": "积分已退还，请删除后重试",
+    "delete": "删除",
+    "retry": "重试"
   },
   "videoShare": {
     "aiGenerated": "AI生成",
@@ -683,6 +696,8 @@
     "linkCopied": "链接已复制！",
     "copyFailed": "复制失败",
     "setToPrivate": "已设为私密",
+    "shareFailed": "分享失败",
+    "makePrivateFailed": "设为私密失败",
     "originalNotAvailable": "原始视频不可用",
     "downloadingOriginal": "正在下载无水印版本"
   },

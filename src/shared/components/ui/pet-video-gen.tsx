@@ -19,7 +19,6 @@ import {
   Sparkles,
   Monitor,
   Smartphone,
-  Wand2,
   Music,
 } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
@@ -39,13 +38,14 @@ import { Input } from "@/shared/components/ui/input";
 import { VideoCard, type VideoCardData } from "./video-card";
 import { CustomScriptDialog } from "./custom-script-dialog";
 import { VIDEO_STYLES, type VideoStyleId } from "@/shared/services/custom-script/types";
+import { toast } from "sonner";
 
 interface PetVideoGenProps {
   className?: string;
 }
 
 type TemplateType = "dog" | "cat" | "custom";
-type Duration = 25 | 50;
+type Duration = 60; // 1分钟模板（4个场景 x 15秒）
 type AspectRatio = "16:9" | "9:16";
 type GenerationStatus =
   | "idle"
@@ -55,7 +55,12 @@ type GenerationStatus =
   | "generating_video"
   | "applying_watermark"
   | "completed"
-  | "failed";
+  | "failed"
+  // Rainbow Bridge 任务额外状态
+  | "generating_character_sheet"
+  | "generating_frames"
+  | "generating_videos"
+  | "merging";
 
 const statusMessages: Record<GenerationStatus, string> = {
   idle: "Ready to create your pet movie",
@@ -66,6 +71,11 @@ const statusMessages: Record<GenerationStatus, string> = {
   applying_watermark: "Adding watermark (10-20s)...",
   completed: "Your movie is ready!",
   failed: "Generation failed. Please try again.",
+  // Rainbow Bridge 额外状态
+  generating_character_sheet: "Creating character reference...",
+  generating_frames: "Generating scene frames...",
+  generating_videos: "Generating scene videos...",
+  merging: "Merging video clips...",
 };
 
 interface GalleryItem {
@@ -78,6 +88,7 @@ interface GalleryItem {
   isLoading?: boolean;
   progress?: number;
   loadingText?: string;
+  isFailed?: boolean; // 是否生成失败
   isShared?: boolean; // 是否已分享到社区（旧版）
   isPublic?: boolean; // 是否公开分享（新版）
   // 水印相关
@@ -111,6 +122,11 @@ const STAGE_DURATIONS: Record<GenerationStatus, number> = {
   applying_watermark: 30 * 1000,   // 30秒
   completed: 0,
   failed: 0,
+  // Rainbow Bridge 额外状态
+  generating_character_sheet: 60 * 1000,  // 1分钟
+  generating_frames: 5 * 60 * 1000,       // 5分钟
+  generating_videos: 20 * 60 * 1000,      // 20分钟
+  merging: 60 * 1000,                     // 1分钟
 };
 
 // 各阶段在总进度中的占比
@@ -123,6 +139,11 @@ const STAGE_PROGRESS: Record<GenerationStatus, { start: number; end: number }> =
   applying_watermark: { start: 95, end: 99 },
   completed: { start: 100, end: 100 },
   failed: { start: 0, end: 0 },
+  // Rainbow Bridge 额外状态
+  generating_character_sheet: { start: 2, end: 10 },
+  generating_frames: { start: 10, end: 30 },
+  generating_videos: { start: 30, end: 90 },
+  merging: { start: 90, end: 99 },
 };
 
 export function PetVideoGeneration({ className }: PetVideoGenProps) {
@@ -131,15 +152,15 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
   const tScript = useTranslations("landing.customScript"); // 自定义剧本翻译
   const searchParams = useSearchParams();
 
-  // 获取状态消息的函数
-  const getStatusMessage = (status: GenerationStatus): string => {
+  // 获取状态消息的函数（使用 useCallback 避免不必要的重渲染）
+  const getStatusMessage = useCallback((status: GenerationStatus): string => {
     return t(`status.${status}`);
-  };
+  }, [t]);
 
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
-  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>("custom");
-  const [selectedDuration, setSelectedDuration] = useState<Duration>(25);
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>("dog");
+  const [selectedDuration] = useState<Duration>(60); // 固定1分钟
   const [selectedAspectRatio, setSelectedAspectRatio] = useState<AspectRatio>("16:9");
   const [generationStatus, setGenerationStatus] =
     useState<GenerationStatus>("idle");
@@ -206,6 +227,12 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     const stageProgress = STAGE_PROGRESS[status];
     const stageDuration = STAGE_DURATIONS[status];
 
+    // 防御性检查：如果状态不在预定义范围内，返回默认进度
+    if (!stageProgress) {
+      console.warn(`Unknown generation status: ${status}`);
+      return 50; // 返回中间值作为默认
+    }
+
     if (!stageDuration || !taskStartTime || !currentTaskId) {
       return stageProgress.start;
     }
@@ -226,6 +253,33 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     return Math.min(Math.round(currentProgress), stageProgress.end - 1);
   }, []);
 
+  // 根据Rainbow Bridge任务状态获取显示状态和进度
+  // 直接使用API返回的状态，翻译文件中已添加对应的key
+  const getStatusFromApiTask = (video: any): { status: GenerationStatus; progress: number } => {
+    const apiStatus = video.status;
+    // Rainbow Bridge 任务状态映射
+    switch (apiStatus) {
+      case 'pending':
+        return { status: 'identifying_pet', progress: 2 };
+      case 'generating_character_sheet':
+        return { status: 'generating_character_sheet', progress: 5 };
+      case 'generating_frames':
+        return { status: 'generating_frames', progress: 15 };
+      case 'generating_videos':
+        return { status: 'generating_videos', progress: 50 };
+      case 'merging':
+        return { status: 'merging', progress: 85 };
+      case 'applying_watermark':
+        return { status: 'applying_watermark', progress: 95 };
+      case 'completed':
+        return { status: 'completed', progress: 100 };
+      case 'failed':
+        return { status: 'failed', progress: 0 };
+      default:
+        return { status: 'generating_video', progress: 30 };
+    }
+  };
+
   // 加载用户视频历史
   const loadHistory = useCallback(async () => {
     // 使用ref防止重复加载，避免状态依赖导致的无限循环
@@ -242,14 +296,15 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
         console.log("✅ History loaded:", data);
 
         if (data.success && data.videos) {
-          const historyItems: GalleryItem[] = data.videos
+          // 完成的视频
+          const completedItems: GalleryItem[] = data.videos
             .filter((video: any) => video.status === "completed" && video.finalVideoUrl)
             .map((video: any) => ({
               id: video.id,
               // 优先显示带水印版本，如果没有则使用finalVideoUrl
               url: video.watermarkedVideoUrl || video.finalVideoUrl,
-              thumbnail: video.frameImageUrl,
-              prompt: `${video.templateType === "dog" ? "Dog" : "Cat"} Hero - ${video.durationSeconds}s`,
+              thumbnail: undefined, // 不使用缩略图，直接显示视频
+              prompt: `${video.templateType === "dog" ? "Dog" : "Cat"} Memorial - ${video.durationSeconds}s`,
               timestamp: new Date(video.createdAt),
               aspectRatio: (video.aspectRatio || "16:9") as AspectRatio,
               isShared: video.isShared || false,
@@ -261,21 +316,99 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
               likeCount: video.likeCount || 0,
             }));
 
-          console.log("📹 Filtered videos:", historyItems.length);
+          // 超时阈值：2小时（超过这个时间的进行中任务视为卡住/失败）
+          const STUCK_TIMEOUT_MS = 2 * 60 * 60 * 1000;
+          const now = Date.now();
+
+          // 失败的任务
+          const failedVideos = data.videos.filter((video: any) => video.status === "failed");
+          const failedItems: GalleryItem[] = failedVideos.map((video: any) => ({
+            id: video.id,
+            url: "",
+            thumbnail: video.petImageUrl,
+            prompt: `${video.templateType === "dog" ? "Dog" : "Cat"} Memorial`,
+            timestamp: new Date(video.createdAt),
+            aspectRatio: (video.aspectRatio || "16:9") as AspectRatio,
+            isFailed: true,
+            loadingText: t("status.failed"),
+          }));
+
+          // 正在生成中的视频（过滤掉超时的任务）
+          const inProgressVideos = data.videos.filter((video: any) => {
+            if (video.status === "completed" || video.status === "failed") return false;
+            // 检查是否超时（超过2小时视为卡住）
+            const createdAt = new Date(video.createdAt).getTime();
+            const isStuck = (now - createdAt) > STUCK_TIMEOUT_MS;
+            if (isStuck) {
+              console.log(`⚠️ Task ${video.id} is stuck (created ${Math.round((now - createdAt) / 60000)} minutes ago)`);
+            }
+            return !isStuck;
+          });
+
+          const inProgressItems: GalleryItem[] = inProgressVideos.map((video: any) => {
+            const { status, progress } = getStatusFromApiTask(video);
+            return {
+              id: video.id,
+              url: "",
+              thumbnail: video.petImageUrl,
+              prompt: `${video.templateType === "dog" ? "Dog" : "Cat"} Memorial`,
+              timestamp: new Date(video.createdAt),
+              aspectRatio: (video.aspectRatio || "16:9") as AspectRatio,
+              isLoading: true,
+              progress,
+              loadingText: t(`status.${status}`),
+            };
+          });
+
+          console.log("📹 Completed videos:", completedItems.length);
+          console.log("⏳ In-progress videos:", inProgressItems.length);
+          console.log("❌ Failed videos:", failedItems.length);
+
+          const historyItems = [...failedItems, ...inProgressItems, ...completedItems];
 
           // 合并逻辑：
-          // 1. 保留正在加载的项（但如果已完成的项有相同ID，则用完成的替换）
+          // 1. 保留本地正在加载的项（但如果API返回相同ID，则用API数据替换）
           // 2. 用API返回的数据更新/替换已有项
           // 3. 添加新项
           setUserItems((prev) => {
             const historyMap = new Map(historyItems.map((item) => [item.id, item]));
-            const loadingItems = prev.filter((item) => item.isLoading && !historyMap.has(item.id));
+            // 保留本地loading项（如果API没有返回该ID的数据）
+            const localOnlyLoadingItems = prev.filter((item) => item.isLoading && !historyMap.has(item.id));
             const existingIds = new Set(prev.map((item) => item.id));
             const newItems = historyItems.filter((item) => !existingIds.has(item.id));
             // 更新已存在的项（用API数据替换，包括已完成的loading项）
             const updatedExistingItems = historyItems.filter((item) => existingIds.has(item.id));
-            return [...loadingItems, ...updatedExistingItems, ...newItems];
+            return [...localOnlyLoadingItems, ...updatedExistingItems, ...newItems];
           });
+
+          // 如果有进行中的任务且当前没有轮询，启动对第一个进行中任务的轮询
+          if (inProgressVideos.length > 0) {
+            const firstInProgress = inProgressVideos[0];
+            const storedTaskId = localStorage.getItem(`${STORAGE_KEY_PREFIX}current`);
+
+            // 如果当前没有正在轮询的任务，或者存储的任务已完成
+            if (!storedTaskId || storedTaskId !== firstInProgress.id) {
+              console.log("🔄 Resuming polling for in-progress task:", firstInProgress.id);
+              // 设置任务ID以启动轮询
+              setTaskId(firstInProgress.id);
+              const { status } = getStatusFromApiTask(firstInProgress);
+              setGenerationStatus(status);
+              setPollStartTime(new Date(firstInProgress.createdAt).getTime());
+              setActiveTab("my-generations");
+
+              // 保存到 localStorage 以便后续恢复
+              const taskData: StoredTask = {
+                taskId: firstInProgress.id,
+                status,
+                prompt: `${firstInProgress.templateType === "dog" ? "Dog" : "Cat"} Hero`,
+                startTime: new Date(firstInProgress.createdAt).getTime(),
+                thumbnail: firstInProgress.frameImageUrl || firstInProgress.petImageUrl,
+                aspectRatio: firstInProgress.aspectRatio || "16:9",
+              };
+              localStorage.setItem(`${STORAGE_KEY_PREFIX}${firstInProgress.id}`, JSON.stringify(taskData));
+              localStorage.setItem(`${STORAGE_KEY_PREFIX}current`, firstInProgress.id);
+            }
+          }
 
           hasLoadedHistoryRef.current = true;
         }
@@ -288,7 +421,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
       loadingHistoryRef.current = false;
       setLoadingHistory(false);
     }
-  }, []); // 空依赖数组，函数永远不会重新创建
+  }, [t]); // 添加 t 依赖
 
   // 加载用户的自定义剧本列表
   const loadCustomScripts = useCallback(async () => {
@@ -401,8 +534,8 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
           const items: GalleryItem[] = data.videos.map((video: any) => ({
             id: video.id,
             url: video.watermarkedVideoUrl || video.finalVideoUrl,
-            thumbnail: video.frameImageUrl,
-            prompt: `${video.templateType === "dog" ? "Dog" : "Cat"} Hero - ${video.durationSeconds}s`,
+            thumbnail: undefined, // 不使用缩略图，直接显示视频
+            prompt: `${video.templateType === "dog" ? "Dog" : "Cat"} Memorial - ${video.durationSeconds}s`,
             timestamp: new Date(video.createdAt),
             aspectRatio: (video.aspectRatio || "16:9") as AspectRatio,
             isPublic: true,
@@ -466,7 +599,8 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
         }
       }
     }
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getStatusMessage]); // 添加 getStatusMessage 依赖确保翻译正确
 
   // 组件挂载时加载用户视频历史和自定义剧本
   useEffect(() => {
@@ -659,6 +793,42 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     stageStartTimeRef.current = {};
   };
 
+  // 删除失败或卡住的任务（乐观更新：先更新UI，失败再回滚）
+  const handleDeleteTask = async (taskIdToDelete: string) => {
+    // 1. 保存当前项用于回滚
+    const deletedItem = userItems.find((item) => item.id === taskIdToDelete);
+
+    // 2. 乐观更新：立即从列表中移除
+    setUserItems((prev) => prev.filter((item) => item.id !== taskIdToDelete));
+    toast.success(t("deleteSuccess"));
+
+    // 3. 后台调用API
+    try {
+      const response = await fetch(`/api/pet-video/delete?taskId=${taskIdToDelete}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        // API失败：回滚UI
+        if (deletedItem) {
+          setUserItems((prev) => [deletedItem, ...prev]);
+        }
+        const data = await response.json();
+        toast.error(data.error || t("deleteFailed"));
+        console.error('Delete failed:', data.error);
+      } else {
+        console.log(`🗑️ Task ${taskIdToDelete} deleted`);
+      }
+    } catch (error) {
+      // 网络错误：回滚UI
+      if (deletedItem) {
+        setUserItems((prev) => [deletedItem, ...prev]);
+      }
+      toast.error(t("deleteFailed"));
+      console.error('Delete error:', error);
+    }
+  };
+
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -764,9 +934,8 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
       return;
     }
 
-    // 如果是自定义剧本，调用创建剧本函数
+    // 自定义剧本功能暂时下架
     if (selectedTemplate === "custom") {
-      await handleCreateCustomScript();
       return;
     }
 
@@ -781,7 +950,6 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     const currentThumbnail = uploadedImage;
     const currentAspectRatio = selectedAspectRatio;
     const currentTemplate = selectedTemplate;
-    const currentDuration = selectedDuration;
     const currentImageUrl = uploadedImageUrl;
 
     // 立即添加loading项到列表
@@ -808,13 +976,14 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     setPollStartTime(currentStartTime);
 
     try {
-      const response = await fetch("/api/pet-video/generate", {
+      // TODO: 替换为新的 Rainbow Bridge API
+      // 新流程: 生成参考卡 → 并发生成4个首帧 → 首帧完成即生成视频 → 合并 → 加水印
+      const response = await fetch("/api/pet-video/generate-v2", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          templateType: currentTemplate,
+          petType: currentTemplate as "dog" | "cat",
           petImageUrl: currentImageUrl,
-          durationSeconds: currentDuration,
           aspectRatio: currentAspectRatio,
         }),
       });
@@ -925,26 +1094,12 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                   value={selectedTemplate}
                   onValueChange={(value: TemplateType) => {
                     setSelectedTemplate(value);
-                    // 如果选择自定义剧本，打开对话框
-                    if (value === "custom") {
-                      if (uploadedImageUrl) {
-                        setShowCustomScriptDialog(true);
-                      } else {
-                        setError(t("uploadPhotoFirst"));
-                      }
-                    }
                   }}
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder={t("storyTemplate")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="custom">
-                      <div className="flex items-center gap-2">
-                        <Wand2 className="w-4 h-4 text-primary" />
-                        <span>{t("customScript")}</span>
-                      </div>
-                    </SelectItem>
                     <SelectItem value="dog">
                       <div className="flex items-center gap-2">
                         <span>🐕</span>
@@ -960,9 +1115,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                   </SelectContent>
                 </Select>
                 <p className="text-[10px] text-muted-foreground mt-1">
-                  {selectedTemplate === "custom"
-                    ? t("customScriptHint")
-                    : t("christmasStory", { pet: selectedTemplate })}
+                  {t("templateDescription", { pet: selectedTemplate === "dog" ? "🐕" : "🐈" })}
                 </p>
               </div>
 
@@ -1056,48 +1209,16 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                 </>
               )}
 
-              {/* Duration Selection - 只在非custom时显示 */}
-              {selectedTemplate !== "custom" && (
-                <div className="space-y-2">
-                  <Label className="text-xs font-medium">{t("videoDuration")}</Label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div
-                      onClick={() => setSelectedDuration(25)}
-                      className={cn(
-                        "flex flex-col items-center gap-1 p-2 rounded-lg border cursor-pointer transition-all",
-                        selectedDuration === 25
-                          ? "border-primary bg-primary/10 text-primary"
-                          : "border-border/50 bg-background hover:bg-muted"
-                      )}
-                    >
-                      <div
-                        className={cn(
-                          "w-3 h-3 rounded-full border-2 flex items-center justify-center",
-                          selectedDuration === 25
-                            ? "border-primary"
-                            : "border-muted-foreground"
-                        )}
-                      >
-                        {selectedDuration === 25 && (
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        )}
-                      </div>
-                      <span className="text-xs font-medium">25s</span>
-                      <span className="text-[10px] text-muted-foreground">
-                        70 {t("credits")}
-                      </span>
-                    </div>
-
-                    <div className="flex flex-col items-center gap-1 p-2 rounded-lg border opacity-50 cursor-not-allowed border-border/50 bg-background/50">
-                      <div className="w-3 h-3 rounded-full border-2 border-muted-foreground" />
-                      <span className="text-xs font-medium">50s</span>
-                      <span className="text-[10px] text-muted-foreground">
-                        {t("soon")}
-                      </span>
-                    </div>
+              {/* Duration: 固定1分钟，显示积分信息 */}
+              <div className="p-3 bg-primary/5 rounded-lg border border-primary/20">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Film className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-medium">{t("videoDuration")}: 60s</span>
                   </div>
+                  <span className="text-sm font-medium text-primary">15 {t("credits")}</span>
                 </div>
-              )}
+              </div>
 
               {/* Aspect Ratio Selection */}
               <div className="space-y-2">
@@ -1154,7 +1275,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                 <span className="font-medium text-foreground">
                   {selectedTemplate === "custom"
                     ? `${customDuration === 60 ? "60" : "100"}+`
-                    : selectedDuration === 25 ? "70" : "140"
+                    : "15"
                   } {t("credits")}
                 </span>
               </div>
@@ -1292,58 +1413,13 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                 {/* My Generations标签 - 用户的视频 */}
                 <TabsContent value="my-generations" className="mt-0 h-full">
                   <div className="space-y-6">
-                    {/* 正在制作的剧本 */}
-                    {customScripts.length > 0 && (
-                      <div className="space-y-3">
-                        <h3 className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                          <Film className="w-4 h-4" />
-                          {t("customScripts.inProgress")}
-                        </h3>
-                        <div className="grid gap-3">
-                          {customScripts.map((script) => (
-                            <div
-                              key={script.id}
-                              className="flex items-center justify-between p-4 rounded-xl border border-border/50 bg-card/50 hover:bg-card/80 transition-colors cursor-pointer"
-                              onClick={() => handleEditScript(script.id)}
-                            >
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2">
-                                  <span className="font-medium truncate">
-                                    {script.storyTitle || t("customScripts.untitled")}
-                                  </span>
-                                  <span className={cn(
-                                    "text-xs px-2 py-0.5 rounded-full",
-                                    script.status === 'creating' && "bg-blue-500/20 text-blue-500",
-                                    script.status === 'merging' && "bg-purple-500/20 text-purple-500",
-                                    script.status === 'draft' && "bg-zinc-500/20 text-zinc-400"
-                                  )}>
-                                    {script.status === 'creating' && t("customScripts.statusCreating")}
-                                    {script.status === 'merging' && t("customScripts.statusMerging")}
-                                    {script.status === 'draft' && t("customScripts.statusDraft")}
-                                  </span>
-                                </div>
-                                <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
-                                  <span>{script.durationSeconds}s</span>
-                                  <span>{script.aspectRatio}</span>
-                                  <span>{script.creditsUsed} {t("credits")}</span>
-                                </div>
-                              </div>
-                              <Button variant="outline" size="sm" className="shrink-0">
-                                {t("customScripts.continue")}
-                              </Button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
                     {/* 已完成的视频 */}
                     {(loadingHistory && userItems.length === 0) ? (
                       <div className="h-full flex flex-col items-center justify-center text-muted-foreground space-y-3 min-h-[300px]">
                         <Loader2 className="w-8 h-8 animate-spin text-primary" />
                         <p className="text-sm">{t("loading.yourVideos")}</p>
                       </div>
-                    ) : (userItems.length === 0 && customScripts.length === 0) ? (
+                    ) : userItems.length === 0 ? (
                       <div className="h-full flex flex-col items-center justify-center text-muted-foreground space-y-3 min-h-[300px]">
                         <div className="w-12 h-12 rounded-full bg-muted/10 flex items-center justify-center">
                           <Film className="w-6 h-6 opacity-50" />
@@ -1385,6 +1461,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                           isLoading: item.isLoading,
                           progress: item.progress,
                           loadingText: item.loadingText,
+                          isFailed: item.isFailed, // 传递失败状态
                           // 水印相关
                           originalVideoUrl: item.originalVideoUrl,
                           watermarkedVideoUrl: item.watermarkedVideoUrl,
@@ -1474,6 +1551,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                                 );
                               },
                               onReport: (id) => console.log("Report:", id),
+                              onDelete: handleDeleteTask, // 删除失败任务
                             }}
                           />
                         );

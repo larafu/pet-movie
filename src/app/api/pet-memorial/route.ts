@@ -38,13 +38,11 @@ export async function GET(
     const params = memorialListParamsSchema.parse({
       limit: searchParams.get('limit') ?? undefined,
       offset: searchParams.get('offset') ?? undefined,
-      petName: searchParams.get('petName') ?? undefined,
-      ownerName: searchParams.get('ownerName') ?? undefined,
       search: searchParams.get('search') ?? undefined,
       sort: searchParams.get('sort') ?? undefined,
     });
 
-    const { limit, offset, petName, ownerName, search, sort } = params;
+    const { limit, offset, search, sort } = params;
     const database = db();
 
     // 构建查询条件

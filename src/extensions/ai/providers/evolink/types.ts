@@ -47,9 +47,12 @@ export interface EvolinkChatResponse {
 export interface EvolinkImageGenerationRequest {
   model: string;
   prompt: string;
-  aspect_ratio?: string;
+  aspect_ratio?: '16:9' | '9:16' | '1:1' | '4:3' | '3:4'; // 宽高比
+  size?: string; // 具体尺寸，如 "1280x720"、"720x1280"
   n?: number;
-  image_urls?: string[]; // For image-to-image generation
+  image_urls?: string[]; // For image-to-image generation (multiple images)
+  image_url?: string; // For image-to-image generation (single image)
+  strength?: number; // Image-to-image strength (0-1)
 }
 
 export interface EvolinkImageGenerationResponse {
@@ -88,6 +91,48 @@ export interface EvolinkTaskStatusResponse {
     can_cancel: boolean;
   };
   type: string;
+  error?: {
+    code: string;
+    message: string;
+  };
+}
+
+// ==================== Sora-2 Video Generation Types ====================
+
+/**
+ * Sora-2 视频生成请求
+ * 用于自定义剧本的每个15秒分镜视频生成（4场景×15秒=60秒）
+ */
+export interface EvolinkSora2VideoRequest {
+  model: string; // 视频生成模型，如 'sora-2'
+  prompt: string; // 视频描述提示词，最多5000 tokens
+  aspect_ratio?: '16:9' | '9:16'; // 视频比例
+  duration?: number; // 视频时长（秒），默认 15s，可选 5/10/15/20
+  image_urls?: string[]; // 参考图片URL列表（用于图生视频）
+}
+
+/**
+ * Sora-2 视频生成响应
+ */
+export interface EvolinkSora2VideoResponse {
+  created: number;
+  id: string; // 任务ID，用于查询状态
+  model: string;
+  object: 'video.generation.task';
+  progress: number; // 进度 0-100
+  status: 'pending' | 'processing' | 'completed' | 'failed';
+  task_info: {
+    can_cancel: boolean;
+    estimated_time?: number; // 预计时间（秒）
+    video_duration?: number; // 视频时长（秒）
+  };
+  type: 'video';
+  usage?: {
+    billing_rule: string;
+    credits_reserved: number;
+    user_group: string;
+  };
+  results?: string[]; // 完成后的视频URL列表
   error?: {
     code: string;
     message: string;

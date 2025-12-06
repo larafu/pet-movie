@@ -18,6 +18,10 @@ import {
   Link2,
   Flag,
   Lock,
+  Globe,
+  AlertCircle,
+  Trash2,
+  RefreshCw,
 } from "lucide-react";
 import { toast } from "sonner";
 import { UserInfo } from "./user-info";
@@ -28,6 +32,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "./dropdown-menu";
+import { ShareModal, type ShareData } from "./share-modal";
 
 export type AspectRatio = "16:9" | "9:16";
 
@@ -54,6 +59,7 @@ export interface VideoCardData {
   isLoading?: boolean; // 加载状态
   progress?: number; // 加载进度
   loadingText?: string; // 加载文本
+  isFailed?: boolean; // 是否生成失败
   // 水印相关字段
   originalVideoUrl?: string;    // 原始无水印视频URL
   watermarkedVideoUrl?: string; // 带水印视频URL
@@ -67,6 +73,8 @@ export interface VideoCardActions {
   onCopyLink?: (id: string) => void;
   onMakePrivate?: (id: string) => void; // 取消公开分享回调
   onReport?: (id: string) => void;
+  onDelete?: (id: string) => void; // 删除失败任务回调
+  onRetry?: (id: string) => void; // 重试失败任务回调
 }
 
 export interface VideoCardProps {
@@ -84,6 +92,7 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
   const [liked, setLiked] = useState(data.isLiked || false);
   const [likeCount, setLikeCount] = useState(data.likeCount || 0);
   const [isPublic, setIsPublic] = useState(data.isPublic || false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const aspectRatio = data.aspectRatio || "16:9";
@@ -127,6 +136,79 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
                 className="h-full bg-primary transition-all duration-300 ease-out"
                 style={{ width: `${data.progress}%` }}
               />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 失败状态渲染
+  if (data.isFailed) {
+    const failedAspectRatioClass =
+      aspectRatio === "9:16" ? "aspect-[9/16]" : "aspect-[16/9]";
+
+    const handleDelete = () => {
+      actions?.onDelete?.(data.id);
+    };
+
+    const handleRetry = () => {
+      actions?.onRetry?.(data.id);
+    };
+
+    return (
+      <div className={cn("bg-background/50 overflow-hidden rounded-xl mb-2 relative", className)}>
+        <div
+          className={cn(
+            "relative w-full flex flex-col items-center justify-center bg-gradient-to-tr from-red-500/5 via-transparent to-transparent",
+            failedAspectRatioClass
+          )}
+        >
+          {/* 背景缩略图（如果有） */}
+          {data.thumbnailUrl && (
+            <div
+              className="absolute inset-0 bg-cover bg-center opacity-20"
+              style={{ backgroundImage: `url(${data.thumbnailUrl})` }}
+            />
+          )}
+
+          <div className="relative flex flex-col items-center gap-4 p-4 text-center w-full">
+            {/* 失败图标 */}
+            <div className="relative w-12 h-12 flex items-center justify-center rounded-full bg-red-500/10 border-2 border-red-500/30">
+              <AlertCircle className="w-6 h-6 text-red-500" />
+            </div>
+
+            {/* 失败提示文本 */}
+            <div className="space-y-1 max-w-[180px]">
+              <h3 className="text-sm font-medium text-red-400">
+                {t("failed")}
+              </h3>
+              <p className="text-[10px] text-muted-foreground">
+                {t("failedDescription")}
+              </p>
+            </div>
+
+            {/* 操作按钮 */}
+            <div className="flex items-center gap-3 mt-2">
+              {/* 删除按钮 */}
+              <button
+                onClick={handleDelete}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white text-xs transition-colors"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                {t("delete")}
+              </button>
+
+              {/* 重试按钮（如果提供了回调） */}
+              {actions?.onRetry && (
+                <button
+                  onClick={handleRetry}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs transition-colors"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  {t("retry")}
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -250,36 +332,23 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
     return `${appUrl}/share/${data.id}`;
   };
 
-  // 处理分享 - 所有变体都使用分享页链接
-  const handleShare = async () => {
-    // 统一使用分享页链接
-    const shareLink = getShareLink();
-
-    // 复制链接
-    const copied = await copyToClipboard(shareLink);
-    if (copied) {
-      toast.success(tToast('shareLinkCopied'));
-    } else {
-      toast.error(tToast('copyFailed'));
-    }
-
-    // 仅用户自己的视频需要设置公开状态
-    if (variant === "user") {
-      setIsPublic(true);
-      // 通知父组件刷新列表
-      actions?.onShare?.(data.id);
-      // 后台调用API设置公开状态
-      fetch('/api/pet-video/share', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ videoId: data.id, setPublic: true }),
-      }).catch((error) => {
-        console.error('Share API error:', error);
-      });
-    }
+  // 处理分享 - 打开分享弹窗（分享和公开状态分离）
+  const handleShare = () => {
+    // 直接打开分享弹窗，不自动设置公开状态
+    setShareModalOpen(true);
+    actions?.onShare?.(data.id);
   };
 
-  // 处理复制链接 - 所有变体都使用分享页链接
+  // 分享数据 - 使用视频场景
+  const getShareData = (): ShareData => ({
+    url: getShareLink(),
+    title: data.title || t("share"),
+    description: data.description,
+    scene: "video",
+    hashtags: ["PetMovie", "AIPetVideo", "PetLove"],
+  });
+
+  // 处理复制链接 - 仅复制链接，不改变公开状态
   const handleCopyLink = async () => {
     // 统一使用分享页链接
     const shareLink = getShareLink();
@@ -292,39 +361,60 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
       toast.error(tToast('copyFailed'));
     }
 
-    // 仅用户自己的视频需要设置公开状态
-    if (variant === "user") {
-      setIsPublic(true);
-      // 通知父组件刷新列表
-      actions?.onCopyLink?.(data.id);
-      // 后台调用API设置公开状态
-      fetch('/api/pet-video/share', {
+    actions?.onCopyLink?.(data.id);
+  };
+
+  // 处理设为公开（乐观更新）
+  const handleMakePublic = async () => {
+    // 乐观更新UI
+    setIsPublic(true);
+    toast.success(tToast('setToPublic'));
+
+    // 后台调用API，失败时回滚
+    try {
+      const response = await fetch('/api/pet-video/share', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ videoId: data.id, setPublic: true }),
-      }).catch((error) => {
-        console.error('Copy link API error:', error);
       });
+      if (!response.ok) {
+        // 回滚
+        setIsPublic(false);
+        toast.error(tToast('makePublicFailed'));
+      }
+    } catch (error) {
+      // 回滚
+      setIsPublic(false);
+      toast.error(tToast('makePublicFailed'));
+      console.error('Make public API error:', error);
     }
   };
 
-  // 处理取消公开
+  // 处理取消公开（乐观更新）
   const handleMakePrivate = async () => {
-    // 立即更新UI
+    // 乐观更新UI
     setIsPublic(false);
     toast.success(tToast('setToPrivate'));
-
-    // 通知父组件更新状态（移除绿点、从inspiration列表移除）
     actions?.onMakePrivate?.(data.id);
 
-    // 后台调用API
-    fetch('/api/pet-video/share', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ videoId: data.id, setPublic: false }),
-    }).catch((error) => {
+    // 后台调用API，失败时回滚
+    try {
+      const response = await fetch('/api/pet-video/share', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ videoId: data.id, setPublic: false }),
+      });
+      if (!response.ok) {
+        // 回滚
+        setIsPublic(true);
+        toast.error(tToast('makePrivateFailed'));
+      }
+    } catch (error) {
+      // 回滚
+      setIsPublic(true);
+      toast.error(tToast('makePrivateFailed'));
       console.error('Make private API error:', error);
-    });
+    }
   };
 
   // 处理举报
@@ -384,9 +474,9 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
           />
         </div>
 
-        {/* 右下角：三个点（左）和点赞按钮（右） - 横向排列 */}
+        {/* 右下角：操作按钮组 - 横向排列 */}
         <div className="absolute bottom-4 right-4 flex flex-row items-center gap-4 z-10">
-          {/* 三个点菜单按钮 - hover时显示，用opacity控制避免抖动 */}
+          {/* 三个点菜单按钮 - hover时显示 */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
@@ -403,6 +493,7 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
               side="bottom"
               className="bg-zinc-800/95 backdrop-blur-md border-zinc-700 min-w-[140px]"
             >
+              {/* 下载 */}
               <DropdownMenuItem
                 onClick={handleDownload}
                 className="text-white hover:bg-white/10 focus:bg-white/10 cursor-pointer"
@@ -411,7 +502,7 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
                 {t("download")}
               </DropdownMenuItem>
 
-              {/* VIP用户专属：下载无水印版本（所有变体都支持） */}
+              {/* VIP用户专属：下载无水印版本 */}
               {data.isVIP && data.originalVideoUrl && (
                 <DropdownMenuItem
                   onClick={handleDownloadOriginal}
@@ -427,7 +518,7 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
 
               <DropdownMenuSeparator className="bg-zinc-700" />
 
-              {/* 分享和复制链接 - 所有变体统一 */}
+              {/* 分享 */}
               <DropdownMenuItem
                 onClick={handleShare}
                 className="text-white hover:bg-white/10 focus:bg-white/10 cursor-pointer"
@@ -435,38 +526,35 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
                 <Share2 className="h-4 w-4 mr-2" />
                 {t("share")}
               </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={handleCopyLink}
-                className="text-white hover:bg-white/10 focus:bg-white/10 cursor-pointer"
-              >
-                <Link2 className="h-4 w-4 mr-2" />
-                {t("copyLink")}
-              </DropdownMenuItem>
 
-              {/* 仅用户自己的已公开视频可以取消公开 */}
-              {variant === "user" && (data.isPublic || isPublic) && (
-                <DropdownMenuItem
-                  onClick={handleMakePrivate}
-                  className="text-orange-400 hover:bg-white/10 focus:bg-white/10 cursor-pointer"
-                >
-                  <Lock className="h-4 w-4 mr-2" />
-                  {t("makePrivate")}
-                </DropdownMenuItem>
+              {/* 公开/私密状态切换 - 仅用户自己的视频 */}
+              {variant === "user" && (
+                <>
+                  <DropdownMenuSeparator className="bg-zinc-700" />
+                  {(data.isPublic || isPublic) ? (
+                    <DropdownMenuItem
+                      onClick={handleMakePrivate}
+                      className="text-orange-400 hover:bg-white/10 focus:bg-white/10 cursor-pointer"
+                    >
+                      <Lock className="h-4 w-4 mr-2" />
+                      {t("makePrivate")}
+                    </DropdownMenuItem>
+                  ) : (
+                    <DropdownMenuItem
+                      onClick={handleMakePublic}
+                      className="text-green-400 hover:bg-white/10 focus:bg-white/10 cursor-pointer"
+                    >
+                      <Globe className="h-4 w-4 mr-2" />
+                      {t("makePublic")}
+                    </DropdownMenuItem>
+                  )}
+                </>
               )}
 
-              <DropdownMenuSeparator className="bg-zinc-700" />
-
-              <DropdownMenuItem
-                onClick={handleReport}
-                className="text-white hover:bg-white/10 focus:bg-white/10 cursor-pointer"
-              >
-                <Flag className="h-4 w-4 mr-2" />
-                {t("report")}
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* 点赞按钮 - 始终显示，数量在右边 */}
+          {/* 点赞按钮 - 始终显示 */}
           <button
             onClick={handleLike}
             className={cn(
@@ -482,6 +570,13 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
         </div>
 
       </div>
+
+      {/* 分享弹窗 */}
+      <ShareModal
+        open={shareModalOpen}
+        onOpenChange={setShareModalOpen}
+        shareData={getShareData()}
+      />
     </div>
   );
 }

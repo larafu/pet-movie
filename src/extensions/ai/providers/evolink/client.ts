@@ -8,6 +8,8 @@ import type {
   EvolinkChatResponse,
   EvolinkImageGenerationRequest,
   EvolinkImageGenerationResponse,
+  EvolinkSora2VideoRequest,
+  EvolinkSora2VideoResponse,
   EvolinkTaskStatusResponse,
 } from './types';
 
@@ -72,7 +74,7 @@ Example outputs:
 Provide only the description, nothing else.`;
 
     const response = await this.chatCompletion({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-pro',
       messages: [
         {
           role: 'user',
@@ -186,6 +188,105 @@ Provide only the description, nothing else.`;
 
     throw new Error('Image generation timeout after maximum polling attempts');
   }
+
+  // ==================== Sora-2 Video Generation ====================
+
+  /**
+   * Generate video using Sora-2 model
+   * 用于自定义剧本的每个15秒分镜视频生成
+   */
+  async generateSora2Video(
+    request: EvolinkSora2VideoRequest
+  ): Promise<EvolinkSora2VideoResponse> {
+    const response = await fetch(`${EVOLINK_BASE_URL}/videos/generations`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${this.apiToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: request.model, // 使用传入的模型名称
+        prompt: request.prompt,
+        aspect_ratio: request.aspect_ratio || '16:9',
+        duration: request.duration || 15, // 默认15秒
+        ...(request.image_urls?.length
+          ? { image_urls: request.image_urls }
+          : {}),
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(
+        `Evolink Sora-2 Video API error (${response.status}): ${errorText}`
+      );
+    }
+
+    return response.json();
+  }
+
+  /**
+   * Get video task status (for Sora-2)
+   * 复用通用的 getTaskStatus，响应格式兼容
+   */
+  async getVideoTaskStatus(taskId: string): Promise<EvolinkSora2VideoResponse> {
+    const response = await fetch(`${EVOLINK_BASE_URL}/tasks/${taskId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${this.apiToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(
+        `Evolink Video Task Status API error (${response.status}): ${errorText}`
+      );
+    }
+
+    return response.json();
+  }
+
+  /**
+   * Poll Sora-2 video generation task until completion or timeout
+   * Default: 10 minutes (60 attempts * 10s = 600s)
+   * Sora-2 视频生成通常需要 3-5 分钟
+   */
+  async pollSora2VideoGeneration(
+    taskId: string,
+    options: {
+      maxAttempts?: number;
+      intervalMs?: number;
+      onProgress?: (progress: number, status: string) => void;
+    } = {}
+  ): Promise<string> {
+    const { maxAttempts = 60, intervalMs = 10000, onProgress } = options;
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      const status = await this.getVideoTaskStatus(taskId);
+
+      if (onProgress) {
+        onProgress(status.progress, status.status);
+      }
+
+      if (status.status === 'completed' && status.results?.[0]) {
+        return status.results[0];
+      }
+
+      if (status.status === 'failed') {
+        throw new Error(
+          `Sora-2 video generation failed: ${status.error?.message || 'Unknown error'}`
+        );
+      }
+
+      // Wait before next poll
+      await new Promise((resolve) => setTimeout(resolve, intervalMs));
+    }
+
+    throw new Error(
+      'Sora-2 video generation timeout after maximum polling attempts'
+    );
+  }
 }
 
 /**
@@ -195,9 +296,7 @@ export function createEvolinkClient(): EvolinkClient {
   const apiToken = process.env.EVOLINK_API_TOKEN;
 
   if (!apiToken) {
-    throw new Error(
-      'EVOLINK_API_TOKEN environment variable is not configured'
-    );
+    throw new Error('EVOLINK_API_TOKEN environment variable is not configured');
   }
 
   return new EvolinkClient(apiToken);

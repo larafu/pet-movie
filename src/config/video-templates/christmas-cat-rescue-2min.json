@@ -1,0 +1,357 @@
+{
+  "config": {
+    "name": "Christmas Cat Rescue Extended",
+    "nameCn": "圣诞猫咪救援（完整版）",
+    "description": "An epic Christmas tale of a heroic cat who saves its owner from fire",
+    "descriptionCn": "一个史诗级的圣诞故事，讲述英勇猫咪从火灾中救出主人",
+    "tags": ["cat", "christmas", "rescue", "hero", "heartwarming", "extended"],
+    "styleId": "pixar-3d",
+    "globalStylePrefix": "Pixar-style 3D animated feature film look, full CG animation, stylized 3D characters with soft rounded shapes, consistent appearance across all shots",
+    "characters": [
+      {
+        "id": "pet",
+        "role": "primary",
+        "name": "Hero Cat",
+        "nameCn": "英雄猫咪",
+        "description": "a small fluffy orange tabby cat with big expressive round eyes, tiny pink nose, wearing a red Christmas sweater with jingle bell collar",
+        "descriptionCn": "一只毛茸茸的橘色虎斑猫，大圆眼睛，粉色小鼻子，穿着红色圣诞毛衣，戴着铃铛项圈"
+      },
+      {
+        "id": "owner",
+        "role": "primary",
+        "name": "The Boy",
+        "nameCn": "男孩",
+        "description": "a 13-year-old boy with short dark brown hair, wearing a white hoodie and dark jogger pants",
+        "descriptionCn": "一个13岁的男孩，深棕色短发，穿着白色连帽衫和深色运动裤"
+      },
+      {
+        "id": "firefighter",
+        "role": "secondary",
+        "name": "Firefighter",
+        "nameCn": "消防员",
+        "description": "a kind firefighter in full protective gear with helmet",
+        "descriptionCn": "一位穿戴整齐防护装备的消防员，戴着头盔"
+      }
+    ],
+    "characterSheetUrl": "",
+    "durationSeconds": 120,
+    "aspectRatio": "16:9",
+    "musicPrompt": "Epic Christmas orchestral score, warm opening, suspenseful tension, triumphant finale"
+  },
+  "scenes": [
+    {
+      "sceneNumber": 1,
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Christmas Eve afternoon. Warm sunlit living room. Boy standing by tall tree, reaching up to place star. Cat in red sweater at his feet watching. Old photo of young boy with kitten on side table. Loving atmosphere.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Wide shot of sunlit living room. A 13-year-old boy with short dark brown hair, wearing a white hoodie and dark jogger pants, stands on tiptoe placing star on Christmas tree top.",
+          "cameraMovement": "wide"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "A small fluffy orange tabby cat with big expressive round eyes, tiny pink nose, wearing a red Christmas sweater with jingle bell collar, watches from floor, head tilted curiously, tail swishing.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "The fluffy orange tabby cat in red Christmas sweater bats at low-hanging ornament, making it spin and tinkle. The boy with short dark brown hair in white hoodie laughs warmly.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "The boy in white hoodie and dark jogger pants kneels, scratches behind cat's ears. The fluffy orange tabby cat in red sweater with jingle bell collar leans into hand, eyes closing happily.",
+          "cameraMovement": "close-up"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "Close-up of old photo: young boy holding tiny fluffy orange kitten. Golden light catches frame.",
+          "cameraMovement": "close-up insert"
+        }
+      ],
+      "description": "圣诞前夕午后，男孩和猫咪一起装饰圣诞树。旁边老照片记录着他们多年前的初遇。",
+      "descriptionEn": "Christmas Eve afternoon. Boy and cat decorate tree together. An old photo captures their first meeting years ago."
+    },
+    {
+      "sceneNumber": 2,
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Christmas Eve night. Dark room lit by tree lights and laptop. Boy on sofa with headphones, gaming. Cat standing at his feet with yarn ball, looking up hopefully. Lonely atmosphere.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Wide shot, night. Room dark except tree lights and laptop glow. A 13-year-old boy with short dark brown hair, wearing a white hoodie, gaming on sofa with headphones.",
+          "cameraMovement": "wide"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "A small fluffy orange tabby cat with big expressive round eyes, wearing a red Christmas sweater with jingle bell collar, pads over with yarn ball in mouth, drops it at boy's feet, meows hopefully.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "The boy with short dark brown hair in white hoodie glances down briefly. 'Later buddy.' Looks back at screen. The fluffy orange tabby cat's ears droop sadly.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "The fluffy orange tabby cat in red Christmas sweater jumps onto sofa arm, paws at boy's shoulder insistently, meowing.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "The boy in white hoodie pushes cat away. 'I'm in a ranked match.' The fluffy orange tabby cat in red sweater with jingle bell collar lands softly, sits alone on rug, watching sadly.",
+          "cameraMovement": "medium pullback"
+        }
+      ],
+      "description": "夜幕降临，男孩沉浸游戏。猫咪叼来毛线球想陪伴，却一次次被忽视，只好独自坐着。",
+      "descriptionEn": "Night falls. Boy is lost in gaming. Cat brings yarn ball but is ignored repeatedly, sits alone watching."
+    },
+    {
+      "sceneNumber": 3,
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Night living room. Boy in white hoodie gaming on sofa, space heater running nearby. Orange tabby cat in red Christmas sweater on rug, watching old Christmas tree lights flickering. Warm but aging decorations. Unnoticed danger brewing.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Wide shot of living room. A 13-year-old boy with short dark brown hair in white hoodie on sofa gaming. A small fluffy orange tabby cat in red Christmas sweater lying on rug. Space heater glowing red nearby. Old Christmas lights flickering on tree.",
+          "cameraMovement": "wide"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "Close-up of old Christmas tree lights. Some bulbs dim, wires frayed. One bulb flickers erratically, getting brighter.",
+          "cameraMovement": "close-up"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "The flickering bulb overheats, glowing intensely orange. Dried pine needles nearby start to smolder.",
+          "cameraMovement": "extreme close-up"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "The fluffy orange tabby cat with big expressive eyes, in red Christmas sweater, lifts head from rug, ears perking. Notices faint smoke rising from tree base.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "Small flame ignites on dried pine branch. Smoke curls upward. The boy with short dark brown hair in white hoodie still gaming, headphones on, oblivious.",
+          "cameraMovement": "split focus"
+        }
+      ],
+      "description": "老旧的圣诞树灯闪烁不定，一颗灯泡过热，点燃了干枯的松针。猫咪注意到了烟雾，但男孩沉浸游戏毫无察觉。",
+      "descriptionEn": "Old Christmas lights flicker, an overheating bulb ignites dried pine needles. Cat notices smoke, but boy remains absorbed in gaming."
+    },
+    {
+      "sceneNumber": 4,
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Living room corner at night. Orange tabby cat in red Christmas sweater lying on rug, eyes half-closed drowsy. Faint orange glow starting behind the Christmas tree. Boy in white hoodie on sofa with back turned, wearing headphones. Quiet moment before tension.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "A small fluffy orange tabby cat with big expressive round eyes, in red Christmas sweater with jingle bell collar, lies on rug, eyes half-closed. Suddenly ears twitch sharply, tiny pink nose twitches.",
+          "cameraMovement": "low angle"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "The fluffy orange tabby cat in red Christmas sweater lifts head, sniffs air urgently. Something is wrong. Big round eyes widening.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "Faint orange glow reflects in the fluffy orange tabby cat's big expressive round eyes. Coming from behind tree branches.",
+          "cameraMovement": "close-up"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "The fluffy orange tabby cat in red Christmas sweater stands up rigid, tail puffing in alarm, staring at the growing glow.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "Wide shot: tense fluffy orange tabby cat in red sweater foreground. Small flame on curtain behind tree. A 13-year-old boy with short dark brown hair in white hoodie with headphones, back turned, unaware.",
+          "cameraMovement": "wide contrast"
+        }
+      ],
+      "description": "猫咪从昏睡中惊醒，闻到异常。它看到墙上橙色光反射，站起身紧绷。火焰蔓延而男孩毫无察觉。",
+      "descriptionEn": "Cat wakes from drowse, senses danger. Sees orange glow on wall, stands tense. Fire spreads while boy is unaware."
+    },
+    {
+      "sceneNumber": 5,
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Apartment. Cat on hind legs at sofa edge, paw reaching toward boy's arm, mouth open meowing urgently. Boy annoyed, one headphone off. Fire glow growing behind. Tense atmosphere.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "The small fluffy orange tabby cat in red Christmas sweater with jingle bell collar rushes to sofa, jumps up, meows loudly, tapping boy's arm urgently.",
+          "cameraMovement": "handheld"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "The 13-year-old boy with short dark brown hair in white hoodie frowns, pulls one headphone off. 'Not now Milo!' Pushes the fluffy orange tabby cat down.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "The fluffy orange tabby cat in red Christmas sweater immediately jumps back up, more desperate, tries to bite his sleeve gently.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "The boy in white hoodie pushes the fluffy orange tabby cat away again. Behind them, flame catches more curtain fabric.",
+          "cameraMovement": "medium wide"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "The fluffy orange tabby cat with big expressive eyes in red sweater paces anxiously at sofa foot, looking between boy and fire, panic in eyes.",
+          "cameraMovement": "medium"
+        }
+      ],
+      "description": "猫咪冲向沙发拼命警告男孩，却被推开。再跳上来咬袖子，又被推。火势增大，它焦急踱步。",
+      "descriptionEn": "Cat rushes to warn boy but is pushed away. Jumps back, bites sleeve, pushed again. Fire grows as it paces in panic."
+    },
+    {
+      "sceneNumber": 6,
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Apartment. Cat on coffee table, drink cup knocked over splashing. Boy sitting up startled, laptop sliding. Thick smoke in upper frame. Intense fire glow. Crisis moment.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Fire now fully ablaze on curtain, catching tree branches. Thick smoke at ceiling. Living room in crisis.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "The small fluffy orange tabby cat in red Christmas sweater leaps onto coffee table, skids, knocks over drink with dramatic splash.",
+          "cameraMovement": "dynamic"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "The fluffy orange tabby cat in red sweater jumps to the 13-year-old boy with short dark brown hair in white hoodie, bites hoodie sleeve firmly, tugs hard with whole body weight.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "The boy with short dark brown hair in white hoodie jolts, laptop slides. He coughs, turns head. Smoke alarm shrieks with strobe.",
+          "cameraMovement": "close-up"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "The boy in white hoodie's eyes widen seeing burning tree. Face shows pure terror. 'Oh no...'",
+          "cameraMovement": "close-up reaction"
+        }
+      ],
+      "description": "猫咪决定性一跃——跳上茶几打翻饮料，扑向男孩咬住衣袖。男孩惊醒，烟雾报警器响起，他看到燃烧的圣诞树，脸上写满恐惧。",
+      "descriptionEn": "Cat makes decisive leap - knocks drink, bites sleeve hard. Boy wakes, alarm screams, he sees burning tree with pure terror."
+    },
+    {
+      "sceneNumber": 7,
+      "characterIds": ["pet", "owner", "firefighter"],
+      "firstFramePrompt": "Smoky hallway. Boy stumbling toward door, arm covering nose. Cat ahead gripping his sleeve, pulling forward. Orange flames behind. Desperate escape.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "A 13-year-old boy with short dark brown hair in white hoodie and dark jogger pants stumbles through smoky hallway, arm covering nose, eyes watering.",
+          "cameraMovement": "tracking"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "The small fluffy orange tabby cat in red Christmas sweater with jingle bell collar runs ahead, teeth gripping sleeve, pulling boy forward. Bell collar jingling.",
+          "cameraMovement": "low tracking"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "The boy in white hoodie reaches door. A kind firefighter in full protective gear with helmet guides him out. The fluffy orange tabby cat stops at threshold suddenly.",
+          "cameraMovement": "low angle"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "Close-up: the fluffy orange tabby cat with big expressive round eyes in red sweater sees family photo frame on console inside. Eyes narrow with determination.",
+          "cameraMovement": "POV close-up"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "The fluffy orange tabby cat in red Christmas sweater spins, darts back into smoky apartment, jumps to console, bites photo frame.",
+          "cameraMovement": "dynamic"
+        }
+      ],
+      "description": "男孩在猫咪引领下穿过烟雾逃向门口。但猫咪在门槛停下——看到全家福照片，毅然冲回火场叼起它。",
+      "descriptionEn": "Boy flees through smoke led by cat. But cat stops at threshold - sees family photo, darts back to save it."
+    },
+    {
+      "sceneNumber": 8,
+      "characterIds": ["pet", "owner", "firefighter"],
+      "firstFramePrompt": "Night outside burning building. Red and blue emergency lights flashing, snow falling gently. Boy in white hoodie wrapped in silver emergency blanket sitting on curb, head down. Orange tabby cat in red Christmas sweater being carried out by firefighter in full gear. Emotional reunion moment.",
+      "shots": [
+        {
+          "shotNumber": 1,
+          "durationSeconds": 3,
+          "prompt": "Wide shot outside burning building. Red and blue emergency lights flash. A kind firefighter in full protective gear with helmet emerges carrying sooty small fluffy orange tabby cat in red Christmas sweater, photo frame in cat's mouth. A 13-year-old boy with short dark brown hair in silver blanket on curb looks up. Snow falling.",
+          "cameraMovement": "wide"
+        },
+        {
+          "shotNumber": 2,
+          "durationSeconds": 3,
+          "prompt": "Medium shot. The 13-year-old boy with short dark brown hair in white hoodie wrapped in silver blanket, eyes widen with disbelief and tears. He stands up shakily, emergency blanket falling.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 3,
+          "durationSeconds": 3,
+          "prompt": "The kind firefighter in full protective gear with helmet kneels down, gently hands the sooty fluffy orange tabby cat in red Christmas sweater to the boy. Cat still gripping photo frame.",
+          "cameraMovement": "medium"
+        },
+        {
+          "shotNumber": 4,
+          "durationSeconds": 3,
+          "prompt": "Close-up. The boy with short dark brown hair in white hoodie hugs the fluffy orange tabby cat with big expressive round eyes tightly to chest, tears streaming. Cat drops photo, nuzzles boy's face, purring.",
+          "cameraMovement": "close-up"
+        },
+        {
+          "shotNumber": 5,
+          "durationSeconds": 3,
+          "prompt": "Later: cozy warm room. TV shows 'HERO CAT SAVES OWNER'. The 13-year-old boy in white hoodie on sofa with medal-wearing small fluffy orange tabby cat in red Christmas sweater on lap, rescued photo on side table. Cat purrs contentedly.",
+          "cameraMovement": "slow pullback"
+        }
+      ],
+      "description": "男孩绝望等待，握着项圈泪流满面。消防员抱着叼着照片的猫走出，男孩含泪拥抱。后来戴勋章的猫咪依偎看新闻。",
+      "descriptionEn": "Boy waits in despair clutching collar. Firefighter emerges with cat holding photo. They embrace. Later, medal-wearing cat watches news."
+    }
+  ],
+  "previewVideoUrl": "",
+  "thumbnailUrl": ""
+}

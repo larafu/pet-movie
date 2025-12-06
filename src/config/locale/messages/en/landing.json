@@ -21,9 +21,9 @@
     "nav": {
       "items": [
         {
-          "title": "Process",
-          "url": "/#usage",
-          "icon": "Workflow"
+          "title": "Pet Memorial",
+          "url": "/pet-memorial",
+          "icon": "Heart"
         },
         {
           "title": "Gallery",
@@ -597,15 +597,22 @@
     "show_locale": true
   },
   "petVideoGen": {
+    "pageTitle": "Create Your Pet Movie",
+    "pageSubtitle": "Transform your pet photos into heartwarming AI-generated movies. Create beautiful memorial tributes and touching stories for your beloved companion.",
     "title": "Pet Movie Generator",
-    "subtitle": "Transform your pet into a Christmas rescue hero",
+    "subtitle": "Transform your pet photos into heartwarming AI movies",
     "petPhoto": "Pet Photo",
     "uploadPrompt": "Click to upload your pet photo",
     "uploadHint": "JPG/PNG/WEBP",
     "clickToChange": "Click to change",
     "storyTemplate": "Story Template",
-    "christmasStory": "Christmas rescue story with your {pet}",
+    "templateDescription": "A heartfelt Rainbow Bridge memorial for your {pet}",
+    "customScript": "Custom Script",
+    "customScriptHint": "Create your own story with AI assistance",
+    "templateDog": "Dog Memorial",
+    "templateCat": "Cat Memorial",
     "videoDuration": "Video Duration",
+    "scenes": "scenes",
     "soon": "Soon",
     "videoFormat": "Video Format",
     "landscape": "Landscape (Desktop)",
@@ -624,7 +631,11 @@
       "uploading": "Finalizing and saving (1 min)...",
       "identifying_pet": "Analyzing your pet's features (5-10s)...",
       "generating_frame": "Transforming to Pixar style (3 min)...",
+      "generating_frames": "Generating scene frames (3 min)...",
       "generating_video": "Generating your cinematic movie (25 min)...",
+      "generating_videos": "Generating video clips (20 min)...",
+      "generating_character_sheet": "Creating character reference (1 min)...",
+      "merging": "Merging videos (2 min)...",
       "applying_watermark": "Adding watermark (10-20s)...",
       "completed": "Your movie is ready!",
       "failed": "Generation failed. Please try again."
@@ -651,7 +662,17 @@
       "invalidType": "Please upload a JPG, PNG, or WebP image.",
       "uploadFailed": "Upload failed. Please try again.",
       "networkError": "Network error. Please check your connection and try again."
-    }
+    },
+    "customScripts": {
+      "inProgress": "Scripts In Progress",
+      "untitled": "Untitled Script",
+      "statusCreating": "Creating",
+      "statusMerging": "Merging",
+      "statusDraft": "Draft",
+      "continue": "Continue"
+    },
+    "deleteSuccess": "Task deleted successfully",
+    "deleteFailed": "Failed to delete task"
   },
   "videoCard": {
     "download": "Download",
@@ -660,10 +681,15 @@
     "share": "Share",
     "copyLink": "Copy Link",
     "makePrivate": "Make Private",
+    "makePublic": "Make Public",
     "report": "Report",
     "sharedPublicly": "Shared publicly",
     "anonymous": "Anonymous",
-    "creating": "Creating..."
+    "creating": "Creating...",
+    "failed": "Generation Failed",
+    "failedDescription": "Credits have been refunded. Please delete and try again.",
+    "delete": "Delete",
+    "retry": "Retry"
   },
   "videoShare": {
     "aiGenerated": "AI Generated",
@@ -694,7 +720,56 @@
     "linkCopied": "Link copied!",
     "copyFailed": "Copy failed",
     "setToPrivate": "Set to private",
+    "setToPublic": "Set to public",
+    "shareFailed": "Failed to share video",
+    "makePrivateFailed": "Failed to set private",
+    "makePublicFailed": "Failed to set public",
     "originalNotAvailable": "Original video not available",
     "downloadingOriginal": "Downloading original version"
+  },
+  "customScript": {
+    "title": "Custom Script Designer",
+    "promptLabel": "Story Prompt",
+    "promptPlaceholder": "Describe your story idea... e.g., My cat goes on an adventure in space, meeting alien friends",
+    "promptHint": "AI will expand your idea into a series of connected scenes",
+    "musicLabel": "Background Music",
+    "musicPlaceholder": "e.g., upbeat adventure music, gentle piano",
+    "optional": "optional",
+    "durationLabel": "Video Duration",
+    "minute": "min",
+    "minutes": "min",
+    "scenes": "scenes",
+    "credits": "credits",
+    "createScript": "Create Script",
+    "creating": "Creating...",
+    "creatingScript": "Creating your story...",
+    "creatingHint": "AI is generating scene prompts based on your idea",
+    "creditsUsed": "Credits used",
+    "scenesCompleted": "scenes completed",
+    "mergeVideo": "Merge Video",
+    "scenePrompt": "Scene Prompt",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "frameImage": "First Frame",
+    "video": "Video",
+    "generateFrame": "Generate Frame",
+    "regenerate": "Regenerate",
+    "generatingFrame": "Generating frame...",
+    "generateVideo": "Generate Video",
+    "generatingVideo": "Generating video...",
+    "starting": "Starting...",
+    "generateFrameFirst": "Generate frame first",
+    "errorPromptRequired": "Please enter a story prompt",
+    "errorCustomStyleRequired": "Please enter a custom style description",
+    "merging": "Merging...",
+    "downloadVideo": "Download Video",
+    "styleLabel": "Visual Style",
+    "customStyleLabel": "Custom Style Description",
+    "customStylePlaceholder": "Describe your desired visual style... e.g., cyberpunk style, neon lights, futuristic city background",
+    "customStyleHint": "Tip: Describe color tones, lighting, art style and other visual characteristics",
+    "videoFailed": "Generation Failed",
+    "videoFailedHint": "Video generation was blocked by safety policy. This may be caused by copyrighted content (like specific song names) in your prompts. Please modify your prompt to use generic descriptions instead of specific brand names, song titles, or celebrity names.",
+    "retry": "Retry"
   }
 }

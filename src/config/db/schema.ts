@@ -714,3 +714,356 @@ export const communityLikeRelations = relations(communityLike, ({ one }) => ({
     references: [user.id],
   }),
 }));
+
+// ==================== Custom Script Tables ====================
+// 自定义剧本表 - 用于存储用户创建的自定义视频剧本
+
+/**
+ * 自定义剧本主表
+ * 存储用户创建的完整剧本信息，包括原始输入、Gemini生成的分镜JSON、最终输出等
+ */
+export const customScript = pgTable(
+  'custom_script',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    // 状态: draft=草稿, creating=创作中, completed=已完成, failed=失败
+    status: text('status').notNull().default('draft'),
+
+    // 用户输入
+    petImageUrl: text('pet_image_url'), // 用户上传的宠物图片
+    userPrompt: text('user_prompt'), // 用户输入的原始提示词
+    musicPrompt: text('music_prompt'), // 配乐提示词（可选）
+    durationSeconds: integer('duration_seconds').notNull().default(60), // 总时长 60/120
+    aspectRatio: text('aspect_ratio').notNull().default('16:9'), // 16:9 / 9:16
+    styleId: text('style_id').default('pixar-3d'), // 视觉风格ID
+    customStyle: text('custom_style'), // 自定义风格描述（当styleId为custom时使用）
+
+    // Gemini 生成的分镜数据
+    scenesJson: text('scenes_json'), // 完整分镜JSON（备份用）
+    storyTitle: text('story_title'), // Gemini生成的故事标题
+
+    // 最终输出
+    finalVideoUrl: text('final_video_url'), // 拼接后的完整视频URL
+
+    // 积分
+    creditsUsed: integer('credits_used').notNull().default(0), // 已消耗积分
+
+    // 时间戳
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    // 查询用户的剧本列表
+    index('idx_custom_script_user_status').on(table.userId, table.status),
+    // 按创建时间排序
+    index('idx_custom_script_created_at').on(table.createdAt),
+  ]
+);
+
+/**
+ * 自定义剧本分镜段落表
+ * 存储每个分镜段落的详细信息，包括提示词、首帧图、视频等
+ */
+export const customScriptScene = pgTable(
+  'custom_script_scene',
+  {
+    id: text('id').primaryKey(),
+    scriptId: text('script_id')
+      .notNull()
+      .references(() => customScript.id, { onDelete: 'cascade' }),
+    sceneNumber: integer('scene_number').notNull(), // 段落序号 1,2,3...
+
+    // 提示词
+    prompt: text('prompt').notNull(), // 该段落的完整提示词，用于视频生成（可编辑）
+    firstFramePrompt: text('first_frame_prompt'), // 首帧图专用提示词（只描述第一个shot的静态画面）
+    originalPrompt: text('original_prompt'), // Gemini生成的原始提示词（保留）
+    description: text('description'), // 段落说明（中文，给用户看）
+    descriptionEn: text('description_en'), // 段落说明（英文，给用户看）
+
+    // 首帧图
+    frameStatus: text('frame_status').notNull().default('pending'), // pending/generating/completed/failed
+    frameImageUrl: text('frame_image_url'),
+    frameTaskId: text('frame_task_id'), // Seedream任务ID
+
+    // 视频
+    videoStatus: text('video_status').notNull().default('pending'), // pending/generating/completed/failed
+    videoUrl: text('video_url'),
+    videoTaskId: text('video_task_id'), // Evolink Sora-2 任务ID
+
+    // 生成进度（0-100）
+    frameProgress: integer('frame_progress').default(0), // 首帧图生成进度
+    videoProgress: integer('video_progress').default(0), // 视频生成进度
+
+    // 错误日志
+    errorLog: text('error_log'),
+
+    // 时间戳
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    // 查询某个剧本的所有分镜（按序号排序）
+    index('idx_custom_script_scene_script_number').on(table.scriptId, table.sceneNumber),
+  ]
+);
+
+// 自定义剧本关系定义
+export const customScriptRelations = relations(customScript, ({ one, many }) => ({
+  user: one(user, {
+    fields: [customScript.userId],
+    references: [user.id],
+  }),
+  scenes: many(customScriptScene),
+}));
+
+export const customScriptSceneRelations = relations(customScriptScene, ({ one }) => ({
+  script: one(customScript, {
+    fields: [customScriptScene.scriptId],
+    references: [customScript.id],
+  }),
+}));
+
+// ==================== Script Template Tables ====================
+// 脚本模板表 - 用于存储管理员创建的视频模板（类似 dog-hero、cat-hero）
+// 支持草稿和正式模板统一管理，通过 status 字段区分
+
+/**
+ * 脚本模板主表（含草稿）
+ * 存储可复用的视频模板，用户可以选择模板后上传自己的宠物图片生成视频
+ * status: draft=草稿, published=已发布, disabled=已禁用
+ */
+export const scriptTemplate = pgTable(
+  'script_template',
+  {
+    id: text('id').primaryKey(),
+
+    // 状态: draft=草稿, published=已发布, disabled=已禁用
+    status: text('status').notNull().default('draft'),
+
+    // 基本信息
+    name: text('name').notNull().default(''), // 模板名称，如 "Christmas Dog Rescue"
+    nameCn: text('name_cn'), // 中文名称
+    description: text('description'), // 模板描述（英文）
+    descriptionCn: text('description_cn'), // 模板描述（中文）
+    thumbnailUrl: text('thumbnail_url'), // 封面图/预览图
+    previewVideoUrl: text('preview_video_url'), // 预览视频URL（合成后的示例视频）
+
+    // 分类和筛选
+    category: text('category').notNull().default('dog'), // dog/cat/other
+    tags: text('tags'), // JSON数组，用于标签筛选，如 ["christmas", "rescue", "heartwarming"]
+
+    // 视频配置
+    styleId: text('style_id').notNull().default('pixar-3d'), // 视觉风格ID
+    globalStylePrefix: text('global_style_prefix'), // 全局风格前缀（视觉风格 + 角色一致性描述模板）
+    // 角色定义 JSON 数组
+    // 格式: [{ id, role, name, nameCn, description, descriptionCn }]
+    // - id: 角色标识符，如 "pet", "owner", "firefighter"
+    // - role: "primary" | "secondary"
+    // - name: 英文名称，如 "Hero Cat"
+    // - nameCn: 中文名称，如 "英雄猫咪"
+    // - description: 英文详细描述（用于提示词生成）
+    // - descriptionCn: 中文详细描述（用于展示）
+    charactersJson: text('characters_json'), // 角色定义数组
+    characterSheetUrl: text('character_sheet_url'), // 角色参考卡图片URL
+    durationSeconds: integer('duration_seconds').notNull().default(60), // 总时长 60/120
+    aspectRatio: text('aspect_ratio').notNull().default('16:9'), // 16:9 / 9:16
+    musicPrompt: text('music_prompt'), // 配乐提示词
+
+    // 分镜模板数据
+    // 草稿状态: { scenes: [{ id, sceneNumber, characterIds, prompt, firstFramePrompt, description, descriptionEn, frameStatus, frameImageUrl, videoStatus, videoUrl }] }
+    // 发布状态: { scenes: [{ sceneNumber, characterIds, prompt, firstFramePrompt, description, descriptionEn }] }
+    // - characterIds: 该场景首帧图中应出现的角色ID数组，如 ["pet", "owner"]
+    scenesJson: text('scenes_json'),
+
+    // 草稿专用字段
+    petImageUrl: text('pet_image_url'), // 测试用宠物图片
+    mergedVideoUrl: text('merged_video_url'), // 草稿合并后的预览视频
+
+    // 排序（发布后有效）
+    sortOrder: integer('sort_order').notNull().default(0), // 排序（越小越靠前）
+
+    // 统计（发布后有效）
+    useCount: integer('use_count').notNull().default(0), // 使用次数
+
+    // 积分定价（可选，默认使用全局配置）
+    creditsRequired: integer('credits_required'), // 使用此模板所需积分（null则使用默认）
+
+    // 创建者信息
+    createdBy: text('created_by')
+      .references(() => user.id, { onDelete: 'set null' }), // 创建者（管理员）
+
+    // 时间戳
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    // 查询已发布的模板列表（按分类和排序）
+    index('idx_script_template_status_category').on(table.status, table.category, table.sortOrder),
+    // 查询创建者的草稿列表
+    index('idx_script_template_created_by_status').on(table.createdBy, table.status),
+    // 按创建时间排序
+    index('idx_script_template_created_at').on(table.createdAt),
+  ]
+);
+
+// 脚本模板关系定义
+export const scriptTemplateRelations = relations(scriptTemplate, ({ one }) => ({
+  creator: one(user, {
+    fields: [scriptTemplate.createdBy],
+    references: [user.id],
+  }),
+}));
+
+// ==================== Pet Memorial Tables ====================
+// 宠物纪念表 - 用于存储用户为逝去爱宠创建的纪念页面
+
+/**
+ * 宠物纪念主表
+ * 存储用户创建的宠物纪念信息，包括宠物资料、纪念内容、图片等
+ * 支持公开展示和视频生成功能
+ */
+export const petMemorial = pgTable(
+  'pet_memorial',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+
+    // 宠物信息
+    petName: text('pet_name').notNull(), // 宠物名字
+    species: text('species'), // 物种: dog/cat/bird/rabbit/hamster/other
+    birthday: timestamp('birthday'), // 出生日期
+    dateOfPassing: timestamp('date_of_passing'), // 去世日期
+
+    // 纪念内容
+    message: text('message'), // 纪念留言（简短，卡片展示用）
+    story: text('story'), // 宠物故事（详细，详情页展示）
+    images: text('images').notNull().default('[]'), // JSON数组，存储图片URL，最多6张
+
+    // 主人信息（可选展示）
+    ownerFirstName: text('owner_first_name'),
+    ownerLastName: text('owner_last_name'),
+    city: text('city'),
+    state: text('state'),
+    email: text('email'), // 主人邮箱（用于蜡烛通知）
+    isNameDisplayed: boolean('is_name_displayed').notNull().default(true), // 是否展示主人姓名
+
+    // 关联视频（一对一，可选）
+    aiTaskId: text('ai_task_id').references(() => aiTask.id, { onDelete: 'set null' }),
+
+    // 状态管理
+    status: text('status').notNull().default('approved'), // pending/approved/rejected
+    isPublic: boolean('is_public').notNull().default(true), // 是否公开展示
+
+    // 统计字段（冗余，提升查询性能）
+    viewCount: integer('view_count').notNull().default(0),
+    candleCount: integer('candle_count').notNull().default(0), // 蜡烛数量，应用层维护
+
+    // 时间戳
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+    deletedAt: timestamp('deleted_at'), // 软删除
+  },
+  (table) => [
+    // 查询用户的纪念列表
+    index('idx_pet_memorial_user_id').on(table.userId),
+    // 公开纪念墙列表（按创建时间倒序）
+    index('idx_pet_memorial_public_list').on(
+      table.isPublic,
+      table.status,
+      table.createdAt
+    ),
+    // 关联视频查询
+    index('idx_pet_memorial_ai_task').on(table.aiTaskId),
+    // 搜索优化：宠物名索引（用于模糊搜索）
+    index('idx_pet_memorial_pet_name').on(table.petName),
+    // 搜索优化：主人名索引（用于模糊搜索）
+    index('idx_pet_memorial_owner_name').on(table.ownerFirstName, table.ownerLastName),
+  ]
+);
+
+/**
+ * 宠物纪念蜡烛表
+ * 记录访客为纪念"点蜡烛"并留言的信息
+ * 支持登录用户和匿名访客
+ */
+export const petMemorialCandle = pgTable(
+  'pet_memorial_candle',
+  {
+    id: text('id').primaryKey(),
+    memorialId: text('memorial_id')
+      .notNull()
+      .references(() => petMemorial.id, { onDelete: 'cascade' }),
+
+    // 点蜡烛人信息（登录用户 或 匿名访客）
+    userId: text('user_id').references(() => user.id, { onDelete: 'set null' }), // 登录用户
+    guestName: text('guest_name'), // 匿名访客姓名
+    guestEmail: text('guest_email'), // 匿名访客邮箱（可选，用于通知）
+
+    // 留言
+    message: text('message'),
+
+    // 审核状态（防止恶意内容）
+    isPublished: boolean('is_published').notNull().default(true),
+
+    // 时间戳
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+  (table) => [
+    // 查询某个纪念的蜡烛列表（按时间倒序）
+    index('idx_candle_memorial_list').on(table.memorialId, table.createdAt),
+    // 查询用户点过的蜡烛
+    index('idx_candle_user').on(table.userId),
+  ]
+);
+
+// 宠物纪念关系定义
+export const petMemorialRelations = relations(petMemorial, ({ one, many }) => ({
+  // 关联创建者
+  user: one(user, {
+    fields: [petMemorial.userId],
+    references: [user.id],
+  }),
+  // 关联AI任务（视频）
+  aiTask: one(aiTask, {
+    fields: [petMemorial.aiTaskId],
+    references: [aiTask.id],
+  }),
+  // 关联蜡烛列表
+  candles: many(petMemorialCandle),
+}));
+
+export const petMemorialCandleRelations = relations(
+  petMemorialCandle,
+  ({ one }) => ({
+    // 关联纪念
+    memorial: one(petMemorial, {
+      fields: [petMemorialCandle.memorialId],
+      references: [petMemorial.id],
+    }),
+    // 关联登录用户（可选）
+    user: one(user, {
+      fields: [petMemorialCandle.userId],
+      references: [user.id],
+    }),
+  })
+);
+
+// 宠物纪念类型导出
+export type PetMemorial = typeof petMemorial.$inferSelect;
+export type NewPetMemorial = typeof petMemorial.$inferInsert;
+export type PetMemorialCandle = typeof petMemorialCandle.$inferSelect;
+export type NewPetMemorialCandle = typeof petMemorialCandle.$inferInsert;
+

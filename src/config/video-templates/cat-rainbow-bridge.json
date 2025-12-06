@@ -1,0 +1,92 @@
+{
+  "id": "cat-rainbow-bridge-1min",
+  "name": "Rainbow Bridge",
+  "nameCn": "彩虹桥",
+  "description": "A touching memorial story of a beloved cat crossing the Rainbow Bridge",
+  "descriptionCn": "一个感人的猫咪彩虹桥纪念故事",
+  "petType": "cat",
+  "durationSeconds": 60,
+  "aspectRatio": "16:9",
+  "creditsRequired": 15,
+  "sceneCount": 4,
+
+  "globalStylePrefix": "Pixar-style High-quality 3D CG animation, cinematic lighting, vibrant colors, emotionally expressive characters",
+
+  "characters": [
+    {
+      "id": "pet",
+      "role": "primary",
+      "name": "The Cat",
+      "nameCn": "猫咪",
+      "description": "the same cat from the reference image, rendered in Pixar 3D animated style with expressive eyes and soft fur texture, keeping the exact fur color, pattern, and distinctive features from the original photo",
+      "descriptionCn": "与参考图中相同的猫咪，以皮克斯3D动画风格呈现，保持原照片中的毛色、花纹和独特特征"
+    },
+    {
+      "id": "pet_spirit",
+      "role": "secondary",
+      "name": "The Cat Spirit",
+      "nameCn": "猫咪精灵",
+      "description": "a softly glowing, semi-transparent spirit version of the same cat from the reference image, with ethereal warm light emanating from its body, slightly floating, background visible through its translucent form, gentle and loving expression",
+      "descriptionCn": "参考图中猫咪的灵魂形态，发出柔和光芒，半透明，略微漂浮，身体透出温暖的光，表情温柔慈爱"
+    },
+    {
+      "id": "owner",
+      "role": "secondary",
+      "name": "The Girl",
+      "nameCn": "女孩",
+      "description": "a young American girl around 13 years old, with medium-length brown hair, wearing a casual gray hoodie and blue jeans, expressive face showing deep emotions",
+      "descriptionCn": "一个约13岁的美国女孩，中长棕色头发，穿着休闲灰色连帽衫和蓝色牛仔裤，表情丰富"
+    },
+    {
+      "id": "kitten",
+      "role": "secondary",
+      "name": "The Milk Kitten",
+      "nameCn": "小奶猫",
+      "description": "a tiny milk kitten, very small body, milky-white fur with a few soft light cream patches, big round trembling eyes full of innocence and nervousness",
+      "descriptionCn": "一只小奶猫，身体很小，奶白色毛发带有几处浅奶油色斑块，大大的圆眼睛充满天真和紧张"
+    }
+  ],
+
+  "characterSheet": {
+    "prompt": "Professional character model sheet with 4 rows, one character per row.\n\nROW 1 - THE CAT (based on the uploaded pet image):\nThe same cat from the reference image, rendered in Pixar 3D animated style with expressive eyes and soft fur texture. Keep the exact fur color, pattern, markings, and distinctive features from the original photo.\nThis row shows: front view | 3/4 view | side view | back view\n\nROW 2 - THE CAT SPIRIT:\nA softly glowing, semi-transparent spirit version of the same cat, with ethereal warm light, slightly floating, gentle expression.\nThis row shows: front view | 3/4 view | side view\n\nROW 3 - THE GIRL:\nA young American girl around 13 years old, medium-length brown hair, gray hoodie and blue jeans, expressive face.\nThis row shows: front view | 3/4 view | side view\n\nROW 4 - THE MILK KITTEN:\nA tiny milk kitten, milky-white with soft cream patches, big round innocent eyes.\nThis row shows: front view | 3/4 view | side view\n\nLayout: Clean white background, thin black lines separating rows, character name labels on left, consistent Pixar 3D CG style."
+  },
+
+  "scenes": [
+    {
+      "sceneNumber": 1,
+      "durationSeconds": 15,
+      "title": "The Farewell",
+      "titleCn": "告别",
+      "characterIds": ["pet", "owner"],
+      "firstFramePrompt": "Cinematic medium-wide shot inside a small stark white pet clinic exam room. [PET] is lying weakly on a soft pale blanket on a metal exam table, still alive but very weak, eyes half-open, chest rising very slowly. Beside the table sits [OWNER], her face tear-streaked, gently holding the cat's small paw with both hands, leaning toward the cat with a worried, heartbroken expression. In the blurred background, simple medical equipment and a vague veterinarian silhouette, cold white overhead light mixed with a soft warm rim light on the girl and the cat, creating a quiet, emotional, almost frozen moment.",
+      "videoPrompt": "Pixar-style 3D CG, cinematic lighting, shallow depth of field, soft soothing music. A touching 15-second story in a modern American city. First in a small stark white pet clinic: [PET] lies weakly on a metal table on a pale blanket while [OWNER] sits beside it, gently resting ONE simple, natural human hand under its small paw, her thumb lightly touching the top. Close-up from above on the cat's paw resting on the blanket, the girl's single hand cupping it from below; only her thumb and the side of one finger are visible, anatomically correct, no extra fingers, very simple pose. Then a close-up on her tear-streaked face as she whispers 'I'm sorry... and thank you'; the cat's eyes slowly close and its breathing stops, ending the clinic scene. Cut to a cozy living room at home: a single white candle is lit on a wooden table beside a framed photo of the smiling cat, its worn collar and toy mouse. The girl writes 'Thank you' and 'Goodbye' on a small card; a tear smudges the ink as her family stand quietly behind her, a hand on her shoulder. Finally, in a quiet park at late afternoon, they gently place a small wooden box into a shallow hole at the base of a tree, then a close-up on the girl's fingers tying a rainbow-colored ribbon to a low branch, the ribbon fluttering softly in warm light as a symbol of the Rainbow Bridge."
+    },
+    {
+      "sceneNumber": 2,
+      "durationSeconds": 15,
+      "title": "Invisible Guardian",
+      "titleCn": "隐形守护者",
+      "characterIds": ["owner"],
+      "firstFramePrompt": "Cinematic medium-wide shot in a modern American apartment stairwell at late afternoon. Concrete steps and metal handrails, cool overhead ceiling lights casting long soft shadows. [OWNER] walks slowly up the stairs, one hand holding her phone and looking at the screen, earbuds in, slightly hunched and a bit lonely in mood. The space feels quiet and empty, no other people visible, just the sense of a normal day continuing after a loss. Note: The cat spirit is NOT visible in this first frame - it will appear later in the video.",
+      "videoPrompt": "Pixar-style 3D CG, cinematic but gentle lighting, shallow depth of field, soft soothing music. Theme: invisible protection. In a modern American apartment stairwell, hallway and bedroom after the death of the beloved cat, [OWNER] quietly goes through daily life while only the audience can see [PET_SPIRIT] slightly floating, background always visible through its body. She walks up a concrete stairwell, slips on a wet step; from another angle [PET_SPIRIT] appears behind her, gently bumping her toward the rail so she grabs it and stops herself, then its ghostly tail disappears around the corner. In the home hallway she tosses her backpack and it slides toward a small water leak until [PET_SPIRIT] nudges the bag so it stops and blocks the puddle. At night in her dim bedroom she lies curled on her side facing a framed photo of the cat, brow furrowed. [PET_SPIRIT] lightly jumps onto the bed, paws not fully sinking in, curls up against her back like a guardian; the sheet pattern is visible through its body as her face slowly relaxes into a peaceful, safe expression."
+    },
+    {
+      "sceneNumber": 3,
+      "durationSeconds": 15,
+      "title": "The New Arrival",
+      "titleCn": "新成员",
+      "characterIds": ["owner", "pet_spirit", "kitten"],
+      "firstFramePrompt": "Cinematic medium-wide shot at the entrance of a cozy modern American apartment in the evening. The front door is open; a parent is just stepping inside, gently holding a small cat carrier with air holes. Through the air holes we can clearly see [KITTEN] inside: pressed against a soft blanket, looking out nervously. [OWNER] stands a few steps back in the hallway facing the door. Her arms are loosely crossed in front of her chest, shoulders slightly tense, posture half defensive, half withdrawn. Her face is not excited at all – her eyes look tired and a little empty, mixing guilt, sadness, and resistance. Right beside the girl, almost touching her leg, stands [PET_SPIRIT]. The spirit cat is clearly see-through; the hallway floor and wall are visible through its glowing body. The spirit cat looks up at the girl with gentle, worried eyes, silently guarding her. The girl does not see the spirit at all.",
+      "videoPrompt": "Pixar-style 3D CG, cinematic warm indoor night lighting, shallow depth of field, soft but tense music. Scene 3: after being secretly protected by [PET_SPIRIT], [OWNER] meets a new rescue cat at home. Her parents set a small carrier on the floor; [KITTEN] peeks out with huge trembling eyes and hides behind a leg. Close-up on the girl's face: jaw tight, eyes shining with grief as she reaches out then pulls her hand back, unable to touch it. Later, at her desk, [KITTEN] walks along the edge and bumps a glass; water splashes over her open homework pages, ink smearing. The kitten freezes, ears flat. Close-up on the girl as shock turns into pain and anger; tears spill as she slams the desk and shouts: 'Stop it! I don't want any of you, I just want my cat back!' Under the desk [KITTEN] curls into a shaking ball while [PET_SPIRIT] wraps around it protectively. In the final wide shot the girl grabs her jacket, runs out into the dark rainy night and slams the door; inside, [KITTEN] is left alone as [PET_SPIRIT] glides silently through the closed door to follow her."
+    },
+    {
+      "sceneNumber": 4,
+      "durationSeconds": 15,
+      "title": "Rainbow Bridge",
+      "titleCn": "彩虹桥",
+      "characterIds": ["owner", "pet_spirit"],
+      "firstFramePrompt": "Cinematic medium shot at night in a quiet park, heavy rain falling. [OWNER], wearing a gray hoodie and jeans now soaked, kneels at the base of a tree where a rainbow-colored ribbon is tied to a low branch – the same memorial tree from Scene 1. Her face is tear-streaked and rain-soaked, looking up with a mixture of grief and desperate hope. In front of her, [PET_SPIRIT] is walking toward her, raindrops passing through its ethereal body, its eyes gentle and loving. The scene captures the moment of reunion between the girl and her beloved cat's spirit, with the wet ribbon fluttering and the warm glow of the spirit cat contrasting against the cold rain.",
+      "videoPrompt": "Pixar-style 3D CG, cinematic lighting, shallow depth of field. Scene 4: cold rainy night then early spring, at the same memorial tree and park path. Continuous from Scene 3, [OWNER] runs through heavy rain, reaches the tree where the cat is buried and falls to her knees, sobbing. The rainbow ribbon brushes her cheek; extreme close-up on her tear-filled eyes as shock turns into aching joy when she finally sees [PET_SPIRIT] walking toward her with raindrops passing through its body. [PET_SPIRIT] sits in front of her; close-up as she whispers 'I love you… thank you' and reaches out, her hand passing through light as she hugs it. Cross-cut between her POV burying her face in warm glowing fur and a wider reality view of her clutching the wet tree trunk while [PET_SPIRIT] curls around her back until her breathing slows. Rain and darkness fade into early-spring twilight at the same tree: the girl kneels beside [KITTEN], clipping the cat's old name tag onto its collar as [PET_SPIRIT] gently guides her hand to rest on the kitten's head, a transfer of love. Finally, at sunrise, a back shot of the girl walking down the park path with [KITTEN] on a leash; [PET_SPIRIT] pads at her other side for a few steps, then dissolves into warm light that stretches into a soft pastel rainbow across the sky ahead as she gives a small peaceful smile and keeps walking forward."
+    }
+  ]
+}

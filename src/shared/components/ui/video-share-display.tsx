@@ -22,10 +22,9 @@ import {
   Calendar,
   Sparkles,
   Film,
-  Copy,
-  Check,
 } from "lucide-react";
 import { UserInfo } from "./user-info";
+import { ShareModal, type ShareData } from "./share-modal";
 
 export interface VideoShareDisplayProps {
   videoId: string;
@@ -62,7 +61,7 @@ export function VideoShareDisplay({
   const [liked, setLiked] = useState(initialIsLiked);
   const [likeCount, setLikeCount] = useState(initialLikeCount);
   const [isLiking, setIsLiking] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // 同步服务端传入的点赞状态
@@ -143,22 +142,20 @@ export function VideoShareDisplay({
     document.body.removeChild(a);
   };
 
-  // 处理分享
-  const handleShare = async () => {
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: t("checkOutVideo"),
-          url: window.location.href,
-        });
-      } else {
-        await navigator.clipboard.writeText(window.location.href);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      }
-    } catch (error) {
-      console.error("Share failed:", error);
-    }
+  // 处理分享 - 打开分享弹窗
+  const handleShare = () => {
+    setShareModalOpen(true);
+  };
+
+  // 分享数据 - 使用视频场景
+  const shareData: ShareData = {
+    url: typeof window !== "undefined" ? window.location.href : "",
+    title: metadata?.petDescription
+      ? t("adventure", { name: metadata.petDescription })
+      : t("amazingPetVideo"),
+    description: t("watchDescription"),
+    scene: "video",
+    hashtags: ["PetMovie", "AIPetVideo", "PetLove"],
   };
 
   // 格式化日期
@@ -416,19 +413,17 @@ export function VideoShareDisplay({
                 onClick={handleShare}
                 className="flex-1 min-w-[140px] flex items-center justify-center gap-2 px-6 py-4 bg-muted text-foreground rounded-xl font-semibold hover:bg-muted/80 transition-all"
               >
-                {copied ? (
-                  <>
-                    <Check className="w-5 h-5 text-green-500" />
-                    <span>{t("copied")}</span>
-                  </>
-                ) : (
-                  <>
-                    <Share2 className="w-5 h-5" />
-                    <span>{t("share")}</span>
-                  </>
-                )}
+                <Share2 className="w-5 h-5" />
+                <span>{t("share")}</span>
               </button>
             </div>
+
+            {/* 分享弹窗 */}
+            <ShareModal
+              open={shareModalOpen}
+              onOpenChange={setShareModalOpen}
+              shareData={shareData}
+            />
 
             {/* 创建自己的视频 CTA */}
             <div className="mt-8 p-6 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-2xl border border-primary/20">

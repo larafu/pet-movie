@@ -21,9 +21,9 @@
     "nav": {
       "items": [
         {
-          "title": "Process",
-          "url": "/#usage",
-          "icon": "Workflow"
+          "title": "Pet Memorial",
+          "url": "/pet-memorial",
+          "icon": "Heart"
         },
         {
           "title": "Gallery",
@@ -675,6 +675,7 @@
     "share": "Share",
     "copyLink": "Copy Link",
     "makePrivate": "Make Private",
+    "makePublic": "Make Public",
     "report": "Report",
     "sharedPublicly": "Shared publicly",
     "anonymous": "Anonymous",
@@ -713,8 +714,10 @@
     "linkCopied": "Link copied!",
     "copyFailed": "Copy failed",
     "setToPrivate": "Set to private",
+    "setToPublic": "Set to public",
     "shareFailed": "Failed to share video",
     "makePrivateFailed": "Failed to set private",
+    "makePublicFailed": "Failed to set public",
     "originalNotAvailable": "Original video not available",
     "downloadingOriginal": "Downloading original version"
   },

@@ -18,6 +18,7 @@ import {
   Link2,
   Flag,
   Lock,
+  Globe,
   AlertCircle,
   Trash2,
   RefreshCw,
@@ -31,6 +32,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "./dropdown-menu";
+import { ShareModal, type ShareData } from "./share-modal";
 
 export type AspectRatio = "16:9" | "9:16";
 
@@ -90,6 +92,7 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
   const [liked, setLiked] = useState(data.isLiked || false);
   const [likeCount, setLikeCount] = useState(data.likeCount || 0);
   const [isPublic, setIsPublic] = useState(data.isPublic || false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const aspectRatio = data.aspectRatio || "16:9";
@@ -329,47 +332,23 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
     return `${appUrl}/share/${data.id}`;
   };
 
-  // 处理分享 - 所有变体都使用分享页链接（乐观更新）
-  const handleShare = async () => {
-    // 统一使用分享页链接
-    const shareLink = getShareLink();
-
-    // 复制链接
-    const copied = await copyToClipboard(shareLink);
-    if (copied) {
-      toast.success(tToast('shareLinkCopied'));
-    } else {
-      toast.error(tToast('copyFailed'));
-    }
-
-    // 仅用户自己的视频需要设置公开状态
-    if (variant === "user") {
-      // 乐观更新UI
-      setIsPublic(true);
-      actions?.onShare?.(data.id);
-
-      // 后台调用API，失败时回滚
-      try {
-        const response = await fetch('/api/pet-video/share', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ videoId: data.id, setPublic: true }),
-        });
-        if (!response.ok) {
-          // 回滚
-          setIsPublic(false);
-          toast.error(tToast('shareFailed'));
-        }
-      } catch (error) {
-        // 回滚
-        setIsPublic(false);
-        toast.error(tToast('shareFailed'));
-        console.error('Share API error:', error);
-      }
-    }
+  // 处理分享 - 打开分享弹窗（分享和公开状态分离）
+  const handleShare = () => {
+    // 直接打开分享弹窗，不自动设置公开状态
+    setShareModalOpen(true);
+    actions?.onShare?.(data.id);
   };
 
-  // 处理复制链接 - 所有变体都使用分享页链接（乐观更新）
+  // 分享数据 - 使用视频场景
+  const getShareData = (): ShareData => ({
+    url: getShareLink(),
+    title: data.title || t("share"),
+    description: data.description,
+    scene: "video",
+    hashtags: ["PetMovie", "AIPetVideo", "PetLove"],
+  });
+
+  // 处理复制链接 - 仅复制链接，不改变公开状态
   const handleCopyLink = async () => {
     // 统一使用分享页链接
     const shareLink = getShareLink();
@@ -382,30 +361,32 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
       toast.error(tToast('copyFailed'));
     }
 
-    // 仅用户自己的视频需要设置公开状态
-    if (variant === "user") {
-      // 乐观更新UI
-      setIsPublic(true);
-      actions?.onCopyLink?.(data.id);
+    actions?.onCopyLink?.(data.id);
+  };
 
-      // 后台调用API，失败时回滚
-      try {
-        const response = await fetch('/api/pet-video/share', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ videoId: data.id, setPublic: true }),
-        });
-        if (!response.ok) {
-          // 回滚
-          setIsPublic(false);
-          toast.error(tToast('shareFailed'));
-        }
-      } catch (error) {
+  // 处理设为公开（乐观更新）
+  const handleMakePublic = async () => {
+    // 乐观更新UI
+    setIsPublic(true);
+    toast.success(tToast('setToPublic'));
+
+    // 后台调用API，失败时回滚
+    try {
+      const response = await fetch('/api/pet-video/share', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ videoId: data.id, setPublic: true }),
+      });
+      if (!response.ok) {
         // 回滚
         setIsPublic(false);
-        toast.error(tToast('shareFailed'));
-        console.error('Copy link API error:', error);
+        toast.error(tToast('makePublicFailed'));
       }
+    } catch (error) {
+      // 回滚
+      setIsPublic(false);
+      toast.error(tToast('makePublicFailed'));
+      console.error('Make public API error:', error);
     }
   };
 
@@ -490,9 +471,9 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
           />
         </div>
 
-        {/* 右下角：三个点（左）和点赞按钮（右） - 横向排列 */}
+        {/* 右下角：操作按钮组 - 横向排列 */}
         <div className="absolute bottom-4 right-4 flex flex-row items-center gap-4 z-10">
-          {/* 三个点菜单按钮 - hover时显示，用opacity控制避免抖动 */}
+          {/* 三个点菜单按钮 - hover时显示 */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
@@ -509,6 +490,7 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
               side="bottom"
               className="bg-zinc-800/95 backdrop-blur-md border-zinc-700 min-w-[140px]"
             >
+              {/* 下载 */}
               <DropdownMenuItem
                 onClick={handleDownload}
                 className="text-white hover:bg-white/10 focus:bg-white/10 cursor-pointer"
@@ -517,7 +499,7 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
                 {t("download")}
               </DropdownMenuItem>
 
-              {/* VIP用户专属：下载无水印版本（所有变体都支持） */}
+              {/* VIP用户专属：下载无水印版本 */}
               {data.isVIP && data.originalVideoUrl && (
                 <DropdownMenuItem
                   onClick={handleDownloadOriginal}
@@ -533,7 +515,7 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
 
               <DropdownMenuSeparator className="bg-zinc-700" />
 
-              {/* 分享和复制链接 - 所有变体统一 */}
+              {/* 分享 */}
               <DropdownMenuItem
                 onClick={handleShare}
                 className="text-white hover:bg-white/10 focus:bg-white/10 cursor-pointer"
@@ -541,38 +523,35 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
                 <Share2 className="h-4 w-4 mr-2" />
                 {t("share")}
               </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={handleCopyLink}
-                className="text-white hover:bg-white/10 focus:bg-white/10 cursor-pointer"
-              >
-                <Link2 className="h-4 w-4 mr-2" />
-                {t("copyLink")}
-              </DropdownMenuItem>
 
-              {/* 仅用户自己的已公开视频可以取消公开 */}
-              {variant === "user" && (data.isPublic || isPublic) && (
-                <DropdownMenuItem
-                  onClick={handleMakePrivate}
-                  className="text-orange-400 hover:bg-white/10 focus:bg-white/10 cursor-pointer"
-                >
-                  <Lock className="h-4 w-4 mr-2" />
-                  {t("makePrivate")}
-                </DropdownMenuItem>
+              {/* 公开/私密状态切换 - 仅用户自己的视频 */}
+              {variant === "user" && (
+                <>
+                  <DropdownMenuSeparator className="bg-zinc-700" />
+                  {(data.isPublic || isPublic) ? (
+                    <DropdownMenuItem
+                      onClick={handleMakePrivate}
+                      className="text-orange-400 hover:bg-white/10 focus:bg-white/10 cursor-pointer"
+                    >
+                      <Lock className="h-4 w-4 mr-2" />
+                      {t("makePrivate")}
+                    </DropdownMenuItem>
+                  ) : (
+                    <DropdownMenuItem
+                      onClick={handleMakePublic}
+                      className="text-green-400 hover:bg-white/10 focus:bg-white/10 cursor-pointer"
+                    >
+                      <Globe className="h-4 w-4 mr-2" />
+                      {t("makePublic")}
+                    </DropdownMenuItem>
+                  )}
+                </>
               )}
 
-              <DropdownMenuSeparator className="bg-zinc-700" />
-
-              <DropdownMenuItem
-                onClick={handleReport}
-                className="text-white hover:bg-white/10 focus:bg-white/10 cursor-pointer"
-              >
-                <Flag className="h-4 w-4 mr-2" />
-                {t("report")}
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* 点赞按钮 - 始终显示，数量在右边 */}
+          {/* 点赞按钮 - 始终显示 */}
           <button
             onClick={handleLike}
             className={cn(
@@ -588,6 +567,13 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
         </div>
 
       </div>
+
+      {/* 分享弹窗 */}
+      <ShareModal
+        open={shareModalOpen}
+        onOpenChange={setShareModalOpen}
+        shareData={getShareData()}
+      />
     </div>
   );
 }

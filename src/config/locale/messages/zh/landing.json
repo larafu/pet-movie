@@ -21,9 +21,9 @@
     "nav": {
       "items": [
         {
-          "title": "如何使用",
-          "url": "/#usage",
-          "icon": "Workflow"
+          "title": "宠物纪念",
+          "url": "/pet-memorial",
+          "icon": "Heart"
         },
         {
           "title": "价格",
@@ -658,6 +658,7 @@
     "share": "分享",
     "copyLink": "复制链接",
     "makePrivate": "设为私密",
+    "makePublic": "设为公开",
     "report": "举报",
     "sharedPublicly": "已公开分享",
     "anonymous": "匿名用户",
@@ -696,8 +697,10 @@
     "linkCopied": "链接已复制！",
     "copyFailed": "复制失败",
     "setToPrivate": "已设为私密",
+    "setToPublic": "已设为公开",
     "shareFailed": "分享失败",
     "makePrivateFailed": "设为私密失败",
+    "makePublicFailed": "设为公开失败",
     "originalNotAvailable": "原始视频不可用",
     "downloadingOriginal": "正在下载无水印版本"
   },

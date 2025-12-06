@@ -71,8 +71,8 @@ import { cn } from '@/shared/lib/utils';
 const formSchema = z.object({
   petName: z.string().min(1, 'Pet name is required').max(100),
   species: z.enum(['dog', 'cat', 'other']).optional(),
-  birthday: z.date({ message: 'Birthday is required' }),
-  dateOfPassing: z.date({ message: 'Date of passing is required' }),
+  birthday: z.date().optional(),
+  dateOfPassing: z.date().optional(),
   message: z.string().min(1, 'Message is required').max(500),
   story: z.string().min(1, 'Story is required').max(5000),
   images: z.array(z.string()).min(1, 'At least one image is required').max(6),

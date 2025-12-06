@@ -102,16 +102,6 @@ interface GalleryItem {
   isLiked?: boolean;
 }
 
-interface StoredTask {
-  taskId: string;
-  kieTaskId?: string; // KIE视频生成任务ID，用于恢复轮询
-  status: GenerationStatus;
-  prompt: string;
-  startTime: number;
-  thumbnail?: string;
-  aspectRatio?: AspectRatio;
-}
-
 // 各阶段预估时间（毫秒）
 const STAGE_DURATIONS: Record<GenerationStatus, number> = {
   idle: 0,
@@ -217,7 +207,6 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
   // Constants
   const POLL_TIMEOUT_MS = 60 * 60 * 1000; // 1 hour
   const POLL_INTERVAL_MS = 3000; // 3 seconds
-  const STORAGE_KEY_PREFIX = "pet-video-task-";
 
   // 基于时间的平滑进度计算
   const getProgressForStatus = useCallback((status: GenerationStatus, currentTaskId?: string, taskStartTime?: number): number => {
@@ -382,32 +371,15 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
           });
 
           // 如果有进行中的任务且当前没有轮询，启动对第一个进行中任务的轮询
-          if (inProgressVideos.length > 0) {
+          if (inProgressVideos.length > 0 && !taskId) {
             const firstInProgress = inProgressVideos[0];
-            const storedTaskId = localStorage.getItem(`${STORAGE_KEY_PREFIX}current`);
-
-            // 如果当前没有正在轮询的任务，或者存储的任务已完成
-            if (!storedTaskId || storedTaskId !== firstInProgress.id) {
-              console.log("🔄 Resuming polling for in-progress task:", firstInProgress.id);
-              // 设置任务ID以启动轮询
-              setTaskId(firstInProgress.id);
-              const { status } = getStatusFromApiTask(firstInProgress);
-              setGenerationStatus(status);
-              setPollStartTime(new Date(firstInProgress.createdAt).getTime());
-              setActiveTab("my-generations");
-
-              // 保存到 localStorage 以便后续恢复
-              const taskData: StoredTask = {
-                taskId: firstInProgress.id,
-                status,
-                prompt: `${firstInProgress.templateType === "dog" ? "Dog" : "Cat"} Hero`,
-                startTime: new Date(firstInProgress.createdAt).getTime(),
-                thumbnail: firstInProgress.frameImageUrl || firstInProgress.petImageUrl,
-                aspectRatio: firstInProgress.aspectRatio || "16:9",
-              };
-              localStorage.setItem(`${STORAGE_KEY_PREFIX}${firstInProgress.id}`, JSON.stringify(taskData));
-              localStorage.setItem(`${STORAGE_KEY_PREFIX}current`, firstInProgress.id);
-            }
+            console.log("🔄 Resuming polling for in-progress task:", firstInProgress.id);
+            // 设置任务ID以启动轮询
+            setTaskId(firstInProgress.id);
+            const { status } = getStatusFromApiTask(firstInProgress);
+            setGenerationStatus(status);
+            setPollStartTime(new Date(firstInProgress.createdAt).getTime());
+            setActiveTab("my-generations");
           }
 
           hasLoadedHistoryRef.current = true;
@@ -452,7 +424,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
             creditsUsed: script.creditsUsed,
             createdAt: script.createdAt,
             completedScenes: 0, // 需要从详情接口获取
-            totalScenes: script.durationSeconds / 15,
+            totalScenes: script.durationSeconds / 15, // 每个场景15秒
           }));
         console.log("✅ In-progress scripts:", inProgressScripts);
         setCustomScripts(inProgressScripts);
@@ -504,7 +476,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     setShowCustomScriptDialog(true);
   };
 
-  // 从 URL 参数设置初始 tab
+  // 从 URL 参数设置初始 tab 和初始图片
   useEffect(() => {
     try {
       const tab = searchParams?.get("tab");
@@ -512,6 +484,14 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
       if (tab === "my-generations") {
         setActiveTab("my-generations");
         console.log("Switching to my-generations tab");
+      }
+
+      // 从 URL 参数获取初始图片（从 pet-memorial 跳转过来）
+      const initialImage = searchParams?.get("image");
+      if (initialImage && !uploadedImage) {
+        console.log("Setting initial image from URL:", initialImage);
+        setUploadedImage(initialImage);
+        setUploadedImageUrl(initialImage);
       }
     } catch (error) {
       console.error("Error reading search params:", error);
@@ -559,48 +539,25 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     }
   };
 
-  // Restore ongoing task from localStorage on mount
+  // 组件挂载时清理旧版 localStorage 数据（一次性迁移）
   useEffect(() => {
-    const storedTaskId = localStorage.getItem(`${STORAGE_KEY_PREFIX}current`);
-    if (storedTaskId) {
-      const taskData = localStorage.getItem(`${STORAGE_KEY_PREFIX}${storedTaskId}`);
-      if (taskData) {
-        try {
-          const task: StoredTask = JSON.parse(taskData);
-          const elapsed = Date.now() - task.startTime;
-          if (
-            !["completed", "failed"].includes(task.status) &&
-            elapsed < POLL_TIMEOUT_MS
-          ) {
-            setTaskId(storedTaskId);
-            setGenerationStatus(task.status);
-            setActiveTab("my-generations");
-            setPollStartTime(task.startTime);
-
-            setUserItems([
-              {
-                id: storedTaskId,
-                url: "",
-                prompt: task.prompt,
-                timestamp: new Date(task.startTime),
-                aspectRatio: task.aspectRatio || "16:9", // 恢复宽高比
-                isLoading: true,
-                progress: getProgressForStatus(task.status, storedTaskId, task.startTime),
-                loadingText: getStatusMessage(task.status),
-                thumbnail: task.thumbnail,
-              },
-            ]);
-          } else {
-            localStorage.removeItem(`${STORAGE_KEY_PREFIX}${storedTaskId}`);
-            localStorage.removeItem(`${STORAGE_KEY_PREFIX}current`);
-          }
-        } catch (err) {
-          console.error("Failed to restore task:", err);
+    try {
+      // 清理旧版 pet-video-task-* 格式的 localStorage 数据
+      const keysToRemove: string[] = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('pet-video-task-')) {
+          keysToRemove.push(key);
         }
       }
+      if (keysToRemove.length > 0) {
+        keysToRemove.forEach(key => localStorage.removeItem(key));
+        console.log('🗑️ Cleaned up legacy localStorage:', keysToRemove.length, 'items');
+      }
+    } catch (e) {
+      // 忽略清理错误
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getStatusMessage]); // 添加 getStatusMessage 依赖确保翻译正确
+  }, []);
 
   // 组件挂载时加载用户视频历史和自定义剧本
   useEffect(() => {
@@ -664,7 +621,6 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
       setError(`Generation timeout after ${POLL_TIMEOUT_MS / 60000} minutes`);
       setGenerationStatus("failed");
       setUserItems((prev) => prev.filter((item) => item.id !== taskId));
-      cleanupTask(taskId);
       return;
     }
 
@@ -675,7 +631,6 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
           setError("Generation timeout");
           setGenerationStatus("failed");
           clearInterval(pollInterval);
-          cleanupTask(taskId);
           return;
         }
 
@@ -691,8 +646,6 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
             const stageKey = `${taskId}-${newStatus}`;
             stageStartTimeRef.current[stageKey] = Date.now();
           }
-
-          updateTaskInStorage(taskId, newStatus);
 
           setUserItems((prev) =>
             prev.map((item) =>
@@ -725,7 +678,6 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                   : item
               )
             );
-            cleanupTask(taskId);
             // 重置表单状态，允许继续生成
             resetFormForNextGeneration();
             // 视频生成完成后刷新列表
@@ -735,7 +687,6 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
           if (newStatus === "failed") {
             setError(task.errorLog || "Generation failed");
             setUserItems((prev) => prev.filter((item) => item.id !== taskId));
-            cleanupTask(taskId);
             // 重置表单状态
             resetFormForNextGeneration();
           }
@@ -748,39 +699,6 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
     return () => clearInterval(pollInterval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taskId, generationStatus, uploadedImage, pollStartTime]);
-
-  const saveTaskToStorage = (
-    taskId: string,
-    status: GenerationStatus,
-    prompt: string,
-    thumbnail?: string,
-    aspectRatio?: AspectRatio
-  ) => {
-    const task: StoredTask = {
-      taskId,
-      status,
-      prompt,
-      startTime: Date.now(),
-      thumbnail,
-      aspectRatio,
-    };
-    localStorage.setItem(`${STORAGE_KEY_PREFIX}${taskId}`, JSON.stringify(task));
-    localStorage.setItem(`${STORAGE_KEY_PREFIX}current`, taskId);
-  };
-
-  const updateTaskInStorage = (taskId: string, status: GenerationStatus) => {
-    const taskData = localStorage.getItem(`${STORAGE_KEY_PREFIX}${taskId}`);
-    if (taskData) {
-      const task: StoredTask = JSON.parse(taskData);
-      task.status = status;
-      localStorage.setItem(`${STORAGE_KEY_PREFIX}${taskId}`, JSON.stringify(task));
-    }
-  };
-
-  const cleanupTask = (taskId: string) => {
-    localStorage.removeItem(`${STORAGE_KEY_PREFIX}${taskId}`);
-    localStorage.removeItem(`${STORAGE_KEY_PREFIX}current`);
-  };
 
   // 重置表单状态，允许继续生成新任务
   const resetFormForNextGeneration = () => {
@@ -1010,14 +928,6 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
 
       // 初始化阶段开始时间
       stageStartTimeRef.current[`${data.taskId}-identifying_pet`] = currentStartTime;
-
-      saveTaskToStorage(
-        data.taskId,
-        "identifying_pet",
-        promptText,
-        currentThumbnail || undefined,
-        currentAspectRatio
-      );
     } catch (err) {
       setError(err instanceof Error ? err.message : "Generation failed");
       setGenerationStatus("failed");

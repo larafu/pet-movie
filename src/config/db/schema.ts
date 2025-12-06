@@ -923,3 +923,147 @@ export const scriptTemplateRelations = relations(scriptTemplate, ({ one }) => ({
   }),
 }));
 
+// ==================== Pet Memorial Tables ====================
+// 宠物纪念表 - 用于存储用户为逝去爱宠创建的纪念页面
+
+/**
+ * 宠物纪念主表
+ * 存储用户创建的宠物纪念信息，包括宠物资料、纪念内容、图片等
+ * 支持公开展示和视频生成功能
+ */
+export const petMemorial = pgTable(
+  'pet_memorial',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+
+    // 宠物信息
+    petName: text('pet_name').notNull(), // 宠物名字
+    species: text('species'), // 物种: dog/cat/bird/rabbit/hamster/other
+    birthday: timestamp('birthday'), // 出生日期
+    dateOfPassing: timestamp('date_of_passing'), // 去世日期
+
+    // 纪念内容
+    message: text('message'), // 纪念留言（简短，卡片展示用）
+    story: text('story'), // 宠物故事（详细，详情页展示）
+    images: text('images').notNull().default('[]'), // JSON数组，存储图片URL，最多6张
+
+    // 主人信息（可选展示）
+    ownerFirstName: text('owner_first_name'),
+    ownerLastName: text('owner_last_name'),
+    city: text('city'),
+    state: text('state'),
+    email: text('email'), // 主人邮箱（用于蜡烛通知）
+    isNameDisplayed: boolean('is_name_displayed').notNull().default(true), // 是否展示主人姓名
+
+    // 关联视频（一对一，可选）
+    aiTaskId: text('ai_task_id').references(() => aiTask.id, { onDelete: 'set null' }),
+
+    // 状态管理
+    status: text('status').notNull().default('approved'), // pending/approved/rejected
+    isPublic: boolean('is_public').notNull().default(true), // 是否公开展示
+
+    // 统计字段（冗余，提升查询性能）
+    viewCount: integer('view_count').notNull().default(0),
+    candleCount: integer('candle_count').notNull().default(0), // 蜡烛数量，应用层维护
+
+    // 时间戳
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+    deletedAt: timestamp('deleted_at'), // 软删除
+  },
+  (table) => [
+    // 查询用户的纪念列表
+    index('idx_pet_memorial_user_id').on(table.userId),
+    // 公开纪念墙列表（按创建时间倒序）
+    index('idx_pet_memorial_public_list').on(
+      table.isPublic,
+      table.status,
+      table.createdAt
+    ),
+    // 关联视频查询
+    index('idx_pet_memorial_ai_task').on(table.aiTaskId),
+    // 搜索优化：宠物名索引（用于模糊搜索）
+    index('idx_pet_memorial_pet_name').on(table.petName),
+    // 搜索优化：主人名索引（用于模糊搜索）
+    index('idx_pet_memorial_owner_name').on(table.ownerFirstName, table.ownerLastName),
+  ]
+);
+
+/**
+ * 宠物纪念蜡烛表
+ * 记录访客为纪念"点蜡烛"并留言的信息
+ * 支持登录用户和匿名访客
+ */
+export const petMemorialCandle = pgTable(
+  'pet_memorial_candle',
+  {
+    id: text('id').primaryKey(),
+    memorialId: text('memorial_id')
+      .notNull()
+      .references(() => petMemorial.id, { onDelete: 'cascade' }),
+
+    // 点蜡烛人信息（登录用户 或 匿名访客）
+    userId: text('user_id').references(() => user.id, { onDelete: 'set null' }), // 登录用户
+    guestName: text('guest_name'), // 匿名访客姓名
+    guestEmail: text('guest_email'), // 匿名访客邮箱（可选，用于通知）
+
+    // 留言
+    message: text('message'),
+
+    // 审核状态（防止恶意内容）
+    isPublished: boolean('is_published').notNull().default(true),
+
+    // 时间戳
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+  (table) => [
+    // 查询某个纪念的蜡烛列表（按时间倒序）
+    index('idx_candle_memorial_list').on(table.memorialId, table.createdAt),
+    // 查询用户点过的蜡烛
+    index('idx_candle_user').on(table.userId),
+  ]
+);
+
+// 宠物纪念关系定义
+export const petMemorialRelations = relations(petMemorial, ({ one, many }) => ({
+  // 关联创建者
+  user: one(user, {
+    fields: [petMemorial.userId],
+    references: [user.id],
+  }),
+  // 关联AI任务（视频）
+  aiTask: one(aiTask, {
+    fields: [petMemorial.aiTaskId],
+    references: [aiTask.id],
+  }),
+  // 关联蜡烛列表
+  candles: many(petMemorialCandle),
+}));
+
+export const petMemorialCandleRelations = relations(
+  petMemorialCandle,
+  ({ one }) => ({
+    // 关联纪念
+    memorial: one(petMemorial, {
+      fields: [petMemorialCandle.memorialId],
+      references: [petMemorial.id],
+    }),
+    // 关联登录用户（可选）
+    user: one(user, {
+      fields: [petMemorialCandle.userId],
+      references: [user.id],
+    }),
+  })
+);
+
+// 宠物纪念类型导出
+export type PetMemorial = typeof petMemorial.$inferSelect;
+export type NewPetMemorial = typeof petMemorial.$inferInsert;
+export type PetMemorialCandle = typeof petMemorialCandle.$inferSelect;
+export type NewPetMemorialCandle = typeof petMemorialCandle.$inferInsert;
+

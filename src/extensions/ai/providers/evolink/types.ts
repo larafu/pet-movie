@@ -101,13 +101,13 @@ export interface EvolinkTaskStatusResponse {
 
 /**
  * Sora-2 视频生成请求
- * 用于自定义剧本的每个15秒分镜视频生成
+ * 用于自定义剧本的每个15秒分镜视频生成（4场景×15秒=60秒）
  */
 export interface EvolinkSora2VideoRequest {
   model: string; // 视频生成模型，如 'sora-2'
   prompt: string; // 视频描述提示词，最多5000 tokens
   aspect_ratio?: '16:9' | '9:16'; // 视频比例
-  duration?: number; // 视频时长（秒），默认 5s，可选 5/10/15/20
+  duration?: number; // 视频时长（秒），默认 15s，可选 5/10/15/20
   image_urls?: string[]; // 参考图片URL列表（用于图生视频）
 }
 

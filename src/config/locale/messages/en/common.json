@@ -38,5 +38,36 @@
   "locale_detector": {
     "title": "We detected your browser language is {locale}. Switch to it?",
     "switch_to": "Switch to {locale}"
+  },
+  "share": {
+    "title": "Share",
+    "share": "Share",
+    "shareNow": "Share Now",
+    "shareTo": "Share to",
+    "orCopyLink": "Or copy link",
+    "linkCopied": "Link copied to clipboard!",
+    "copyFailed": "Failed to copy link",
+    "email": "Email",
+    "twitter": "X",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp",
+    "youtube": "YouTube",
+    "scenes": {
+      "memorial": {
+        "title": "In Loving Memory",
+        "text": "Forever in our hearts 🌈 Remember {name} with me. Their love and joy will never be forgotten.",
+        "hashtags": "RainbowBridge,PetMemorial,ForeverLoved"
+      },
+      "video": {
+        "title": "My Pet's Movie",
+        "text": "Watch my pet's amazing AI movie! 🎬 Created with Pet Movie AI - Every pet deserves to be a star ⭐",
+        "hashtags": "PetMovie,AIPetVideo,PetLove"
+      },
+      "default": {
+        "title": "Pet Movie AI",
+        "text": "Check out this amazing pet video! 🐾 Made with Pet Movie AI",
+        "hashtags": "PetMovie,PetLove"
+      }
+    }
   }
 }

@@ -241,16 +241,18 @@ export function ScriptCreator() {
               // 旧格式：将单个 prompt 转为一个镜头
               shots = [{
                 shotNumber: 1,
-                durationSeconds: 15,
+                durationSeconds: 15, // 每个场景15秒
                 prompt: s.prompt,
                 cameraMovement: 'full scene',
               }];
             } else {
-              // 无数据：创建默认空镜头
+              // 无数据：创建默认5个空镜头（每个场景15秒，5个镜头各3秒）
               shots = [
-                { shotNumber: 1, durationSeconds: 5, prompt: '', cameraMovement: 'establishing shot' },
-                { shotNumber: 2, durationSeconds: 5, prompt: '', cameraMovement: 'medium shot' },
-                { shotNumber: 3, durationSeconds: 5, prompt: '', cameraMovement: 'close-up' },
+                { shotNumber: 1, durationSeconds: 3, prompt: '', cameraMovement: 'establishing shot' },
+                { shotNumber: 2, durationSeconds: 3, prompt: '', cameraMovement: 'medium shot' },
+                { shotNumber: 3, durationSeconds: 3, prompt: '', cameraMovement: 'close-up' },
+                { shotNumber: 4, durationSeconds: 3, prompt: '', cameraMovement: 'reaction shot' },
+                { shotNumber: 5, durationSeconds: 3, prompt: '', cameraMovement: 'wide shot' },
               ];
             }
 
@@ -356,11 +358,11 @@ export function ScriptCreator() {
     }
   };
 
-  // 根据时长计算分镜数量
+  // 根据时长计算分镜数量（每个场景15秒）
   const sceneCount = config.durationSeconds / 15;
 
   // 初始化分镜
-  // 每个场景默认包含 3 个镜头，总时长 15 秒
+  // 每个场景默认包含 5 个镜头，总时长 15 秒（保证60秒约20个分镜）
   const initializeScenes = useCallback(() => {
     const newScenes: SceneData[] = [];
     // 默认使用所有 primary 角色
@@ -369,11 +371,13 @@ export function ScriptCreator() {
       .map(c => c.id);
 
     for (let i = 1; i <= sceneCount; i++) {
-      // 创建默认的 3 个镜头（时长分配：5+5+5=15秒）
+      // 创建默认的 5 个镜头（时长分配：3+3+3+3+3=15秒）
       const defaultShots: ShotData[] = [
-        { shotNumber: 1, durationSeconds: 5, prompt: '', cameraMovement: 'establishing shot' },
-        { shotNumber: 2, durationSeconds: 5, prompt: '', cameraMovement: 'medium shot' },
-        { shotNumber: 3, durationSeconds: 5, prompt: '', cameraMovement: 'close-up' },
+        { shotNumber: 1, durationSeconds: 3, prompt: '', cameraMovement: 'establishing shot' },
+        { shotNumber: 2, durationSeconds: 3, prompt: '', cameraMovement: 'medium shot' },
+        { shotNumber: 3, durationSeconds: 3, prompt: '', cameraMovement: 'close-up' },
+        { shotNumber: 4, durationSeconds: 3, prompt: '', cameraMovement: 'reaction shot' },
+        { shotNumber: 5, durationSeconds: 3, prompt: '', cameraMovement: 'wide shot' },
       ];
 
       newScenes.push({
@@ -1269,7 +1273,7 @@ export function ScriptCreator() {
                 {/* 当前设置提示 */}
                 <div className="mb-3 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-sm">
                   <span className="text-purple-700 dark:text-purple-300">
-                    将生成 <strong>{config.durationSeconds / 15} 个场景</strong>（{config.durationSeconds} 秒），
+                    将生成 <strong>{config.durationSeconds / 15} 个场景</strong>（{config.durationSeconds} 秒，每场景约5个镜头），
                     比例 <strong>{config.aspectRatio}</strong>
                   </span>
                   <span className="text-purple-500 dark:text-purple-400 ml-2 text-xs">
@@ -1971,11 +1975,11 @@ A heartwarming Christmas story about a brave cat who saves its owner from a hous
                     <label className="text-xs font-medium text-gray-500 flex items-center gap-2">
                       Shots 镜头列表
                       <span className={`px-1.5 py-0.5 rounded text-xs ${
-                        getSceneDuration(scene) === 15
+                        getSceneDuration(scene) === 10
                           ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
                           : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300'
                       }`}>
-                        总时长: {getSceneDuration(scene)}s {getSceneDuration(scene) !== 15 && '(推荐15s)'}
+                        总时长: {getSceneDuration(scene)}s {getSceneDuration(scene) !== 10 && '(推荐10s)'}
                       </span>
                     </label>
                     <button

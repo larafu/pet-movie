@@ -38,5 +38,36 @@
   "locale_detector": {
     "title": "检测到浏览器语言是: {locale}，是否切换？",
     "switch_to": "切换到{locale}"
+  },
+  "share": {
+    "title": "分享",
+    "share": "分享",
+    "shareNow": "立即分享",
+    "shareTo": "分享到",
+    "orCopyLink": "或复制链接",
+    "linkCopied": "链接已复制到剪贴板！",
+    "copyFailed": "复制链接失败",
+    "email": "邮件",
+    "twitter": "X",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp",
+    "youtube": "YouTube",
+    "scenes": {
+      "memorial": {
+        "title": "永远怀念",
+        "text": "永远在我心中 🌈 与我一起怀念{name}，它们的爱与快乐永不会被遗忘。",
+        "hashtags": "彩虹桥,宠物纪念,永远的爱"
+      },
+      "video": {
+        "title": "我的宠物电影",
+        "text": "来看我宠物的 AI 电影！🎬 用 Pet Movie AI 制作 - 每个宠物都值得成为主角 ⭐",
+        "hashtags": "宠物电影,AI宠物视频,宠物爱"
+      },
+      "default": {
+        "title": "Pet Movie AI",
+        "text": "看看这个超棒的宠物视频！🐾 用 Pet Movie AI 制作",
+        "hashtags": "宠物电影,宠物爱"
+      }
+    }
   }
 }

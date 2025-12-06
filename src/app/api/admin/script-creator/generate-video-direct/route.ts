@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
       model: VIDEO_MODELS.SORA_2,
       prompt: fullVideoPrompt,
       aspect_ratio: aspectRatio,
-      duration: 15, // 每个分镜固定15秒
+      duration: 15, // 每个分镜固定15秒（4场景×15秒=60秒）
       image_urls: [frameImageUrl],
     });
 

@@ -577,7 +577,7 @@ async function generateVideoWithRetry(
         model: VIDEO_MODELS.SORA_2,
         prompt,
         aspect_ratio: aspectRatio,
-        duration: 15,
+        duration: 15, // 每个分镜固定15秒（4场景×15秒=60秒）
         image_urls: [frameImageUrl],
       });
 

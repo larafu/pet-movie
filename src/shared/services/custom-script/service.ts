@@ -78,7 +78,7 @@ export async function createCustomScript(
       customStyle: request.customStyle || null,
       scenesJson: JSON.stringify(generatedResult), // 包含 pet + globalStylePrefix + scenes
       storyTitle: generatedResult.title,
-      creditsUsed: 15, // 初始化扣除的积分
+      creditsUsed: 0, // 初始化免费（需要会员），积分在生成首帧图和视频时扣除
       createdAt: new Date(),
       updatedAt: new Date(),
     });
@@ -532,11 +532,11 @@ export async function generateSceneFrame(
       })
       .where(eq(customScriptScene.id, sceneId));
 
-    // 更新剧本已用积分
+    // 更新剧本已用积分（首帧图 = 1积分）
     await database
       .update(customScript)
       .set({
-        creditsUsed: scriptData.script.creditsUsed + 5,
+        creditsUsed: scriptData.script.creditsUsed + CUSTOM_SCRIPT_CREDITS.FRAME,
         updatedAt: new Date(),
       })
       .where(eq(customScript.id, scriptId));
@@ -640,12 +640,12 @@ export async function generateSceneVideo(
       ? `${globalStylePrefix}. ${scene.prompt}`
       : scene.prompt;
 
-    // 创建 Sora-2 视频生成任务（每个分镜15秒）
+    // 创建 Sora-2 视频生成任务（每个分镜15秒，4场景×15秒=60秒）
     const response = await evolinkClient.generateSora2Video({
       model: VIDEO_MODELS.SORA_2,
       prompt: fullVideoPrompt,
       aspect_ratio: scriptData.script.aspectRatio as '16:9' | '9:16',
-      duration: 15, // 每个分镜固定15秒
+      duration: 15, // 每个分镜固定15秒（4场景×15秒=60秒）
       image_urls: [scene.frameImageUrl], // 使用首帧图作为参考
     });
 
@@ -705,11 +705,11 @@ export async function generateSceneVideo(
       })
       .where(eq(customScriptScene.id, sceneId));
 
-    // 更新剧本已用积分
+    // 更新剧本已用积分（15秒视频 = 2积分）
     await database
       .update(customScript)
       .set({
-        creditsUsed: scriptData.script.creditsUsed + 10,
+        creditsUsed: scriptData.script.creditsUsed + CUSTOM_SCRIPT_CREDITS.VIDEO,
         updatedAt: new Date(),
       })
       .where(eq(customScript.id, scriptId));

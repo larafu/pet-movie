@@ -26,7 +26,7 @@ export type { PetAppearance, GeneratedScenes };
  * 结构说明：
  * - 先识别图片中的宠物外观
  * - 生成全局风格前缀（包含画面风格+角色一致性）
- * - 每个 scene 是一个 15 秒的场景段落，包含 3-4 个 shots
+ * - 每个 scene 是一个 10 秒的场景段落，包含 5 个 shots（保证1分钟30个分镜）
  */
 function buildGeminiVisionPrompt(
   userPrompt: string,
@@ -36,6 +36,7 @@ function buildGeminiVisionPrompt(
   customStyle?: string,
   musicPrompt?: string
 ): string {
+  // 每个场景15秒，总时长/15 = 场景数（60秒=4场景，120秒=8场景）
   const sceneCount = durationSeconds / 15;
   const orientationNote =
     aspectRatio === '9:16'
@@ -73,14 +74,16 @@ Carefully analyze the pet in the photo:
 ${musicSection}
 
 Create ${sceneCount} scene segments (each ~15 seconds).
+IMPORTANT: The total video must contain approximately 20 shots for 60 seconds (or 40 shots for 120 seconds), averaging 5 shots per scene.
 
 ## SCENE STRUCTURE
 
-Each scene contains 3-4 SHOTS:
-- **Shot 1 (0-3s)**: Establishing shot / transition
-- **Shot 2 (3-7s)**: Main action / key moment
-- **Shot 3 (7-11s)**: Reaction / detail / secondary action
-- **Shot 4 (11-15s)**: Conclusion / lead-in to next (optional)
+Each scene contains 5 SHOTS (to ensure ~20 shots per minute):
+- **Shot 1 (0-3s)**: Establishing shot / transition from previous scene
+- **Shot 2 (3-6s)**: Main action begins / key moment setup
+- **Shot 3 (6-9s)**: Peak action / emotional highlight
+- **Shot 4 (9-12s)**: Reaction / detail / secondary action
+- **Shot 5 (12-15s)**: Conclusion / smooth lead-in to next scene
 
 ## SHOT ELEMENTS
 
@@ -176,6 +179,7 @@ export async function generateScenesWithPetImage(
 
   // 根据场景数量动态计算 token 限制
   // 每个场景约需 500-800 tokens + 宠物描述约 200 tokens
+  // 每个场景15秒（60秒=4场景，120秒=8场景）
   const sceneCount = durationSeconds / 15;
   const estimatedTokensPerScene = 800;
   const maxTokens = Math.max(8000, sceneCount * estimatedTokensPerScene + 1500);
@@ -290,6 +294,7 @@ export async function generateScenesWithPetImage(
       };
     }
 
+    // 每个场景15秒（60秒=4场景，120秒=8场景）
     const expectedSceneCount = durationSeconds / 15;
     if (parsed.scenes.length !== expectedSceneCount) {
       console.warn(

@@ -319,15 +319,19 @@ export function getStylePrefix(
 // ==================== 积分定价 ====================
 
 export const CUSTOM_SCRIPT_CREDITS = {
-  INIT: 15, // 初始化（Gemini分镜生成）
-  FRAME: 5, // 每个首帧图
-  VIDEO: 10, // 每个15s视频
+  INIT: 0, // 初始化（Gemini分镜生成）- 免费，但需要会员
+  FRAME: 1, // 每个首帧图 = 1积分
+  VIDEO: 2, // 每个15s视频 = 2积分
 } as const;
 
 /**
  * 计算剧本总积分
+ * 每个场景15秒（60秒=4场景，120秒=8场景）
+ * 60秒 = 4 × (1+2) = 12积分
+ * 120秒 = 8 × (1+2) = 24积分
  */
 export function calculateTotalCredits(durationSeconds: 60 | 120): number {
+  // 每个场景15秒
   const sceneCount = durationSeconds / 15;
   return (
     CUSTOM_SCRIPT_CREDITS.INIT +

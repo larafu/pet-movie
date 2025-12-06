@@ -75,8 +75,8 @@ const formSchema = z.object({
   ownerFirstName: z.string().max(50).optional(),
   city: z.string().max(100).optional(),
   state: z.string().max(100).optional(),
-  isNameDisplayed: z.boolean().default(true),
-  isPublic: z.boolean().default(true),
+  isNameDisplayed: z.boolean(),
+  isPublic: z.boolean(),
 });
 
 type FormData = z.infer<typeof formSchema>;

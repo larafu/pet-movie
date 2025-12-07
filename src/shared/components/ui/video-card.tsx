@@ -7,7 +7,7 @@
  * 支持三种变体：inspiration（示例）、user（用户自己）、community（社区）
  */
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/shared/lib/utils";
 import {
@@ -33,6 +33,7 @@ import {
   DropdownMenuSeparator,
 } from "./dropdown-menu";
 import { ShareModal, type ShareData } from "./share-modal";
+import { VideoPlayerModal } from "./video-player-modal";
 
 export type AspectRatio = "16:9" | "9:16";
 
@@ -93,9 +94,54 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
   const [likeCount, setLikeCount] = useState(data.likeCount || 0);
   const [isPublic, setIsPublic] = useState(data.isPublic || false);
   const [shareModalOpen, setShareModalOpen] = useState(false);
+  const [playerModalOpen, setPlayerModalOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const aspectRatio = data.aspectRatio || "16:9";
+
+  // 清理单击定时器
+  useEffect(() => {
+    return () => {
+      if (clickTimeoutRef.current) {
+        clearTimeout(clickTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // 处理双击事件：打开全屏播放器
+  const handleDoubleClick = (e: React.MouseEvent) => {
+    // 清除单击定时器
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+      clickTimeoutRef.current = null;
+    }
+
+    // 阻止事件冒泡
+    e.stopPropagation();
+
+    // 打开播放器弹窗
+    setPlayerModalOpen(true);
+  };
+
+  // 处理单击事件：保留原有交互
+  const handleClick = (e: React.MouseEvent) => {
+    // 如果点击的是按钮或菜单，不处理
+    const target = e.target as HTMLElement;
+    if (
+      target.closest('button') ||
+      target.closest('[role="menuitem"]') ||
+      target.closest('[data-radix-collection-item]')
+    ) {
+      return;
+    }
+
+    // 延迟执行单击事件，等待可能的双击
+    clickTimeoutRef.current = setTimeout(() => {
+      // 这里可以添加原有的单击逻辑
+      // 目前保持空实现，保留原有单击交互
+    }, 250);
+  };
 
   // 加载状态渲染
   if (data.isLoading) {
@@ -431,6 +477,8 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
       )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
     >
       {/* 视频内容 */}
       <div className="relative w-full h-full">
@@ -576,6 +624,41 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
         open={shareModalOpen}
         onOpenChange={setShareModalOpen}
         shareData={getShareData()}
+      />
+
+      {/* 全屏视频播放器弹窗 */}
+      <VideoPlayerModal
+        open={playerModalOpen}
+        onClose={() => setPlayerModalOpen(false)}
+        data={{
+          id: data.id,
+          videoUrl: data.videoUrl,
+          title: data.title,
+          user: {
+            name: data.user.name,
+            avatarUrl: data.user.avatarUrl,
+          },
+          likeCount,
+          isLiked: liked,
+          originalVideoUrl: data.originalVideoUrl,
+          watermarkedVideoUrl: data.watermarkedVideoUrl,
+          isVIP: data.isVIP,
+        }}
+        actions={{
+          onLike: async (id, newCount, isLiked) => {
+            setLiked(isLiked || false);
+            setLikeCount(newCount || 0);
+            await actions?.onLike?.(id, newCount, isLiked);
+          },
+          onDownload: handleDownload,
+          onShare: () => {
+            // 关闭播放器弹窗，打开分享弹窗
+            setPlayerModalOpen(false);
+            setShareModalOpen(true);
+            actions?.onShare?.(data.id);
+          },
+          onCopyLink: handleCopyLink,
+        }}
       />
     </div>
   );

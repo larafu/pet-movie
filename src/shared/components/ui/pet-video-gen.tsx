@@ -46,6 +46,7 @@ import { VideoCard, type VideoCardData } from "./video-card";
 import { CustomScriptDialog } from "./custom-script-dialog";
 import { VIDEO_STYLES, type VideoStyleId } from "@/shared/services/custom-script/types";
 import { toast } from "sonner";
+import { CREDITS_CONFIG } from "@/config/plans";
 
 interface PetVideoGenProps {
   className?: string;
@@ -1201,7 +1202,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                     <Film className="w-4 h-4 text-primary" />
                     <span className="text-sm font-medium">{t("videoDuration")}: 60s</span>
                   </div>
-                  <span className="text-sm font-medium text-primary">100 {t("credits")}</span>
+                  <span className="text-sm font-medium text-primary">{CREDITS_CONFIG.VIDEO_60S} {t("credits")}</span>
                 </div>
               </div>
 
@@ -1260,7 +1261,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                 <span className="font-medium text-foreground">
                   {selectedTemplate === "custom"
                     ? `${customDuration === 60 ? "60" : "100"}+`
-                    : "15"
+                    : CREDITS_CONFIG.VIDEO_60S
                   } {t("credits")}
                 </span>
               </div>

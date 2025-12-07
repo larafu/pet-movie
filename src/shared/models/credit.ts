@@ -4,6 +4,7 @@ import { db } from '@/core/db';
 import { credit } from '@/config/db/schema';
 import { PaymentType } from '@/extensions/payment';
 import { getSnowId, getUuid } from '@/shared/lib/hash';
+import { CREDITS_CONFIG } from '@/config/plans';
 
 import { Order } from './order';
 import { appendUserToResult, getUserByUserIds, User } from './user';
@@ -350,11 +351,10 @@ export async function refundCredits({
 
 /**
  * 新用户注册赠送免费试用积分
- * 100积分 ≈ 1-2部纪念视频 (根据模板消耗)
  * 积分永不过期，每个用户只能领取一次
  */
 export async function grantFreeTrialCredit(userId: string) {
-  const freeTrialCredits = 100; // 100积分，约1-2部纪念视频
+  const freeTrialCredits = CREDITS_CONFIG.FREE_TRIAL;
 
   // 检查用户是否已领取过免费试用积分
   const existingFreeTrials = await db()
@@ -386,7 +386,7 @@ export async function grantFreeTrialCredit(userId: string) {
     transactionScene: CreditTransactionScene.GIFT,
     userId: userId,
     status: CreditStatus.ACTIVE,
-    description: 'Welcome bonus - 100 free credits for new users',
+    description: `Welcome bonus - ${CREDITS_CONFIG.FREE_TRIAL} free credits for new users`,
     credits: freeTrialCredits,
     remainingCredits: freeTrialCredits,
     expiresAt: null, // 永不过期

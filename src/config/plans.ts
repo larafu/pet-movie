@@ -103,3 +103,13 @@ export function getPlanConfig(planName: PlanName): PlanConfig {
  * 默认计划（未订阅用户）
  */
 export const DEFAULT_PLAN: PlanName = 'free';
+
+/**
+ * 积分配置
+ */
+export const CREDITS_CONFIG = {
+  // 60秒视频消耗积分
+  VIDEO_60S: 100,
+  // 新用户注册赠送积分
+  FREE_TRIAL: 100,
+} as const;

@@ -1,9 +1,9 @@
 import { MetadataRoute } from 'next';
+import { and, eq, isNull } from 'drizzle-orm';
 
-import { envConfigs } from '@/config';
 import { db } from '@/core/db';
+import { envConfigs } from '@/config';
 import { petMemorial } from '@/config/db/schema';
-import { eq, and, isNull } from 'drizzle-orm';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 移除 baseUrl 末尾的斜杠，避免生成双斜杠 URL
@@ -53,21 +53,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   // AI generator pages - high priority for SEO
-  const aiPages = ['video', 'image', 'music', 'chat'];
-  const aiUrls = aiPages.flatMap((page) =>
+  // 包含所有公开的 AI 生成器落地页
+  const aiGeneratorPages = [{ path: 'create-pet-movie', priority: 0.9 }];
+  const aiUrls = aiGeneratorPages.flatMap((page) =>
     locales.map((locale) => ({
       url:
         locale === 'en'
-          ? `${baseUrl}/ai/${page}`
-          : `${baseUrl}/${locale}/ai/${page}`,
+          ? `${baseUrl}/${page.path}`
+          : `${baseUrl}/${locale}/${page.path}`,
       lastModified: currentDate,
       changeFrequency: 'weekly' as const,
-      priority: 0.8,
+      priority: page.priority,
     }))
   );
 
   // Legal pages - low priority
-  const legalPages = ['privacy', 'terms'];
+  const legalPages = ['privacy', 'terms', 'content-policy', 'refund'];
   const legalUrls = legalPages.flatMap((page) =>
     locales.map((locale) => ({
       url:

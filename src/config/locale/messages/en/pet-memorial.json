@@ -10,7 +10,7 @@
   },
   "hero": {
     "title": "Rainbow Bridge Memorial",
-    "description": "Honor your beloved pets who have crossed the Rainbow Bridge. Create a beautiful memorial, share their story, and let others light candles in their memory.",
+    "description": "Create a gentle online memorial for your pet – with a glowing light in our Rainbow Garden, a personal story page, and the option to turn their photos into an AI memorial movie.",
     "createButton": "Create a Memorial",
     "scrollHint": "Scroll to explore"
   },
@@ -76,7 +76,30 @@
     "shareTitle": "Memorial for {name}",
     "linkCopied": "Link copied to clipboard!",
     "recentCandles": "Recent Candles",
-    "viewAllCandles": "View All Candles"
+    "viewAllCandles": "View All Candles",
+    "inLovingMemory": "In Loving Memory",
+    "ourStory": "Our Story",
+    "rememberingName": "Remembering {name}",
+    "payTribute": "Pay Tribute",
+    "lightCandleFor": "Light a Candle for {name}",
+    "candlesLit": "candles lit in loving memory",
+    "messagesOfLove": "Messages of Love",
+    "defaultVideoSet": "Default video set successfully",
+    "defaultVideoSetFailed": "Failed to set default video"
+  },
+  "videoGallery": {
+    "subtitle": "World Premiere",
+    "title": "The Film",
+    "doubleClickHint": "Double click to view fullscreen",
+    "defaultVideo": "Default",
+    "videoSettings": "Video Settings",
+    "setAsDefault": "Set as Default",
+    "videoCount": "{count} videos",
+    "currentlyPlaying": "currently playing"
+  },
+  "photoGallery": {
+    "subtitle": "Cherished Moments",
+    "title": "Photo Gallery"
   },
   "form": {
     "modalTitle": "Leave a Memorial for Your Pet",

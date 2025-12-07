@@ -10,7 +10,7 @@
   },
   "hero": {
     "title": "彩虹桥纪念墙",
-    "description": "纪念您跨越彩虹桥的心爱宠物。创建精美的纪念页面，分享它们的故事，让他人点燃蜡烛纪念。",
+    "description": "为您的宠物创建温馨的在线纪念——在我们的彩虹花园中点亮一盏蜡烛，创建专属的故事页面，还可以将它们的照片制作成 AI 纪念视频。",
     "createButton": "创建纪念",
     "scrollHint": "下滑浏览更多"
   },
@@ -76,7 +76,30 @@
     "shareTitle": "{name} 的纪念",
     "linkCopied": "链接已复制到剪贴板！",
     "recentCandles": "最近的蜡烛",
-    "viewAllCandles": "查看全部蜡烛"
+    "viewAllCandles": "查看全部蜡烛",
+    "inLovingMemory": "深切怀念",
+    "ourStory": "我们的故事",
+    "rememberingName": "怀念 {name}",
+    "payTribute": "致敬",
+    "lightCandleFor": "为 {name} 点燃蜡烛",
+    "candlesLit": "支蜡烛已被点亮",
+    "messagesOfLove": "爱的留言",
+    "defaultVideoSet": "默认视频设置成功",
+    "defaultVideoSetFailed": "设置默认视频失败"
+  },
+  "videoGallery": {
+    "subtitle": "世界首映",
+    "title": "生命电影",
+    "doubleClickHint": "双击全屏观看",
+    "defaultVideo": "默认",
+    "videoSettings": "视频设置",
+    "setAsDefault": "设为默认",
+    "videoCount": "{count} 个视频",
+    "currentlyPlaying": "当前播放"
+  },
+  "photoGallery": {
+    "subtitle": "珍贵时刻",
+    "title": "照片画廊"
   },
   "form": {
     "modalTitle": "为您的宠物留下纪念",

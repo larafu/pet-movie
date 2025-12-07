@@ -294,4 +294,4 @@ Key environment variables in `.env`:
 
 10、编程任务不能硬编码，考虑多语言处理、封装合理性。
 
-TODO： 检查一遍核心功能页面（create-pet-movie）的交互是否有上面的原则问题
+11、 所有新增页面都需要考虑 seo的问题，确保 sitemap 收录进去

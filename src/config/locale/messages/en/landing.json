@@ -691,6 +691,12 @@
     "delete": "Delete",
     "retry": "Retry"
   },
+  "videoPlayer": {
+    "close": "Close",
+    "play": "Play",
+    "pause": "Pause",
+    "doubleClickToPlay": "Double-click to play in fullscreen"
+  },
   "videoShare": {
     "aiGenerated": "AI Generated",
     "createdWithMagic": "Created with Magic",
@@ -725,7 +731,9 @@
     "makePrivateFailed": "Failed to set private",
     "makePublicFailed": "Failed to set public",
     "originalNotAvailable": "Original video not available",
-    "downloadingOriginal": "Downloading original version"
+    "downloadingOriginal": "Downloading original version",
+    "likeFailed": "Failed to like",
+    "downloadFailed": "Failed to download"
   },
   "customScript": {
     "title": "Custom Script Designer",

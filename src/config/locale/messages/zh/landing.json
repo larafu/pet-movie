@@ -674,6 +674,12 @@
     "delete": "删除",
     "retry": "重试"
   },
+  "videoPlayer": {
+    "close": "关闭",
+    "play": "播放",
+    "pause": "暂停",
+    "doubleClickToPlay": "双击全屏播放"
+  },
   "videoShare": {
     "aiGenerated": "AI生成",
     "createdWithMagic": "魔法创作",
@@ -708,7 +714,9 @@
     "makePrivateFailed": "设为私密失败",
     "makePublicFailed": "设为公开失败",
     "originalNotAvailable": "原始视频不可用",
-    "downloadingOriginal": "正在下载无水印版本"
+    "downloadingOriginal": "正在下载无水印版本",
+    "likeFailed": "点赞失败",
+    "downloadFailed": "下载失败"
   },
   "customScript": {
     "title": "自定义剧本设计器",

@@ -1,8 +1,11 @@
 import { MetadataRoute } from 'next';
 
 import { envConfigs } from '@/config';
+import { db } from '@/core/db';
+import { petMemorial } from '@/config/db/schema';
+import { eq, and, isNull } from 'drizzle-orm';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 移除 baseUrl 末尾的斜杠，避免生成双斜杠 URL
   const baseUrl = envConfigs.app_url.replace(/\/+$/, '');
   const locales = ['en', 'zh'];
@@ -77,11 +80,46 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
+  // Pet Memorial 动态页面 - 从数据库获取所有公开的纪念
+  let memorialUrls: MetadataRoute.Sitemap = [];
+  try {
+    const database = db();
+    const memorials = await database
+      .select({
+        id: petMemorial.id,
+        updatedAt: petMemorial.updatedAt,
+      })
+      .from(petMemorial)
+      .where(
+        and(
+          eq(petMemorial.isPublic, true),
+          eq(petMemorial.status, 'approved'),
+          isNull(petMemorial.deletedAt)
+        )
+      );
+
+    memorialUrls = memorials.flatMap((memorial) =>
+      locales.map((locale) => ({
+        url:
+          locale === 'en'
+            ? `${baseUrl}/pet-memorial/${memorial.id}`
+            : `${baseUrl}/${locale}/pet-memorial/${memorial.id}`,
+        lastModified: memorial.updatedAt || currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      }))
+    );
+  } catch (error) {
+    // 数据库查询失败时不影响其他 sitemap 条目
+    console.error('Failed to fetch pet memorials for sitemap:', error);
+  }
+
   return [
     ...homepageUrls,
     ...keyPageUrls,
     ...aiUrls,
     ...authUrls,
     ...legalUrls,
+    ...memorialUrls,
   ];
 }

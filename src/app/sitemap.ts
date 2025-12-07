@@ -3,7 +3,7 @@ import { and, eq, isNull } from 'drizzle-orm';
 
 import { db } from '@/core/db';
 import { envConfigs } from '@/config';
-import { petMemorial } from '@/config/db/schema';
+import { petMemorial, post } from '@/config/db/schema';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 移除 baseUrl 末尾的斜杠，避免生成双斜杠 URL
@@ -81,6 +81,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   );
 
+  // Blog 动态页面 - 从数据库获取所有已发布的博客文章
+  let blogUrls: MetadataRoute.Sitemap = [];
+  try {
+    const database = db();
+    const posts = await database
+      .select({
+        slug: post.slug,
+        updatedAt: post.updatedAt,
+      })
+      .from(post)
+      .where(
+        and(
+          eq(post.type, 'blog'),
+          eq(post.status, 'published'),
+          isNull(post.deletedAt)
+        )
+      );
+
+    blogUrls = posts.flatMap((blogPost) =>
+      locales.map((locale) => ({
+        url:
+          locale === 'en'
+            ? `${baseUrl}/blog/${blogPost.slug}`
+            : `${baseUrl}/${locale}/blog/${blogPost.slug}`,
+        lastModified: blogPost.updatedAt || currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      }))
+    );
+  } catch (error) {
+    // 数据库查询失败时不影响其他 sitemap 条目
+    console.error('Failed to fetch blog posts for sitemap:', error);
+  }
+
   // Pet Memorial 动态页面 - 从数据库获取所有公开的纪念
   let memorialUrls: MetadataRoute.Sitemap = [];
   try {
@@ -121,6 +155,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...aiUrls,
     ...authUrls,
     ...legalUrls,
+    ...blogUrls,
     ...memorialUrls,
   ];
 }

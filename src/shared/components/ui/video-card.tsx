@@ -650,12 +650,14 @@ export function VideoCard({ data, variant, actions, className }: VideoCardProps)
             setLikeCount(newCount || 0);
             await actions?.onLike?.(id, newCount, isLiked);
           },
-          onDownload: actions?.onDownload,
-          onShare: async (id) => {
+          onDownload: handleDownload,
+          onShare: () => {
+            // 关闭播放器弹窗，打开分享弹窗
             setPlayerModalOpen(false);
-            await actions?.onShare?.(id);
+            setShareModalOpen(true);
+            actions?.onShare?.(data.id);
           },
-          onCopyLink: actions?.onCopyLink,
+          onCopyLink: handleCopyLink,
         }}
       />
     </div>

@@ -14,6 +14,7 @@ import {
 } from '@/shared/services/pet-video/service';
 import { getRemainingCredits } from '@/shared/models/credit';
 import { getCreditsCost, getTemplate } from '@/shared/services/pet-video/template-loader';
+import { canCreateTask } from '@/shared/services/task-limiter';
 
 export async function POST(request: NextRequest) {
   try {
@@ -100,6 +101,25 @@ export async function POST(request: NextRequest) {
     }
 
     console.error('✅ [Generate API] All validations passed');
+
+    // 检查并发任务限制
+    const taskLimit = await canCreateTask(session.user.id);
+    console.error('🔒 [Generate API] Task limit check:', taskLimit);
+
+    if (!taskLimit.allowed) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Concurrent task limit reached',
+          code: 'CONCURRENT_LIMIT_EXCEEDED',
+          currentCount: taskLimit.currentCount,
+          maxAllowed: taskLimit.maxAllowed,
+          planName: taskLimit.planName,
+          message: `You have ${taskLimit.currentCount} tasks running. Your ${taskLimit.planName} plan allows ${taskLimit.maxAllowed} concurrent tasks. Please wait for current tasks to complete.`,
+        },
+        { status: 429 }
+      );
+    }
 
     // Check user credits before creating task
     const template = getTemplate(templateType);

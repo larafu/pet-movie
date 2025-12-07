@@ -1,79 +1,43 @@
 {
   "metadata": {
     "title": "价格方案",
-    "description": "选择适合您的套餐，开始创作宠物电影"
+    "description": "灵活的定价方案，满足每位创作者的需求"
   },
   "pricing": {
     "id": "pricing",
-    "sr_only_title": "Pet Movie AI 价格方案",
+    "sr_only_title": "PetMovie AI 价格方案",
     "title": "灵活定价 轻松创作",
     "description": "选择最适合您的方案，用 AI 为您的宠物创作电影级大片",
-    "items": [
+    "groups": [
       {
-        "title": "积分包",
-        "description": "一次购买，灵活使用",
-        "features_title": "包含",
-        "features": [
-          "700 积分",
-          "约10部25秒视频 或 5部50秒视频",
-          "4K 超高清输出",
-          "全部故事模板",
-          "优先处理队列",
-          "积分永久有效"
-        ],
-        "interval": "one-time",
-        "amount": 9900,
-        "currency": "USD",
-        "price": "$99",
-        "original_price": "$99",
-        "currencies": [
-          {
-            "currency": "CNY",
-            "amount": 69300,
-            "price": "¥693",
-            "original_price": "¥693",
-            "payment_providers": ["stripe", "creem"]
-          }
-        ],
-        "unit": "",
-        "is_featured": false,
-        "tip": "按需购买，积分永不过期",
-        "button": {
-          "title": "购买积分",
-          "url": "/#pricing",
-          "icon": "Zap"
-        },
-        "product_id": "credits-pro",
-        "product_name": "积分包",
-        "credits": 700
+        "name": "monthly",
+        "title": "月付",
+        "is_featured": false
       },
       {
-        "title": "创作达人·月付",
-        "description": "适合经常创作的内容创作者",
+        "name": "yearly",
+        "title": "年付",
+        "label": "省20%",
+        "is_featured": true
+      }
+    ],
+    "items": [
+      {
+        "title": "入门版",
+        "description": "适合休闲创作者",
         "features_title": "包含",
         "features": [
-          "每月 350 积分自动补充",
-          "约5部25秒视频/月 或 2部50秒视频/月",
-          "4K 超高清输出",
-          "全部故事模板",
-          "优先处理队列",
-          "7x24 在线客服",
-          "随时取消订阅"
+          "每月 400 积分",
+          "约6部纪念视频 (每部60秒)",
+          "无水印",
+          "2个并发任务",
+          "个人使用授权"
         ],
         "interval": "month",
-        "amount": 4900,
+        "amount": 999,
         "currency": "USD",
-        "price": "$49",
-        "original_price": "$49",
-        "currencies": [
-          {
-            "currency": "CNY",
-            "amount": 34300,
-            "price": "¥343",
-            "original_price": "¥343",
-            "payment_providers": ["stripe", "creem"]
-          }
-        ],
+        "price": "$9.99",
+        "original_price": "$9.99",
         "unit": "/ 月",
         "is_featured": false,
         "tip": "每月自动续费，随时取消",
@@ -82,53 +46,220 @@
           "url": "/#pricing",
           "icon": "Zap"
         },
-        "product_id": "creator-monthly",
-        "product_name": "创作达人月订阅",
-        "credits": 350,
-        "plan_name": "创作达人"
+        "product_id": "lite-monthly",
+        "product_name": "入门版月订阅",
+        "credits": 400,
+        "plan_name": "Lite",
+        "group": "monthly"
       },
       {
-        "title": "创作达人·年付",
-        "description": "年付更优惠，比月付再省 15%",
-        "label": "超值推荐",
+        "title": "入门版",
+        "description": "适合休闲创作者",
         "features_title": "包含",
         "features": [
-          "每月 350 积分自动补充（全年共 4200 积分）",
-          "约5部25秒视频/月 或 2部50秒视频/月",
-          "4K 超高清输出",
-          "全部故事模板",
-          "优先处理队列",
-          "7x24 在线客服",
-          "随时取消订阅"
+          "每月 400 积分 (全年 4,800 积分)",
+          "约6部纪念视频 (每部60秒)",
+          "无水印",
+          "2个并发任务",
+          "个人使用授权"
         ],
         "interval": "year",
-        "amount": 49900,
+        "amount": 9588,
         "currency": "USD",
-        "price": "$41.58",
-        "original_price": "$49",
-        "currencies": [
-          {
-            "currency": "CNY",
-            "amount": 349300,
-            "price": "¥291.1",
-            "original_price": "¥343",
-            "payment_providers": ["stripe", "creem"]
-          }
-        ],
+        "price": "$7.99",
+        "original_price": "$9.99",
         "unit": "/ 月",
-        "is_featured": true,
-        "tip": "¥3493/年（相当于 ¥291/月），比月付再省 15%",
+        "is_featured": false,
+        "tip": "$95.88/年，省20%",
         "button": {
           "title": "开始订阅",
           "url": "/#pricing",
           "icon": "Zap"
         },
-        "product_id": "creator-yearly",
-        "product_name": "创作达人年订阅",
-        "credits": 4200,
-        "plan_name": "创作达人"
+        "product_id": "lite-yearly",
+        "product_name": "入门版年订阅",
+        "credits": 4800,
+        "plan_name": "Lite",
+        "group": "yearly"
+      },
+      {
+        "title": "标准版",
+        "label": "超值推荐",
+        "description": "适合专业内容创作者",
+        "features_title": "包含",
+        "features": [
+          "每月 1,000 积分",
+          "约16部纪念视频 (每部60秒)",
+          "无水印",
+          "3个并发任务",
+          "商业使用授权"
+        ],
+        "interval": "month",
+        "amount": 2499,
+        "currency": "USD",
+        "price": "$24.99",
+        "original_price": "$24.99",
+        "unit": "/ 月",
+        "is_featured": true,
+        "tip": "最受欢迎的选择",
+        "button": {
+          "title": "开始创作",
+          "url": "/#pricing",
+          "icon": "Sparkles"
+        },
+        "product_id": "standard-monthly",
+        "product_name": "标准版月订阅",
+        "credits": 1000,
+        "plan_name": "Standard",
+        "group": "monthly"
+      },
+      {
+        "title": "标准版",
+        "label": "超值推荐",
+        "description": "适合专业内容创作者",
+        "features_title": "包含",
+        "features": [
+          "每月 1,000 积分 (全年 12,000 积分)",
+          "约16部纪念视频 (每部60秒)",
+          "无水印",
+          "3个并发任务",
+          "商业使用授权"
+        ],
+        "interval": "year",
+        "amount": 23988,
+        "currency": "USD",
+        "price": "$19.99",
+        "original_price": "$24.99",
+        "unit": "/ 月",
+        "is_featured": true,
+        "tip": "$239.88/年，省20%",
+        "button": {
+          "title": "开始创作",
+          "url": "/#pricing",
+          "icon": "Sparkles"
+        },
+        "product_id": "standard-yearly",
+        "product_name": "标准版年订阅",
+        "credits": 12000,
+        "plan_name": "Standard",
+        "group": "yearly"
+      },
+      {
+        "title": "专业版",
+        "description": "适合工作室和代理商",
+        "features_title": "包含",
+        "features": [
+          "每月 3,500 积分",
+          "约58部纪念视频 (每部60秒)",
+          "无水印",
+          "5个并发任务",
+          "商业使用授权",
+          "优先处理队列"
+        ],
+        "interval": "month",
+        "amount": 6999,
+        "currency": "USD",
+        "price": "$69.99",
+        "original_price": "$69.99",
+        "unit": "/ 月",
+        "is_featured": false,
+        "tip": "极致生产力",
+        "button": {
+          "title": "开始订阅",
+          "url": "/#pricing",
+          "icon": "Rocket"
+        },
+        "product_id": "pro-monthly",
+        "product_name": "专业版月订阅",
+        "credits": 3500,
+        "plan_name": "Pro",
+        "group": "monthly"
+      },
+      {
+        "title": "专业版",
+        "description": "适合工作室和代理商",
+        "features_title": "包含",
+        "features": [
+          "每月 3,500 积分 (全年 42,000 积分)",
+          "约58部纪念视频 (每部60秒)",
+          "无水印",
+          "5个并发任务",
+          "商业使用授权",
+          "优先处理队列"
+        ],
+        "interval": "year",
+        "amount": 67188,
+        "currency": "USD",
+        "price": "$55.99",
+        "original_price": "$69.99",
+        "unit": "/ 月",
+        "is_featured": false,
+        "tip": "$671.88/年，省20%",
+        "button": {
+          "title": "开始订阅",
+          "url": "/#pricing",
+          "icon": "Rocket"
+        },
+        "product_id": "pro-yearly",
+        "product_name": "专业版年订阅",
+        "credits": 42000,
+        "plan_name": "Pro",
+        "group": "yearly"
       }
-    ]
+    ],
+    "credit_packs": {
+      "title": "需要更多积分？",
+      "description": "随时购买积分包，积分永不过期",
+      "items": [
+        {
+          "title": "小型包",
+          "description": "约13部纪念视频",
+          "credits": 800,
+          "amount": 2900,
+          "currency": "USD",
+          "price": "$29",
+          "unit_price": "$0.036/积分",
+          "product_id": "pack-s",
+          "product_name": "积分包-小型",
+          "button": {
+            "title": "立即购买",
+            "icon": "ShoppingCart"
+          }
+        },
+        {
+          "title": "中型包",
+          "description": "约50部纪念视频",
+          "credits": 3000,
+          "amount": 9900,
+          "currency": "USD",
+          "price": "$99",
+          "unit_price": "$0.033/积分",
+          "is_featured": true,
+          "label": "热门",
+          "product_id": "pack-m",
+          "product_name": "积分包-中型",
+          "button": {
+            "title": "立即购买",
+            "icon": "ShoppingCart"
+          }
+        },
+        {
+          "title": "大型包",
+          "description": "约166部纪念视频",
+          "credits": 10000,
+          "amount": 29900,
+          "currency": "USD",
+          "price": "$299",
+          "unit_price": "$0.029/积分",
+          "product_id": "pack-l",
+          "product_name": "积分包-大型",
+          "button": {
+            "title": "立即购买",
+            "icon": "ShoppingCart"
+          }
+        }
+      ]
+    }
   },
   "page": {
     "current_plan": "当前方案",

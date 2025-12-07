@@ -30,6 +30,7 @@ import { createR2ProviderFromDb } from '@/extensions/storage/db-config-loader';
 import { mergeVideosWithRetry } from '@/extensions/video/merge-service';
 import { applyWatermarkWithRetry } from '@/extensions/video/watermark-service';
 import { refundCredits } from '@/shared/models/credit';
+import { shouldAddWatermark } from '@/shared/services/task-limiter';
 
 // 常量配置
 const MAX_RETRIES = 2;           // 单个生成任务的重试次数
@@ -231,24 +232,34 @@ export async function executeRainbowBridgeGeneration(taskId: string): Promise<vo
       throw new Error(mergeResult.error || 'Video merge failed');
     }
 
-    // Step 5: 加水印
+    // Step 5: 根据用户计划决定是否加水印
     await updateTaskStatus(taskId, 'applying_watermark');
 
+    // 使用已有的 task 变量获取用户ID
+    const needWatermark = await shouldAddWatermark(task.userId);
+
     let watermarkedUrl: string | undefined;
-    try {
-      const watermarkResult = await applyWatermarkWithRetry(mergeResult.mergedUrl, taskId);
-      if (watermarkResult.success && watermarkResult.watermarkedUrl) {
-        watermarkedUrl = watermarkResult.watermarkedUrl;
-      } else {
-        // 水印失败上报 Sentry，但不阻断流程
-        Sentry.captureMessage('Watermark failed', {
-          level: 'warning',
-          extra: { taskId, error: watermarkResult.error },
-        });
+
+    if (needWatermark) {
+      // 免费用户需要添加水印
+      try {
+        const watermarkResult = await applyWatermarkWithRetry(mergeResult.mergedUrl, taskId);
+        if (watermarkResult.success && watermarkResult.watermarkedUrl) {
+          watermarkedUrl = watermarkResult.watermarkedUrl;
+        } else {
+          // 水印失败上报 Sentry，但不阻断流程
+          Sentry.captureMessage('Watermark failed', {
+            level: 'warning',
+            extra: { taskId, error: watermarkResult.error },
+          });
+        }
+      } catch (err) {
+        // 水印异常上报 Sentry，但不阻断流程
+        Sentry.captureException(err, { extra: { taskId, step: 'watermark' } });
       }
-    } catch (err) {
-      // 水印异常上报 Sentry，但不阻断流程
-      Sentry.captureException(err, { extra: { taskId, step: 'watermark' } });
+    } else {
+      // 付费用户跳过水印，直接使用原视频
+      console.log(`[Rainbow Bridge] Skipping watermark for paid user: ${task.userId}`);
     }
 
     // 完成任务

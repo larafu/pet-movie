@@ -13,6 +13,7 @@ export interface PricingCurrency {
   amount: number; // price amount
   price: string; // price text
   original_price: string; // original price text
+  unit_price?: string; // 单价文本（用于积分包）
   payment_product_id?: string;
   payment_providers?: string[];
 }
@@ -29,6 +30,7 @@ export interface PricingItem {
   currencies?: PricingCurrency[]; // alternative currencies with different prices
 
   unit?: string;
+  unit_price?: string; // 单价文本（用于积分包）
   features_title?: string;
   features?: string[];
   button?: Button;
@@ -46,6 +48,30 @@ export interface PricingItem {
   group?: string;
 }
 
+// 积分包项目类型
+export interface CreditPackItem {
+  title?: string;
+  description?: string;
+  label?: string;
+  credits: number;
+  amount: number;
+  currency: string;
+  price: string;
+  unit_price?: string;
+  is_featured?: boolean;
+  product_id: string;
+  product_name?: string;
+  currencies?: PricingCurrency[];
+  button?: Button;
+}
+
+// 积分包配置
+export interface CreditPacks {
+  title?: string;
+  description?: string;
+  items?: CreditPackItem[];
+}
+
 export interface Pricing {
   id?: string;
   disabled?: boolean;
@@ -54,6 +80,7 @@ export interface Pricing {
   description?: string;
   items?: PricingItem[];
   groups?: PricingGroup[];
+  credit_packs?: CreditPacks; // 积分包配置
   className?: string;
   sr_only_title?: string;
 }

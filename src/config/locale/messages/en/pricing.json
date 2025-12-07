@@ -1,108 +1,265 @@
 {
   "metadata": {
     "title": "Pricing",
-    "description": "Choose your plan and start creating pet movies"
+    "description": "Flexible plans for every creator"
   },
   "pricing": {
     "id": "pricing",
-    "sr_only_title": "Pet Movie AI Pricing",
+    "sr_only_title": "PetMovie AI Pricing",
     "title": "Flexible Pricing for Every Creator",
     "description": "Choose the perfect plan and create cinematic pet movies with AI",
-    "items": [
+    "groups": [
       {
-        "title": "Credit Pack",
-        "description": "Buy once, use anytime",
-        "features_title": "Includes",
-        "features": [
-          "700 credits",
-          "~10 videos (25s) or 5 videos (50s)",
-          "4K ultra HD output",
-          "All story templates",
-          "Priority processing",
-          "Credits never expire"
-        ],
-        "interval": "one-time",
-        "amount": 9900,
-        "currency": "USD",
-        "price": "$99",
-        "original_price": "$99",
-        "unit": "",
-        "is_featured": false,
-        "tip": "Buy as needed, credits never expire",
-        "button": {
-          "title": "Buy Credits",
-          "url": "/#pricing",
-          "icon": "Zap"
-        },
-        "product_id": "credits-pro",
-        "product_name": "Credit Pack",
-        "credits": 700
+        "name": "monthly",
+        "title": "Monthly",
+        "is_featured": false
       },
       {
-        "title": "Creator · Monthly",
-        "description": "For frequent content creators",
+        "name": "yearly",
+        "title": "Yearly",
+        "label": "Save 20%",
+        "is_featured": true
+      }
+    ],
+    "items": [
+      {
+        "title": "Lite",
+        "description": "Perfect for casual creators",
         "features_title": "Includes",
         "features": [
-          "350 credits auto-refilled monthly",
-          "~5 videos/month (25s) or 2 videos/month (50s)",
-          "4K ultra HD output",
-          "All story templates",
-          "Priority processing queue",
-          "24/7 online support",
-          "Cancel anytime"
+          "400 credits / month",
+          "~6 memorial videos (60s each)",
+          "No watermark",
+          "2 concurrent tasks",
+          "Personal use license"
         ],
         "interval": "month",
-        "amount": 4900,
+        "amount": 999,
         "currency": "USD",
-        "price": "$49",
-        "original_price": "$49",
+        "price": "$9.99",
+        "original_price": "$9.99",
         "unit": "/ month",
         "is_featured": false,
         "tip": "Auto-renewed monthly, cancel anytime",
         "button": {
-          "title": "Start Subscription",
+          "title": "Subscribe",
           "url": "/#pricing",
           "icon": "Zap"
         },
-        "product_id": "creator-monthly",
-        "product_name": "Creator Monthly Subscription",
-        "credits": 350,
-        "plan_name": "Creator"
+        "product_id": "lite-monthly",
+        "product_name": "Lite Monthly",
+        "credits": 400,
+        "plan_name": "Lite",
+        "group": "monthly"
       },
       {
-        "title": "Creator · Annual",
-        "description": "Annual plan saves 15% vs monthly",
-        "label": "Best Value",
+        "title": "Lite",
+        "description": "Perfect for casual creators",
         "features_title": "Includes",
         "features": [
-          "350 credits auto-refilled monthly (4200/year total)",
-          "~5 videos/month (25s) or 2 videos/month (50s)",
-          "4K ultra HD output",
-          "All story templates",
-          "Priority processing queue",
-          "24/7 online support",
-          "Cancel anytime"
+          "400 credits / month (4,800/year)",
+          "~6 memorial videos (60s each)",
+          "No watermark",
+          "2 concurrent tasks",
+          "Personal use license"
         ],
         "interval": "year",
-        "amount": 49900,
+        "amount": 9588,
         "currency": "USD",
-        "price": "$41.58",
-        "original_price": "$49",
+        "price": "$7.99",
+        "original_price": "$9.99",
         "unit": "/ month",
-        "is_featured": true,
-        "tip": "$499/year (equivalent to $41.58/month), save 15% vs monthly",
+        "is_featured": false,
+        "tip": "$95.88/year, save 20%",
         "button": {
-          "title": "Start Subscription",
+          "title": "Subscribe",
           "url": "/#pricing",
           "icon": "Zap"
         },
-        "product_id": "creator-yearly",
-        "product_name": "Creator Annual Subscription",
-        "payment_product_id": "prod_3kiCPXvi5kPVXDiDH5GIJJ",
-        "credits": 4200,
-        "plan_name": "Creator"
+        "product_id": "lite-yearly",
+        "product_name": "Lite Annual",
+        "credits": 4800,
+        "plan_name": "Lite",
+        "group": "yearly"
+      },
+      {
+        "title": "Standard",
+        "label": "Best Value",
+        "description": "For serious content creators",
+        "features_title": "Includes",
+        "features": [
+          "1,000 credits / month",
+          "~16 memorial videos (60s each)",
+          "No watermark",
+          "3 concurrent tasks",
+          "Commercial license"
+        ],
+        "interval": "month",
+        "amount": 2499,
+        "currency": "USD",
+        "price": "$24.99",
+        "original_price": "$24.99",
+        "unit": "/ month",
+        "is_featured": true,
+        "tip": "Most popular choice",
+        "button": {
+          "title": "Start Creating",
+          "url": "/#pricing",
+          "icon": "Sparkles"
+        },
+        "product_id": "standard-monthly",
+        "product_name": "Standard Monthly",
+        "credits": 1000,
+        "plan_name": "Standard",
+        "group": "monthly"
+      },
+      {
+        "title": "Standard",
+        "label": "Best Value",
+        "description": "For serious content creators",
+        "features_title": "Includes",
+        "features": [
+          "1,000 credits / month (12,000/year)",
+          "~16 memorial videos (60s each)",
+          "No watermark",
+          "3 concurrent tasks",
+          "Commercial license"
+        ],
+        "interval": "year",
+        "amount": 23988,
+        "currency": "USD",
+        "price": "$19.99",
+        "original_price": "$24.99",
+        "unit": "/ month",
+        "is_featured": true,
+        "tip": "$239.88/year, save 20%",
+        "button": {
+          "title": "Start Creating",
+          "url": "/#pricing",
+          "icon": "Sparkles"
+        },
+        "product_id": "standard-yearly",
+        "product_name": "Standard Annual",
+        "credits": 12000,
+        "plan_name": "Standard",
+        "group": "yearly"
+      },
+      {
+        "title": "Pro",
+        "description": "For studios & agencies",
+        "features_title": "Includes",
+        "features": [
+          "3,500 credits / month",
+          "~58 memorial videos (60s each)",
+          "No watermark",
+          "5 concurrent tasks",
+          "Commercial license",
+          "Priority processing"
+        ],
+        "interval": "month",
+        "amount": 6999,
+        "currency": "USD",
+        "price": "$69.99",
+        "original_price": "$69.99",
+        "unit": "/ month",
+        "is_featured": false,
+        "tip": "Maximum productivity",
+        "button": {
+          "title": "Subscribe",
+          "url": "/#pricing",
+          "icon": "Rocket"
+        },
+        "product_id": "pro-monthly",
+        "product_name": "Pro Monthly",
+        "credits": 3500,
+        "plan_name": "Pro",
+        "group": "monthly"
+      },
+      {
+        "title": "Pro",
+        "description": "For studios & agencies",
+        "features_title": "Includes",
+        "features": [
+          "3,500 credits / month (42,000/year)",
+          "~58 memorial videos (60s each)",
+          "No watermark",
+          "5 concurrent tasks",
+          "Commercial license",
+          "Priority processing"
+        ],
+        "interval": "year",
+        "amount": 67188,
+        "currency": "USD",
+        "price": "$55.99",
+        "original_price": "$69.99",
+        "unit": "/ month",
+        "is_featured": false,
+        "tip": "$671.88/year, save 20%",
+        "button": {
+          "title": "Subscribe",
+          "url": "/#pricing",
+          "icon": "Rocket"
+        },
+        "product_id": "pro-yearly",
+        "product_name": "Pro Annual",
+        "credits": 42000,
+        "plan_name": "Pro",
+        "group": "yearly"
       }
-    ]
+    ],
+    "credit_packs": {
+      "title": "Need More Credits?",
+      "description": "Buy credit packs anytime, credits never expire",
+      "items": [
+        {
+          "title": "Pack S",
+          "description": "~13 memorial videos",
+          "credits": 800,
+          "amount": 2900,
+          "currency": "USD",
+          "price": "$29",
+          "unit_price": "$0.036/credit",
+          "product_id": "pack-s",
+          "product_name": "Credit Pack S",
+          "button": {
+            "title": "Buy Now",
+            "icon": "ShoppingCart"
+          }
+        },
+        {
+          "title": "Pack M",
+          "description": "~50 memorial videos",
+          "credits": 3000,
+          "amount": 9900,
+          "currency": "USD",
+          "price": "$99",
+          "unit_price": "$0.033/credit",
+          "is_featured": true,
+          "label": "Popular",
+          "product_id": "pack-m",
+          "product_name": "Credit Pack M",
+          "button": {
+            "title": "Buy Now",
+            "icon": "ShoppingCart"
+          }
+        },
+        {
+          "title": "Pack L",
+          "description": "~166 memorial videos",
+          "credits": 10000,
+          "amount": 29900,
+          "currency": "USD",
+          "price": "$299",
+          "unit_price": "$0.029/credit",
+          "product_id": "pack-l",
+          "product_name": "Credit Pack L",
+          "button": {
+            "title": "Buy Now",
+            "icon": "ShoppingCart"
+          }
+        }
+      ]
+    }
   },
   "page": {
     "current_plan": "Current Plan",

@@ -124,53 +124,73 @@ export async function executePetVideoGeneration(taskId: string): Promise<void> {
     });
     const originalVideoUrl = await uploadToR2WithRetry(taskId, tempVideoUrl);
 
-    // Step 4.5: Apply watermark (不阻塞主流程，失败时降级到原视频)
+    // Step 4.5: 根据用户计划决定是否加水印
     await updateTaskStatus(taskId, 'applying_watermark');
-    Sentry.addBreadcrumb({
-      category: 'task',
-      message: 'Starting watermark application',
-      level: 'info',
-    });
 
-    // 动态导入水印服务（避免在不需要时加载FFmpeg）
-    const { applyWatermarkWithRetry } = await import(
-      '@/extensions/video/watermark-service'
-    );
+    // 获取任务对应的用户ID（复用已有的 task 变量）
+    const currentUserId = task.userId;
 
-    const watermarkResult = await applyWatermarkWithRetry(
-      originalVideoUrl,
-      taskId
-    );
+    // 动态导入水印检查服务
+    const { shouldAddWatermark } = await import('@/shared/services/task-limiter');
+    const needWatermark = currentUserId ? await shouldAddWatermark(currentUserId) : true;
 
     let finalVideoUrl: string;
     let watermarkedVideoUrl: string | null = null;
 
-    if (watermarkResult.success && watermarkResult.watermarkedUrl) {
-      watermarkedVideoUrl = watermarkResult.watermarkedUrl;
-      finalVideoUrl = watermarkResult.watermarkedUrl; // 默认返回带水印版本
-
-      // 记录成功指标到Sentry
+    if (needWatermark) {
+      // 免费用户需要添加水印
       Sentry.addBreadcrumb({
         category: 'task',
-        message: 'Watermark applied successfully',
+        message: 'Starting watermark application',
         level: 'info',
-        data: {
-          processingTimeMs: watermarkResult.processingTimeMs,
-          tmpSizeUsedMB: watermarkResult.tmpSizeUsedMB,
-        },
       });
-    } else {
-      finalVideoUrl = originalVideoUrl; // 降级到原视频
-      watermarkedVideoUrl = null;
 
-      // 记录警告到Sentry（不影响主流程）
+      // 动态导入水印服务（避免在不需要时加载FFmpeg）
+      const { applyWatermarkWithRetry } = await import(
+        '@/extensions/video/watermark-service'
+      );
+
+      const watermarkResult = await applyWatermarkWithRetry(
+        originalVideoUrl,
+        taskId
+      );
+
+      if (watermarkResult.success && watermarkResult.watermarkedUrl) {
+        watermarkedVideoUrl = watermarkResult.watermarkedUrl;
+        finalVideoUrl = watermarkResult.watermarkedUrl; // 默认返回带水印版本
+
+        // 记录成功指标到Sentry
+        Sentry.addBreadcrumb({
+          category: 'task',
+          message: 'Watermark applied successfully',
+          level: 'info',
+          data: {
+            processingTimeMs: watermarkResult.processingTimeMs,
+            tmpSizeUsedMB: watermarkResult.tmpSizeUsedMB,
+          },
+        });
+      } else {
+        finalVideoUrl = originalVideoUrl; // 降级到原视频
+        watermarkedVideoUrl = null;
+
+        // 记录警告到Sentry（不影响主流程）
+        Sentry.addBreadcrumb({
+          category: 'task',
+          message: 'Watermark application failed, fallback to original',
+          level: 'warning',
+          data: {
+            error: watermarkResult.error,
+          },
+        });
+      }
+    } else {
+      // 付费用户跳过水印，直接使用原视频
+      finalVideoUrl = originalVideoUrl;
+      console.log(`[Pet Video] Skipping watermark for paid user: ${currentUserId}`);
       Sentry.addBreadcrumb({
         category: 'task',
-        message: 'Watermark application failed, fallback to original',
-        level: 'warning',
-        data: {
-          error: watermarkResult.error,
-        },
+        message: 'Skipping watermark for paid user',
+        level: 'info',
       });
     }
 

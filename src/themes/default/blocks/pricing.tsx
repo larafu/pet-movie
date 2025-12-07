@@ -31,6 +31,7 @@ import { Subscription } from '@/shared/models/subscription';
 import {
   PricingCurrency,
   PricingItem,
+  CreditPackItem,
   Pricing as PricingType,
 } from '@/shared/types/blocks/pricing';
 
@@ -121,14 +122,15 @@ export function Pricing({
     Record<string, { selectedCurrency: string; displayedItem: PricingItem }>
   >({});
 
-  // Initialize currency states for all items
+  // Initialize currency states for all items (subscriptions + credit packs)
   useEffect(() => {
-    if (pricing.items && pricing.items.length > 0) {
-      const initialCurrencyStates: Record<
-        string,
-        { selectedCurrency: string; displayedItem: PricingItem }
-      > = {};
+    const initialCurrencyStates: Record<
+      string,
+      { selectedCurrency: string; displayedItem: PricingItem }
+    > = {};
 
+    // 初始化订阅套餐的货币状态
+    if (pricing.items && pricing.items.length > 0) {
       pricing.items.forEach((item) => {
         const currencies = getCurrenciesFromItem(item);
         const selectedCurrency = getInitialCurrency(
@@ -162,33 +164,72 @@ export function Pricing({
           displayedItem,
         };
       });
-
-      setItemCurrencies(initialCurrencyStates);
     }
-  }, [pricing.items, locale]);
 
-  // Handler for currency change
+    // 初始化积分包的货币状态
+    if (pricing.credit_packs?.items && pricing.credit_packs.items.length > 0) {
+      pricing.credit_packs.items.forEach((pack) => {
+        const packAsItem = pack as unknown as PricingItem;
+        const currencies = getCurrenciesFromItem(packAsItem);
+        const selectedCurrency = getInitialCurrency(
+          currencies,
+          locale,
+          pack.currency
+        );
+
+        const currencyData = currencies.find(
+          (c) => c.currency.toLowerCase() === selectedCurrency.toLowerCase()
+        );
+
+        const displayedItem = currencyData
+          ? {
+            ...pack,
+            currency: currencyData.currency,
+            amount: currencyData.amount,
+            price: currencyData.price,
+            unit_price: currencyData.unit_price || pack.unit_price,
+            payment_providers: currencyData.payment_providers,
+          }
+          : pack;
+
+        initialCurrencyStates[pack.product_id] = {
+          selectedCurrency,
+          displayedItem: displayedItem as unknown as PricingItem,
+        };
+      });
+    }
+
+    setItemCurrencies(initialCurrencyStates);
+  }, [pricing.items, pricing.credit_packs, locale]);
+
+  // Handler for currency change (支持订阅套餐和积分包)
   const handleCurrencyChange = (productId: string, currency: string) => {
+    // 先在订阅套餐中查找
     const item = pricing.items?.find((i) => i.product_id === productId);
-    if (!item) return;
+    // 如果没找到，在积分包中查找
+    const pack = pricing.credit_packs?.items?.find((p) => p.product_id === productId);
 
-    const currencies = getCurrenciesFromItem(item);
+    const targetItem = item || (pack as unknown as PricingItem);
+    if (!targetItem) return;
+
+    const currencies = getCurrenciesFromItem(targetItem);
     const currencyData = currencies.find(
       (c) => c.currency.toLowerCase() === currency.toLowerCase()
     );
 
     if (currencyData) {
       const displayedItem = {
-        ...item,
+        ...targetItem,
         currency: currencyData.currency,
         amount: currencyData.amount,
         price: currencyData.price,
         original_price: currencyData.original_price,
+        unit_price: currencyData.unit_price || (targetItem as unknown as CreditPackItem).unit_price,
         // Override with currency-specific payment settings if available
         payment_product_id:
-          currencyData.payment_product_id || item.payment_product_id,
+          currencyData.payment_product_id || targetItem.payment_product_id,
         payment_providers:
-          currencyData.payment_providers || item.payment_providers,
+          currencyData.payment_providers || targetItem.payment_providers,
       };
 
       setItemCurrencies((prev) => ({
@@ -516,6 +557,122 @@ export function Pricing({
           })}
         </div>
       </div>
+
+      {/* 积分包区域 - 暂时隐藏，后续开放 */}
+      {/* TODO: 取消注释以启用积分包展示
+      {pricing.credit_packs && pricing.credit_packs.items && pricing.credit_packs.items.length > 0 && (
+        <div className="container mt-20">
+          <div className="mx-auto mb-8 text-center">
+            {pricing.credit_packs.title && (
+              <h3 className="mb-2 text-2xl font-bold">{pricing.credit_packs.title}</h3>
+            )}
+            {pricing.credit_packs.description && (
+              <p className="text-muted-foreground">{pricing.credit_packs.description}</p>
+            )}
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {pricing.credit_packs.items.map((pack: CreditPackItem, idx: number) => {
+              const packCurrencyState = itemCurrencies[pack.product_id];
+              const displayedPack = packCurrencyState?.displayedItem || pack;
+              const selectedPackCurrency = packCurrencyState?.selectedCurrency || pack.currency;
+              const packCurrencies = getCurrenciesFromItem(pack as unknown as PricingItem);
+
+              return (
+                <Card
+                  key={idx}
+                  className={cn(
+                    'relative transition-all hover:shadow-lg',
+                    pack.is_featured && 'border-primary ring-1 ring-primary/20'
+                  )}
+                >
+                  {pack.label && (
+                    <span className="absolute inset-x-0 -top-3 mx-auto flex h-6 w-fit items-center rounded-full bg-linear-to-br/increasing from-purple-400 to-amber-300 px-3 py-1 text-xs font-medium text-amber-950 ring-1 ring-white/20 ring-offset-1 ring-offset-gray-950/5 ring-inset">
+                      {pack.label}
+                    </span>
+                  )}
+
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg font-semibold">{pack.title}</CardTitle>
+                      <span className="text-muted-foreground text-sm">
+                        {pack.credits.toLocaleString()} credits
+                      </span>
+                    </div>
+
+                    {pack.description && (
+                      <CardDescription className="text-sm">{pack.description}</CardDescription>
+                    )}
+
+                    <div className="mt-4 flex items-baseline gap-2">
+                      <span className="text-primary text-3xl font-bold">
+                        {(displayedPack as CreditPackItem).price || pack.price}
+                      </span>
+                      {packCurrencies.length > 1 && (
+                        <Select
+                          value={selectedPackCurrency}
+                          onValueChange={(currency) =>
+                            handleCurrencyChange(pack.product_id, currency)
+                          }
+                        >
+                          <SelectTrigger
+                            size="sm"
+                            className="border-muted-foreground/30 bg-background/50 h-6 min-w-[60px] px-2 text-xs"
+                          >
+                            <SelectValue placeholder="Currency" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {packCurrencies.map((currency) => (
+                              <SelectItem
+                                key={currency.currency}
+                                value={currency.currency}
+                                className="text-xs"
+                              >
+                                {currency.currency.toUpperCase()}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    </div>
+
+                    {((displayedPack as CreditPackItem).unit_price || pack.unit_price) && (
+                      <span className="text-muted-foreground text-xs">
+                        {(displayedPack as CreditPackItem).unit_price || pack.unit_price}
+                      </span>
+                    )}
+
+                    <Button
+                      onClick={() => handlePayment(pack as unknown as PricingItem)}
+                      disabled={isLoading}
+                      variant={pack.is_featured ? 'default' : 'outline'}
+                      className="mt-4 w-full"
+                    >
+                      {isLoading && pack.product_id === productId ? (
+                        <>
+                          <Loader2 className="mr-2 size-4 animate-spin" />
+                          <span>{t('processing')}</span>
+                        </>
+                      ) : (
+                        <>
+                          {pack.button?.icon && (
+                            <SmartIcon
+                              name={pack.button.icon as string}
+                              className="mr-2 size-4"
+                            />
+                          )}
+                          <span>{pack.button?.title || 'Buy Now'}</span>
+                        </>
+                      )}
+                    </Button>
+                  </CardHeader>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      )}
+      */}
 
       <PaymentModal
         isLoading={isLoading}

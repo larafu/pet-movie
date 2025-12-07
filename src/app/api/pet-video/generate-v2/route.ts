@@ -20,6 +20,7 @@ import {
   executeRainbowBridgeGeneration,
 } from '@/shared/services/rainbow-bridge/service';
 import { getRemainingCredits, consumeCredits } from '@/shared/models/credit';
+import { canCreateTask } from '@/shared/services/task-limiter';
 
 export async function POST(request: NextRequest) {
   try {
@@ -71,6 +72,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: 'Invalid aspect ratio. Must be "16:9" or "9:16"' },
         { status: 400 }
+      );
+    }
+
+    // 检查并发任务限制
+    const taskLimit = await canCreateTask(userId);
+    console.log('🔒 [Generate V2] Task limit check:', taskLimit);
+
+    if (!taskLimit.allowed) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Concurrent task limit reached',
+          code: 'CONCURRENT_LIMIT_EXCEEDED',
+          currentCount: taskLimit.currentCount,
+          maxAllowed: taskLimit.maxAllowed,
+          planName: taskLimit.planName,
+          message: `You have ${taskLimit.currentCount} tasks running. Your ${taskLimit.planName} plan allows ${taskLimit.maxAllowed} concurrent tasks. Please wait for current tasks to complete.`,
+        },
+        { status: 429 }
       );
     }
 

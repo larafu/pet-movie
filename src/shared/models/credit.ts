@@ -348,11 +348,15 @@ export async function refundCredits({
   return result;
 }
 
-// Grant free trial credits to new users
+/**
+ * 新用户注册赠送免费试用积分
+ * 100积分 ≈ 1-2部纪念视频 (根据模板消耗)
+ * 积分永不过期，每个用户只能领取一次
+ */
 export async function grantFreeTrialCredit(userId: string) {
-  const freeTrialCredits = 5; // 5 credits = 1 free video generation
+  const freeTrialCredits = 100; // 100积分，约1-2部纪念视频
 
-  // Check if user already received free trial
+  // 检查用户是否已领取过免费试用积分
   const existingFreeTrials = await db()
     .select()
     .from(credit)
@@ -365,7 +369,7 @@ export async function grantFreeTrialCredit(userId: string) {
     )
     .limit(1);
 
-  // Skip if already granted
+  // 如果已领取过，跳过
   if (existingFreeTrials.length > 0) {
     const metadata = existingFreeTrials[0].metadata;
     if (metadata && metadata.includes('free_trial')) {
@@ -374,7 +378,7 @@ export async function grantFreeTrialCredit(userId: string) {
     }
   }
 
-  // Create free trial credit
+  // 创建免费试用积分记录
   const newCredit: NewCredit = {
     id: getUuid(),
     transactionNo: getSnowId(),
@@ -382,10 +386,10 @@ export async function grantFreeTrialCredit(userId: string) {
     transactionScene: CreditTransactionScene.GIFT,
     userId: userId,
     status: CreditStatus.ACTIVE,
-    description: 'Free trial credit - 1 free video generation',
+    description: 'Welcome bonus - 100 free credits for new users',
     credits: freeTrialCredits,
     remainingCredits: freeTrialCredits,
-    expiresAt: null, // Never expires
+    expiresAt: null, // 永不过期
     metadata: JSON.stringify({ source: 'free_trial', initial: true }),
   };
 

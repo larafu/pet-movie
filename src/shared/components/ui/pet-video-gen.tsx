@@ -1201,7 +1201,7 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
                     <Film className="w-4 h-4 text-primary" />
                     <span className="text-sm font-medium">{t("videoDuration")}: 60s</span>
                   </div>
-                  <span className="text-sm font-medium text-primary">15 {t("credits")}</span>
+                  <span className="text-sm font-medium text-primary">100 {t("credits")}</span>
                 </div>
               </div>
 

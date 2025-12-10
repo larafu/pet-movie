@@ -216,12 +216,13 @@ export function MemorialDetailV2({ id }: MemorialDetailV2Props) {
         <div className="container max-w-4xl mx-auto px-4">
           <div className="text-center space-y-6">
             {/* 宠物头像 */}
-            <div className="relative mx-auto w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-background shadow-xl">
+            <div className="relative mx-auto w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl ring-4 ring-primary/10">
               <Image
                 src={coverImage}
                 alt={petName}
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 128px, 160px"
                 priority
               />
             </div>
@@ -272,9 +273,9 @@ export function MemorialDetailV2({ id }: MemorialDetailV2Props) {
                 onClick={() => {
                   document.getElementById('tribute-section')?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="gap-2"
+                className="gap-2 shadow-lg hover:shadow-xl transition-shadow"
               >
-                <Flame className="w-5 h-5" />
+                <Flame className="w-5 h-5 text-orange-400" />
                 {t('lightCandle')}
               </Button>
               <Button size="lg" variant="outline" onClick={handleShare} className="gap-2">
@@ -317,8 +318,8 @@ export function MemorialDetailV2({ id }: MemorialDetailV2Props) {
                   />
                 )}
                 {/* 播放按钮覆盖层 */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/60 transition-colors">
-                  <div className="w-20 h-20 rounded-full bg-white/90 group-hover:bg-white flex items-center justify-center transition-colors">
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/60 transition-all duration-300">
+                  <div className="w-20 h-20 rounded-full bg-white/90 group-hover:bg-white group-hover:scale-110 flex items-center justify-center transition-all duration-300 shadow-2xl">
                     <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-black border-b-[12px] border-b-transparent ml-1" />
                   </div>
                 </div>
@@ -377,14 +378,17 @@ export function MemorialDetailV2({ id }: MemorialDetailV2Props) {
             {/* 照片网格 - 6张照片 */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {imageList.slice(0, 6).map((img: string, index: number) => (
-                <Card key={index} className="overflow-hidden group cursor-pointer">
+                <Card key={index} className="overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow">
                   <div className="relative aspect-square">
                     <Image
                       src={img}
                       alt={`${petName} - Photo ${index + 1}`}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                      sizes="(max-width: 768px) 50vw, 33vw"
                     />
+                    {/* 暗色遮罩层 hover 效果 */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                   </div>
                 </Card>
               ))}
@@ -471,15 +475,23 @@ export function MemorialDetailV2({ id }: MemorialDetailV2Props) {
       </section>
 
       {/* CTA Section - Create Your Pet's Movie */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-primary/5 to-background">
-        <div className="container max-w-4xl mx-auto px-4">
-          <Card className="p-8 md:p-12 text-center">
+      <section className="py-16 md:py-24 bg-gradient-to-b from-primary/5 to-background relative overflow-hidden">
+        {/* 背景装饰 */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-10 left-10 w-40 h-40 bg-primary rounded-full blur-3xl" />
+          <div className="absolute bottom-10 right-10 w-60 h-60 bg-primary rounded-full blur-3xl" />
+        </div>
+
+        <div className="container max-w-4xl mx-auto px-4 relative z-10">
+          <Card className="p-8 md:p-12 text-center shadow-xl border-2 border-primary/10 hover:border-primary/20 transition-all duration-300">
             <div className="max-w-2xl mx-auto space-y-6">
-              <Sparkles className="w-12 h-12 mx-auto text-primary" />
-              <h2 className="text-3xl md:text-4xl font-serif font-bold">
+              <div className="inline-block p-4 rounded-full bg-primary/10">
+                <Sparkles className="w-12 h-12 mx-auto text-primary animate-pulse" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
                 Create Your Pet's Memorial Movie
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-muted-foreground leading-relaxed">
                 Transform your cherished photos into a beautiful AI-generated memorial film.
                 Honor their memory with a cinematic tribute that captures their spirit.
               </p>
@@ -487,7 +499,11 @@ export function MemorialDetailV2({ id }: MemorialDetailV2Props) {
                 <Star className="w-4 h-4 fill-current text-yellow-500" />
                 <span>Trusted by 50,000+ pet parents • 4.9★ rated</span>
               </div>
-              <Button size="lg" onClick={handleCreateMemorial} className="text-lg px-8">
+              <Button
+                size="lg"
+                onClick={handleCreateMemorial}
+                className="text-lg px-8 shadow-lg hover:shadow-xl transition-shadow"
+              >
                 Create Memorial Movie
               </Button>
             </div>

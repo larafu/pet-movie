@@ -6,6 +6,7 @@
 export { MemorialCard } from './memorial-card';
 export { MemorialList } from './memorial-list';
 export { MemorialDetail } from './memorial-detail';
+export { MemorialDetailV2 } from './memorial-detail-v2';
 export { MemorialForm } from './memorial-form';
 export { MemorialFormModal } from './memorial-form-modal';
 export { MemorialHero } from './memorial-hero';

@@ -11,7 +11,7 @@ import { notFound } from 'next/navigation';
 import { db } from '@/core/db';
 import { petMemorial } from '@/config/db/schema';
 import { eq, isNull, and } from 'drizzle-orm';
-import { MemorialDetail } from '@/shared/components/pet-memorial';
+import { MemorialDetailV2 } from '@/shared/components/pet-memorial';
 
 interface PageProps {
   params: Promise<{
@@ -80,18 +80,16 @@ export default async function PetMemorialDetailPage({ params }: PageProps) {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 pt-[80px] pb-16">
-      <div className="w-full max-w-6xl mx-auto">
-        <Suspense
-          fallback={
-            <div className="flex items-center justify-center min-h-[400px]">
-              <Loader2 className="w-8 h-8 animate-spin text-primary" />
-            </div>
-          }
-        >
-          <MemorialDetail id={id} />
-        </Suspense>
-      </div>
+    <main className="min-h-screen pt-[64px]">
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center min-h-[400px]">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        }
+      >
+        <MemorialDetailV2 id={id} />
+      </Suspense>
     </main>
   );
 }

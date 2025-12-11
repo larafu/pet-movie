@@ -4,6 +4,7 @@ import { and, eq, isNull } from 'drizzle-orm';
 import { db } from '@/core/db';
 import { envConfigs } from '@/config';
 import { petMemorial, post } from '@/config/db/schema';
+import { postsSource } from '@/core/docs/source';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 移除 baseUrl 末尾的斜杠，避免生成双斜杠 URL
@@ -81,8 +82,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   );
 
-  // Blog 动态页面 - 从数据库获取所有已发布的博客文章
+  // Blog 动态页面 - 从数据库和MDX文件获取所有已发布的博客文章
   let blogUrls: MetadataRoute.Sitemap = [];
+
+  // 1. 从数据库获取博客文章
   try {
     const database = db();
     const posts = await database
@@ -113,6 +116,53 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   } catch (error) {
     // 数据库查询失败时不影响其他 sitemap 条目
     console.error('Failed to fetch blog posts for sitemap:', error);
+  }
+
+  // 2. 从MDX文件获取博客文章（混合存储策略）
+  try {
+    // 获取所有locale的MDX博客文章
+    const mdxBlogUrls: MetadataRoute.Sitemap = [];
+    const dbSlugs = new Set(
+      blogUrls
+        .map((url) => url.url.split('/blog/')[1]?.split('/')[0])
+        .filter(Boolean)
+    );
+
+    for (const locale of locales) {
+      const localPosts = postsSource.getPages(locale);
+      if (localPosts && localPosts.length > 0) {
+        for (const post of localPosts) {
+          // 从URL提取slug（post.url 格式：/blog/slug 或 /zh/blog/slug）
+          let slug = post.url;
+          if (slug.startsWith('/blog/')) {
+            slug = slug.replace('/blog/', '');
+          } else if (slug.startsWith(`/${locale}/blog/`)) {
+            slug = slug.replace(`/${locale}/blog/`, '');
+          }
+
+          // 避免重复添加数据库中已有的文章
+          if (!dbSlugs.has(slug)) {
+            const frontmatter = post.data as any;
+            mdxBlogUrls.push({
+              url:
+                locale === 'en'
+                  ? `${baseUrl}/blog/${slug}`
+                  : `${baseUrl}/${locale}/blog/${slug}`,
+              lastModified: frontmatter.created_at
+                ? new Date(frontmatter.created_at)
+                : currentDate,
+              changeFrequency: 'weekly' as const,
+              priority: 0.6,
+            });
+          }
+        }
+      }
+    }
+
+    // 合并数据库和MDX的博客文章
+    blogUrls = [...blogUrls, ...mdxBlogUrls];
+  } catch (error) {
+    console.error('Failed to fetch MDX blog posts for sitemap:', error);
   }
 
   // Pet Memorial 动态页面 - 从数据库获取所有公开的纪念

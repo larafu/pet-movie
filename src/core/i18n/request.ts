@@ -42,6 +42,10 @@ export default getRequestConfig(async ({ requestLocale }) => {
     locale = 'zh';
   }
 
+  if (['ja-JP'].includes(locale)) {
+    locale = 'ja';
+  }
+
   try {
     // load all local messages
     const allMessages = await Promise.all(

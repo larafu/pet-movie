@@ -1,0 +1,252 @@
+{
+  "metadata": {
+    "title": "虹の橋 ペット追悼ウォール | 愛するペットを偲んで",
+    "description": "虹の橋を渡った愛するペットのための美しい追悼ページを作成しましょう。ペットの物語を共有し、写真をアップロードし、他の方にキャンドルを灯していただけます。",
+    "keywords": "ペット追悼, 虹の橋, ペット追憶, 犬 追悼, 猫 追悼, ペット トリビュート, ペットロス, 愛を込めて"
+  },
+  "page": {
+    "title": "ペット追悼ウォール",
+    "description": "虹の橋を渡った愛するペットたちを偲び、追悼する場所です。"
+  },
+  "hero": {
+    "title": "虹の橋のあの子へ。写真からつくるオンラインのペットメモリアル",
+    "subtitle": "ペットロスで苦しい心に、そっと寄り添う場所を。スマホの写真からペットメモリアル動画と、虹の橋をイメージしたオンライン追悼ページを作成できます。遠くに住む家族とも、静かに思い出を分かち合えます。",
+    "primaryCta": "ペットメモリアルページを作成する",
+    "secondaryCta": "サンプルメモリアルを見る",
+    "badge": "オンラインでできるペット供養という選択"
+  },
+  "about": {
+    "title": "オンラインのペットメモリアルって、どんなもの？",
+    "body": "PetMovie.ai のペットメモリアルでは、虹の橋をイメージした油彩風のガーデンマップに、小さな灯りとしてペットの居場所をつくります。一匹ずつ専用のペットメモリアルページを持ち、写真・エピソード・メモリアルムービーをまとめて残すことができます。"
+  },
+  "whyOnline": {
+    "title": "お寺に行けなくても大丈夫。オンラインでできるペット供養",
+    "body": "忙しくてお寺まで行けない、遠方に住んでいる──そんな方のために、オンラインでできるペット供養の形を用意しました。虹の橋をイメージしたマップの中に小さな灯りを灯し、いつでもアクセスできるペットメモリアルページとして残せます。"
+  },
+  "howMemorialWorks": {
+    "title": "ペットメモリアルページのしくみ",
+    "items": {
+      "lightTitle": "1. 虹の橋ガーデンに灯りをともす",
+      "lightBody": "まずはペットの名前と命日を登録し、虹の橋ガーデンマップの中に小さな灯りをともします。地図上の一つひとつの光が、一匹のペットの物語を表しています。",
+      "storyTitle": "2. 写真とエピソードで物語を残す",
+      "storyBody": "ペットの写真や思い出のエピソード、好きだったおもちゃや口ぐせなどを自由に書き込めます。家族や友人にもURLを共有し、メッセージを残してもらうことができます。",
+      "movieTitle": "3. 写真からペットメモリアルムービーを作成",
+      "movieBody": "希望する方は、登録した写真からペットメモリアルムービーを作成できます。虹の橋をイメージしたやさしい演出で、ペットの一生を振り返る動画を残せます。"
+    }
+  },
+  "grief": {
+    "title": "ペットの思い出の残し方に正解はない。でも、形にしておくと心が少し楽になる",
+    "body": "「ペットの思い出 残し方」は人それぞれです。アルバムに写真を貼る人もいれば、虹の橋をモチーフにしたオブジェを飾る人もいます。PetMovie.ai では、写真からペットメモリアルムービーを作成し、いつでも見返せるオンラインの居場所として残すことで、ペットロスの心に寄り添います。"
+  },
+  "forFriends": {
+    "title": "ペットロスの友だちへの、そっとした贈り物として",
+    "body": "犬・猫が亡くなった友だちに、何を贈ればいいか分からないという声も多く聞きます。PetMovie.ai のペットメモリアルページとメモリアルムービーは、相手の負担を増やさず、必要なタイミングでそっと見返せる「オンラインのペットメモリアルプレゼント」としても利用できます。"
+  },
+  "ctaSection": {
+    "title": "あの子のために、小さな灯りをともしてみませんか？",
+    "subtitle": "今すぐ全てを整理しなくても大丈夫です。まずは名前と1枚の写真から、虹の橋ガーデンに小さな灯りをともすところから始められます。",
+    "primaryCta": "ペットメモリアルページを作成する",
+    "secondaryCta": "使い方ガイドを見る"
+  },
+  "create": {
+    "title": "メモリアルを作成",
+    "description": "愛するペットを追悼し、その物語を世界と共有するための美しい追悼ページを作成しましょう。"
+  },
+  "list": {
+    "searchByPetName": "ペット名で検索...",
+    "searchByOwnerName": "飼い主名で検索...",
+    "searchPlaceholder": "ペット名または飼い主名で検索...",
+    "sort": {
+      "latest": "最新順",
+      "popular": "人気順"
+    },
+    "createButton": "メモリアルを作成",
+    "resultCount": "{count}件のメモリアルを表示中",
+    "error": "メモリアルの読み込みに失敗しました。もう一度お試しください。",
+    "retry": "再試行",
+    "empty": "メモリアルが見つかりませんでした。最初のメモリアルを作成しましょう!",
+    "createFirst": "最初のメモリアルを作成"
+  },
+  "card": {
+    "hasVideo": "動画",
+    "species": {
+      "dog": "犬",
+      "cat": "猫",
+      "other": "その他"
+    },
+    "submittedBy": "{name}様より"
+  },
+  "detail": {
+    "backToList": "メモリアルウォールに戻る",
+    "error": "メモリアルの詳細の読み込みに失敗しました。もう一度お試しください。",
+    "retry": "再試行",
+    "noImage": "画像がありません",
+    "memorialVideo": "追悼ムービー",
+    "story": "その子の物語",
+    "species": {
+      "dog": "犬",
+      "cat": "猫",
+      "other": "その他"
+    },
+    "born": "誕生",
+    "passed": "永眠",
+    "submittedBy": "{name}様より",
+    "lightCandle": "キャンドルを灯す",
+    "lightCandleTitle": "追悼のキャンドルを灯す",
+    "yourName": "お名前(任意)",
+    "namePlaceholder": "お名前を入力してください",
+    "yourMessage": "メッセージ(任意)",
+    "messagePlaceholder": "慰めの言葉や思い出を残してください...",
+    "lightCandleButton": "キャンドルを灯す",
+    "candleLit": "キャンドルが灯されました",
+    "candleError": "キャンドルの点灯に失敗しました。もう一度お試しください。",
+    "createVideo": "追悼ムービーを作成",
+    "createVideoTitle": "追悼ムービーを作成",
+    "createVideoDescription": "この追悼ページを美しいムービーに変換します。アカウントのクレジットを使用します。",
+    "startGenerating": "生成を開始",
+    "videoStarted": "ムービーの生成が開始されました!しばらくしてからご確認ください。",
+    "videoError": "ムービーの生成開始に失敗しました。もう一度お試しください。",
+    "share": "メモリアルを共有",
+    "shareTitle": "{name}の追悼ページ",
+    "linkCopied": "リンクをクリップボードにコピーしました!",
+    "recentCandles": "最近のキャンドル",
+    "viewAllCandles": "すべてのキャンドルを見る",
+    "inLovingMemory": "愛を込めて偲んで",
+    "ourStory": "私たちの物語",
+    "rememberingName": "{name}を偲んで",
+    "payTribute": "追悼する",
+    "lightCandleFor": "{name}のためにキャンドルを灯す",
+    "candlesLit": "本のキャンドルが愛を込めて灯されました",
+    "messagesOfLove": "愛のメッセージ",
+    "defaultVideoSet": "デフォルト動画を設定しました",
+    "defaultVideoSetFailed": "デフォルト動画の設定に失敗しました"
+  },
+  "videoGallery": {
+    "subtitle": "ワールドプレミア",
+    "title": "ムービー",
+    "doubleClickHint": "ダブルクリックでフルスクリーン表示",
+    "defaultVideo": "デフォルト",
+    "videoSettings": "動画設定",
+    "setAsDefault": "デフォルトに設定",
+    "videoCount": "{count}本の動画",
+    "currentlyPlaying": "再生中"
+  },
+  "photoGallery": {
+    "subtitle": "大切な思い出",
+    "title": "フォトギャラリー"
+  },
+  "form": {
+    "modalTitle": "ペットの追悼ページを残す",
+    "modalDescription": "ペットの物語や写真を共有して、その生涯を讃えましょう。",
+    "successTitle": "ありがとうございます!",
+    "successMessage": "追悼ページの投稿ありがとうございます",
+    "successDescription": "追悼ページが作成され、メモリアルウォールに表示されています。",
+    "viewMemorial": "メモリアルを見る",
+    "close": "閉じる",
+    "petInfo": "ペット情報",
+    "personalInfo": "個人情報",
+    "basicInfo": "ペット情報",
+    "petName": "ペットの名前",
+    "petNamePlaceholder": "ペットの名前を入力してください",
+    "species": "種類",
+    "speciesPlaceholder": "種類を選択してください",
+    "speciesOptions": {
+      "dog": "犬",
+      "cat": "猫",
+      "other": "その他"
+    },
+    "birthday": "誕生日",
+    "dateOfPassing": "永眠日",
+    "selectDate": "日付を選択してください",
+    "photos": "写真をアップロード",
+    "photosDescription": "愛するペットの写真を1〜6枚アップロードしてください。最初の写真がカバー画像として使用されます。",
+    "photosDescriptionRequired": "愛するペットの写真を1〜6枚アップロードしてください(必須)。最初の写真がカバー画像として使用されます。",
+    "uploadPhotos": "クリックして写真をアップロード",
+    "uploadLimit": "{current}/6枚の写真をアップロード済み",
+    "maxImagesError": "アップロードできる写真は最大6枚です",
+    "uploadError": "写真のアップロードに失敗しました。もう一度お試しください。",
+    "memorySection": "思い出",
+    "message": "メッセージを残す",
+    "messagePlaceholder": "ペットを偲んでメッセージを残してください...",
+    "messageDescription": "追悼カードに表示される短いメッセージ(最大500文字)。",
+    "story": "その子の物語を教えてください",
+    "storyPlaceholder": "ペットの「物語」を教えてください...",
+    "storyDescription": "思い出、楽しかった瞬間、または皆さんに知ってほしいことを共有してください(最大5000文字)。",
+    "contactInfo": "あなたの情報",
+    "name": "お名前",
+    "namePlaceholder": "お名前を入力してください",
+    "firstName": "名",
+    "firstNamePlaceholder": "名を入力してください",
+    "lastName": "姓",
+    "city": "都市",
+    "cityPlaceholder": "都市を入力してください",
+    "state": "都道府県",
+    "statePlaceholder": "都道府県を入力してください",
+    "email": "メールアドレス",
+    "emailDescription": "誰かがペットのためにキャンドルを灯したときに通知します。",
+    "privacySettings": "プライバシー設定",
+    "displayName": "追悼ページに名前を表示する",
+    "displayNameDescription": "追悼ページにあなたの名前を表示します。",
+    "publicMemorial": "公開メモリアル",
+    "publicMemorialDescription": "この追悼ページをメモリアルウォールで他の方が閲覧できるようにします。",
+    "cancel": "キャンセル",
+    "submitMemorial": "メモリアルを投稿",
+    "createButton": "メモリアルを作成",
+    "updateButton": "メモリアルを更新",
+    "createSuccess": "メモリアルが正常に作成されました!",
+    "createError": "メモリアルの作成に失敗しました。もう一度お試しください。",
+    "updateSuccess": "メモリアルが正常に更新されました!",
+    "updateError": "メモリアルの更新に失敗しました。もう一度お試しください。",
+    "videoGuide": {
+      "title": "追悼ムービーを作成",
+      "description": "AIを使ってペットの写真を美しい映画のような追悼ムービーに変換します。愛する家族を追悼するのに最適です。",
+      "button": "ムービーを生成"
+    }
+  },
+  "error": {
+    "unauthorized": "続けるにはサインインしてください。",
+    "notFound": "メモリアルが見つかりません。",
+    "notOwner": "この操作を実行する権限がありません。",
+    "validation": "入力内容を確認してもう一度お試しください。",
+    "imageRequired": "少なくとも1枚の画像が必要です。",
+    "videoExists": "このメモリアルのムービーは既に生成されています。",
+    "insufficientCredits": "クレジットが不足しています。ムービーを生成するには、クレジットをご購入ください。"
+  },
+  "candle": {
+    "successTitle": "キャンドルが灯されました",
+    "successMessage": "愛するペットを偲んでキャンドルが灯されました。",
+    "viewMemorialVideo": "このペットのために作成された追悼ムービーを見る",
+    "createYourOwn": "あなたのペットのための美しいAI追悼ムービーを作成",
+    "viewDetailButton": "メモリアルを見る",
+    "createVideoButton": "追悼ムービーを作成",
+    "maybeLater": "後で"
+  },
+  "videos": {
+    "title": "私のペット動画",
+    "noVideos": "まだ動画がありません。最初のペット動画を作成しましょう!",
+    "retry": "再試行",
+    "public": "公開",
+    "private": "非公開",
+    "status": {
+      "completed": "完了",
+      "generating": "生成中",
+      "pending": "保留中",
+      "failed": "失敗"
+    },
+    "videoPlayer": "動画プレーヤー",
+    "videoNotReady": "動画の準備ができていません",
+    "publicVideo": "この動画は公開されています",
+    "privateVideo": "この動画は非公開です",
+    "download": "ダウンロード",
+    "share": "共有",
+    "shareVideoTitle": "私のペット動画をチェックしてください!",
+    "copyLink": "リンクをコピー",
+    "linkCopied": "リンクをコピーしました!",
+    "makePrivate": "非公開にする",
+    "makePublic": "公開する",
+    "enableShareFirst": "まず共有を有効にしてください",
+    "shareEnabled": "動画が公開されました",
+    "shareDisabled": "動画が非公開になりました",
+    "shareFailed": "共有の切り替えに失敗しました"
+  }
+}

@@ -108,6 +108,13 @@ export interface Testimonials extends Section {
   items?: TestimonialsItem[];
 }
 
+export interface ImageToVideoReveal {
+  title?: string;
+  description?: string;
+  beforeLabel?: string;
+  afterLabel?: string;
+}
+
 // landing props for landing page component
 export interface Landing {
   header?: Header;
@@ -123,6 +130,7 @@ export interface Landing {
   faq?: FAQ;
   cta?: CTA;
   testimonials?: Testimonials;
+  imageToVideoReveal?: ImageToVideoReveal;
   footer?: Footer;
   sections?: Section[];
 }

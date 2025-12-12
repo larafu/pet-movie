@@ -779,5 +779,11 @@
     "videoFailed": "Generation Failed",
     "videoFailedHint": "Video generation was blocked by safety policy. This may be caused by copyrighted content (like specific song names) in your prompts. Please modify your prompt to use generic descriptions instead of specific brand names, song titles, or celebrity names.",
     "retry": "Retry"
+  },
+  "imageToVideoReveal": {
+    "title": "Transform Your Pet into a Movie Star",
+    "description": "Watch the AI transformation happen in real-time",
+    "beforeLabel": "Original Photo",
+    "afterLabel": "Cinematic AI Result"
   }
 }

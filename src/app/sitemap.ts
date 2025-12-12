@@ -8,7 +8,7 @@ import { petMemorial, post } from '@/config/db/schema';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 移除 baseUrl 末尾的斜杠，避免生成双斜杠 URL
   const baseUrl = envConfigs.app_url.replace(/\/+$/, '');
-  const locales = ['en', 'zh'];
+  const locales = ['en', 'zh', 'ja']; // 添加日语支持
   const currentDate = new Date();
 
   // Homepage - highest priority, frequent updates

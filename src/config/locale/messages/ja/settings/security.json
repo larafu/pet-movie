@@ -1,0 +1,32 @@
+{
+  "fields": {
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "new_password": "新しいパスワード",
+    "confirm_password": "パスワードを確認"
+  },
+  "reset_password": {
+    "title": "パスワードをリセット",
+    "description": "パスワードをリセットします",
+    "tip": "パスワードをリセットするためのメールをお送りします。",
+    "crumbs": {
+      "settings": "設定",
+      "security": "セキュリティ"
+    },
+    "buttons": {
+      "submit": "保存"
+    }
+  },
+  "delete_account": {
+    "title": "アカウントを削除",
+    "description": "アカウントを削除します",
+    "tip": "本当にアカウントを削除しますか？この操作は元に戻せません。",
+    "crumbs": {
+      "settings": "設定",
+      "security": "セキュリティ"
+    },
+    "buttons": {
+      "submit": "削除"
+    }
+  }
+}

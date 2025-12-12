@@ -35,6 +35,7 @@ export default async function LandingPage({
     testimonials: t.raw('testimonials'),
     faq: t.raw('faq'),
     cta: t.raw('cta'),
+    imageToVideoReveal: t.raw('imageToVideoReveal'),
   };
 
   // load page component

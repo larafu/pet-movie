@@ -1,0 +1,49 @@
+{
+  "fields": {
+    "id": "ID",
+    "name": "名前",
+    "title": "タイトル",
+    "description": "説明",
+    "status": "ステータス",
+    "sort": "並び順",
+    "created_at": "作成日時",
+    "updated_at": "更新日時",
+    "permissions": "権限",
+    "actions": "操作"
+  },
+  "list": {
+    "title": "役割",
+    "crumbs": {
+      "admin": "管理",
+      "roles": "役割"
+    },
+    "buttons": {
+      "create": "役割を作成",
+      "edit": "役割を編集",
+      "edit_permissions": "権限を編集",
+      "delete": "役割を削除"
+    }
+  },
+  "edit": {
+    "title": "役割を編集",
+    "crumbs": {
+      "admin": "管理",
+      "roles": "役割",
+      "edit": "役割を編集"
+    },
+    "buttons": {
+      "submit": "更新"
+    }
+  },
+  "edit_permissions": {
+    "title": "権限を編集",
+    "crumbs": {
+      "admin": "管理",
+      "roles": "役割",
+      "edit_permissions": "権限を編集"
+    },
+    "buttons": {
+      "submit": "更新"
+    }
+  }
+}

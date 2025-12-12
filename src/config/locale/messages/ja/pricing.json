@@ -1,0 +1,268 @@
+{
+  "metadata": {
+    "title": "料金プラン",
+    "description": "すべてのクリエイターに最適なプラン"
+  },
+  "pricing": {
+    "id": "pricing",
+    "sr_only_title": "PetMovie AI 料金プラン",
+    "title": "すべてのクリエイターに柔軟な料金プラン",
+    "description": "最適なプランを選んで、AIでペットの映画的な動画を作成しましょう",
+    "groups": [
+      {
+        "name": "monthly",
+        "title": "月額",
+        "is_featured": false
+      },
+      {
+        "name": "yearly",
+        "title": "年額",
+        "label": "20%お得",
+        "is_featured": true
+      }
+    ],
+    "items": [
+      {
+        "title": "Lite",
+        "description": "カジュアルなクリエイターに最適",
+        "features_title": "含まれる内容",
+        "features": [
+          "月400クレジット",
+          "追悼動画 約6本(各60秒)",
+          "透かしなし",
+          "2つの同時タスク",
+          "個人利用ライセンス"
+        ],
+        "interval": "month",
+        "amount": 999,
+        "currency": "USD",
+        "price": "$9.99",
+        "original_price": "$9.99",
+        "unit": "/ 月",
+        "is_featured": false,
+        "tip": "毎月自動更新、いつでもキャンセル可能",
+        "button": {
+          "title": "登録する",
+          "url": "/#pricing",
+          "icon": "Zap"
+        },
+        "product_id": "lite-monthly",
+        "product_name": "Lite Monthly",
+        "credits": 400,
+        "plan_name": "Lite",
+        "group": "monthly"
+      },
+      {
+        "title": "Lite",
+        "description": "カジュアルなクリエイターに最適",
+        "features_title": "含まれる内容",
+        "features": [
+          "月400クレジット(年間4,800)",
+          "追悼動画 約6本(各60秒)",
+          "透かしなし",
+          "2つの同時タスク",
+          "個人利用ライセンス"
+        ],
+        "interval": "year",
+        "amount": 9588,
+        "currency": "USD",
+        "price": "$7.99",
+        "original_price": "$9.99",
+        "unit": "/ 月",
+        "is_featured": false,
+        "tip": "$95.88/年、20%お得",
+        "button": {
+          "title": "登録する",
+          "url": "/#pricing",
+          "icon": "Zap"
+        },
+        "product_id": "lite-yearly",
+        "product_name": "Lite Annual",
+        "credits": 4800,
+        "plan_name": "Lite",
+        "group": "yearly"
+      },
+      {
+        "title": "Standard",
+        "label": "ベストバリュー",
+        "description": "本格的なコンテンツクリエイター向け",
+        "features_title": "含まれる内容",
+        "features": [
+          "月1,000クレジット",
+          "追悼動画 約16本(各60秒)",
+          "透かしなし",
+          "3つの同時タスク",
+          "商用ライセンス"
+        ],
+        "interval": "month",
+        "amount": 2499,
+        "currency": "USD",
+        "price": "$24.99",
+        "original_price": "$24.99",
+        "unit": "/ 月",
+        "is_featured": true,
+        "tip": "最も人気の選択",
+        "button": {
+          "title": "作成を始める",
+          "url": "/#pricing",
+          "icon": "Sparkles"
+        },
+        "product_id": "standard-monthly",
+        "product_name": "Standard Monthly",
+        "credits": 1000,
+        "plan_name": "Standard",
+        "group": "monthly"
+      },
+      {
+        "title": "Standard",
+        "label": "ベストバリュー",
+        "description": "本格的なコンテンツクリエイター向け",
+        "features_title": "含まれる内容",
+        "features": [
+          "月1,000クレジット(年間12,000)",
+          "追悼動画 約16本(各60秒)",
+          "透かしなし",
+          "3つの同時タスク",
+          "商用ライセンス"
+        ],
+        "interval": "year",
+        "amount": 23988,
+        "currency": "USD",
+        "price": "$19.99",
+        "original_price": "$24.99",
+        "unit": "/ 月",
+        "is_featured": true,
+        "tip": "$239.88/年、20%お得",
+        "button": {
+          "title": "作成を始める",
+          "url": "/#pricing",
+          "icon": "Sparkles"
+        },
+        "product_id": "standard-yearly",
+        "product_name": "Standard Annual",
+        "credits": 12000,
+        "plan_name": "Standard",
+        "group": "yearly"
+      },
+      {
+        "title": "Pro",
+        "description": "スタジオ&エージェンシー向け",
+        "features_title": "含まれる内容",
+        "features": [
+          "月3,500クレジット",
+          "追悼動画 約58本(各60秒)",
+          "透かしなし",
+          "5つの同時タスク",
+          "商用ライセンス",
+          "優先処理"
+        ],
+        "interval": "month",
+        "amount": 6999,
+        "currency": "USD",
+        "price": "$69.99",
+        "original_price": "$69.99",
+        "unit": "/ 月",
+        "is_featured": false,
+        "tip": "最大の生産性",
+        "button": {
+          "title": "登録する",
+          "url": "/#pricing",
+          "icon": "Rocket"
+        },
+        "product_id": "pro-monthly",
+        "product_name": "Pro Monthly",
+        "credits": 3500,
+        "plan_name": "Pro",
+        "group": "monthly"
+      },
+      {
+        "title": "Pro",
+        "description": "スタジオ&エージェンシー向け",
+        "features_title": "含まれる内容",
+        "features": [
+          "月3,500クレジット(年間42,000)",
+          "追悼動画 約58本(各60秒)",
+          "透かしなし",
+          "5つの同時タスク",
+          "商用ライセンス",
+          "優先処理"
+        ],
+        "interval": "year",
+        "amount": 67188,
+        "currency": "USD",
+        "price": "$55.99",
+        "original_price": "$69.99",
+        "unit": "/ 月",
+        "is_featured": false,
+        "tip": "$671.88/年、20%お得",
+        "button": {
+          "title": "登録する",
+          "url": "/#pricing",
+          "icon": "Rocket"
+        },
+        "product_id": "pro-yearly",
+        "product_name": "Pro Annual",
+        "credits": 42000,
+        "plan_name": "Pro",
+        "group": "yearly"
+      }
+    ],
+    "credit_packs": {
+      "title": "さらにクレジットが必要ですか？",
+      "description": "いつでもクレジットパックを購入可能、クレジットは無期限",
+      "items": [
+        {
+          "title": "Pack S",
+          "description": "追悼動画 約13本",
+          "credits": 800,
+          "amount": 2900,
+          "currency": "USD",
+          "price": "$29",
+          "unit_price": "$0.036/クレジット",
+          "product_id": "pack-s",
+          "product_name": "Credit Pack S",
+          "button": {
+            "title": "今すぐ購入",
+            "icon": "ShoppingCart"
+          }
+        },
+        {
+          "title": "Pack M",
+          "description": "追悼動画 約50本",
+          "credits": 3000,
+          "amount": 9900,
+          "currency": "USD",
+          "price": "$99",
+          "unit_price": "$0.033/クレジット",
+          "is_featured": true,
+          "label": "人気",
+          "product_id": "pack-m",
+          "product_name": "Credit Pack M",
+          "button": {
+            "title": "今すぐ購入",
+            "icon": "ShoppingCart"
+          }
+        },
+        {
+          "title": "Pack L",
+          "description": "追悼動画 約166本",
+          "credits": 10000,
+          "amount": 29900,
+          "currency": "USD",
+          "price": "$299",
+          "unit_price": "$0.029/クレジット",
+          "product_id": "pack-l",
+          "product_name": "Credit Pack L",
+          "button": {
+            "title": "今すぐ購入",
+            "icon": "ShoppingCart"
+          }
+        }
+      ]
+    }
+  },
+  "page": {
+    "current_plan": "現在のプラン",
+    "processing": "処理中"
+  }
+}

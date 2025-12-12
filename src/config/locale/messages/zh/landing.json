@@ -762,5 +762,11 @@
     "videoFailed": "生成失败",
     "videoFailedHint": "视频生成被安全策略拦截。可能是提示词中包含版权内容（如特定歌曲名称）。请修改提示词，使用通用描述代替具体的品牌名、歌曲名或名人名字。",
     "retry": "重试"
+  },
+  "imageToVideoReveal": {
+    "title": "让您的宠物变身电影明星",
+    "description": "观看AI实时变换",
+    "beforeLabel": "原始照片",
+    "afterLabel": "电影级AI效果"
   }
 }

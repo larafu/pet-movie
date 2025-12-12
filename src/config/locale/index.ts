@@ -3,9 +3,10 @@ import { envConfigs } from '..';
 export const localeNames: any = {
   en: 'English',
   zh: '中文',
+  ja: '日本語',
 };
 
-export const locales = ['en', 'zh'];
+export const locales = ['en', 'zh', 'ja'];
 
 export const defaultLocale = envConfigs.locale;
 
@@ -48,5 +49,6 @@ export const localeMessagesPaths = [
   'ai/image',
   'ai/video',
   'activity/sidebar',
+  'activity/chats',
   'activity/ai-tasks',
 ];

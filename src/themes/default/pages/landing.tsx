@@ -83,15 +83,19 @@ export default async function LandingPage({
       {page.hero && <Hero hero={page.hero} />}
 
       {/* Image to Video Reveal - Cinematic Transformation */}
-      <ImageToVideoReveal
-        beforeImage="/imgs/dog.avif"
-        afterVideo="https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4"
-        videoPoster="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1200&auto=format&fit=crop"
-        beforeLabel="Original Photo"
-        afterLabel="Cinematic AI Result"
-        autoRevealDelay={1500}
-        revealDuration={2.5}
-      />
+      {page.imageToVideoReveal && (
+        <ImageToVideoReveal
+          beforeImage="/imgs/dog.avif"
+          afterVideo="https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4"
+          videoPoster="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1200&auto=format&fit=crop"
+          title={page.imageToVideoReveal.title}
+          description={page.imageToVideoReveal.description}
+          beforeLabel={page.imageToVideoReveal.beforeLabel}
+          afterLabel={page.imageToVideoReveal.afterLabel}
+          autoRevealDelay={1500}
+          revealDuration={2.5}
+        />
+      )}
 
       {/* SEO Section - Carousel with H1 and all keywords */}
       {page.showcases && <VideoShowcaseCarousel showcases={page.showcases} useH1={true} />}

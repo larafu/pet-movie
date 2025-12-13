@@ -51,6 +51,12 @@ export function LocaleDetector() {
 
   const switchToLocale = useCallback(
     (locale: string) => {
+      // 安全检查：只允许切换到支持的语言
+      if (!locales.includes(locale)) {
+        console.warn(`[LocaleDetector] 尝试切换到不支持的语言: ${locale}`);
+        cacheSet(PREFERRED_LOCALE_KEY, '');
+        return;
+      }
       router.replace(pathname, { locale });
       cacheSet(PREFERRED_LOCALE_KEY, locale);
       setShowBanner(false);
@@ -73,6 +79,12 @@ export function LocaleDetector() {
     // Check if user has dismissed the banner or already set a preference
     const dismissed = isDismissed();
     const preferredLocale = cacheGet(PREFERRED_LOCALE_KEY);
+
+    // 如果存储的语言偏好不在支持列表中，清除它
+    if (preferredLocale && !locales.includes(preferredLocale)) {
+      cacheSet(PREFERRED_LOCALE_KEY, '');
+      return;
+    }
 
     // If user has previously clicked to switch locale, auto-switch to that preference
     if (

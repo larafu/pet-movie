@@ -1,0 +1,270 @@
+{
+  "metadata": {
+    "title": "Preços | PetMovie AI — Gerador de vídeo com IA (4K, sem marca d'água)",
+    "description": "Planos flexíveis para criar filme do seu pet: exportação 4K, sem marca d'água e opções de licença. Escolha o plano ideal e comece a criar hoje.",
+    "keywords": "preços pet movie, gerador de vídeo com IA, filme de pet 4K, sem marca d'água, licença comercial"
+  },
+  "pricing": {
+    "id": "pricing",
+    "sr_only_title": "Preços PetMovie AI",
+    "title": "PREÇOS",
+    "description": "Planos flexíveis para criar vídeos do seu pet com IA",
+    "badges": ["4K", "Sem marca d'água", "Processamento prioritário (em planos selecionados)"],
+    "groups": [
+      {
+        "name": "monthly",
+        "title": "Mensal",
+        "is_featured": false
+      },
+      {
+        "name": "yearly",
+        "title": "Anual",
+        "label": "Economize 20%",
+        "is_featured": true
+      }
+    ],
+    "items": [
+      {
+        "title": "Lite",
+        "description": "Perfeito para criadores casuais",
+        "features_title": "Inclui",
+        "features": [
+          "400 créditos / mês",
+          "~6 vídeos memorial (60s cada)",
+          "Sem marca d'água",
+          "2 tarefas simultâneas",
+          "Licença uso pessoal"
+        ],
+        "interval": "month",
+        "amount": 999,
+        "currency": "USD",
+        "price": "$9,99",
+        "original_price": "$9,99",
+        "unit": "/ mês",
+        "is_featured": false,
+        "tip": "Renovação automática mensal, cancele a qualquer momento",
+        "button": {
+          "title": "Assinar",
+          "url": "/#pricing",
+          "icon": "Zap"
+        },
+        "product_id": "lite-monthly",
+        "product_name": "Lite Mensal",
+        "credits": 400,
+        "plan_name": "Lite",
+        "group": "monthly"
+      },
+      {
+        "title": "Lite",
+        "description": "Perfeito para criadores casuais",
+        "features_title": "Inclui",
+        "features": [
+          "400 créditos / mês (4.800/ano)",
+          "~6 vídeos memorial (60s cada)",
+          "Sem marca d'água",
+          "2 tarefas simultâneas",
+          "Licença uso pessoal"
+        ],
+        "interval": "year",
+        "amount": 9588,
+        "currency": "USD",
+        "price": "$7,99",
+        "original_price": "$9,99",
+        "unit": "/ mês",
+        "is_featured": false,
+        "tip": "$95,88/ano, economize 20%",
+        "button": {
+          "title": "Assinar",
+          "url": "/#pricing",
+          "icon": "Zap"
+        },
+        "product_id": "lite-yearly",
+        "product_name": "Lite Anual",
+        "credits": 4800,
+        "plan_name": "Lite",
+        "group": "yearly"
+      },
+      {
+        "title": "Standard",
+        "label": "Melhor Valor",
+        "description": "Para criadores de conteúdo sérios",
+        "features_title": "Inclui",
+        "features": [
+          "1.000 créditos / mês",
+          "~16 vídeos memorial (60s cada)",
+          "Sem marca d'água",
+          "3 tarefas simultâneas",
+          "Licença comercial"
+        ],
+        "interval": "month",
+        "amount": 2499,
+        "currency": "USD",
+        "price": "$24,99",
+        "original_price": "$24,99",
+        "unit": "/ mês",
+        "is_featured": true,
+        "tip": "Escolha mais popular",
+        "button": {
+          "title": "Começar a Criar",
+          "url": "/#pricing",
+          "icon": "Sparkles"
+        },
+        "product_id": "standard-monthly",
+        "product_name": "Standard Mensal",
+        "credits": 1000,
+        "plan_name": "Standard",
+        "group": "monthly"
+      },
+      {
+        "title": "Standard",
+        "label": "Melhor Valor",
+        "description": "Para criadores de conteúdo sérios",
+        "features_title": "Inclui",
+        "features": [
+          "1.000 créditos / mês (12.000/ano)",
+          "~16 vídeos memorial (60s cada)",
+          "Sem marca d'água",
+          "3 tarefas simultâneas",
+          "Licença comercial"
+        ],
+        "interval": "year",
+        "amount": 23988,
+        "currency": "USD",
+        "price": "$19,99",
+        "original_price": "$24,99",
+        "unit": "/ mês",
+        "is_featured": true,
+        "tip": "$239,88/ano, economize 20%",
+        "button": {
+          "title": "Começar a Criar",
+          "url": "/#pricing",
+          "icon": "Sparkles"
+        },
+        "product_id": "standard-yearly",
+        "product_name": "Standard Anual",
+        "credits": 12000,
+        "plan_name": "Standard",
+        "group": "yearly"
+      },
+      {
+        "title": "Pro",
+        "description": "Para estúdios e agências",
+        "features_title": "Inclui",
+        "features": [
+          "3.500 créditos / mês",
+          "~58 vídeos memorial (60s cada)",
+          "Sem marca d'água",
+          "5 tarefas simultâneas",
+          "Licença comercial",
+          "Processamento prioritário"
+        ],
+        "interval": "month",
+        "amount": 6999,
+        "currency": "USD",
+        "price": "$69,99",
+        "original_price": "$69,99",
+        "unit": "/ mês",
+        "is_featured": false,
+        "tip": "Máxima produtividade",
+        "button": {
+          "title": "Assinar",
+          "url": "/#pricing",
+          "icon": "Rocket"
+        },
+        "product_id": "pro-monthly",
+        "product_name": "Pro Mensal",
+        "credits": 3500,
+        "plan_name": "Pro",
+        "group": "monthly"
+      },
+      {
+        "title": "Pro",
+        "description": "Para estúdios e agências",
+        "features_title": "Inclui",
+        "features": [
+          "3.500 créditos / mês (42.000/ano)",
+          "~58 vídeos memorial (60s cada)",
+          "Sem marca d'água",
+          "5 tarefas simultâneas",
+          "Licença comercial",
+          "Processamento prioritário"
+        ],
+        "interval": "year",
+        "amount": 67188,
+        "currency": "USD",
+        "price": "$55,99",
+        "original_price": "$69,99",
+        "unit": "/ mês",
+        "is_featured": false,
+        "tip": "$671,88/ano, economize 20%",
+        "button": {
+          "title": "Assinar",
+          "url": "/#pricing",
+          "icon": "Rocket"
+        },
+        "product_id": "pro-yearly",
+        "product_name": "Pro Anual",
+        "credits": 42000,
+        "plan_name": "Pro",
+        "group": "yearly"
+      }
+    ],
+    "credit_packs": {
+      "title": "Precisa de Mais Créditos?",
+      "description": "Compre pacotes de créditos a qualquer momento, créditos nunca expiram",
+      "items": [
+        {
+          "title": "Pacote P",
+          "description": "~13 vídeos memorial",
+          "credits": 800,
+          "amount": 2900,
+          "currency": "USD",
+          "price": "$29",
+          "unit_price": "$0,036/crédito",
+          "product_id": "pack-s",
+          "product_name": "Pacote de Créditos P",
+          "button": {
+            "title": "Comprar Agora",
+            "icon": "ShoppingCart"
+          }
+        },
+        {
+          "title": "Pacote M",
+          "description": "~50 vídeos memorial",
+          "credits": 3000,
+          "amount": 9900,
+          "currency": "USD",
+          "price": "$99",
+          "unit_price": "$0,033/crédito",
+          "is_featured": true,
+          "label": "Popular",
+          "product_id": "pack-m",
+          "product_name": "Pacote de Créditos M",
+          "button": {
+            "title": "Comprar Agora",
+            "icon": "ShoppingCart"
+          }
+        },
+        {
+          "title": "Pacote G",
+          "description": "~166 vídeos memorial",
+          "credits": 10000,
+          "amount": 29900,
+          "currency": "USD",
+          "price": "$299",
+          "unit_price": "$0,029/crédito",
+          "product_id": "pack-l",
+          "product_name": "Pacote de Créditos G",
+          "button": {
+            "title": "Comprar Agora",
+            "icon": "ShoppingCart"
+          }
+        }
+      ]
+    }
+  },
+  "page": {
+    "current_plan": "Plano Atual",
+    "processing": "Processando"
+  }
+}

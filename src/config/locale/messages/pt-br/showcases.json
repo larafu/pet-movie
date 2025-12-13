@@ -1,0 +1,104 @@
+{
+  "metadata": {
+    "title": "Vitrines",
+    "description": "Projetos incríveis construídos com ShipAny"
+  },
+  "showcases": {
+    "id": "showcase",
+    "sr_only_title": "Vitrines",
+    "title": "Startups SaaS de IA construídas com ShipAny",
+    "description": "Fácil de usar e rápido para lançar.",
+    "items": [
+      {
+        "title": "ThinkAny",
+        "description": "Motor de Busca de IA",
+        "url": "https://thinkany.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/7.png",
+          "alt": "vitrines"
+        }
+      },
+      {
+        "title": "HeyBeauty",
+        "description": "Prova Virtual de IA",
+        "url": "https://heybeauty.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/5.png",
+          "alt": "vitrines"
+        }
+      },
+      {
+        "title": "AI Wallpaper",
+        "description": "Gerador de Papel de Parede de IA",
+        "url": "https://aiwallpaper.shop",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/1.png",
+          "alt": "vitrines"
+        }
+      },
+      {
+        "title": "AI Cover",
+        "description": "Gerador de Capas de IA",
+        "url": "https://aicover.design",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/2.png",
+          "alt": "vitrines"
+        }
+      },
+      {
+        "title": "GPTs Works",
+        "description": "Diretório de GPTs",
+        "url": "https://gpts.works",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/3.png",
+          "alt": "vitrines"
+        }
+      },
+      {
+        "title": "Melodisco",
+        "description": "Player de Música de IA",
+        "url": "https://melodis.co",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/4.png",
+          "alt": "vitrines"
+        }
+      },
+      {
+        "title": "Pagen",
+        "description": "Gerador de Landing Page de IA",
+        "url": "https://pagen.so",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/6.png",
+          "alt": "vitrines"
+        }
+      },
+      {
+        "title": "SoraFM",
+        "description": "Gerador de Vídeo de IA",
+        "url": "https://sorafm.trys.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/8.png",
+          "alt": "vitrines"
+        }
+      },
+      {
+        "title": "PodLM",
+        "description": "Gerador de Podcast de IA",
+        "url": "https://podlm.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/9.png",
+          "alt": "vitrines"
+        }
+      }
+    ]
+  }
+}

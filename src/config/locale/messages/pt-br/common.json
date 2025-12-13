@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "title": "Pet Movie AI - Eles deram anos para você. Dê minutos de eternidade para eles.",
+    "description": "Transforme fotos e vídeos do seu pet em filmes de qualidade Hollywood com IA. Escolha entre mais de 20 modelos de história, obtenha saída em 4K em minutos. Todo pet merece um blockbuster.",
+    "keywords": "filme de pet, gerador de vídeo com IA, vídeos de pet, vídeos de cachorro, vídeos de gato, memórias de pet, álbum de fotos de pet"
+  },
+  "sign": {
+    "sign_in_title": "Entrar",
+    "sign_in_description": "Entre na sua conta",
+    "sign_up_title": "Cadastrar",
+    "sign_up_description": "Crie uma conta",
+    "email_title": "Email",
+    "email_placeholder": "Digite seu email aqui",
+    "password_title": "Senha",
+    "password_placeholder": "Digite sua senha aqui",
+    "forgot_password": "Esqueceu a senha?",
+    "or": "Ou",
+    "continue": "Continuar",
+    "no_account": "Não tem uma conta?",
+    "already_have_account": "Já tem uma conta?",
+    "email_sign_in": "Entrar com Email",
+    "google_sign_in_title": "Entrar com Google",
+    "github_sign_in_title": "Entrar com GitHub",
+    "close_title": "Fechar",
+    "cancel_title": "Cancelar",
+    "sign_out_title": "Sair",
+    "billing_title": "Cobrança",
+    "name_title": "Nome",
+    "name_placeholder": "Digite seu nome aqui",
+    "admin_title": "Sistema Admin",
+    "credits_title": "Créditos: {credits}"
+  },
+  "payment": {
+    "choose_payment_method": "Escolha o Método de Pagamento",
+    "choose_payment_method_description": "",
+    "cancel_title": "Cancelar"
+  },
+  "locale_detector": {
+    "title": "Detectamos que o idioma do seu navegador é {locale}. Deseja mudar?",
+    "switch_to": "Mudar para {locale}"
+  },
+  "share": {
+    "title": "Compartilhar",
+    "share": "Compartilhar",
+    "shareNow": "Compartilhar Agora",
+    "shareTo": "Compartilhar em",
+    "orCopyLink": "Ou copiar link",
+    "linkCopied": "Link copiado!",
+    "linkCopiedForTikTok": "Link copiado! Cole no TikTok",
+    "linkCopiedForInstagram": "Link copiado! Cole no Instagram",
+    "copyFailed": "Falha ao copiar link",
+    "email": "Email",
+    "tiktok": "TikTok",
+    "instagram": "Instagram",
+    "twitter": "X",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp",
+    "youtube": "YouTube",
+    "scenes": {
+      "memorial": {
+        "title": "Em Memória Amorosa",
+        "text": "Para sempre em nossos corações. Lembre-se de {name} comigo. Seu amor e alegria nunca serão esquecidos.",
+        "hashtags": "PonteDoArcoIris,MemorialDoPet,AmorEterno"
+      },
+      "video": {
+        "title": "O Filme do Meu Pet",
+        "text": "Assista o incrível filme de IA do meu pet! Criado com Pet Movie AI - Todo pet merece ser uma estrela",
+        "hashtags": "FilmeDePet,VídeoDeIADePet,AmorDePet"
+      },
+      "default": {
+        "title": "Pet Movie AI",
+        "text": "Confira este incrível vídeo de pet! Feito com Pet Movie AI",
+        "hashtags": "FilmeDePet,AmorDePet"
+      }
+    }
+  }
+}

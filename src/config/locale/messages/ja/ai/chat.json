@@ -2,10 +2,10 @@
   "sidebar": {
     "header": {
       "brand": {
-        "title": "ShipAny チャット",
+        "title": "Pet Movie AI チャット",
         "logo": {
           "src": "/logo.png",
-          "alt": "ShipAny チャット"
+          "alt": "Pet Movie AI チャット"
         },
         "url": "/chat"
       },

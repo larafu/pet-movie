@@ -28,7 +28,7 @@
         "features_title": "Includes",
         "features": [
           "400 credits / month",
-          "~6 memorial videos (60s each)",
+          "~4 memorial videos (60s each)",
           "No watermark",
           "2 concurrent tasks",
           "Personal use license"
@@ -58,7 +58,7 @@
         "features_title": "Includes",
         "features": [
           "400 credits / month (4,800/year)",
-          "~6 memorial videos (60s each)",
+          "~4 memorial videos (60s each)",
           "No watermark",
           "2 concurrent tasks",
           "Personal use license"
@@ -89,7 +89,7 @@
         "features_title": "Includes",
         "features": [
           "1,000 credits / month",
-          "~16 memorial videos (60s each)",
+          "~10 memorial videos (60s each)",
           "No watermark",
           "3 concurrent tasks",
           "Commercial license"
@@ -120,7 +120,7 @@
         "features_title": "Includes",
         "features": [
           "1,000 credits / month (12,000/year)",
-          "~16 memorial videos (60s each)",
+          "~10 memorial videos (60s each)",
           "No watermark",
           "3 concurrent tasks",
           "Commercial license"
@@ -150,7 +150,7 @@
         "features_title": "Includes",
         "features": [
           "3,500 credits / month",
-          "~58 memorial videos (60s each)",
+          "~35 memorial videos (60s each)",
           "No watermark",
           "5 concurrent tasks",
           "Commercial license",
@@ -181,7 +181,7 @@
         "features_title": "Includes",
         "features": [
           "3,500 credits / month (42,000/year)",
-          "~58 memorial videos (60s each)",
+          "~35 memorial videos (60s each)",
           "No watermark",
           "5 concurrent tasks",
           "Commercial license",
@@ -213,7 +213,7 @@
       "items": [
         {
           "title": "Pack S",
-          "description": "~13 memorial videos",
+          "description": "~8 memorial videos",
           "credits": 800,
           "amount": 2900,
           "currency": "USD",
@@ -228,7 +228,7 @@
         },
         {
           "title": "Pack M",
-          "description": "~50 memorial videos",
+          "description": "~30 memorial videos",
           "credits": 3000,
           "amount": 9900,
           "currency": "USD",
@@ -245,7 +245,7 @@
         },
         {
           "title": "Pack L",
-          "description": "~166 memorial videos",
+          "description": "~100 memorial videos",
           "credits": 10000,
           "amount": 29900,
           "currency": "USD",

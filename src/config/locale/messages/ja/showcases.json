@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "ショーケース",
-    "description": "ShipAnyで構築された素晴らしいプロジェクト"
+    "title": "ギャラリー",
+    "description": "ユーザーがPet Movie AIで作成した素晴らしいペット動画"
   },
   "showcases": {
     "id": "showcase",
-    "sr_only_title": "ショーケース",
-    "title": "ShipAnyで構築されたAI SaaSスタートアップ",
-    "description": "使いやすく、迅速にリリース。",
+    "sr_only_title": "ギャラリー",
+    "title": "コミュニティが作成したペットムービー",
+    "description": "Pet Movie AIで作成されたユーザー作品をご覧ください。",
     "items": [
       {
         "title": "ThinkAny",

@@ -103,16 +103,15 @@ export default async function TermsOfServicePage() {
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold">6. Beta Testing Terms</h2>
+            <h2 className="text-2xl font-semibold">6. Free Trial Terms</h2>
             <p className="text-muted-foreground">
-              During the beta testing phase:
+              For new users:
             </p>
             <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-              <li>New users receive 5 free credits (1 video generation) upon registration</li>
-              <li>Beta credits are one-time only and non-transferable</li>
-              <li>Generated videos during beta may contain watermarks (subject to plan)</li>
+              <li>New users receive 100 free credits (1 video generation) upon registration</li>
+              <li>Free trial credits are one-time only and non-transferable</li>
+              <li>Generated videos may contain watermarks (subject to plan)</li>
               <li>Service performance, features, and availability may change without notice</li>
-              <li>We reserve the right to modify or terminate the beta program at any time</li>
             </ul>
           </section>
 

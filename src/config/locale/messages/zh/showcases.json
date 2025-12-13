@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "案例展示",
-    "description": "用 ShipAny 打造的精彩项目"
+    "title": "作品展示",
+    "description": "用户使用 Pet Movie AI 创作的精彩宠物视频"
   },
   "showcases": {
     "id": "showcase",
-    "sr_only_title": "案例展示",
-    "title": "用 ShipAny 构建的 AI SaaS 创业项目",
-    "description": "易用且极速上线。",
+    "sr_only_title": "作品展示",
+    "title": "社区用户创作的宠物电影",
+    "description": "看看其他用户用 Pet Movie AI 创作的作品。",
     "items": [
       {
         "title": "ThinkAny",

@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "title": "Pet Movie AI - 반려동물 추모영상 & AI 영화 제작 | 온라인 추모관",
+    "description": "반려동물 사진으로 AI 영화를 만들어보세요. 강아지 추모, 고양이 추모를 위한 온라인 추모관과 추모영상 제작. 무지개다리를 건넌 소중한 아이를 영원히 기억하세요.",
+    "keywords": "반려동물 추모, 온라인 추모관, 반려동물 추모영상, 무지개다리, 강아지 추모, 고양이 추모, AI 반려동물 영상, 펫로스"
+  },
+  "sign": {
+    "sign_in_title": "로그인",
+    "sign_in_description": "계정에 로그인하세요",
+    "sign_up_title": "회원가입",
+    "sign_up_description": "새 계정을 만드세요",
+    "email_title": "이메일",
+    "email_placeholder": "이메일을 입력하세요",
+    "password_title": "비밀번호",
+    "password_placeholder": "비밀번호를 입력하세요",
+    "forgot_password": "비밀번호를 잊으셨나요?",
+    "or": "또는",
+    "continue": "계속하기",
+    "no_account": "계정이 없으신가요?",
+    "already_have_account": "이미 계정이 있으신가요?",
+    "email_sign_in": "이메일로 로그인",
+    "google_sign_in_title": "Google로 로그인",
+    "github_sign_in_title": "GitHub로 로그인",
+    "close_title": "닫기",
+    "cancel_title": "취소",
+    "sign_out_title": "로그아웃",
+    "billing_title": "결제 관리",
+    "name_title": "이름",
+    "name_placeholder": "이름을 입력하세요",
+    "admin_title": "관리자 시스템",
+    "credits_title": "크레딧: {credits}"
+  },
+  "payment": {
+    "choose_payment_method": "결제 수단 선택",
+    "choose_payment_method_description": "",
+    "cancel_title": "취소"
+  },
+  "locale_detector": {
+    "title": "브라우저 언어가 {locale}(으)로 감지되었습니다. 변경하시겠습니까?",
+    "switch_to": "{locale}(으)로 변경"
+  },
+  "share": {
+    "title": "공유하기",
+    "share": "공유",
+    "shareNow": "지금 공유하기",
+    "shareTo": "공유 대상",
+    "orCopyLink": "또는 링크 복사",
+    "linkCopied": "링크가 복사되었습니다!",
+    "linkCopiedForTikTok": "링크가 복사되었습니다! TikTok에 붙여넣기하세요",
+    "linkCopiedForInstagram": "링크가 복사되었습니다! Instagram에 붙여넣기하세요",
+    "copyFailed": "링크 복사 실패",
+    "email": "이메일",
+    "tiktok": "TikTok",
+    "instagram": "Instagram",
+    "twitter": "X",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp",
+    "youtube": "YouTube",
+    "scenes": {
+      "memorial": {
+        "title": "영원한 사랑을 담아",
+        "text": "우리 마음속에 영원히 함께해요 🌈 {name}을(를) 함께 기억해주세요. 그 사랑과 기쁨은 결코 잊히지 않을 거예요.",
+        "hashtags": "무지개다리,반려동물추모,영원한사랑"
+      },
+      "video": {
+        "title": "우리 아이의 영화",
+        "text": "AI로 만든 우리 반려동물의 특별한 영화를 감상하세요! 🎬 Pet Movie AI - 모든 반려동물은 스타가 될 자격이 있어요 ⭐",
+        "hashtags": "반려동물영화,AI펫영상,반려동물사랑"
+      },
+      "default": {
+        "title": "Pet Movie AI",
+        "text": "이 멋진 반려동물 영상을 확인해보세요! 🐾 Pet Movie AI로 제작",
+        "hashtags": "반려동물영화,반려동물사랑"
+      }
+    }
+  }
+}

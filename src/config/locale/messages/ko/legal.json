@@ -1,0 +1,22 @@
+{
+  "terms": {
+    "title": "이용약관",
+    "description": "Pet Movie AI 이용에 관한 약관 및 조건",
+    "lastUpdated": "최종 업데이트: {date}"
+  },
+  "privacy": {
+    "title": "개인정보처리방침",
+    "description": "개인정보의 수집, 이용 및 보호 방법에 대한 안내",
+    "lastUpdated": "최종 업데이트: {date}"
+  },
+  "refund": {
+    "title": "환불 정책",
+    "description": "환불, 취소 및 결제에 관한 정보",
+    "lastUpdated": "최종 업데이트: {date}"
+  },
+  "content": {
+    "title": "콘텐츠 정책",
+    "description": "허용 가능한 사용 및 금지된 콘텐츠에 대한 가이드라인",
+    "lastUpdated": "최종 업데이트: {date}"
+  }
+}

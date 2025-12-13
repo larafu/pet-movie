@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "title": "AI 영상 생성기 - Pet Movie",
+    "description": "AI로 멋진 반려동물 영상을 생성하세요. 사진을 시네마틱 작품으로 변환해보세요."
+  },
+  "page": {
+    "title": "AI 영상 생성기",
+    "description": "AI 기술로 사진에서 멋진 반려동물 영상을 만들어보세요"
+  },
+  "generator": {
+    "title": "영상 생성기",
+    "description": "AI 모델로 영상을 생성하세요. 텍스트를 영상으로 변환할 수 있어요.",
+    "form": {
+      "prompt": "영상 설명",
+      "prompt_placeholder": "영상 아이디어를 설명해주세요. 예: 석양 아래 초원을 달리는 골든리트리버, 시네마틱, 아름다운 조명",
+      "prompt_too_long": "설명이 너무 깁니다. 줄여주세요",
+      "reference_images": "참조 이미지 (선택사항)",
+      "reference_images_description": "반려동물 사진을 업로드하면 AI가 더 좋은 영상을 만들어드려요",
+      "images_uploading": "이미지 업로드가 완료될 때까지 기다려주세요",
+      "images_upload_error": "일부 이미지 업로드가 실패했습니다. 삭제하고 다시 시도해주세요."
+    },
+    "generate": "영상 생성",
+    "checking_account": "계정 확인 중...",
+    "loading": "로딩 중...",
+    "generating": "영상 생성 중...",
+    "sign_in_to_generate": "로그인하여 영상 생성",
+    "credits_cost": "{credits} 크레딧 소모",
+    "credits_remaining": "{credits} 크레딧 보유",
+    "buy_credits": "크레딧 구매",
+    "progress": "진행률",
+    "generated_videos": "영상 미리보기",
+    "ready_to_generate": "생성 준비 완료",
+    "ready_for_generating": "생성 준비 완료",
+    "no_videos_generated": "아직 생성된 영상이 없습니다",
+    "free_trial": "무료 크레딧 {credits}개로 체험해보세요!"
+  }
+}

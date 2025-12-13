@@ -1,0 +1,33 @@
+{
+  "video": {
+    "vidgen10s": {
+      "description": "10秒视频生成，消耗10积分"
+    },
+    "vidgen15s": {
+      "description": "15秒视频生成，消耗15积分"
+    }
+  },
+  "image": {
+    "standard": {
+      "description": "标准图片生成，平衡质量与速度"
+    },
+    "pro": {
+      "description": "专业级图片生成，更高质量"
+    },
+    "nanobanana": {
+      "description": "NanoBanana 模型，高质量图片生成"
+    },
+    "nanobanana-pro": {
+      "description": "NanoBanana Pro 模型，专业级质量"
+    },
+    "nanobanana-2": {
+      "description": "NanoBanana 2.0 模型，最新版本"
+    },
+    "gemini-flash": {
+      "description": "Gemini Flash 快速图片生成"
+    },
+    "gemini-pro": {
+      "description": "Gemini Pro 专业级图片生成"
+    }
+  }
+}

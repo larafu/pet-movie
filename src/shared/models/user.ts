@@ -10,7 +10,13 @@ import { getRemainingCredits } from './credit';
 
 export interface UserCredits {
   remainingCredits: number;
-  expiresAt: Date | null;
+  expiresAt?: Date | null;
+}
+
+export interface UserSubscription {
+  status: string;
+  planName: string | null;
+  currentPeriodEnd: Date | null;
 }
 
 export type User = typeof user.$inferSelect & {
@@ -19,6 +25,8 @@ export type User = typeof user.$inferSelect & {
   credits?: UserCredits;
   roles?: Role[];
   permissions?: Permission[];
+  subscription?: UserSubscription | null;
+  isPro?: boolean;
 };
 export type NewUser = typeof user.$inferInsert;
 export type UpdateUser = Partial<Omit<NewUser, 'id' | 'createdAt' | 'email'>>;

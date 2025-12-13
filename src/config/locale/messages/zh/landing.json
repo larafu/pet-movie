@@ -42,9 +42,9 @@
           "requiresAuth": true
         },
         {
-          "title": "作品展示",
-          "url": "/#gallery",
-          "icon": "Images"
+          "title": "社区",
+          "url": "/creations",
+          "icon": "Users"
         },
         {
           "title": "帮助中心",
@@ -88,16 +88,16 @@
     "tip": "✨ 免费试用 - 立即创建您的第一部宠物电影",
     "buttons": [
       {
-        "title": "立即创建电影",
+        "title": "开始创作",
         "icon": "Sparkles",
-        "url": "/create-pet-movie",
+        "url": "/creations",
         "target": "_self",
         "variant": "default"
       },
       {
-        "title": "观看演示",
-        "icon": "Play",
-        "url": "#showcase",
+        "title": "创建宠物电影",
+        "icon": "Film",
+        "url": "/create-pet-movie",
         "target": "_self",
         "variant": "outline"
       }

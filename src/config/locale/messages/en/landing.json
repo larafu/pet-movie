@@ -26,9 +26,9 @@
           "icon": "Heart"
         },
         {
-          "title": "Gallery",
-          "url": "/#gallery",
-          "icon": "Images"
+          "title": "Community",
+          "url": "/creations",
+          "icon": "Users"
         },
         {
           "title": "Pricing",
@@ -88,16 +88,16 @@
     "tip": "✨ Free Trial Available - Create Your First Pet Movie",
     "buttons": [
       {
-        "title": "Create Movie Now",
+        "title": "Start Creating",
         "icon": "Sparkles",
-        "url": "/create-pet-movie",
+        "url": "/creations",
         "target": "_self",
         "variant": "default"
       },
       {
-        "title": "Watch Trailer",
-        "icon": "Play",
-        "url": "/#gallery",
+        "title": "Create Pet Movie",
+        "icon": "Film",
+        "url": "/create-pet-movie",
         "target": "_self",
         "variant": "outline"
       }

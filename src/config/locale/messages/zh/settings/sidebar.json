@@ -8,6 +8,11 @@
         "icon": "User"
       },
       {
+        "title": "资源库",
+        "url": "/settings/media",
+        "icon": "Image"
+      },
+      {
         "title": "账单",
         "url": "/settings/billing",
         "icon": "CreditCard"

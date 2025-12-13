@@ -1,0 +1,30 @@
+{
+  "title": "资源库",
+  "description": "管理你上传的图片和视频资源",
+  "tabs": {
+    "all": "全部",
+    "images": "图片",
+    "videos": "视频"
+  },
+  "upload": {
+    "button": "上传",
+    "hint": "支持 JPEG、PNG、WebP、MP4 · 最大 50MB",
+    "success": "上传成功",
+    "failed": "上传失败"
+  },
+  "empty": {
+    "title": "暂无资源",
+    "description": "上传图片或视频来构建你的资源库"
+  },
+  "item": {
+    "delete": "删除",
+    "deleteConfirm": "确定要删除这个资源吗？",
+    "deleteSuccess": "删除成功",
+    "deleteFailed": "删除失败",
+    "size": "大小",
+    "uploaded": "上传时间"
+  },
+  "loading": "加载中...",
+  "loadMore": "加载更多",
+  "noMore": "没有更多了"
+}

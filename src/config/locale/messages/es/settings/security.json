@@ -1,0 +1,32 @@
+{
+  "fields": {
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "new_password": "Nueva Contraseña",
+    "confirm_password": "Confirmar Contraseña"
+  },
+  "reset_password": {
+    "title": "Restablecer Contraseña",
+    "description": "Restablece tu contraseña",
+    "tip": "Te enviaremos un correo electrónico para restablecer tu contraseña.",
+    "crumbs": {
+      "settings": "Configuración",
+      "security": "Seguridad"
+    },
+    "buttons": {
+      "submit": "Guardar"
+    }
+  },
+  "delete_account": {
+    "title": "Eliminar Cuenta",
+    "description": "Elimina tu cuenta",
+    "tip": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.",
+    "crumbs": {
+      "settings": "Configuración",
+      "security": "Seguridad"
+    },
+    "buttons": {
+      "submit": "Eliminar"
+    }
+  }
+}

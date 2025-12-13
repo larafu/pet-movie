@@ -1,0 +1,819 @@
+{
+  "metadata": {
+    "title": "Película de Mi Mascota con IA | Crea Video Homenaje en Minutos",
+    "description": "Transforma las fotos de tu perro o gato en una película cinematográfica con IA. Crea un video de mascotas con IA, memorial online para el Puente del Arcoíris. Prueba gratis.",
+    "keywords": "película de mi mascota, video de mascotas con IA, memorial de mascotas online, Puente del Arcoíris, crear video con fotos de mi perro"
+  },
+  "header": {
+    "id": "header",
+    "brand": {
+      "title": "PET MOVIE AI",
+      "logoLight": {
+        "src": "/logo.png",
+        "alt": "Pet Movie AI - Película de Mi Mascota"
+      },
+      "logoDark": {
+        "src": "/logo.png",
+        "alt": "Pet Movie AI - Película de Mi Mascota"
+      },
+      "url": "/"
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "Memorial de Mascotas",
+          "url": "/pet-memorial",
+          "icon": "Heart"
+        },
+        {
+          "title": "Galería",
+          "url": "/#gallery",
+          "icon": "Images"
+        },
+        {
+          "title": "Precios",
+          "url": "/pricing",
+          "icon": "DollarSign"
+        },
+        {
+          "title": "Blog",
+          "url": "/blog",
+          "icon": "BookOpen"
+        },
+        {
+          "title": "Mis Películas",
+          "url": "/create-pet-movie?tab=my-generations",
+          "icon": "Film",
+          "requiresAuth": true
+        },
+        {
+          "title": "FAQ",
+          "url": "/#faq",
+          "icon": "HelpCircle"
+        }
+      ]
+    },
+    "buttons": [],
+    "user_nav": {
+      "show_name": true,
+      "show_credits": true,
+      "show_sign_out": true,
+      "items": [
+        {
+          "title": "Facturación",
+          "url": "/settings/billing",
+          "icon": "CreditCard"
+        },
+        {
+          "title": "Actividad",
+          "url": "/activity",
+          "icon": "Activity"
+        }
+      ]
+    },
+    "show_sign": true,
+    "show_theme": true,
+    "show_locale": true
+  },
+  "hero": {
+    "id": "hero",
+    "title": "CADA MASCOTA MERECE UNA PELÍCULA",
+    "highlight_text": "MERECE UNA PELÍCULA",
+    "description": "Sube las fotos de tu mascota y deja que la IA las transforme en una película cinematográfica 4K. Perfecto para cumpleaños, vida diaria y memoriales del Puente del Arcoíris.",
+    "announcement": {
+      "badge": "Prueba Gratis",
+      "title": "Ahora con exportación en calidad cine 4K",
+      "url": "/create-pet-movie"
+    },
+    "tip": "Prueba Gratis Disponible - Crea tu primera película de mascota",
+    "buttons": [
+      {
+        "title": "Crear Película Ahora",
+        "icon": "Sparkles",
+        "url": "/create-pet-movie",
+        "target": "_self",
+        "variant": "default"
+      },
+      {
+        "title": "Ver Tráiler",
+        "icon": "Play",
+        "url": "/#gallery",
+        "target": "_self",
+        "variant": "outline"
+      }
+    ],
+    "stats": [],
+    "show_avatars": false,
+    "avatars_tip": "",
+    "show_award": false,
+    "image": {
+      "src": "",
+      "alt": ""
+    },
+    "image_invert": {
+      "src": "",
+      "alt": ""
+    }
+  },
+  "logos": {
+    "title": "Como se ha visto en",
+    "items": [
+      {
+        "title": "YouTube",
+        "image": {
+          "src": "/imgs/logos/youtube.svg",
+          "alt": "YouTube"
+        }
+      },
+      {
+        "title": "Instagram",
+        "image": {
+          "src": "/imgs/logos/instagram.svg",
+          "alt": "Instagram"
+        }
+      },
+      {
+        "title": "TikTok",
+        "image": {
+          "src": "/imgs/logos/tiktok.svg",
+          "alt": "TikTok"
+        }
+      },
+      {
+        "title": "Facebook",
+        "image": {
+          "src": "/imgs/logos/facebook.svg",
+          "alt": "Facebook"
+        }
+      },
+      {
+        "title": "Twitter",
+        "image": {
+          "src": "/imgs/logos/twitter.svg",
+          "alt": "Twitter"
+        }
+      }
+    ]
+  },
+  "introduce": {
+    "id": "gallery",
+    "title": "Videos de Perros y Gatos Destacados",
+    "label": "GALERÍA",
+    "description": "Mira películas reales de perros y gatos creadas por dueños de mascotas. Desde tributos memoriales hasta videos de celebración.",
+    "items": [
+      {
+        "title": "La Gran Aventura",
+        "description": "Una emocionante aventura de un gato que sueña con el mundo exterior.",
+        "icon": "Film",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/17607764967900u9630hr.mp4",
+          "alt": "Película de Gato con IA"
+        }
+      },
+      {
+        "title": "Días Dorados",
+        "description": "Una historia conmovedora de amistad y lealtad.",
+        "icon": "Heart",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4",
+          "alt": "Película de Perro con IA"
+        }
+      }
+    ]
+  },
+  "benefits": {
+    "id": "benefits",
+    "title": "Próximas Funciones",
+    "label": "HOJA DE RUTA",
+    "description": "Estamos trabajando en nuevas funciones emocionantes para hacer tus películas de mascotas aún más mágicas",
+    "items": [
+      {
+        "title": "Transmisión en Vivo",
+        "description": "Transmite las aventuras diarias de tu mascota en vivo y deja que la IA cree resúmenes automáticamente",
+        "icon": "Video",
+        "image": {
+          "src": "/imgs/features/live-streaming.svg",
+          "alt": "Transmisión en vivo de mascotas"
+        }
+      },
+      {
+        "title": "Narración por Voz",
+        "description": "Añade narración generada por IA en múltiples idiomas y opciones de voces de celebridades",
+        "icon": "Mic",
+        "image": {
+          "src": "/imgs/features/voice-narration.svg",
+          "alt": "Narración de voz para video de mascota"
+        }
+      },
+      {
+        "title": "Comunidad Social",
+        "description": "Comparte tus películas de mascotas con una comunidad global, descubre historias populares y colabora",
+        "icon": "Users",
+        "image": {
+          "src": "/imgs/features/social-community.svg",
+          "alt": "Comunidad de amantes de mascotas"
+        }
+      }
+    ]
+  },
+  "showcases": {
+    "id": "gallery",
+    "label": "PELÍCULAS DE MASCOTAS CON IA",
+    "title": "Crea Videos de tu Perro y Gato con IA - Memorial para el Puente del Arcoíris",
+    "description": "Transforma las fotos de tu mascota en impresionantes películas de perros y gatos en 4K. Perfecto para crear videos homenaje, tributos del Puente del Arcoíris, celebraciones de cumpleaños y capturar momentos preciosos con tus queridos perros y gatos.",
+    "items": [
+      {
+        "title": "Momentos en Familia",
+        "description": "Momentos familiares conmovedores con adorables perros",
+        "video": {
+          "src": "/video/dog-funny-family.mp4",
+          "poster": "/imgs/dog-funny-family-poster.jpg",
+          "alt": "Video familiar de perro creado con IA"
+        }
+      },
+      {
+        "title": "Vlog Creativo de Gato",
+        "description": "Historia cinematográfica de gato con efectos visuales impresionantes",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/17607764967900u9630hr.mp4",
+          "poster": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800",
+          "alt": "Video de gato con IA"
+        }
+      },
+      {
+        "title": "Historia de un Cachorro",
+        "description": "Historia conmovedora de perro con edición profesional",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4",
+          "poster": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800",
+          "alt": "Video homenaje para perro"
+        }
+      },
+      {
+        "title": "Mirada Amorosa de Perros",
+        "description": "Momento conmovedor de perros haciendo contacto visual",
+        "video": {
+          "src": "/video/dogs-eye-contact.mp4",
+          "poster": "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=800",
+          "alt": "Película de perros enamorados"
+        }
+      },
+      {
+        "title": "Celebración de Patas",
+        "description": "Adorables perros chocando los cinco juntos",
+        "video": {
+          "src": "/video/dogs-high-five.mp4",
+          "poster": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800",
+          "alt": "Video de celebración de perros"
+        }
+      },
+      {
+        "title": "Aventura en la Pradera",
+        "description": "Corriendo libre por el hermoso campo",
+        "video": {
+          "src": "/video/prairie-adventure.mp4",
+          "poster": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800",
+          "alt": "Video de mascota corriendo en el campo"
+        }
+      }
+    ]
+  },
+  "usage": {
+    "id": "usage",
+    "label": "CÓMO FUNCIONA",
+    "title": "Crea tu Película de Perro o Gato en 4 Pasos",
+    "description": "De fotos preciadas a películas cinematográficas. Perfecto para memoriales, celebraciones o tributos del Puente del Arcoíris.",
+    "image": {
+      "src": "/imgs/features/1.svg",
+      "alt": "Proceso de creación de video de mascota"
+    },
+    "image_position": "left",
+    "text_align": "center",
+    "items": [
+      {
+        "title": "Sube tus Medios",
+        "description": "Sube fotos o videos claros de tu mascota. Cuanto mejor sea la calidad, mejor será la película.",
+        "icon": "Upload",
+        "image": {
+          "src": "/imgs/features/5.svg",
+          "alt": "Subir fotos de mascota"
+        }
+      },
+      {
+        "title": "Selecciona el Estilo",
+        "description": "Elige entre géneros cinematográficos: Aventura, Drama, Comedia o Ciencia Ficción.",
+        "icon": "Palette",
+        "image": {
+          "src": "/imgs/features/6.svg",
+          "alt": "Estilos de película de mascota"
+        }
+      },
+      {
+        "title": "Genera el Protagonista",
+        "description": "La IA analiza las características de tu mascota para crear un actor digital consistente.",
+        "icon": "User",
+        "image": {
+          "src": "/imgs/features/7.svg",
+          "alt": "Protagonista de película de mascota"
+        }
+      },
+      {
+        "title": "Elige el Guion Gráfico",
+        "description": "Revisa las opciones de trama generadas por IA y selecciona tu arco narrativo favorito.",
+        "icon": "FileText",
+        "image": {
+          "src": "/imgs/features/8.svg",
+          "alt": "Guion de película de mascota"
+        }
+      },
+      {
+        "title": "Crea la Película",
+        "description": "Mira cómo la IA renderiza tu obra maestra en 4K completa con música y efectos.",
+        "icon": "Film",
+        "image": {
+          "src": "/imgs/features/8.svg",
+          "alt": "Película de mascota terminada"
+        }
+      }
+    ]
+  },
+  "features": {
+    "id": "features",
+    "title": "Crea Películas Profesionales de Perros y Gatos",
+    "label": "FUNCIONES DE IA",
+    "description": "La IA avanzada transforma las fotos de tu mascota en películas de calidad Hollywood en minutos.",
+    "items": [
+      {
+        "title": "Subida Inteligente",
+        "description": "Sube fotos y videos de tu mascota. La IA analiza y organiza el contenido automáticamente",
+        "icon": "Upload"
+      },
+      {
+        "title": "Plantillas de Historia",
+        "description": "Elige entre aventura, vida diaria, fiesta de cumpleaños y más de 20 plantillas cinematográficas",
+        "icon": "Film"
+      },
+      {
+        "title": "Director IA",
+        "description": "La IA edita, corrige el color, añade música y efectos para resultados de calidad Hollywood",
+        "icon": "Sparkles"
+      },
+      {
+        "title": "Vista Previa Instantánea",
+        "description": "Genera película de mascota en 4K en 10 minutos. Descarga y comparte instantáneamente",
+        "icon": "Zap"
+      }
+    ]
+  },
+  "stats": {
+    "id": "stats",
+    "title": "",
+    "description": "",
+    "items": []
+  },
+  "testimonials": {
+    "id": "testimonials",
+    "title": "Amado por Dueños de Mascotas en Todo el Mundo",
+    "description": "Desde videos de celebración hasta memoriales del Puente del Arcoíris, mira lo que dicen los dueños de mascotas.",
+    "className": "bg-black",
+    "items": [
+      {
+        "name": "María G.",
+        "role": "Dueña de Perro",
+        "quote": "Creé el memorial perfecto del Puente del Arcoíris para mi golden retriever. Esta película de perro capturó su espíritu bellamente y trajo consuelo a nuestra familia.",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=200&auto=format&fit=crop",
+          "alt": "Testimonio de película de perro"
+        }
+      },
+      {
+        "name": "Carmen L.",
+        "role": "Dueña de Gato",
+        "quote": "Hice una hermosa película de gato para el cumpleaños de mi gato atigrado. La IA capturó su personalidad perfectamente. ¡Ahora hago una para cada ocasión especial!",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=200&auto=format&fit=crop",
+          "alt": "Testimonio de película de gato"
+        }
+      },
+      {
+        "name": "Miguel R.",
+        "role": "Creador de Memorial para Mascotas",
+        "quote": "Creé un video homenaje que nos ayudó a sanar. La calidad superó las expectativas - un tributo verdaderamente conmovedor a nuestro querido compañero.",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=200&auto=format&fit=crop",
+          "alt": "Testimonio de video homenaje para mascota"
+        }
+      }
+    ]
+  },
+  "popularSearches": {
+    "id": "popular-searches",
+    "title": "Búsquedas Populares",
+    "items": [
+      {
+        "title": "Memorial de mascotas online",
+        "url": "/pet-memorial"
+      },
+      {
+        "title": "Video de mi mascota con IA",
+        "url": "/create-pet-movie"
+      },
+      {
+        "title": "Frases para despedir a una mascota",
+        "url": "/blog/frases-para-despedir-a-una-mascota"
+      },
+      {
+        "title": "Duelo por la muerte de una mascota",
+        "url": "/blog/duelo-por-la-muerte-de-una-mascota"
+      },
+      {
+        "title": "Puente del Arcoíris mascota",
+        "url": "/blog/puente-del-arcoiris-mascota"
+      }
+    ]
+  },
+  "faq": {
+    "id": "faq",
+    "title": "Preguntas Frecuentes sobre Películas de Mascotas",
+    "description": "Preguntas comunes sobre crear películas de perros, gatos y videos homenaje para mascotas",
+    "tip": "¿Aún tienes preguntas? <a href='mailto:support@petmovie.ai' class='text-primary font-medium hover:underline'>Contacta a nuestro equipo de soporte</a>",
+    "items": [
+      {
+        "question": "¿Cómo creo un video de mi mascota con IA?",
+        "answer": "Sube fotos o videos de tu perro o gato, elige una plantilla cinematográfica, y nuestra IA genera una película profesional (25s o 50s) con música, transiciones y efectos. Tu película de mascota está lista en 5-10 minutos."
+      },
+      {
+        "question": "¿Puedo crear un memorial para el Puente del Arcoíris?",
+        "answer": "Sí. Pet Movie AI es perfecto para crear videos memoriales del Puente del Arcoíris para honrar a las mascotas que han cruzado. Elige plantillas memoriales con música suave y crea un tributo conmovedor que celebre la vida y el legado de tu mascota."
+      },
+      {
+        "question": "¿Qué es un video homenaje para mascota?",
+        "answer": "Un video homenaje para mascota es un tributo sincero que celebra la vida de tu mascota a través de fotos y videos, acompañado de música. Nuestra IA crea videos cinematográficos perfectos para tributos del Puente del Arcoíris, funerales o recuerdos personales."
+      },
+      {
+        "question": "¿Cómo puedo convertir fotos de mi mascota en video?",
+        "answer": "Simplemente sube tus fotos favoritas de tu perro o gato a Pet Movie AI. Nuestra IA las analiza, crea una narrativa coherente y genera un video cinematográfico profesional con transiciones suaves y música de fondo."
+      },
+      {
+        "question": "¿Qué opciones de duración están disponibles?",
+        "answer": "Ofrecemos dos formatos: cortometrajes de 25 segundos y cortometrajes de 50 segundos. Elige la duración que mejor se adapte a tus necesidades al crear tu película de mascota."
+      },
+      {
+        "question": "¿Qué plantillas puedo elegir?",
+        "answer": "Ofrecemos múltiples plantillas cinematográficas con diferentes estilos y ambientes. Cada plantilla incluye música, transiciones y efectos visuales profesionalmente curados, optimizados para contenido de mascotas."
+      },
+      {
+        "question": "¿Qué formatos de video son compatibles?",
+        "answer": "Soportamos JPG, PNG para fotos y MP4, MOV para videos. El tamaño máximo de archivo es 100MB por carga."
+      },
+      {
+        "question": "¿Cuánto tiempo tarda el procesamiento?",
+        "answer": "La mayoría de las películas de mascotas de 25s y 50s están listas en 5-10 minutos. Recibirás una notificación cuando tu película esté lista para previsualizar y descargar."
+      },
+      {
+        "question": "¿Puedo editar la película generada?",
+        "answer": "La IA genera un cortometraje finalizado optimizado para la plantilla seleccionada. Si deseas resultados diferentes, puedes regenerar con una plantilla diferente o subir contenido diferente."
+      },
+      {
+        "question": "¿Qué incluye la prueba gratuita?",
+        "answer": "Durante las pruebas beta, los nuevos usuarios reciben 5 créditos gratis (suficientes para 1 generación de video gratis) al registrarse. Es una prueba única sin límite de tiempo. Los planes de pago estarán disponibles después de que concluyan las pruebas beta."
+      },
+      {
+        "question": "¿Qué pasa con las licencias de música y derechos de autor?",
+        "answer": "Los videos son generados por IA usando tecnología Sora 2. La música de fondo es de bibliotecas libres de regalías con licencia para uso personal y redes sociales. Para uso comercial (anuncios, YouTube monetizado), consulta nuestros Términos de Servicio."
+      }
+    ]
+  },
+  "cta": {
+    "id": "cta",
+    "title": "Crea tu Película de Perro o Gato Hoy",
+    "description": "Transforma las fotos de tu mascota en películas cinematográficas y videos homenaje. Prueba gratis, sin tarjeta de crédito.",
+    "buttons": [
+      {
+        "title": "Comenzar Prueba Gratis",
+        "url": "/create-pet-movie",
+        "target": "_self",
+        "icon": "Sparkles"
+      },
+      {
+        "title": "Ver Películas de Ejemplo",
+        "url": "/#introduce",
+        "target": "_self",
+        "variant": "outline",
+        "icon": "Play"
+      }
+    ]
+  },
+  "subscribe": {
+    "id": "subscribe",
+    "title": "Recibe Consejos e Inspiración para Películas de Mascotas",
+    "description": "Obtén ideas creativas, plantillas exclusivas y ofertas especiales.",
+    "submit": {
+      "input": {
+        "placeholder": "Ingresa tu correo electrónico"
+      },
+      "button": {
+        "title": "Suscribirse"
+      },
+      "action": "/api/subscribe"
+    }
+  },
+  "footer": {
+    "id": "footer",
+    "brand": {
+      "title": "Pet Movie AI",
+      "description": "Crea impresionantes películas de perros, gatos y videos memoriales con IA. Perfecto para tributos del Puente del Arcoíris y celebrar a tus queridas mascotas.",
+      "logoLight": {
+        "src": "/logo.png",
+        "alt": "Pet Movie AI - Película de Mi Mascota"
+      },
+      "logoDark": {
+        "src": "/logo.png",
+        "alt": "Pet Movie AI - Película de Mi Mascota"
+      },
+      "url": "/"
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "Producto",
+          "children": [
+            {
+              "title": "Cómo Funciona",
+              "url": "/#usage",
+              "target": "_self"
+            },
+            {
+              "title": "Galería",
+              "url": "/#introduce",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "Recursos",
+          "children": [
+            {
+              "title": "Centro de Ayuda",
+              "url": "/#faq",
+              "target": "_self"
+            },
+            {
+              "title": "Plantillas de Historia",
+              "url": "/#features",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "Legal",
+          "children": [
+            {
+              "title": "Términos de Servicio",
+              "url": "/legal/terms",
+              "target": "_self"
+            },
+            {
+              "title": "Política de Privacidad",
+              "url": "/legal/privacy",
+              "target": "_self"
+            },
+            {
+              "title": "Política de Reembolso",
+              "url": "/legal/refund",
+              "target": "_self"
+            },
+            {
+              "title": "Política de Contenido",
+              "url": "/legal/content-policy",
+              "target": "_self"
+            }
+          ]
+        }
+      ]
+    },
+    "agreement": {
+      "items": [
+        {
+          "title": "Términos",
+          "url": "/legal/terms",
+          "target": "_self"
+        },
+        {
+          "title": "Privacidad",
+          "url": "/legal/privacy",
+          "target": "_self"
+        },
+        {
+          "title": "Reembolso",
+          "url": "/legal/refund",
+          "target": "_self"
+        }
+      ]
+    },
+    "copyright": "© 2025 Pet Movie AI. Todos los derechos reservados.",
+    "social": {
+      "items": [
+        {
+          "title": "Correo",
+          "icon": "Mail",
+          "url": "mailto:support@petmovie.ai",
+          "target": "_self"
+        }
+      ]
+    },
+    "show_built_with": true,
+    "show_theme": false,
+    "show_locale": true
+  },
+  "petVideoGen": {
+    "pageTitle": "Crea tu Video de Mascota con IA",
+    "pageSubtitle": "Transforma las fotos de tu mascota en películas conmovedoras generadas por IA. Crea hermosos tributos memoriales e historias emotivas para tu querido compañero.",
+    "title": "Generador de Películas de Mascotas",
+    "subtitle": "Transforma las fotos de tu mascota en películas con IA",
+    "petPhoto": "Foto de Mascota",
+    "uploadPrompt": "Haz clic para subir la foto de tu mascota",
+    "uploadHint": "JPG/PNG/WEBP",
+    "clickToChange": "Haz clic para cambiar",
+    "storyTemplate": "Plantilla de Historia",
+    "templateDescription": "Un memorial sincero del Puente del Arcoíris para tu {pet}",
+    "customScript": "Guion Personalizado",
+    "customScriptHint": "Crea tu propia historia con asistencia de IA",
+    "templateDog": "Memorial de Perro",
+    "templateCat": "Memorial de Gato",
+    "videoDuration": "Duración del Video",
+    "scenes": "escenas",
+    "soon": "Próximamente",
+    "videoFormat": "Formato de Video",
+    "landscape": "Horizontal (Escritorio)",
+    "portrait": "Vertical (Móvil)",
+    "creditsRequired": "Créditos requeridos:",
+    "credits": "Créditos",
+    "createMovie": "Crear Película",
+    "uploadPhotoFirst": "Por favor, sube primero la foto de tu mascota",
+    "insufficientCredits": "Créditos insuficientes. Requeridos: {required}, Disponibles: {available}",
+    "tabs": {
+      "inspiration": "Inspiración",
+      "myGenerations": "Mis Generaciones"
+    },
+    "status": {
+      "idle": "Listo para crear tu película de mascota",
+      "uploading": "Finalizando y guardando (1 min)...",
+      "identifying_pet": "Analizando las características de tu mascota (5-10s)...",
+      "generating_frame": "Transformando al estilo Pixar (3 min)...",
+      "generating_frames": "Generando fotogramas de escenas (3 min)...",
+      "generating_video": "Generando tu película cinematográfica (25 min)...",
+      "generating_videos": "Generando clips de video (20 min)...",
+      "generating_character_sheet": "Creando referencia del personaje (1 min)...",
+      "merging": "Uniendo videos (2 min)...",
+      "applying_watermark": "Añadiendo marca de agua (10-20s)...",
+      "completed": "¡Tu película está lista!",
+      "failed": "Generación fallida. Por favor, inténtalo de nuevo."
+    },
+    "loading": {
+      "inspiration": "Cargando inspiración...",
+      "yourVideos": "Cargando tus videos...",
+      "creating": "Creando..."
+    },
+    "empty": {
+      "noVideos": "Aún no hay videos",
+      "beFirst": "¡Sé el primero en compartir tu película de mascota!",
+      "noGenerations": "Aún no hay generaciones",
+      "createFirst": "Crea tu primera película de mascota subiendo una imagen a la izquierda."
+    },
+    "prompt": {
+      "dogHero": "Rescate de Perro Navideño - {duration}s",
+      "catHero": "Rescate de Gato Navideño - {duration}s",
+      "dogTemplate": "Perro Héroe - {duration}s",
+      "catTemplate": "Gato Héroe - {duration}s"
+    },
+    "uploadError": {
+      "title": "Subida Fallida",
+      "invalidType": "Por favor, sube una imagen JPG, PNG o WebP.",
+      "uploadFailed": "Subida fallida. Por favor, inténtalo de nuevo.",
+      "networkError": "Error de red. Por favor, verifica tu conexión e inténtalo de nuevo."
+    },
+    "customScripts": {
+      "inProgress": "Guiones en Progreso",
+      "untitled": "Guion Sin Título",
+      "statusCreating": "Creando",
+      "statusMerging": "Uniendo",
+      "statusDraft": "Borrador",
+      "continue": "Continuar"
+    },
+    "deleteSuccess": "Tarea eliminada exitosamente",
+    "deleteFailed": "Error al eliminar la tarea"
+  },
+  "videoCard": {
+    "download": "Descargar",
+    "noWatermark": "Sin Marca de Agua",
+    "vip": "VIP",
+    "share": "Compartir",
+    "copyLink": "Copiar Enlace",
+    "makePrivate": "Hacer Privado",
+    "makePublic": "Hacer Público",
+    "report": "Reportar",
+    "sharedPublicly": "Compartido públicamente",
+    "anonymous": "Anónimo",
+    "creating": "Creando...",
+    "failed": "Generación Fallida",
+    "failedDescription": "Los créditos han sido reembolsados. Por favor, elimina e intenta de nuevo.",
+    "delete": "Eliminar",
+    "retry": "Reintentar"
+  },
+  "videoPlayer": {
+    "close": "Cerrar",
+    "play": "Reproducir",
+    "pause": "Pausar",
+    "doubleClickToPlay": "Doble clic para reproducir en pantalla completa"
+  },
+  "videoShare": {
+    "aiGenerated": "Generado por IA",
+    "createdWithMagic": "Creado con Magia",
+    "aiDescription": "Este video fue generado usando tecnología avanzada de IA para dar vida a tu mascota en una historia única.",
+    "petVideo": "Video de Mascota",
+    "adventure": "La Aventura de {name}",
+    "amazingPetVideo": "Increíble Video de Mascota",
+    "watchDescription": "Mira este adorable video generado por IA que presenta a una mascota especial en una increíble historia de aventura. ¡Creado con amor y un toque de magia!",
+    "videoDetails": "Detalles del Video",
+    "format": "Formato",
+    "duration": "Duración",
+    "type": "Tipo",
+    "created": "Creado",
+    "recently": "Recientemente",
+    "download": "Descargar",
+    "share": "Compartir",
+    "copied": "¡Copiado!",
+    "createYourOwn": "Crea tu Propio Video de Mascota",
+    "createDescription": "Convierte a tu mascota en una estrella de cine con generación de video impulsada por IA",
+    "tryNow": "Prueba Ahora",
+    "checkOutVideo": "¡Mira este increíble video de mascota!",
+    "originalNotAvailable": "Video original no disponible",
+    "downloadingOriginal": "Descargando versión original"
+  },
+  "toast": {
+    "shareLinkCopied": "¡Enlace para compartir copiado!",
+    "linkCopied": "¡Enlace copiado!",
+    "copyFailed": "Error al copiar",
+    "setToPrivate": "Configurado como privado",
+    "setToPublic": "Configurado como público",
+    "shareFailed": "Error al compartir video",
+    "makePrivateFailed": "Error al configurar como privado",
+    "makePublicFailed": "Error al configurar como público",
+    "originalNotAvailable": "Video original no disponible",
+    "downloadingOriginal": "Descargando versión original",
+    "likeFailed": "Error al dar me gusta",
+    "downloadFailed": "Error al descargar"
+  },
+  "customScript": {
+    "title": "Diseñador de Guion Personalizado",
+    "promptLabel": "Indicación de Historia",
+    "promptPlaceholder": "Describe tu idea de historia... ej., Mi gato va a una aventura en el espacio, conociendo amigos alienígenas",
+    "promptHint": "La IA expandirá tu idea en una serie de escenas conectadas",
+    "musicLabel": "Música de Fondo",
+    "musicPlaceholder": "ej., música de aventura animada, piano suave",
+    "optional": "opcional",
+    "durationLabel": "Duración del Video",
+    "minute": "min",
+    "minutes": "min",
+    "scenes": "escenas",
+    "credits": "créditos",
+    "createScript": "Crear Guion",
+    "creating": "Creando...",
+    "creatingScript": "Creando tu historia...",
+    "creatingHint": "La IA está generando indicaciones de escena basadas en tu idea",
+    "creditsUsed": "Créditos usados",
+    "scenesCompleted": "escenas completadas",
+    "mergeVideo": "Unir Video",
+    "scenePrompt": "Indicación de Escena",
+    "edit": "Editar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "frameImage": "Primer Fotograma",
+    "video": "Video",
+    "generateFrame": "Generar Fotograma",
+    "regenerate": "Regenerar",
+    "generatingFrame": "Generando fotograma...",
+    "generateVideo": "Generar Video",
+    "generatingVideo": "Generando video...",
+    "starting": "Iniciando...",
+    "generateFrameFirst": "Genera el fotograma primero",
+    "errorPromptRequired": "Por favor, ingresa una indicación de historia",
+    "errorCustomStyleRequired": "Por favor, ingresa una descripción de estilo personalizado",
+    "merging": "Uniendo...",
+    "downloadVideo": "Descargar Video",
+    "styleLabel": "Estilo Visual",
+    "customStyleLabel": "Descripción de Estilo Personalizado",
+    "customStylePlaceholder": "Describe tu estilo visual deseado... ej., estilo cyberpunk, luces de neón, fondo de ciudad futurista",
+    "customStyleHint": "Consejo: Describe tonos de color, iluminación, estilo artístico y otras características visuales",
+    "videoFailed": "Generación Fallida",
+    "videoFailedHint": "La generación de video fue bloqueada por la política de seguridad. Esto puede ser causado por contenido con derechos de autor (como nombres específicos de canciones) en tus indicaciones. Por favor, modifica tu indicación para usar descripciones genéricas en lugar de nombres de marcas, títulos de canciones o nombres de celebridades específicos.",
+    "retry": "Reintentar"
+  },
+  "imageToVideoReveal": {
+    "title": "Transforma Tu Mascota en una Estrella de Cine",
+    "description": "Mira la transformación de IA en tiempo real",
+    "beforeLabel": "Foto Original",
+    "afterLabel": "Resultado Cinematográfico con IA"
+  }
+}

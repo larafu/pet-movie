@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "title": "Pet Movie AI - Crea una Película de tu Mascota con IA",
+    "description": "Transforma las fotos de tu mascota en películas cinematográficas con IA. Crea videos de tu perro, videos de tu gato, memoriales para el Puente del Arcoíris. Tu mascota merece una película.",
+    "keywords": "película de mi mascota, video de mascotas con IA, memorial de mascotas, Puente del Arcoíris, video homenaje para mascota"
+  },
+  "sign": {
+    "sign_in_title": "Iniciar Sesión",
+    "sign_in_description": "Inicia sesión en tu cuenta",
+    "sign_up_title": "Registrarse",
+    "sign_up_description": "Crea una cuenta",
+    "email_title": "Correo electrónico",
+    "email_placeholder": "Ingresa tu correo electrónico",
+    "password_title": "Contraseña",
+    "password_placeholder": "Ingresa tu contraseña",
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "or": "O",
+    "continue": "Continuar",
+    "no_account": "¿No tienes una cuenta?",
+    "already_have_account": "¿Ya tienes una cuenta?",
+    "email_sign_in": "Iniciar sesión con correo",
+    "google_sign_in_title": "Iniciar sesión con Google",
+    "github_sign_in_title": "Iniciar sesión con GitHub",
+    "close_title": "Cerrar",
+    "cancel_title": "Cancelar",
+    "sign_out_title": "Cerrar Sesión",
+    "billing_title": "Facturación",
+    "name_title": "Nombre",
+    "name_placeholder": "Ingresa tu nombre",
+    "admin_title": "Sistema de Administración",
+    "credits_title": "Créditos: {credits}"
+  },
+  "payment": {
+    "choose_payment_method": "Elige un Método de Pago",
+    "choose_payment_method_description": "",
+    "cancel_title": "Cancelar"
+  },
+  "locale_detector": {
+    "title": "Detectamos que tu idioma del navegador es {locale}. ¿Cambiar a él?",
+    "switch_to": "Cambiar a {locale}"
+  },
+  "share": {
+    "title": "Compartir",
+    "share": "Compartir",
+    "shareNow": "Compartir Ahora",
+    "shareTo": "Compartir en",
+    "orCopyLink": "O copiar enlace",
+    "linkCopied": "¡Enlace copiado al portapapeles!",
+    "linkCopiedForTikTok": "¡Enlace copiado! Pégalo en TikTok",
+    "linkCopiedForInstagram": "¡Enlace copiado! Pégalo en Instagram",
+    "copyFailed": "Error al copiar el enlace",
+    "email": "Correo",
+    "tiktok": "TikTok",
+    "instagram": "Instagram",
+    "twitter": "X",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp",
+    "youtube": "YouTube",
+    "scenes": {
+      "memorial": {
+        "title": "En Memoria",
+        "text": "Por siempre en nuestros corazones. Recuerda a {name} conmigo. Su amor y alegría nunca serán olvidados.",
+        "hashtags": "PuenteDelArcoiris,MemorialDeMascotas,AmorEterno"
+      },
+      "video": {
+        "title": "La Película de Mi Mascota",
+        "text": "¡Mira la película de mi mascota creada con IA! Hecha con Pet Movie AI - Cada mascota merece ser una estrella",
+        "hashtags": "PeliculaDeMascota,VideoMascotaIA,AmorPorMiMascota"
+      },
+      "default": {
+        "title": "Pet Movie AI",
+        "text": "¡Mira este increíble video de mascota! Hecho con Pet Movie AI",
+        "hashtags": "PeliculaDeMascota,AmorPorMiMascota"
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "fields": {
+    "task_id": "ID de Tarea",
+    "media_type": "Tipo de Medio",
+    "provider": "Proveedor",
+    "model": "Modelo",
+    "prompt": "Indicación",
+    "options": "Opciones",
+    "user": "Usuario",
+    "status": "Estado",
+    "cost_credits": "Créditos Consumidos",
+    "result": "Resultado",
+    "created_at": "Fecha de Creación",
+    "action": "Acción",
+    "scene": "Escena"
+  },
+  "list": {
+    "title": "Tareas de IA",
+    "crumbs": {
+      "admin": "Admin",
+      "ai-tasks": "Tareas de IA"
+    },
+    "tabs": {
+      "all": "Todos",
+      "music": "Música",
+      "image": "Imagen",
+      "video": "Video",
+      "audio": "Audio",
+      "text": "Texto"
+    },
+    "buttons": {
+      "view": "Ver Tarea",
+      "refresh": "Actualizar Tarea"
+    },
+    "empty_message": "No se encontraron tareas"
+  }
+}

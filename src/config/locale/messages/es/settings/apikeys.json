@@ -1,0 +1,47 @@
+{
+  "fields": {
+    "title": "Título",
+    "key": "Clave",
+    "created_at": "Fecha de Creación",
+    "action": "Acción"
+  },
+  "list": {
+    "title": "Claves API",
+    "empty_message": "Sin Claves API",
+    "buttons": {
+      "add": "Crear Clave API",
+      "edit": "Editar",
+      "delete": "Eliminar"
+    }
+  },
+  "add": {
+    "title": "Crear Clave API",
+    "crumbs": {
+      "apikeys": "Claves API",
+      "add": "Crear Clave API"
+    },
+    "buttons": {
+      "submit": "Crear"
+    }
+  },
+  "edit": {
+    "title": "Editar Clave API",
+    "crumbs": {
+      "apikeys": "Claves API",
+      "edit": "Editar Clave API"
+    },
+    "buttons": {
+      "submit": "Actualizar"
+    }
+  },
+  "delete": {
+    "title": "Eliminar Clave API",
+    "crumbs": {
+      "apikeys": "Claves API",
+      "delete": "Eliminar Clave API"
+    },
+    "buttons": {
+      "submit": "Confirmar Eliminación"
+    }
+  }
+}

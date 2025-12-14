@@ -88,15 +88,28 @@ export class EvolinkProvider implements AIProvider {
       prompt: prompt,
     };
 
-    // 添加宽高比（如果有且不是 'auto'）
-    // 'auto' 表示让 API 自动决定，不发送 aspect_ratio 参数
-    if (parsedOptions.aspectRatio && parsedOptions.aspectRatio !== 'auto') {
-      requestBody.aspect_ratio = parsedOptions.aspectRatio;
-    }
+    // 判断模型是否只支持宽高比格式的 size 参数
+    // gemini-3-pro-image-preview (nanobanana-2) 和类似模型只支持: auto, 1:1, 2:3, 3:2, 3:4, 4:3, 4:5, 5:4, 9:16, 16:9, 21:9
+    const aspectRatioOnlyModels = [
+      'gemini-3-pro-image-preview', // nanobanana-2
+      'gemini-2.5-flash-image',     // nanobanana
+      'nano-banana-2-lite',         // nanobanana-pro
+    ];
+    const isAspectRatioOnlyModel = aspectRatioOnlyModels.includes(model);
 
-    // 添加图片尺寸设置
-    // 根据 quality (1K/2K/4K) 或默认值，结合 aspectRatio 计算实际尺寸
-    {
+    if (isAspectRatioOnlyModel) {
+      // 对于只支持宽高比的模型，使用 size 参数传递宽高比
+      const ratio = parsedOptions.aspectRatio || 'auto';
+      requestBody.size = ratio;
+    } else {
+      // 对于支持像素尺寸的模型（如 doubao-seedream 系列）
+      // 添加宽高比（如果有且不是 'auto'）
+      if (parsedOptions.aspectRatio && parsedOptions.aspectRatio !== 'auto') {
+        requestBody.aspect_ratio = parsedOptions.aspectRatio;
+      }
+
+      // 添加图片尺寸设置
+      // 根据 quality (1K/2K/4K) 或默认值，结合 aspectRatio 计算实际尺寸
       const quality = parsedOptions.quality;
       const ratio = parsedOptions.aspectRatio || '1:1';
 

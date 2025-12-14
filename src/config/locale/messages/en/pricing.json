@@ -26,7 +26,7 @@
       "description": "Perfect for trying out our service",
       "features_title": "Includes",
       "features": [
-        "100 free credits (one-time)",
+        "100 free credits (never expire)",
         "Access to basic models",
         "Public generations only",
         "Downloads with watermark",
@@ -46,7 +46,7 @@
         "description": "Perfect for casual creators",
         "features_title": "Includes",
         "features": [
-          "400 credits / month",
+          "400 credits / month (never expire)",
           "Prompt locking",
           "Private generations",
           "Watermark-free downloads",
@@ -109,7 +109,7 @@
         "description": "For serious content creators",
         "features_title": "Includes",
         "features": [
-          "1,000 credits / month",
+          "1,000 credits / month (never expire)",
           "Prompt locking",
           "Private generations",
           "Watermark-free downloads",
@@ -174,7 +174,7 @@
         "description": "For studios & agencies",
         "features_title": "Includes",
         "features": [
-          "3,500 credits / month",
+          "3,500 credits / month (never expire)",
           "Prompt locking",
           "Private generations",
           "Watermark-free downloads",

@@ -3,6 +3,7 @@ import postgres from 'postgres';
 
 import { envConfigs } from '@/config';
 import { isCloudflareWorker } from '@/shared/lib/env';
+import * as schema from '@/config/db/schema';
 
 // Global database connection instance (singleton pattern)
 let dbInstance: ReturnType<typeof drizzle> | null = null;
@@ -40,7 +41,8 @@ export function db() {
       connect_timeout: 5,
     });
 
-    return drizzle(client);
+    // 传入 schema 以启用 query API (db().query.user 等)
+    return drizzle(client, { schema });
   }
 
   // Singleton mode: reuse existing connection (good for traditional servers)
@@ -58,7 +60,8 @@ export function db() {
       connect_timeout: 10, // Connection timeout (seconds)
     });
 
-    dbInstance = drizzle({ client });
+    // 传入 schema 以启用 query API (db().query.user 等)
+    dbInstance = drizzle({ client, schema });
     return dbInstance;
   }
 
@@ -71,7 +74,8 @@ export function db() {
     connect_timeout: 10,
   });
 
-  return drizzle({ client: serverlessClient });
+  // 传入 schema 以启用 query API (db().query.user 等)
+  return drizzle({ client: serverlessClient, schema });
 }
 
 // Optional: Function to close database connection (useful for testing or graceful shutdown)

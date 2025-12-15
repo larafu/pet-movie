@@ -402,9 +402,10 @@ export function ShareModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         className={cn(
-          "sm:max-w-md",
+          "sm:max-w-md z-[110]", // 确保层级高于 FeedDetailModal (z-[100])
           className
         )}
+        overlayClassName="z-[105]" // 遮罩层也需要更高的层级
       >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">

@@ -492,11 +492,13 @@ export const aiTask = pgTable(
     finalVideoUrl: text('final_video_url'), // R2 permanent video URL
     originalVideoUrl: text('original_video_url'), // R2 original video URL (no watermark)
     watermarkedVideoUrl: text('watermarked_video_url'), // R2 watermarked video URL
+    finalImageUrl: text('final_image_url'), // R2 permanent image URL (for image generation)
     durationSeconds: integer('duration_seconds'), // Video duration: 25 or 50
     aspectRatio: text('aspect_ratio'), // Video aspect ratio: '16:9' or '9:16'
     retryCount: integer('retry_count').default(0), // Retry attempt count
     errorLog: text('error_log'), // Error log in JSON format
-    isPublic: boolean('is_public').default(false).notNull(), // 是否公开分享 / Is publicly shared
+    isPublic: boolean('is_public').default(true).notNull(), // 是否公开分享 / Is publicly shared (默认公开)
+    promptHidden: boolean('prompt_hidden').default(false).notNull(), // 是否隐藏提示词 / Is prompt hidden (Pro feature)
     likeCount: integer('like_count').default(0).notNull(), // 点赞数
   },
   (table) => [
@@ -1066,4 +1068,53 @@ export type PetMemorial = typeof petMemorial.$inferSelect;
 export type NewPetMemorial = typeof petMemorial.$inferInsert;
 export type PetMemorialCandle = typeof petMemorialCandle.$inferSelect;
 export type NewPetMemorialCandle = typeof petMemorialCandle.$inferInsert;
+
+// ==================== User Media Library ====================
+// 用户资源库表 - 存储用户上传的图片/视频资源
+
+/**
+ * 用户资源表
+ * 用于存储用户上传的媒体资源，支持在生成时复用
+ */
+export const userMedia = pgTable(
+  'user_media',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    type: text('type').notNull(), // 'image' | 'video'
+    url: text('url').notNull(), // 存储服务 URL
+    key: text('key').notNull(), // 存储服务 key (用于删除)
+    filename: text('filename'), // 原始文件名
+    fileSize: integer('file_size'), // 文件大小 (bytes)
+    mimeType: text('mime_type'), // MIME 类型
+    width: integer('width'), // 图片/视频宽度
+    height: integer('height'), // 图片/视频高度
+    status: text('status').notNull().default('active'), // active | deleted
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+    deletedAt: timestamp('deleted_at'),
+  },
+  (table) => [
+    // 查询用户的资源列表（按类型和状态）
+    index('idx_user_media_user_type').on(table.userId, table.type, table.status),
+    // 查询用户的资源列表（按创建时间）
+    index('idx_user_media_created').on(table.userId, table.createdAt),
+  ]
+);
+
+// 用户资源关系定义
+export const userMediaRelations = relations(userMedia, ({ one }) => ({
+  user: one(user, {
+    fields: [userMedia.userId],
+    references: [user.id],
+  }),
+}));
+
+// 用户资源类型导出
+export type UserMedia = typeof userMedia.$inferSelect;
+export type NewUserMedia = typeof userMedia.$inferInsert;
 

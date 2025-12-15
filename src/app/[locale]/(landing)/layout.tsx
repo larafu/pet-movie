@@ -26,7 +26,7 @@ export default async function LandingLayout({
   return (
     <Layout header={header} footer={footer}>
       <LocaleDetector />
-      {/* <UserInitializer /> */}
+      <UserInitializer />
       {children}
     </Layout>
   );

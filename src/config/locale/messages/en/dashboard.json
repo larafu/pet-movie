@@ -1,0 +1,199 @@
+{
+  "title": "My Creations",
+  "header": {
+    "appName": "PET MOVIE AI",
+    "upgrade": "Upgrade",
+    "credits": "Credits",
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "signIn": "Sign In",
+    "tabs": {
+      "community": "Community",
+      "myWorks": "My Works"
+    }
+  },
+  "feed": {
+    "loading": "Loading...",
+    "generating": "Generating...",
+    "empty": "No works yet, start creating!",
+    "error": "Failed to load, please retry",
+    "noMore": "No more content",
+    "types": {
+      "video": "Video",
+      "image": "Image"
+    },
+    "actions": {
+      "like": "Like",
+      "remix": "Remix",
+      "remixDisabled": "Prompt is hidden, cannot Remix"
+    },
+    "errors": {
+      "likeFailed": "Failed to like, please retry"
+    }
+  },
+  "promptBar": {
+    "placeholder": {
+      "image": "Describe your image...",
+      "video": "Describe your video..."
+    },
+    "addImages": "Add Images",
+    "modes": {
+      "image": "Image",
+      "video": "Video"
+    },
+    "models": {
+      "quickSelect": "Quick Select",
+      "image": {
+        "_title": "Image Models",
+        "standard": {
+          "description": "Fast and balanced quality"
+        },
+        "pro": {
+          "description": "Premium quality, more details"
+        },
+        "nanobanana": {
+          "description": "Creative artistic style"
+        },
+        "nanobanana-pro": {
+          "description": "Advanced artistic rendering"
+        },
+        "nanobanana-2": {
+          "description": "Latest creative model"
+        }
+      },
+      "video": {
+        "_title": "Video Models",
+        "vidgen10s": {
+          "description": "10 second video generation"
+        },
+        "vidgen15s": {
+          "description": "15 second video generation"
+        }
+      }
+    },
+    "credits": "credits",
+    "videoAspectRatio": "Video Aspect Ratio",
+    "duration": "Duration",
+    "motion": "Motion Amount",
+    "settings": {
+      "title": "Settings",
+      "aspectRatio": "Aspect Ratio",
+      "quality": "Quality",
+      "guidanceScale": "Prompt Adherence",
+      "ratio": {
+        "auto": "Auto",
+        "square": "Square",
+        "standard": "Standard 4:3",
+        "portrait": "Portrait 3:4",
+        "landscape": "Landscape 16:9",
+        "vertical": "Vertical 9:16",
+        "photo": "Photo 3:2",
+        "photoPortrait": "Photo Portrait 2:3",
+        "ultrawide": "Ultrawide 21:9"
+      },
+      "qualityOption": {
+        "1k": "Fast generation, smaller size",
+        "2k": "Balanced quality and speed",
+        "4k": "Highest quality, extra credits"
+      },
+      "guidance": {
+        "low": "Creative",
+        "lowDesc": "More creative freedom",
+        "medium": "Balanced",
+        "mediumDesc": "Balance creativity and accuracy",
+        "high": "Accurate",
+        "highDesc": "Follow prompt closely",
+        "max": "Strict",
+        "maxDesc": "Maximum prompt adherence"
+      },
+      "videoRatio": {
+        "landscape": "Landscape 16:9",
+        "portrait": "Portrait 9:16"
+      },
+      "videoDuration": {
+        "standard": "Standard duration",
+        "extended": "Extended duration"
+      },
+      "watermark": {
+        "title": "Watermark",
+        "keep": "Keep Watermark",
+        "keepDesc": "Video with watermark",
+        "remove": "Remove Watermark",
+        "removeDesc": "Clean video without watermark",
+        "proTip": "Watermark removal is available for Pro users"
+      },
+      "imageWatermark": {
+        "title": "Download Watermark",
+        "keep": "With Watermark",
+        "keepDesc": "Downloaded image includes watermark",
+        "remove": "No Watermark",
+        "removeDesc": "Download clean image without watermark",
+        "proTip": "Watermark-free downloads available for Pro users"
+      }
+    },
+    "visibility": {
+      "title": "Visibility",
+      "public": "Public",
+      "publicDesc": "Visible on the community feed",
+      "private": "Private",
+      "privateDesc": "Only visible to you",
+      "proRequired": "Pro subscription required",
+      "proTip": "Private mode is available for Pro users"
+    },
+    "promptLock": {
+      "proRequired": "Pro subscription required to hide prompt",
+      "hidden": "Prompt is hidden from others",
+      "visible": "Click to hide your prompt"
+    },
+    "imageUpload": {
+      "title": "Select Input Images",
+      "selected": "selected",
+      "uploadNew": "Upload New Image",
+      "uploadHint": "JPEG, PNG, WebP · Max 10MB",
+      "maxReached": "Maximum number of images reached",
+      "uploadFailed": "Upload failed, please try again",
+      "library": "Library",
+      "libraryEmpty": "No images in library",
+      "libraryUploadPrompt": "Upload images",
+      "selectedImagesHint": "Selected images (click to remove)"
+    },
+    "success": {
+      "generated": "Generated successfully!"
+    },
+    "errors": {
+      "insufficientCredits": "Insufficient credits, please top up",
+      "generateFailed": "Generation failed, please retry"
+    }
+  },
+  "detail": {
+    "title": "Work Details",
+    "prompt": "Prompt",
+    "promptHidden": "Prompt is hidden",
+    "model": "Model",
+    "ratio": "Aspect Ratio",
+    "created": "Created",
+    "remix": "Remix",
+    "remixDisabled": "Prompt is hidden, cannot Remix",
+    "like": "Like",
+    "likes": "likes",
+    "share": "Share",
+    "download": "Download",
+    "copyPrompt": "Copy prompt",
+    "promptCopied": "Prompt copied!",
+    "linkCopied": "Link copied!",
+    "downloadStarted": "Download started",
+    "downloadFailed": "Download failed",
+    "downloadWithWatermark": "Free users download with watermark. Upgrade to Pro for watermark-free downloads!",
+    "likeFailed": "Like failed, please retry",
+    "shareTitle": "AI Creation"
+  },
+  "remix": {
+    "success": "Copied to creation bar, go generate!",
+    "storyboardRedirect": "Redirecting to storyboard editor..."
+  },
+  "retry": "Retry",
+  "startCreate": "Start Creating",
+  "generating": "Generating...",
+  "generateSuccess": "Generated successfully!",
+  "generateError": "Generation failed"
+}

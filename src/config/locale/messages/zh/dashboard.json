@@ -1,0 +1,199 @@
+{
+  "title": "我的创作",
+  "header": {
+    "appName": "PET MOVIE AI",
+    "upgrade": "升级会员",
+    "credits": "积分",
+    "profile": "个人主页",
+    "notifications": "通知",
+    "signIn": "登录",
+    "tabs": {
+      "community": "社区",
+      "myWorks": "我的"
+    }
+  },
+  "feed": {
+    "loading": "加载中...",
+    "generating": "生成中...",
+    "empty": "还没有作品，快去创作吧！",
+    "error": "加载失败，请重试",
+    "noMore": "没有更多了",
+    "types": {
+      "video": "视频",
+      "image": "图片"
+    },
+    "actions": {
+      "like": "点赞",
+      "remix": "Remix",
+      "remixDisabled": "提示词已隐藏，无法 Remix"
+    },
+    "errors": {
+      "likeFailed": "点赞失败，请重试"
+    }
+  },
+  "promptBar": {
+    "placeholder": {
+      "image": "描述你想要的图片...",
+      "video": "描述你想要的视频..."
+    },
+    "addImages": "添加图片",
+    "modes": {
+      "image": "图片",
+      "video": "视频"
+    },
+    "models": {
+      "quickSelect": "快速选择",
+      "image": {
+        "_title": "图片模型",
+        "standard": {
+          "description": "快速生成，质量均衡"
+        },
+        "pro": {
+          "description": "高级画质，细节丰富"
+        },
+        "nanobanana": {
+          "description": "创意艺术风格"
+        },
+        "nanobanana-pro": {
+          "description": "进阶艺术渲染"
+        },
+        "nanobanana-2": {
+          "description": "最新创意模型"
+        }
+      },
+      "video": {
+        "_title": "视频模型",
+        "vidgen10s": {
+          "description": "10秒视频生成"
+        },
+        "vidgen15s": {
+          "description": "15秒视频生成"
+        }
+      }
+    },
+    "credits": "积分",
+    "videoAspectRatio": "视频宽高比",
+    "duration": "时长",
+    "motion": "运动幅度",
+    "settings": {
+      "title": "设置",
+      "aspectRatio": "宽高比",
+      "quality": "画质",
+      "guidanceScale": "提示词遵循度",
+      "ratio": {
+        "auto": "自动",
+        "square": "正方形",
+        "standard": "标准 4:3",
+        "portrait": "竖版 3:4",
+        "landscape": "横版 16:9",
+        "vertical": "竖屏 9:16",
+        "photo": "照片 3:2",
+        "photoPortrait": "竖版照片 2:3",
+        "ultrawide": "超宽 21:9"
+      },
+      "qualityOption": {
+        "1k": "快速生成，尺寸较小",
+        "2k": "平衡质量与速度",
+        "4k": "最高画质，额外消耗积分"
+      },
+      "guidance": {
+        "low": "自由创作",
+        "lowDesc": "更多创意自由度",
+        "medium": "平衡",
+        "mediumDesc": "平衡创意与准确性",
+        "high": "精准",
+        "highDesc": "紧密遵循提示词",
+        "max": "严格",
+        "maxDesc": "最大程度遵循提示词"
+      },
+      "videoRatio": {
+        "landscape": "横屏 16:9",
+        "portrait": "竖屏 9:16"
+      },
+      "videoDuration": {
+        "standard": "标准时长",
+        "extended": "加长时长"
+      },
+      "watermark": {
+        "title": "水印设置",
+        "keep": "保留水印",
+        "keepDesc": "视频带有水印",
+        "remove": "去除水印",
+        "removeDesc": "无水印清爽视频",
+        "proTip": "去水印功能仅对 Pro 会员开放"
+      },
+      "imageWatermark": {
+        "title": "下载水印",
+        "keep": "带水印",
+        "keepDesc": "下载的图片包含水印",
+        "remove": "无水印",
+        "removeDesc": "下载无水印的原图",
+        "proTip": "无水印下载仅对 Pro 会员开放"
+      }
+    },
+    "visibility": {
+      "title": "可见性",
+      "public": "公开",
+      "publicDesc": "在社区广场可见",
+      "private": "私密",
+      "privateDesc": "仅自己可见",
+      "proRequired": "需要 Pro 订阅",
+      "proTip": "私密模式仅对 Pro 用户开放"
+    },
+    "promptLock": {
+      "proRequired": "需要 Pro 订阅才能隐藏提示词",
+      "hidden": "提示词已对他人隐藏",
+      "visible": "点击隐藏你的提示词"
+    },
+    "imageUpload": {
+      "title": "选择输入图片",
+      "selected": "已选择",
+      "uploadNew": "上传新图片",
+      "uploadHint": "支持 JPEG、PNG、WebP · 最大 10MB",
+      "maxReached": "已达到最大图片数量",
+      "uploadFailed": "上传失败，请重试",
+      "library": "资源库",
+      "libraryEmpty": "资源库暂无图片",
+      "libraryUploadPrompt": "上传图片",
+      "selectedImagesHint": "已选择的图片（点击移除）"
+    },
+    "success": {
+      "generated": "生成成功！"
+    },
+    "errors": {
+      "insufficientCredits": "积分不足，请充值",
+      "generateFailed": "生成失败，请重试"
+    }
+  },
+  "detail": {
+    "title": "作品详情",
+    "prompt": "提示词",
+    "promptHidden": "提示词已隐藏",
+    "model": "模型",
+    "ratio": "宽高比",
+    "created": "创建时间",
+    "remix": "Remix",
+    "remixDisabled": "提示词已隐藏，无法 Remix",
+    "like": "点赞",
+    "likes": "赞",
+    "share": "分享",
+    "download": "下载",
+    "copyPrompt": "复制提示词",
+    "promptCopied": "提示词已复制！",
+    "linkCopied": "链接已复制！",
+    "downloadStarted": "开始下载",
+    "downloadFailed": "下载失败",
+    "downloadWithWatermark": "免费用户下载带水印，升级 Pro 可下载无水印原图",
+    "likeFailed": "点赞失败，请重试",
+    "shareTitle": "AI 创作"
+  },
+  "remix": {
+    "success": "已复制到创作框，快去生成吧！",
+    "storyboardRedirect": "正在跳转到故事版编辑器..."
+  },
+  "retry": "重试",
+  "startCreate": "开始创作",
+  "generating": "生成中...",
+  "generateSuccess": "生成成功！",
+  "generateError": "生成失败"
+}

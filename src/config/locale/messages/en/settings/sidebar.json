@@ -8,6 +8,11 @@
         "icon": "User"
       },
       {
+        "title": "Media Library",
+        "url": "/settings/media",
+        "icon": "Image"
+      },
+      {
         "title": "Billing",
         "url": "/settings/billing",
         "icon": "CreditCard"

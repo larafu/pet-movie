@@ -1,0 +1,30 @@
+{
+  "title": "Media Library",
+  "description": "Manage your uploaded images and videos",
+  "tabs": {
+    "all": "All",
+    "images": "Images",
+    "videos": "Videos"
+  },
+  "upload": {
+    "button": "Upload",
+    "hint": "JPEG, PNG, WebP, MP4 · Max 50MB",
+    "success": "Uploaded successfully",
+    "failed": "Upload failed"
+  },
+  "empty": {
+    "title": "No media yet",
+    "description": "Upload images or videos to build your media library"
+  },
+  "item": {
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure you want to delete this item?",
+    "deleteSuccess": "Deleted successfully",
+    "deleteFailed": "Delete failed",
+    "size": "Size",
+    "uploaded": "Uploaded"
+  },
+  "loading": "Loading...",
+  "loadMore": "Load More",
+  "noMore": "No more items"
+}

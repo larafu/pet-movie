@@ -1,5 +1,9 @@
 import { envConfigs } from '@/config';
 import { AIMediaType, AITaskStatus } from '@/extensions/ai';
+import {
+  getModelByActualModel,
+  type AIModelType,
+} from '@/extensions/ai/models/config';
 import { getUuid } from '@/shared/lib/hash';
 import { respData, respErr } from '@/shared/lib/resp';
 import { createAITask, NewAITask } from '@/shared/models/ai_task';
@@ -10,8 +14,17 @@ import { isSuperAdmin } from '@/shared/services/rbac';
 
 export async function POST(request: Request) {
   try {
-    let { provider, mediaType, model, prompt, options, scene, image_urls } =
-      await request.json();
+    let {
+      provider,
+      mediaType,
+      model,
+      prompt,
+      options,
+      scene,
+      image_urls,
+      isPublic = true, // 默认公开
+      promptHidden = false, // 默认不隐藏提示词
+    } = await request.json();
 
     if (!provider || !mediaType || !model) {
       throw new Error('invalid params');
@@ -40,25 +53,48 @@ export async function POST(request: Request) {
       throw new Error('no auth, please sign in');
     }
 
-    // todo: get cost credits from settings
-    let costCredits = 2;
+    // 从 options 中解析配置（用于确定模型和积分）
+    let parsedOptions: { duration?: number; quality?: string } = {};
+    try {
+      if (options && typeof options === 'string') {
+        parsedOptions = JSON.parse(options);
+      } else if (options && typeof options === 'object') {
+        parsedOptions = options;
+      }
+    } catch {
+      // ignore parse error
+    }
+
+    // 根据模型配置获取积分消耗
+    let costCredits = 2; // 默认值
 
     if (mediaType === AIMediaType.IMAGE) {
-      // generate image
-      if (scene === 'image-to-image') {
-        costCredits = 4;
-      } else if (scene === 'text-to-image') {
-        costCredits = 2;
-      } else {
-        throw new Error('invalid scene');
+      // 图片生成：根据模型查找积分
+      const modelConfig = getModelByActualModel(model, 'image' as AIModelType);
+      if (modelConfig) {
+        costCredits = modelConfig.credits;
+      }
+      // 4K 质量额外消耗 5 积分
+      if (parsedOptions.quality === '4K') {
+        costCredits += 5;
+      }
+      // 设置场景
+      if (!scene) {
+        scene = image_urls?.length > 0 ? 'image-to-image' : 'text-to-image';
       }
     } else if (mediaType === AIMediaType.MUSIC) {
-      // generate music
+      // 音乐生成
       costCredits = 10;
       scene = 'text-to-music';
     } else if (mediaType === AIMediaType.VIDEO) {
-      // generate video
-      costCredits = 5;
+      // 视频生成：根据模型和时长查找积分
+      const duration = parsedOptions.duration || 10;
+      const modelConfig = getModelByActualModel(model, 'video' as AIModelType, {
+        duration,
+      });
+      if (modelConfig) {
+        costCredits = modelConfig.credits;
+      }
       scene = 'text-to-video';
     } else {
       throw new Error('invalid mediaType');
@@ -86,8 +122,15 @@ export async function POST(request: Request) {
     };
 
     // Add image_urls if provided (for image-to-video or reference images)
-    if (image_urls) {
-      params.image_urls = image_urls;
+    // 只添加有效的 URL（过滤空字符串和无效格式）
+    if (image_urls && Array.isArray(image_urls)) {
+      const validUrls = image_urls.filter(
+        (url: string) =>
+          url && (url.startsWith('http://') || url.startsWith('https://'))
+      );
+      if (validUrls.length > 0) {
+        params.image_urls = validUrls;
+      }
     }
 
     // generate content
@@ -113,6 +156,8 @@ export async function POST(request: Request) {
       taskId: result.taskId,
       taskInfo: result.taskInfo ? JSON.stringify(result.taskInfo) : null,
       taskResult: result.taskResult ? JSON.stringify(result.taskResult) : null,
+      isPublic: Boolean(isPublic), // 是否公开
+      promptHidden: Boolean(promptHidden), // 是否隐藏提示词
     };
     await createAITask(newAITask, {
       skipCreditConsumption: isAdmin, // Skip credit consumption for super admins

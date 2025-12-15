@@ -45,15 +45,31 @@ function useColumnCount() {
 }
 
 /**
- * 将 items 按横向顺序分配到各列
- * 例如 4 列时：item[0]->col0, item[1]->col1, item[2]->col2, item[3]->col3, item[4]->col0, ...
+ * 将 items 分配到各列（最短列优先算法）
+ * 每次将新 item 放入当前高度最小的列，实现真正的瀑布流效果
  */
 function distributeItemsToColumns(items: FeedItem[], columnCount: number): FeedItem[][] {
   const columns: FeedItem[][] = Array.from({ length: columnCount }, () => []);
+  // 追踪每列的累计高度（使用 aspectRatio 的倒数作为高度估算）
+  const columnHeights: number[] = Array(columnCount).fill(0);
 
-  items.forEach((item, index) => {
-    const columnIndex = index % columnCount;
-    columns[columnIndex].push(item);
+  items.forEach((item) => {
+    // 找到当前最短的列
+    let shortestColumnIndex = 0;
+    let minHeight = columnHeights[0];
+    for (let i = 1; i < columnCount; i++) {
+      if (columnHeights[i] < minHeight) {
+        minHeight = columnHeights[i];
+        shortestColumnIndex = i;
+      }
+    }
+
+    // 将 item 放入最短列
+    columns[shortestColumnIndex].push(item);
+
+    // 更新该列高度（使用 1/aspectRatio 作为相对高度）
+    const itemHeight = 1 / (item.aspectRatio || 1);
+    columnHeights[shortestColumnIndex] += itemHeight;
   });
 
   return columns;

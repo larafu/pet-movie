@@ -66,6 +66,7 @@ export async function GET(request: NextRequest) {
         finalImageUrl: aiTask.finalImageUrl, // R2 存储的图片 URL
         taskResult: aiTask.taskResult, // 图片结果存储在此字段（备用）
         aspectRatio: aiTask.aspectRatio,
+        options: aiTask.options, // 生成选项（包含 aspectRatio）
         likeCount: aiTask.likeCount,
         isPublic: aiTask.isPublic,
         promptHidden: aiTask.promptHidden, // 是否隐藏提示词
@@ -81,24 +82,37 @@ export async function GET(request: NextRequest) {
       .where(and(...whereConditions));
 
     // 根据 tab 和登录状态决定排序
+    // 社区 tab 排序策略：综合考虑时间和点赞数，让新作品也能被看到
+    // 使用时间衰减算法：score = likes + timeBonus，timeBonus 随时间衰减
     let tasks;
     if (tab === 'all' && user) {
-      // 社区 tab + 已登录: 用户自己的作品优先，然后按点赞数排序
+      // 社区 tab + 已登录: 用户自己的作品优先，然后综合排序
       tasks = await query
         .orderBy(
           // 先按是否是当前用户的作品排序（用户自己的排前面）
           sql`CASE WHEN ${aiTask.userId} = ${user.id} THEN 0 ELSE 1 END`,
-          // 用户自己的作品按时间倒序，其他按点赞数倒序
+          // 用户自己的作品按时间倒序
           sql`CASE WHEN ${aiTask.userId} = ${user.id} THEN ${aiTask.createdAt} END DESC`,
-          desc(aiTask.likeCount),
+          // 其他作品：综合点赞和时间排序（24小时内新作品权重最高，7天内次之）
+          sql`(${aiTask.likeCount} + CASE
+            WHEN ${aiTask.createdAt} > NOW() - INTERVAL '24 hours' THEN 50
+            WHEN ${aiTask.createdAt} > NOW() - INTERVAL '7 days' THEN 10
+            ELSE 0 END) DESC`,
           desc(aiTask.createdAt)
         )
         .limit(limit)
         .offset(offset);
     } else if (tab === 'all') {
-      // 社区 tab + 未登录: 按点赞数排序
+      // 社区 tab + 未登录: 综合点赞和时间排序（新作品有权重加成）
       tasks = await query
-        .orderBy(desc(aiTask.likeCount), desc(aiTask.createdAt))
+        .orderBy(
+          // 24小时内新作品权重最高，7天内次之，让新内容能被发现
+          sql`(${aiTask.likeCount} + CASE
+            WHEN ${aiTask.createdAt} > NOW() - INTERVAL '24 hours' THEN 50
+            WHEN ${aiTask.createdAt} > NOW() - INTERVAL '7 days' THEN 10
+            ELSE 0 END) DESC`,
+          desc(aiTask.createdAt)
+        )
         .limit(limit)
         .offset(offset);
     } else {
@@ -153,11 +167,30 @@ export async function GET(request: NextRequest) {
       }
 
       // 计算宽高比
+      // 优先从 aspectRatio 字段读取，否则从 options JSON 中解析
       let aspectRatio = 16 / 9; // 默认
-      if (task.aspectRatio) {
-        const [width, height] = task.aspectRatio
+      let aspectRatioStr = task.aspectRatio;
+
+      // 如果 aspectRatio 字段为空，尝试从 options 中获取
+      if (!aspectRatioStr && task.options) {
+        try {
+          let options = typeof task.options === 'string'
+            ? JSON.parse(task.options)
+            : task.options;
+          // 处理双重 JSON 编码的情况
+          if (typeof options === 'string') {
+            options = JSON.parse(options);
+          }
+          aspectRatioStr = options.aspectRatio;
+        } catch (e) {
+          // 解析失败，使用默认值
+        }
+      }
+
+      if (aspectRatioStr) {
+        const [width, height] = aspectRatioStr
           .split(':')
-          .map((n) => parseInt(n));
+          .map((n: string) => parseInt(n));
         if (width && height) {
           aspectRatio = width / height;
         }
@@ -195,10 +228,12 @@ export async function GET(request: NextRequest) {
     // 过滤掉没有媒体 URL 的项目
     const validItems = items.filter((item) => item.src);
 
+    // hasMore 应该基于数据库返回的原始数量，而不是过滤后的数量
+    // 这样即使有些数据被过滤，也会继续加载更多
     return respData({
       items: validItems,
       total: validItems.length,
-      hasMore: items.length >= limit,
+      hasMore: tasks.length >= limit, // 使用原始查询数量判断
     });
   } catch (error) {
     console.error('Feed API error:', error);

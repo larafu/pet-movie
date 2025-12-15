@@ -283,26 +283,27 @@ export function FeedCard({ item, onLike, onRemix, onClick }: FeedCardProps) {
             </div>
           ) : (
             <div
-              className="relative"
+              className="relative w-full"
+              style={{ aspectRatio: item.aspectRatio || 1 }} // 预设宽高比，防止加载后跳动
               onContextMenu={(e) => e.preventDefault()} // 禁止右键保存
             >
               <Image
                 alt={item.alt}
                 src={item.src}
-                width={400}
-                height={Math.round(400 / (item.aspectRatio || 1))}
+                fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                 loading="lazy"
                 draggable={false} // 禁止拖拽保存
-                className={`w-full h-auto object-cover block select-none pointer-events-none transition-all duration-700 ease-out ${
+                className={`object-cover select-none pointer-events-none transition-all duration-500 ease-out ${
                   imageLoaded
-                    ? 'opacity-100 scale-100 blur-0'
-                    : 'opacity-0 scale-95 blur-sm'
+                    ? 'opacity-100 blur-0'
+                    : 'opacity-0 blur-sm'
                 }`}
                 onLoad={() => setImageLoaded(true)}
               />
+              {/* 加载占位 - 使用骨架屏 */}
               {!imageLoaded && (
-                <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 animate-pulse" />
               )}
             </div>
           )}

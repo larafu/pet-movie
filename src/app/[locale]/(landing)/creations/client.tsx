@@ -122,7 +122,8 @@ export function DashboardClient({
         } else {
           setFeedItems(newItems);
         }
-        setHasMore(newItems.length >= PAGE_SIZE);
+        // 使用 API 返回的 hasMore，而不是自己计算
+        setHasMore(data.data.hasMore ?? newItems.length >= PAGE_SIZE);
         offsetRef.current = currentOffset + newItems.length; // 更新 ref
       } else {
         setError(data.message || errorMessage);
@@ -150,7 +151,7 @@ export function DashboardClient({
           fetchFeed(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '100px' } // 提前 100px 触发
     );
 
     const currentRef = loadMoreRef.current;

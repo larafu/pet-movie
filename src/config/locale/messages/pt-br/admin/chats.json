@@ -1,0 +1,29 @@
+{
+  "fields": {
+    "title": "Título",
+    "user": "Usuário",
+    "status": "Status",
+    "model": "Modelo",
+    "provider": "Provedor",
+    "created_at": "Criado Em",
+    "action": "Ação"
+  },
+  "list": {
+    "title": "Chats de IA",
+    "crumbs": {
+      "admin": "Admin",
+      "chats": "Chats de IA"
+    },
+    "tabs": {
+      "all": "Todos",
+      "pending": "Pendente",
+      "completed": "Concluído",
+      "failed": "Falhou"
+    },
+    "buttons": {
+      "view": "Ver Chat",
+      "new": "Novo Chat"
+    },
+    "empty_message": "Nenhum chat encontrado"
+  }
+}

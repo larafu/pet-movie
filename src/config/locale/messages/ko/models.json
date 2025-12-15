@@ -1,0 +1,33 @@
+{
+  "video": {
+    "vidgen10s": {
+      "description": "10초 비디오 생성, 10 크레딧"
+    },
+    "vidgen15s": {
+      "description": "15초 비디오 생성, 15 크레딧"
+    }
+  },
+  "image": {
+    "standard": {
+      "description": "표준 이미지 생성, 균형 잡힌 품질"
+    },
+    "pro": {
+      "description": "전문 이미지 생성, 더 높은 품질"
+    },
+    "nanobanana": {
+      "description": "NanoBanana 모델, 고품질 이미지"
+    },
+    "nanobanana-pro": {
+      "description": "NanoBanana Pro 모델, 전문가 품질"
+    },
+    "nanobanana-2": {
+      "description": "NanoBanana 2.0 모델, 최신 버전"
+    },
+    "gemini-flash": {
+      "description": "Gemini Flash 빠른 이미지 생성"
+    },
+    "gemini-pro": {
+      "description": "Gemini Pro 전문 이미지 생성"
+    }
+  }
+}

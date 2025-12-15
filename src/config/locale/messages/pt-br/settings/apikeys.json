@@ -1,0 +1,47 @@
+{
+  "fields": {
+    "title": "Título",
+    "key": "Chave",
+    "created_at": "Criado Em",
+    "action": "Ação"
+  },
+  "list": {
+    "title": "Chaves de API",
+    "empty_message": "Sem Chaves de API",
+    "buttons": {
+      "add": "Criar Chave de API",
+      "edit": "Editar",
+      "delete": "Excluir"
+    }
+  },
+  "add": {
+    "title": "Criar Chave de API",
+    "crumbs": {
+      "apikeys": "Chaves de API",
+      "add": "Criar Chave de API"
+    },
+    "buttons": {
+      "submit": "Criar"
+    }
+  },
+  "edit": {
+    "title": "Editar Chave de API",
+    "crumbs": {
+      "apikeys": "Chaves de API",
+      "edit": "Editar Chave de API"
+    },
+    "buttons": {
+      "submit": "Atualizar"
+    }
+  },
+  "delete": {
+    "title": "Excluir Chave de API",
+    "crumbs": {
+      "apikeys": "Chaves de API",
+      "delete": "Excluir Chave de API"
+    },
+    "buttons": {
+      "submit": "Confirmar Exclusão"
+    }
+  }
+}

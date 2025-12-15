@@ -1,0 +1,48 @@
+{
+  "groups": {
+    "email_auth": "Autenticação por Email",
+    "google_auth": "Autenticação Google",
+    "github_auth": "Autenticação Github",
+    "basic_payment": "Pagamento Básico",
+    "stripe": "Stripe",
+    "creem": "Creem",
+    "paypal": "Paypal",
+    "resend": "Resend",
+    "r2": "Cloudflare R2",
+    "s3": "AWS S3",
+    "openrouter": "OpenRouter",
+    "replicate": "Replicate",
+    "fal": "Fal",
+    "google_analytics": "Google Analytics",
+    "clarity": "Clarity",
+    "plausible": "Plausible",
+    "openpanel": "OpenPanel",
+    "vercel_analytics": "Vercel Analytics",
+    "adsense": "Adsense",
+    "affonso": "Affonso",
+    "promotekit": "PromoteKit",
+    "tawk": "Tawk",
+    "crisp": "Crisp"
+  },
+  "edit": {
+    "title": "Configurações",
+    "crumbs": {
+      "admin": "Admin",
+      "settings": "Configurações"
+    },
+    "tabs": {
+      "auth": "Autenticação",
+      "payment": "Pagamento",
+      "email": "Email",
+      "storage": "Armazenamento",
+      "ai": "IA",
+      "analytics": "Analytics",
+      "ads": "Anúncios",
+      "affiliate": "Afiliados",
+      "customer_service": "Atendimento ao Cliente"
+    },
+    "buttons": {
+      "submit": "Salvar"
+    }
+  }
+}

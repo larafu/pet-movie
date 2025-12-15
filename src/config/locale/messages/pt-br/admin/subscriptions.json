@@ -1,0 +1,27 @@
+{
+  "fields": {
+    "subscription_no": "Nº da Assinatura",
+    "user": "Usuário",
+    "amount": "Valor",
+    "interval": "Intervalo",
+    "provider": "Provedor",
+    "created_at": "Criado Em",
+    "current_period_start": "Início do Período Atual",
+    "current_period_end": "Fim do Período Atual",
+    "status": "Status",
+    "description": "Descrição",
+    "action": "Ação"
+  },
+  "list": {
+    "title": "Assinaturas",
+    "crumbs": {
+      "admin": "Admin",
+      "subscriptions": "Assinaturas"
+    },
+    "tabs": {
+      "all": "Todos",
+      "month": "Mensal",
+      "year": "Anual"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "video": {
+    "vidgen10s": {
+      "description": "Geração de vídeo de 10s, 10 créditos"
+    },
+    "vidgen15s": {
+      "description": "Geração de vídeo de 15s, 15 créditos"
+    }
+  },
+  "image": {
+    "standard": {
+      "description": "Geração de imagem padrão, qualidade equilibrada"
+    },
+    "pro": {
+      "description": "Geração de imagem profissional, maior qualidade"
+    },
+    "nanobanana": {
+      "description": "Modelo NanoBanana, imagens de alta qualidade"
+    },
+    "nanobanana-pro": {
+      "description": "Modelo NanoBanana Pro, qualidade profissional"
+    },
+    "nanobanana-2": {
+      "description": "Modelo NanoBanana 2.0, versão mais recente"
+    },
+    "gemini-flash": {
+      "description": "Geração rápida de imagens Gemini Flash"
+    },
+    "gemini-pro": {
+      "description": "Geração de imagens profissional Gemini Pro"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "metadata": {
+    "title": "Gerador de Imagens com IA",
+    "description": "Gere imagens com modelos de IA, suporte para texto-para-imagem e imagem-para-imagem."
+  },
+  "page": {
+    "title": "Gerador de Imagens com IA",
+    "description": "Gere imagens com modelos de IA, suporte para texto-para-imagem e imagem-para-imagem."
+  },
+  "generator": {
+    "title": "Gerador de Imagens",
+    "description": "Gere imagens com modelos de IA, suporte para texto-para-imagem e imagem-para-imagem.",
+    "tabs": {
+      "text-to-image": "Texto para Imagem",
+      "image-to-image": "Imagem para Imagem"
+    },
+    "form": {
+      "provider": "Provedor",
+      "model": "Modelo",
+      "select_provider": "Selecionar Provedor",
+      "select_model": "Selecionar Modelo",
+      "prompt": "Prompt",
+      "prompt_placeholder": "Descreva os detalhes da imagem, como cor, forma, textura, etc.",
+      "reference_image": "Imagem de Referência",
+      "reference_image_placeholder": "Envie imagens de referência, suporte para múltiplas imagens",
+      "some_images_failed_to_upload": "Algumas imagens falharam ao enviar, por favor exclua e envie novamente",
+      "prompt_too_long": "O prompt é muito longo, por favor exclua algum conteúdo"
+    },
+    "generate": "Gerar Imagens",
+    "checking_account": "Verificando Conta...",
+    "loading": "Carregando...",
+    "generating": "Gerando...",
+    "sign_in_to_generate": "Entre para Gerar Imagem",
+    "credits_cost": "Custo de {credits} créditos",
+    "credits_remaining": "{credits} créditos restantes",
+    "buy_credits": "Comprar Créditos",
+    "progress": "Progresso",
+    "generated_images": "Prévia da Imagem",
+    "ready_to_generate": "Pronto para Gerar",
+    "ready_for_generating": "Pronto para Geração",
+    "no_images_generated": "Nenhuma Imagem Gerada"
+  }
+}

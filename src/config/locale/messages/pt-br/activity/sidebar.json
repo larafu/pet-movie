@@ -1,0 +1,26 @@
+{
+  "title": "Atividade",
+  "nav": {
+    "items": [
+      {
+        "title": "Tarefas de IA",
+        "url": "/activity/ai-tasks",
+        "icon": "RiTaskLine"
+      }
+    ]
+  },
+  "top_nav": {
+    "items": [
+      {
+        "title": "Atividade",
+        "url": "/activity",
+        "icon": "Activity"
+      },
+      {
+        "title": "Configurações",
+        "url": "/settings",
+        "icon": "Settings"
+      }
+    ]
+  }
+}

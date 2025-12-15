@@ -1,0 +1,199 @@
+{
+  "title": "내 창작물",
+  "header": {
+    "appName": "PET MOVIE AI",
+    "upgrade": "업그레이드",
+    "credits": "크레딧",
+    "profile": "프로필",
+    "notifications": "알림",
+    "signIn": "로그인",
+    "tabs": {
+      "community": "커뮤니티",
+      "myWorks": "내 작품"
+    }
+  },
+  "feed": {
+    "loading": "로딩 중...",
+    "generating": "생성 중...",
+    "empty": "아직 작품이 없습니다. 창작을 시작하세요!",
+    "error": "로딩 실패, 다시 시도해 주세요",
+    "noMore": "더 이상 콘텐츠가 없습니다",
+    "types": {
+      "video": "비디오",
+      "image": "이미지"
+    },
+    "actions": {
+      "like": "좋아요",
+      "remix": "리믹스",
+      "remixDisabled": "프롬프트가 숨겨져 있어 리믹스할 수 없습니다"
+    },
+    "errors": {
+      "likeFailed": "좋아요 실패, 다시 시도해 주세요"
+    }
+  },
+  "promptBar": {
+    "placeholder": {
+      "image": "이미지를 설명하세요...",
+      "video": "비디오를 설명하세요..."
+    },
+    "addImages": "이미지 추가",
+    "modes": {
+      "image": "이미지",
+      "video": "비디오"
+    },
+    "models": {
+      "quickSelect": "빠른 선택",
+      "image": {
+        "_title": "이미지 모델",
+        "standard": {
+          "description": "빠르고 균형 잡힌 품질"
+        },
+        "pro": {
+          "description": "프리미엄 품질, 더 많은 디테일"
+        },
+        "nanobanana": {
+          "description": "창의적인 예술 스타일"
+        },
+        "nanobanana-pro": {
+          "description": "고급 예술 렌더링"
+        },
+        "nanobanana-2": {
+          "description": "최신 창작 모델"
+        }
+      },
+      "video": {
+        "_title": "비디오 모델",
+        "vidgen10s": {
+          "description": "10초 비디오 생성"
+        },
+        "vidgen15s": {
+          "description": "15초 비디오 생성"
+        }
+      }
+    },
+    "credits": "크레딧",
+    "videoAspectRatio": "비디오 화면비",
+    "duration": "길이",
+    "motion": "모션 양",
+    "settings": {
+      "title": "설정",
+      "aspectRatio": "화면비",
+      "quality": "품질",
+      "guidanceScale": "프롬프트 준수",
+      "ratio": {
+        "auto": "자동",
+        "square": "정사각형",
+        "standard": "표준 4:3",
+        "portrait": "세로 3:4",
+        "landscape": "가로 16:9",
+        "vertical": "세로 9:16",
+        "photo": "사진 3:2",
+        "photoPortrait": "세로 사진 2:3",
+        "ultrawide": "울트라와이드 21:9"
+      },
+      "qualityOption": {
+        "1k": "빠른 생성, 작은 크기",
+        "2k": "품질과 속도 균형",
+        "4k": "최고 품질, 추가 크레딧"
+      },
+      "guidance": {
+        "low": "창의적",
+        "lowDesc": "더 많은 창작 자유",
+        "medium": "균형",
+        "mediumDesc": "창의성과 정확성의 균형",
+        "high": "정확한",
+        "highDesc": "프롬프트를 밀접하게 따름",
+        "max": "엄격한",
+        "maxDesc": "최대 프롬프트 준수"
+      },
+      "videoRatio": {
+        "landscape": "가로 16:9",
+        "portrait": "세로 9:16"
+      },
+      "videoDuration": {
+        "standard": "표준 길이",
+        "extended": "확장 길이"
+      },
+      "watermark": {
+        "title": "워터마크",
+        "keep": "워터마크 유지",
+        "keepDesc": "워터마크가 있는 비디오",
+        "remove": "워터마크 제거",
+        "removeDesc": "워터마크 없는 깨끗한 비디오",
+        "proTip": "워터마크 제거는 Pro 사용자만 가능합니다"
+      },
+      "imageWatermark": {
+        "title": "다운로드 워터마크",
+        "keep": "워터마크 포함",
+        "keepDesc": "다운로드한 이미지에 워터마크 포함",
+        "remove": "워터마크 없음",
+        "removeDesc": "워터마크 없는 깨끗한 이미지 다운로드",
+        "proTip": "워터마크 없는 다운로드는 Pro 사용자만 가능합니다"
+      }
+    },
+    "visibility": {
+      "title": "공개 설정",
+      "public": "공개",
+      "publicDesc": "커뮤니티 피드에서 볼 수 있음",
+      "private": "비공개",
+      "privateDesc": "본인만 볼 수 있음",
+      "proRequired": "Pro 구독 필요",
+      "proTip": "비공개 모드는 Pro 사용자만 가능합니다"
+    },
+    "promptLock": {
+      "proRequired": "프롬프트를 숨기려면 Pro 구독이 필요합니다",
+      "hidden": "프롬프트가 다른 사람에게 숨겨져 있습니다",
+      "visible": "클릭하여 프롬프트 숨기기"
+    },
+    "imageUpload": {
+      "title": "입력 이미지 선택",
+      "selected": "선택됨",
+      "uploadNew": "새 이미지 업로드",
+      "uploadHint": "JPEG, PNG, WebP · 최대 10MB",
+      "maxReached": "최대 이미지 수에 도달했습니다",
+      "uploadFailed": "업로드 실패, 다시 시도해 주세요",
+      "library": "라이브러리",
+      "libraryEmpty": "라이브러리에 이미지가 없습니다",
+      "libraryUploadPrompt": "이미지 업로드",
+      "selectedImagesHint": "선택한 이미지 (클릭하여 제거)"
+    },
+    "success": {
+      "generated": "성공적으로 생성되었습니다!"
+    },
+    "errors": {
+      "insufficientCredits": "크레딧이 부족합니다. 충전해 주세요",
+      "generateFailed": "생성 실패, 다시 시도해 주세요"
+    }
+  },
+  "detail": {
+    "title": "작품 상세",
+    "prompt": "프롬프트",
+    "promptHidden": "프롬프트가 숨겨져 있습니다",
+    "model": "모델",
+    "ratio": "화면비",
+    "created": "생성일",
+    "remix": "리믹스",
+    "remixDisabled": "프롬프트가 숨겨져 있어 리믹스할 수 없습니다",
+    "like": "좋아요",
+    "likes": "좋아요",
+    "share": "공유",
+    "download": "다운로드",
+    "copyPrompt": "프롬프트 복사",
+    "promptCopied": "프롬프트가 복사되었습니다!",
+    "linkCopied": "링크가 복사되었습니다!",
+    "downloadStarted": "다운로드 시작됨",
+    "downloadFailed": "다운로드 실패",
+    "downloadWithWatermark": "무료 사용자는 워터마크가 있는 이미지를 다운로드합니다. Pro로 업그레이드하면 워터마크 없이 다운로드할 수 있습니다!",
+    "likeFailed": "좋아요 실패, 다시 시도해 주세요",
+    "shareTitle": "AI 창작물"
+  },
+  "remix": {
+    "success": "창작 바에 복사되었습니다. 생성하러 가세요!",
+    "storyboardRedirect": "스토리보드 편집기로 이동 중..."
+  },
+  "retry": "다시 시도",
+  "startCreate": "창작 시작",
+  "generating": "생성 중...",
+  "generateSuccess": "성공적으로 생성되었습니다!",
+  "generateError": "생성 실패"
+}

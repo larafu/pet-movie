@@ -1,0 +1,30 @@
+{
+  "title": "Biblioteca de Mídia",
+  "description": "Gerencie suas imagens e vídeos enviados",
+  "tabs": {
+    "all": "Todos",
+    "images": "Imagens",
+    "videos": "Vídeos"
+  },
+  "upload": {
+    "button": "Enviar",
+    "hint": "JPEG, PNG, WebP, MP4 · Máx 50MB",
+    "success": "Enviado com sucesso",
+    "failed": "Falha no envio"
+  },
+  "empty": {
+    "title": "Sem mídia ainda",
+    "description": "Envie imagens ou vídeos para construir sua biblioteca de mídia"
+  },
+  "item": {
+    "delete": "Excluir",
+    "deleteConfirm": "Tem certeza de que deseja excluir este item?",
+    "deleteSuccess": "Excluído com sucesso",
+    "deleteFailed": "Falha ao excluir",
+    "size": "Tamanho",
+    "uploaded": "Enviado"
+  },
+  "loading": "Carregando...",
+  "loadMore": "Carregar Mais",
+  "noMore": "Não há mais itens"
+}

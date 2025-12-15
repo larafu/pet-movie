@@ -1,0 +1,199 @@
+{
+  "title": "Mis Creaciones",
+  "header": {
+    "appName": "PET MOVIE AI",
+    "upgrade": "Actualizar",
+    "credits": "Créditos",
+    "profile": "Perfil",
+    "notifications": "Notificaciones",
+    "signIn": "Iniciar Sesión",
+    "tabs": {
+      "community": "Comunidad",
+      "myWorks": "Mis Obras"
+    }
+  },
+  "feed": {
+    "loading": "Cargando...",
+    "generating": "Generando...",
+    "empty": "Aún no tienes obras, ¡comienza a crear!",
+    "error": "Error al cargar, por favor reintenta",
+    "noMore": "No hay más contenido",
+    "types": {
+      "video": "Video",
+      "image": "Imagen"
+    },
+    "actions": {
+      "like": "Me gusta",
+      "remix": "Remix",
+      "remixDisabled": "El prompt está oculto, no se puede hacer Remix"
+    },
+    "errors": {
+      "likeFailed": "Error al dar me gusta, por favor reintenta"
+    }
+  },
+  "promptBar": {
+    "placeholder": {
+      "image": "Describe tu imagen...",
+      "video": "Describe tu video..."
+    },
+    "addImages": "Agregar Imágenes",
+    "modes": {
+      "image": "Imagen",
+      "video": "Video"
+    },
+    "models": {
+      "quickSelect": "Selección Rápida",
+      "image": {
+        "_title": "Modelos de Imagen",
+        "standard": {
+          "description": "Rápido y calidad equilibrada"
+        },
+        "pro": {
+          "description": "Calidad premium, más detalles"
+        },
+        "nanobanana": {
+          "description": "Estilo artístico creativo"
+        },
+        "nanobanana-pro": {
+          "description": "Renderizado artístico avanzado"
+        },
+        "nanobanana-2": {
+          "description": "Último modelo creativo"
+        }
+      },
+      "video": {
+        "_title": "Modelos de Video",
+        "vidgen10s": {
+          "description": "Generación de video de 10 segundos"
+        },
+        "vidgen15s": {
+          "description": "Generación de video de 15 segundos"
+        }
+      }
+    },
+    "credits": "créditos",
+    "videoAspectRatio": "Relación de Aspecto del Video",
+    "duration": "Duración",
+    "motion": "Cantidad de Movimiento",
+    "settings": {
+      "title": "Configuración",
+      "aspectRatio": "Relación de Aspecto",
+      "quality": "Calidad",
+      "guidanceScale": "Adherencia al Prompt",
+      "ratio": {
+        "auto": "Auto",
+        "square": "Cuadrado",
+        "standard": "Estándar 4:3",
+        "portrait": "Retrato 3:4",
+        "landscape": "Paisaje 16:9",
+        "vertical": "Vertical 9:16",
+        "photo": "Foto 3:2",
+        "photoPortrait": "Foto Retrato 2:3",
+        "ultrawide": "Ultra ancho 21:9"
+      },
+      "qualityOption": {
+        "1k": "Generación rápida, tamaño pequeño",
+        "2k": "Calidad y velocidad equilibradas",
+        "4k": "Máxima calidad, créditos extra"
+      },
+      "guidance": {
+        "low": "Creativo",
+        "lowDesc": "Más libertad creativa",
+        "medium": "Equilibrado",
+        "mediumDesc": "Equilibrar creatividad y precisión",
+        "high": "Preciso",
+        "highDesc": "Seguir el prompt de cerca",
+        "max": "Estricto",
+        "maxDesc": "Máxima adherencia al prompt"
+      },
+      "videoRatio": {
+        "landscape": "Paisaje 16:9",
+        "portrait": "Retrato 9:16"
+      },
+      "videoDuration": {
+        "standard": "Duración estándar",
+        "extended": "Duración extendida"
+      },
+      "watermark": {
+        "title": "Marca de Agua",
+        "keep": "Mantener Marca de Agua",
+        "keepDesc": "Video con marca de agua",
+        "remove": "Quitar Marca de Agua",
+        "removeDesc": "Video limpio sin marca de agua",
+        "proTip": "La eliminación de marca de agua está disponible para usuarios Pro"
+      },
+      "imageWatermark": {
+        "title": "Marca de Agua de Descarga",
+        "keep": "Con Marca de Agua",
+        "keepDesc": "La imagen descargada incluye marca de agua",
+        "remove": "Sin Marca de Agua",
+        "removeDesc": "Descargar imagen limpia sin marca de agua",
+        "proTip": "Descargas sin marca de agua disponibles para usuarios Pro"
+      }
+    },
+    "visibility": {
+      "title": "Visibilidad",
+      "public": "Público",
+      "publicDesc": "Visible en el feed de la comunidad",
+      "private": "Privado",
+      "privateDesc": "Solo visible para ti",
+      "proRequired": "Se requiere suscripción Pro",
+      "proTip": "El modo privado está disponible para usuarios Pro"
+    },
+    "promptLock": {
+      "proRequired": "Se requiere suscripción Pro para ocultar el prompt",
+      "hidden": "El prompt está oculto para otros",
+      "visible": "Haz clic para ocultar tu prompt"
+    },
+    "imageUpload": {
+      "title": "Seleccionar Imágenes de Entrada",
+      "selected": "seleccionado",
+      "uploadNew": "Subir Nueva Imagen",
+      "uploadHint": "JPEG, PNG, WebP · Máx 10MB",
+      "maxReached": "Número máximo de imágenes alcanzado",
+      "uploadFailed": "Error al subir, por favor intenta de nuevo",
+      "library": "Biblioteca",
+      "libraryEmpty": "No hay imágenes en la biblioteca",
+      "libraryUploadPrompt": "Subir imágenes",
+      "selectedImagesHint": "Imágenes seleccionadas (clic para eliminar)"
+    },
+    "success": {
+      "generated": "¡Generado exitosamente!"
+    },
+    "errors": {
+      "insufficientCredits": "Créditos insuficientes, por favor recarga",
+      "generateFailed": "Error al generar, por favor reintenta"
+    }
+  },
+  "detail": {
+    "title": "Detalles de la Obra",
+    "prompt": "Prompt",
+    "promptHidden": "El prompt está oculto",
+    "model": "Modelo",
+    "ratio": "Relación de Aspecto",
+    "created": "Creado",
+    "remix": "Remix",
+    "remixDisabled": "El prompt está oculto, no se puede hacer Remix",
+    "like": "Me gusta",
+    "likes": "me gusta",
+    "share": "Compartir",
+    "download": "Descargar",
+    "copyPrompt": "Copiar prompt",
+    "promptCopied": "¡Prompt copiado!",
+    "linkCopied": "¡Enlace copiado!",
+    "downloadStarted": "Descarga iniciada",
+    "downloadFailed": "Error en la descarga",
+    "downloadWithWatermark": "Los usuarios gratuitos descargan con marca de agua. ¡Actualiza a Pro para descargas sin marca de agua!",
+    "likeFailed": "Error al dar me gusta, por favor reintenta",
+    "shareTitle": "Creación IA"
+  },
+  "remix": {
+    "success": "¡Copiado a la barra de creación, ve a generar!",
+    "storyboardRedirect": "Redirigiendo al editor de storyboard..."
+  },
+  "retry": "Reintentar",
+  "startCreate": "Comenzar a Crear",
+  "generating": "Generando...",
+  "generateSuccess": "¡Generado exitosamente!",
+  "generateError": "Error al generar"
+}

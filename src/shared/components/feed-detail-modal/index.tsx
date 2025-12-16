@@ -15,6 +15,9 @@ import {
   Copy,
   Check,
   Loader2,
+  EyeOff,
+  Eye,
+  Lock,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
@@ -48,6 +51,8 @@ export function FeedDetailModal({
   const [videoReady, setVideoReady] = useState(false);
   const [placeholderError, setPlaceholderError] = useState(false); // 占位图加载失败
   const [shareModalOpen, setShareModalOpen] = useState(false); // 分享弹窗状态
+  const [isPublic, setIsPublic] = useState(item?.isPublic ?? true); // 公开状态
+  const [isTogglingPublic, setIsTogglingPublic] = useState(false); // 正在切换公开状态
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // 当 item 变化时重置状态
@@ -57,6 +62,7 @@ export function FeedDetailModal({
       setLikeCount(item.likes || 0);
       setVideoReady(false);
       setPlaceholderError(false); // 重置占位图错误状态
+      setIsPublic(item.isPublic ?? true); // 重置公开状态
     }
   }, [item]);
 
@@ -174,6 +180,46 @@ export function FeedDetailModal({
   // 打开分享弹窗
   const handleShare = () => {
     setShareModalOpen(true);
+  };
+
+  // 切换公开/私密状态（仅会员可用）
+  const handleTogglePublic = async () => {
+    if (!item) return;
+
+    // 检查会员状态
+    if (!isPro) {
+      toast.error(t('togglePublicProOnly'));
+      return;
+    }
+
+    setIsTogglingPublic(true);
+    const newIsPublic = !isPublic;
+
+    try {
+      const response = await fetch('/api/pet-video/share', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          videoId: item.id,
+          setPublic: newIsPublic,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setIsPublic(newIsPublic);
+        toast.success(
+          newIsPublic ? t('setPublicSuccess') : t('setPrivateSuccess')
+        );
+      } else {
+        toast.error(data.error || t('togglePublicFailed'));
+      }
+    } catch (error) {
+      toast.error(t('togglePublicFailed'));
+    } finally {
+      setIsTogglingPublic(false);
+    }
   };
 
   // 获取分享链接（使用 /creations/[id] 格式）
@@ -386,6 +432,46 @@ export function FeedDetailModal({
                 {t('download')}
               </button>
             </div>
+
+            {/* 公开/私密切换按钮 - 仅作品所有者显示 */}
+            {item.isOwner && (
+              <div className="mt-3">
+                <button
+                  onClick={handleTogglePublic}
+                  disabled={isTogglingPublic || !isPro}
+                  className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all ${
+                    isTogglingPublic
+                      ? 'bg-gray-200 dark:bg-gray-700 cursor-wait'
+                      : !isPro
+                        ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed'
+                        : isPublic
+                          ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/50'
+                          : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/50'
+                  }`}
+                  title={!isPro ? t('togglePublicProOnly') : ''}
+                >
+                  {isTogglingPublic ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : !isPro ? (
+                    <Lock className="w-4 h-4" />
+                  ) : isPublic ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                  {!isPro
+                    ? t('togglePublicProRequired')
+                    : isPublic
+                      ? t('makePrivate')
+                      : t('makePublic')}
+                </button>
+                {!isPro && (
+                  <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-1">
+                    {t('togglePublicProHint')}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

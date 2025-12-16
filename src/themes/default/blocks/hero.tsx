@@ -61,14 +61,17 @@ export function Hero({
   }
 
   // Helper function to get correct URL based on login status
+  // 根据用户登录状态处理URL跳转
   const getButtonUrl = (originalUrl: string) => {
-    // If user is logged in and URL is /sign-up, redirect to create-pet-movie
+    // If user is logged in and URL is /sign-up, redirect to creations
+    // 已登录用户访问注册页时，重定向到 creations
     if (user && originalUrl === '/sign-up') {
-      return '/create-pet-movie';
+      return '/creations';
     }
-    // Redirect /pricing to /create-pet-movie (pricing not ready yet)
+    // Redirect /pricing to /creations (pricing not ready yet)
+    // pricing 页面暂未上线，重定向到 creations
     if (originalUrl === '/pricing') {
-      return '/create-pet-movie';
+      return '/creations';
     }
     return originalUrl;
   };

@@ -12,7 +12,8 @@
     "result": "Resultado",
     "created_at": "Fecha de Creación",
     "action": "Acción",
-    "scene": "Escena"
+    "scene": "Escena",
+    "like_count": "Me gusta"
   },
   "list": {
     "title": "Tareas de IA",

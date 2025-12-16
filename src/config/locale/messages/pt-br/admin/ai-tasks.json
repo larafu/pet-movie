@@ -12,7 +12,8 @@
     "result": "Resultado",
     "created_at": "Criado Em",
     "action": "Ação",
-    "scene": "Cena"
+    "scene": "Cena",
+    "like_count": "Curtidas"
   },
   "list": {
     "title": "Tarefas de IA",

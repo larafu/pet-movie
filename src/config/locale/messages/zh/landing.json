@@ -448,7 +448,7 @@
     "buttons": [
       {
         "title": "开始免费试用",
-        "url": "/create-pet-movie",
+        "url": "/creations",
         "target": "_self",
         "icon": "Sparkles"
       },

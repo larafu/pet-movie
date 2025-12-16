@@ -185,7 +185,15 @@
     "downloadFailed": "下载失败",
     "downloadWithWatermark": "免费用户下载带水印，升级 Pro 可下载无水印原图",
     "likeFailed": "点赞失败，请重试",
-    "shareTitle": "AI 创作"
+    "shareTitle": "AI 创作",
+    "makePrivate": "取消公开",
+    "makePublic": "公开分享",
+    "setPublicSuccess": "已公开到社区广场",
+    "setPrivateSuccess": "已从社区广场隐藏",
+    "togglePublicFailed": "修改可见性失败",
+    "togglePublicProOnly": "需要 Pro 会员才能从广场隐藏",
+    "togglePublicProRequired": "Pro 专属",
+    "togglePublicProHint": "升级 Pro 即可从广场隐藏作品"
   },
   "remix": {
     "success": "已复制到创作框，快去生成吧！",

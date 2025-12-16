@@ -26,9 +26,9 @@
           "icon": "Heart"
         },
         {
-          "title": "Galeria",
-          "url": "/#gallery",
-          "icon": "Images"
+          "title": "Comunidade",
+          "url": "/creations",
+          "icon": "Users"
         },
         {
           "title": "Preços",
@@ -88,16 +88,16 @@
     "tip": "Teste Grátis Disponível - Crie Seu Primeiro Filme de Pet",
     "buttons": [
       {
-        "title": "Criar filme agora",
+        "title": "Comecar a Criar",
         "icon": "Sparkles",
-        "url": "/create-pet-movie",
+        "url": "/creations",
         "target": "_self",
         "variant": "default"
       },
       {
-        "title": "Ver exemplos",
-        "icon": "Play",
-        "url": "/#gallery",
+        "title": "Criar Filme",
+        "icon": "Film",
+        "url": "/create-pet-movie",
         "target": "_self",
         "variant": "outline"
       }
@@ -461,7 +461,7 @@
     "buttons": [
       {
         "title": "Começar teste grátis",
-        "url": "/create-pet-movie",
+        "url": "/creations",
         "target": "_self",
         "icon": "Sparkles"
       },

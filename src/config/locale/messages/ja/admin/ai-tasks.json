@@ -12,7 +12,8 @@
     "result": "結果",
     "created_at": "作成日時",
     "action": "操作",
-    "scene": "シーン"
+    "scene": "シーン",
+    "like_count": "いいね数"
   },
   "list": {
     "title": "AIタスク",

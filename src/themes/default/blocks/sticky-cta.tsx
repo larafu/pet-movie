@@ -48,7 +48,7 @@ export function StickyCTA() {
                 size="lg"
                 className="rounded-full bg-gold text-black hover:bg-gold/90 shadow-[0_0_15px_rgba(255,215,0,0.3)] hover:shadow-[0_0_25px_rgba(255,215,0,0.5)] font-bold tracking-wide px-8 transition-all duration-300"
               >
-                <Link href="/create-pet-movie">
+                <Link href="/creations">
                   Create Now
                 </Link>
               </Button>

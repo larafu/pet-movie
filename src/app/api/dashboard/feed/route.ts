@@ -222,6 +222,7 @@ export async function GET(request: NextRequest) {
         createdAt: task.createdAt.toISOString(),
         promptHidden: task.promptHidden, // 是否隐藏提示词
         isOwner, // 是否是当前用户的作品
+        isPublic: task.isPublic ?? true, // 是否公开分享（默认 true）
       };
     });
 

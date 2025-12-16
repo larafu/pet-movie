@@ -440,7 +440,7 @@ export function VideoShareDisplay({
                   </p>
                 </div>
                 <a
-                  href="/create-pet-movie"
+                  href="/creations"
                   className="px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-all whitespace-nowrap"
                 >
                   {t("tryNow")}

@@ -26,9 +26,9 @@
           "icon": "Heart"
         },
         {
-          "title": "Galería",
-          "url": "/#gallery",
-          "icon": "Images"
+          "title": "Comunidad",
+          "url": "/creations",
+          "icon": "Users"
         },
         {
           "title": "Precios",
@@ -88,16 +88,16 @@
     "tip": "Prueba Gratis Disponible - Crea tu primera película de mascota",
     "buttons": [
       {
-        "title": "Crear Película Ahora",
+        "title": "Empezar a Crear",
         "icon": "Sparkles",
-        "url": "/create-pet-movie",
+        "url": "/creations",
         "target": "_self",
         "variant": "default"
       },
       {
-        "title": "Ver Tráiler",
-        "icon": "Play",
-        "url": "/#gallery",
+        "title": "Crear Película",
+        "icon": "Film",
+        "url": "/create-pet-movie",
         "target": "_self",
         "variant": "outline"
       }
@@ -491,7 +491,7 @@
     "buttons": [
       {
         "title": "Comenzar Prueba Gratis",
-        "url": "/create-pet-movie",
+        "url": "/creations",
         "target": "_self",
         "icon": "Sparkles"
       },

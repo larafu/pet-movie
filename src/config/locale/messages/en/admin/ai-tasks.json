@@ -12,7 +12,8 @@
     "result": "Result",
     "created_at": "Created At",
     "action": "Action",
-    "scene": "Scene"
+    "scene": "Scene",
+    "like_count": "Likes"
   },
   "list": {
     "title": "AI Tasks",

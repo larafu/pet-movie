@@ -12,7 +12,8 @@
     "result": "결과",
     "created_at": "생성일",
     "action": "작업",
-    "scene": "사용 내역"
+    "scene": "사용 내역",
+    "like_count": "좋아요 수"
   },
   "list": {
     "title": "AI 작업",

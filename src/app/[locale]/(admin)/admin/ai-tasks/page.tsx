@@ -7,6 +7,8 @@ import { getAITasks, getAITasksCount } from '@/shared/models/ai_task';
 import { Button, Crumb, Tab } from '@/shared/types/blocks/common';
 import { type Table } from '@/shared/types/blocks/table';
 
+import { EditLikesCell } from './_components/edit-likes-cell';
+
 export default async function AiTasksPage({
   params,
   searchParams,
@@ -52,6 +54,13 @@ export default async function AiTasksPage({
       { name: 'createdAt', title: t('fields.created_at'), type: 'time' },
       { name: 'user', title: t('fields.user'), type: 'user' },
       { name: 'status', title: t('fields.status'), type: 'label' },
+      {
+        name: 'likeCount',
+        title: t('fields.like_count'),
+        callback: (item: { id: string; likeCount: number }) => (
+          <EditLikesCell taskId={item.id} initialLikeCount={item.likeCount || 0} />
+        ),
+      },
       { name: 'costCredits', title: t('fields.cost_credits'), type: 'label' },
       { name: 'mediaType', title: t('fields.media_type'), type: 'label' },
       { name: 'scene', title: t('fields.scene'), type: 'label' },

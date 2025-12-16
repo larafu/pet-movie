@@ -12,7 +12,8 @@
     "result": "结果",
     "created_at": "创建时间",
     "action": "操作",
-    "scene": "场景"
+    "scene": "场景",
+    "like_count": "点赞数"
   },
   "list": {
     "title": "AI任务",

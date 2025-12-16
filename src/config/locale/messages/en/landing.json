@@ -461,7 +461,7 @@
     "buttons": [
       {
         "title": "Start Free Trial",
-        "url": "/create-pet-movie",
+        "url": "/creations",
         "target": "_self",
         "icon": "Sparkles"
       },

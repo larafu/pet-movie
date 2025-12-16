@@ -30,6 +30,7 @@ export interface FeedItem {
   createdAt?: string; // 创建时间
   promptHidden?: boolean; // 是否隐藏提示词（Pro功能）
   isOwner?: boolean; // 当前用户是否是作品所有者
+  isPublic?: boolean; // 是否公开分享（默认true）
   // 生成中状态
   isGenerating?: boolean; // 是否正在生成中
   taskId?: string; // 用于轮询的任务ID

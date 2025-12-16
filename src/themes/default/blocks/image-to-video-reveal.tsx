@@ -35,10 +35,34 @@ export function ImageToVideoReveal({
   const [showThumbnail, setShowThumbnail] = useState(false); // 是否显示右下角缩略图
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
+  // LCP优化：使用 Intersection Observer 延迟加载视频
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // 自动触发过渡动画
+  // LCP优化：使用 Intersection Observer 检测组件进入视口
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShouldLoadVideo(true);
+          observer.disconnect(); // 只需触发一次
+        }
+      },
+      { rootMargin: '200px' } // 提前200px开始加载
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  // 自动触发过渡动画 - 只在视频加载后开始
+  useEffect(() => {
+    if (!shouldLoadVideo) return;
+
     const timer = setTimeout(() => {
       setRevealProgress(100);
       // 过渡完成后显示缩略图
@@ -48,10 +72,12 @@ export function ImageToVideoReveal({
     }, autoRevealDelay);
 
     return () => clearTimeout(timer);
-  }, [autoRevealDelay, revealDuration]);
+  }, [shouldLoadVideo, autoRevealDelay, revealDuration]);
 
   // 控制视频播放
   useEffect(() => {
+    if (!shouldLoadVideo) return;
+
     const video = videoRef.current;
     if (!video) return;
 
@@ -63,7 +89,7 @@ export function ImageToVideoReveal({
         video.pause();
       }
     }
-  }, [revealProgress, isPlaying]);
+  }, [shouldLoadVideo, revealProgress, isPlaying]);
 
   // 同步音量状态
   useEffect(() => {
@@ -82,7 +108,7 @@ export function ImageToVideoReveal({
   };
 
   return (
-    <div className={cn('w-full px-4 py-16 md:py-24', className)}>
+    <div ref={containerRef} className={cn('w-full px-4 py-16 md:py-24', className)}>
       <div className="container max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -109,17 +135,29 @@ export function ImageToVideoReveal({
           className="relative"
         >
           <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10 group">
-            {/* Background Video Layer */}
+            {/* Background Video Layer - LCP优化：进入视口后才加载 */}
             <div className="absolute inset-0 w-full h-full">
-              <video
-                ref={videoRef}
-                src={afterVideo}
-                poster={videoPoster}
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
+              {/* 视频海报占位图 */}
+              {videoPoster && !shouldLoadVideo && (
+                <img
+                  src={videoPoster}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              )}
+              {/* 视频：进入视口后加载 */}
+              {shouldLoadVideo && (
+                <video
+                  ref={videoRef}
+                  src={afterVideo}
+                  poster={videoPoster}
+                  loop
+                  muted
+                  playsInline
+                  preload="none"
+                  className="w-full h-full object-cover"
+                />
+              )}
               {/* Video Label */}
               <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-md text-gold px-4 py-2 rounded-full text-sm font-bold tracking-wider border border-gold/30 flex items-center gap-2 z-10">
                 <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />

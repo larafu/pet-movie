@@ -26,9 +26,9 @@
           "icon": "Heart"
         },
         {
-          "title": "갤러리",
-          "url": "/#gallery",
-          "icon": "Images"
+          "title": "커뮤니티",
+          "url": "/creations",
+          "icon": "Users"
         },
         {
           "title": "요금제",
@@ -88,16 +88,16 @@
     "tip": "✨ 무료 체험 가능 - 첫 번째 반려동물 영화를 만들어보세요",
     "buttons": [
       {
-        "title": "영화 만들기",
+        "title": "시작하기",
         "icon": "Sparkles",
-        "url": "/create-pet-movie",
+        "url": "/creations",
         "target": "_self",
         "variant": "default"
       },
       {
-        "title": "추모관 만들기",
-        "icon": "Heart",
-        "url": "/pet-memorial",
+        "title": "영화 만들기",
+        "icon": "Film",
+        "url": "/create-pet-movie",
         "target": "_self",
         "variant": "outline"
       }
@@ -469,7 +469,7 @@
     "buttons": [
       {
         "title": "무료 체험 시작",
-        "url": "/create-pet-movie",
+        "url": "/creations",
         "target": "_self",
         "icon": "Sparkles"
       },

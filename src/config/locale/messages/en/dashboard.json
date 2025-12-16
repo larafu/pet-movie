@@ -185,7 +185,15 @@
     "downloadFailed": "Download failed",
     "downloadWithWatermark": "Free users download with watermark. Upgrade to Pro for watermark-free downloads!",
     "likeFailed": "Like failed, please retry",
-    "shareTitle": "AI Creation"
+    "shareTitle": "AI Creation",
+    "makePrivate": "Make Private",
+    "makePublic": "Make Public",
+    "setPublicSuccess": "Now visible in community gallery",
+    "setPrivateSuccess": "Now hidden from community gallery",
+    "togglePublicFailed": "Failed to change visibility",
+    "togglePublicProOnly": "Pro membership required to hide from gallery",
+    "togglePublicProRequired": "Pro Only",
+    "togglePublicProHint": "Upgrade to Pro to hide your works from gallery"
   },
   "remix": {
     "success": "Copied to creation bar, go generate!",

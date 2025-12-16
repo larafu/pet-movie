@@ -87,8 +87,10 @@ export default async function LandingPage({
         beforeImage="/imgs/dog.avif"
         afterVideo="https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4"
         videoPoster="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1200&auto=format&fit=crop"
-        beforeLabel="Original Photo"
-        afterLabel="Cinematic AI Result"
+        title={(page as any).imageToVideoReveal?.title}
+        description={(page as any).imageToVideoReveal?.description}
+        beforeLabel={(page as any).imageToVideoReveal?.beforeLabel || "Original Photo"}
+        afterLabel={(page as any).imageToVideoReveal?.afterLabel || "Cinematic AI Result"}
         autoRevealDelay={1500}
         revealDuration={2.5}
       />

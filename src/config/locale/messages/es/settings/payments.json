@@ -1,0 +1,30 @@
+{
+  "fields": {
+    "order_no": "N° de Orden",
+    "user": "Usuario",
+    "amount": "Monto",
+    "product_name": "Nombre del Producto",
+    "price": "Precio",
+    "paid_amount": "Monto Pagado",
+    "discount_amount": "Monto de Descuento",
+    "description": "Descripción",
+    "type": "Tipo",
+    "provider": "Proveedor",
+    "created_at": "Fecha de Creación",
+    "status": "Estado",
+    "action": "Acción",
+    "actions": {
+      "view_invoice": "Ver Factura"
+    }
+  },
+  "list": {
+    "title": "Pagos",
+    "description": "Ver tus pagos",
+    "tabs": {
+      "all": "Todos",
+      "one-time": "Único",
+      "subscription": "Suscripción",
+      "renew": "Renovación"
+    }
+  }
+}

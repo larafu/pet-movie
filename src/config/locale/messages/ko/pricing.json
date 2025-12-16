@@ -1,0 +1,268 @@
+{
+  "metadata": {
+    "title": "요금제 | AI 반려동물 추모영상 & 영화 제작",
+    "description": "반려동물 영화와 추모영상 제작을 위한 유연한 요금제. 무료 체험부터 프로 플랜까지."
+  },
+  "pricing": {
+    "id": "pricing",
+    "sr_only_title": "Pet Movie AI 요금제",
+    "title": "모든 창작자를 위한 유연한 요금제",
+    "description": "완벽한 플랜을 선택하고 AI로 시네마틱 반려동물 영화를 만들어보세요",
+    "groups": [
+      {
+        "name": "monthly",
+        "title": "월간",
+        "is_featured": false
+      },
+      {
+        "name": "yearly",
+        "title": "연간",
+        "label": "20% 할인",
+        "is_featured": true
+      }
+    ],
+    "items": [
+      {
+        "title": "Lite",
+        "description": "가벼운 사용자에게 완벽",
+        "features_title": "포함 사항",
+        "features": [
+          "월 400 크레딧",
+          "~6개 추모 영상 (각 60초)",
+          "워터마크 없음",
+          "동시 작업 2개",
+          "개인 사용 라이선스"
+        ],
+        "interval": "month",
+        "amount": 999,
+        "currency": "USD",
+        "price": "$9.99",
+        "original_price": "$9.99",
+        "unit": "/ 월",
+        "is_featured": false,
+        "tip": "월간 자동 갱신, 언제든 취소 가능",
+        "button": {
+          "title": "구독하기",
+          "url": "/#pricing",
+          "icon": "Zap"
+        },
+        "product_id": "lite-monthly",
+        "product_name": "Lite 월간",
+        "credits": 400,
+        "plan_name": "Lite",
+        "group": "monthly"
+      },
+      {
+        "title": "Lite",
+        "description": "가벼운 사용자에게 완벽",
+        "features_title": "포함 사항",
+        "features": [
+          "월 400 크레딧 (연 4,800)",
+          "~6개 추모 영상 (각 60초)",
+          "워터마크 없음",
+          "동시 작업 2개",
+          "개인 사용 라이선스"
+        ],
+        "interval": "year",
+        "amount": 9588,
+        "currency": "USD",
+        "price": "$7.99",
+        "original_price": "$9.99",
+        "unit": "/ 월",
+        "is_featured": false,
+        "tip": "연 $95.88, 20% 할인",
+        "button": {
+          "title": "구독하기",
+          "url": "/#pricing",
+          "icon": "Zap"
+        },
+        "product_id": "lite-yearly",
+        "product_name": "Lite 연간",
+        "credits": 4800,
+        "plan_name": "Lite",
+        "group": "yearly"
+      },
+      {
+        "title": "Standard",
+        "label": "베스트 밸류",
+        "description": "본격적인 콘텐츠 창작자를 위한",
+        "features_title": "포함 사항",
+        "features": [
+          "월 1,000 크레딧",
+          "~16개 추모 영상 (각 60초)",
+          "워터마크 없음",
+          "동시 작업 3개",
+          "상업용 라이선스"
+        ],
+        "interval": "month",
+        "amount": 2499,
+        "currency": "USD",
+        "price": "$24.99",
+        "original_price": "$24.99",
+        "unit": "/ 월",
+        "is_featured": true,
+        "tip": "가장 인기 있는 옵션",
+        "button": {
+          "title": "시작하기",
+          "url": "/#pricing",
+          "icon": "Sparkles"
+        },
+        "product_id": "standard-monthly",
+        "product_name": "Standard 월간",
+        "credits": 1000,
+        "plan_name": "Standard",
+        "group": "monthly"
+      },
+      {
+        "title": "Standard",
+        "label": "베스트 밸류",
+        "description": "본격적인 콘텐츠 창작자를 위한",
+        "features_title": "포함 사항",
+        "features": [
+          "월 1,000 크레딧 (연 12,000)",
+          "~16개 추모 영상 (각 60초)",
+          "워터마크 없음",
+          "동시 작업 3개",
+          "상업용 라이선스"
+        ],
+        "interval": "year",
+        "amount": 23988,
+        "currency": "USD",
+        "price": "$19.99",
+        "original_price": "$24.99",
+        "unit": "/ 월",
+        "is_featured": true,
+        "tip": "연 $239.88, 20% 할인",
+        "button": {
+          "title": "시작하기",
+          "url": "/#pricing",
+          "icon": "Sparkles"
+        },
+        "product_id": "standard-yearly",
+        "product_name": "Standard 연간",
+        "credits": 12000,
+        "plan_name": "Standard",
+        "group": "yearly"
+      },
+      {
+        "title": "Pro",
+        "description": "스튜디오와 에이전시를 위한",
+        "features_title": "포함 사항",
+        "features": [
+          "월 3,500 크레딧",
+          "~58개 추모 영상 (각 60초)",
+          "워터마크 없음",
+          "동시 작업 5개",
+          "상업용 라이선스",
+          "우선 처리"
+        ],
+        "interval": "month",
+        "amount": 6999,
+        "currency": "USD",
+        "price": "$69.99",
+        "original_price": "$69.99",
+        "unit": "/ 월",
+        "is_featured": false,
+        "tip": "최대 생산성",
+        "button": {
+          "title": "구독하기",
+          "url": "/#pricing",
+          "icon": "Rocket"
+        },
+        "product_id": "pro-monthly",
+        "product_name": "Pro 월간",
+        "credits": 3500,
+        "plan_name": "Pro",
+        "group": "monthly"
+      },
+      {
+        "title": "Pro",
+        "description": "스튜디오와 에이전시를 위한",
+        "features_title": "포함 사항",
+        "features": [
+          "월 3,500 크레딧 (연 42,000)",
+          "~58개 추모 영상 (각 60초)",
+          "워터마크 없음",
+          "동시 작업 5개",
+          "상업용 라이선스",
+          "우선 처리"
+        ],
+        "interval": "year",
+        "amount": 67188,
+        "currency": "USD",
+        "price": "$55.99",
+        "original_price": "$69.99",
+        "unit": "/ 월",
+        "is_featured": false,
+        "tip": "연 $671.88, 20% 할인",
+        "button": {
+          "title": "구독하기",
+          "url": "/#pricing",
+          "icon": "Rocket"
+        },
+        "product_id": "pro-yearly",
+        "product_name": "Pro 연간",
+        "credits": 42000,
+        "plan_name": "Pro",
+        "group": "yearly"
+      }
+    ],
+    "credit_packs": {
+      "title": "크레딧이 더 필요하신가요?",
+      "description": "언제든 크레딧 팩을 구매하세요. 크레딧은 만료되지 않아요.",
+      "items": [
+        {
+          "title": "S 팩",
+          "description": "~13개 추모 영상",
+          "credits": 800,
+          "amount": 2900,
+          "currency": "USD",
+          "price": "$29",
+          "unit_price": "$0.036/크레딧",
+          "product_id": "pack-s",
+          "product_name": "크레딧 팩 S",
+          "button": {
+            "title": "지금 구매",
+            "icon": "ShoppingCart"
+          }
+        },
+        {
+          "title": "M 팩",
+          "description": "~50개 추모 영상",
+          "credits": 3000,
+          "amount": 9900,
+          "currency": "USD",
+          "price": "$99",
+          "unit_price": "$0.033/크레딧",
+          "is_featured": true,
+          "label": "인기",
+          "product_id": "pack-m",
+          "product_name": "크레딧 팩 M",
+          "button": {
+            "title": "지금 구매",
+            "icon": "ShoppingCart"
+          }
+        },
+        {
+          "title": "L 팩",
+          "description": "~166개 추모 영상",
+          "credits": 10000,
+          "amount": 29900,
+          "currency": "USD",
+          "price": "$299",
+          "unit_price": "$0.029/크레딧",
+          "product_id": "pack-l",
+          "product_name": "크레딧 팩 L",
+          "button": {
+            "title": "지금 구매",
+            "icon": "ShoppingCart"
+          }
+        }
+      ]
+    }
+  },
+  "page": {
+    "current_plan": "현재 플랜",
+    "processing": "처리 중"
+  }
+}

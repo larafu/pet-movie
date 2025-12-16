@@ -1,0 +1,104 @@
+{
+  "metadata": {
+    "title": "Galería de Videos",
+    "description": "Videos de mascotas creados con Pet Movie AI"
+  },
+  "showcases": {
+    "id": "showcase",
+    "sr_only_title": "Galería de Videos",
+    "title": "Películas de Mascotas Creadas con IA",
+    "description": "Inspírate con videos de perros y gatos creados por nuestra comunidad.",
+    "items": [
+      {
+        "title": "ThinkAny",
+        "description": "Motor de Búsqueda IA",
+        "url": "https://thinkany.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/7.png",
+          "alt": "ThinkAny"
+        }
+      },
+      {
+        "title": "HeyBeauty",
+        "description": "Probador Virtual IA",
+        "url": "https://heybeauty.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/5.png",
+          "alt": "HeyBeauty"
+        }
+      },
+      {
+        "title": "AI Wallpaper",
+        "description": "Generador de Fondos IA",
+        "url": "https://aiwallpaper.shop",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/1.png",
+          "alt": "AI Wallpaper"
+        }
+      },
+      {
+        "title": "AI Cover",
+        "description": "Generador de Portadas IA",
+        "url": "https://aicover.design",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/2.png",
+          "alt": "AI Cover"
+        }
+      },
+      {
+        "title": "GPTs Works",
+        "description": "Directorio de GPTs",
+        "url": "https://gpts.works",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/3.png",
+          "alt": "GPTs Works"
+        }
+      },
+      {
+        "title": "Melodisco",
+        "description": "Reproductor de Música IA",
+        "url": "https://melodis.co",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/4.png",
+          "alt": "Melodisco"
+        }
+      },
+      {
+        "title": "Pagen",
+        "description": "Generador de Landing Pages IA",
+        "url": "https://pagen.so",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/6.png",
+          "alt": "Pagen"
+        }
+      },
+      {
+        "title": "SoraFM",
+        "description": "Generador de Video IA",
+        "url": "https://sorafm.trys.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/8.png",
+          "alt": "SoraFM"
+        }
+      },
+      {
+        "title": "PodLM",
+        "description": "Generador de Podcast IA",
+        "url": "https://podlm.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/9.png",
+          "alt": "PodLM"
+        }
+      }
+    ]
+  }
+}

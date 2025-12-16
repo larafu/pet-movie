@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "title": "Blog",
+    "description": "Leia sobre nossos recursos de produto mais recentes, soluções e atualizações."
+  },
+  "blog": {
+    "id": "blog",
+    "sr_only_title": "Blog PetMovie AI",
+    "title": "Blog",
+    "description": "Leia sobre nossos recursos de produto mais recentes, soluções e atualizações."
+  },
+  "page": {
+    "all": "Todos",
+    "no_content": "Sem Conteúdo",
+    "crumb": "Blog",
+    "toc": "Índice"
+  }
+}

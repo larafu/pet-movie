@@ -1,0 +1,26 @@
+{
+  "fields": {
+    "transaction_no": "N° de Transacción",
+    "description": "Descripción",
+    "type": "Tipo",
+    "scene": "Escena",
+    "credits": "Créditos",
+    "expires_at": "Fecha de Expiración",
+    "created_at": "Fecha de Creación",
+    "action": "Acción"
+  },
+  "list": {
+    "title": "Registros de Créditos",
+    "tabs": {
+      "all": "Todos",
+      "grant": "Otorgados",
+      "consume": "Consumidos"
+    }
+  },
+  "view": {
+    "title": "Saldo de Créditos",
+    "buttons": {
+      "purchase": "Comprar Créditos"
+    }
+  }
+}

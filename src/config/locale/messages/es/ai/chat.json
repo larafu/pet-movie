@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "title": "Chat con IA",
+    "description": "Chatea con IA sobre tus mascotas y crea historias juntos"
+  },
+  "page": {
+    "title": "Chat con IA",
+    "description": "Chatea con IA sobre tus mascotas y crea historias juntos"
+  },
+  "chat": {
+    "title": "Chat con IA",
+    "placeholder": "Escribe tu mensaje...",
+    "send": "Enviar",
+    "loading": "Cargando...",
+    "thinking": "Pensando...",
+    "empty": "Inicia una conversación con la IA",
+    "error": "Error al enviar el mensaje. Por favor, inténtalo de nuevo."
+  }
+}

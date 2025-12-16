@@ -1,0 +1,22 @@
+{
+  "terms": {
+    "title": "Termos de Serviço",
+    "description": "Termos e condições para usar o Pet Movie AI",
+    "lastUpdated": "Última atualização: {date}"
+  },
+  "privacy": {
+    "title": "Política de Privacidade",
+    "description": "Como coletamos, usamos e protegemos suas informações pessoais",
+    "lastUpdated": "Última atualização: {date}"
+  },
+  "refund": {
+    "title": "Política de Reembolso",
+    "description": "Informações sobre reembolsos, cancelamentos e cobrança",
+    "lastUpdated": "Última atualização: {date}"
+  },
+  "content": {
+    "title": "Política de Conteúdo",
+    "description": "Diretrizes para uso aceitável e conteúdo proibido",
+    "lastUpdated": "Última atualização: {date}"
+  }
+}

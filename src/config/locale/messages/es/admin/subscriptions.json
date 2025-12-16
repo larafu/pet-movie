@@ -1,0 +1,27 @@
+{
+  "fields": {
+    "subscription_no": "N° de Suscripción",
+    "user": "Usuario",
+    "amount": "Monto",
+    "interval": "Intervalo",
+    "provider": "Proveedor",
+    "created_at": "Fecha de Creación",
+    "current_period_start": "Inicio del Período Actual",
+    "current_period_end": "Fin del Período Actual",
+    "status": "Estado",
+    "description": "Descripción",
+    "action": "Acción"
+  },
+  "list": {
+    "title": "Suscripciones",
+    "crumbs": {
+      "admin": "Admin",
+      "subscriptions": "Suscripciones"
+    },
+    "tabs": {
+      "all": "Todos",
+      "month": "Mensual",
+      "year": "Anual"
+    }
+  }
+}

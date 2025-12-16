@@ -3,9 +3,13 @@ import { envConfigs } from '..';
 export const localeNames: any = {
   en: 'English',
   zh: '中文',
+  es: 'Español',
+  'pt-br': 'Português (Brasil)',
+  ko: '한국어',
 };
 
-export const locales = ['en', 'zh'];
+// 支持的语言列表：英语、中文、西班牙语、巴西葡萄牙语、韩语
+export const locales = ['en', 'zh', 'es', 'pt-br', 'ko'];
 
 export const defaultLocale = envConfigs.locale;
 

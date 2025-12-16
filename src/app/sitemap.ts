@@ -9,7 +9,8 @@ import { postsSource } from '@/core/docs/source';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 移除 baseUrl 末尾的斜杠，避免生成双斜杠 URL
   const baseUrl = envConfigs.app_url.replace(/\/+$/, '');
-  const locales = ['en', 'zh'];
+  // 支持的语言列表：英语、中文、西班牙语、巴西葡萄牙语、韩语
+  const locales = ['en', 'zh', 'es', 'pt-br', 'ko'];
   const currentDate = new Date();
 
   // Homepage - highest priority, frequent updates

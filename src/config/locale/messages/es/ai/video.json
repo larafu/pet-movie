@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "title": "Generador de Video con IA - Pet Movie",
+    "description": "Genera increíbles videos de mascotas con IA. Transforma tus fotos en obras maestras cinematográficas."
+  },
+  "page": {
+    "title": "Generador de Video con IA",
+    "description": "Crea impresionantes videos de mascotas a partir de tus fotos con tecnología de IA"
+  },
+  "generator": {
+    "title": "Generador de Video",
+    "description": "Genera videos con modelos de IA, soporta texto a video.",
+    "form": {
+      "prompt": "Descripción del Video",
+      "prompt_placeholder": "Describe tu idea de video. Por ejemplo: Un golden retriever corriendo por un prado al atardecer, cinematográfico, hermosa iluminación",
+      "prompt_too_long": "La descripción es muy larga, por favor acórtala",
+      "reference_images": "Imágenes de Referencia (Opcional)",
+      "reference_images_description": "Sube fotos de tu mascota para ayudar a la IA a generar mejores videos",
+      "images_uploading": "Por favor espera a que las imágenes terminen de subirse",
+      "images_upload_error": "Algunas imágenes fallaron al subirse. Por favor elimínalas e intenta de nuevo."
+    },
+    "generate": "Generar Video",
+    "checking_account": "Verificando Cuenta...",
+    "loading": "Cargando...",
+    "generating": "Generando Video...",
+    "sign_in_to_generate": "Inicia Sesión para Generar Video",
+    "credits_cost": "Costo {credits} créditos",
+    "credits_remaining": "Restantes {credits} créditos",
+    "buy_credits": "Comprar Créditos",
+    "progress": "Progreso",
+    "generated_videos": "Vista Previa del Video",
+    "ready_to_generate": "Listo para Generar",
+    "ready_for_generating": "Listo para Generar",
+    "no_videos_generated": "Aún No Se Han Generado Videos",
+    "free_trial": "¡Tienes {credits} créditos gratis para probar!"
+  }
+}

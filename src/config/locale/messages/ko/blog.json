@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "title": "블로그 | 반려동물 추모 & AI 영상 제작 팁",
+    "description": "펫로스 극복 방법, 무지개다리 이야기, 반려동물 추모 문구, 추모영상 제작 팁에 대한 글들."
+  },
+  "blog": {
+    "id": "blog",
+    "sr_only_title": "Pet Movie AI 블로그",
+    "title": "블로그",
+    "description": "반려동물 추모관, 무지개다리, 소중한 아이를 기리는 방법에 대한 글들."
+  },
+  "page": {
+    "all": "전체",
+    "no_content": "콘텐츠 없음",
+    "crumb": "블로그",
+    "toc": "목차"
+  }
+}

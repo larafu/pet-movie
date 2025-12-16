@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "title": "Blog | Consejos para Memoriales de Mascotas y Videos con IA",
+    "description": "Artículos sobre cómo afrontar la pérdida de una mascota, el Puente del Arcoíris, frases para despedir a tu mascota y cómo crear videos homenaje."
+  },
+  "blog": {
+    "id": "blog",
+    "sr_only_title": "Blog de PetMovie AI",
+    "title": "Blog",
+    "description": "Artículos sobre memoriales de mascotas, el Puente del Arcoíris y consejos para honrar a tu mascota fallecida."
+  },
+  "page": {
+    "all": "Todos",
+    "no_content": "Sin Contenido",
+    "crumb": "Blog",
+    "toc": "Tabla de Contenidos"
+  }
+}

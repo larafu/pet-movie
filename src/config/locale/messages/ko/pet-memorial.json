@@ -1,0 +1,273 @@
+{
+  "metadata": {
+    "title": "반려동물 온라인 추모관 | 무지개다리 추모 페이지 만들기",
+    "description": "무지개다리를 건넌 소중한 반려동물을 위한 온라인 추모관을 만들어보세요. 강아지 추모, 고양이 추모 페이지에서 사진과 이야기를 공유하고, 다른 이들이 촛불을 켜드릴 수 있어요.",
+    "keywords": "반려동물 추모관, 온라인 추모관, 무지개다리, 추모 페이지 만들기, 강아지 추모, 고양이 추모, 펫로스, 반려동물 상실"
+  },
+  "page": {
+    "title": "반려동물 추모관",
+    "description": "무지개다리를 건넌 소중한 아이들을 기리고 추억하는 공간입니다."
+  },
+  "hero": {
+    "title": "무지개다리 추모관",
+    "description": "반려동물을 위한 따뜻한 온라인 추모 공간을 만들어보세요 — 무지개 정원에 빛나는 촛불, 개인 이야기 페이지, 그리고 사진을 AI 추모영상으로 변환할 수 있는 옵션까지.",
+    "createButton": "추모관 만들기",
+    "scrollHint": "스크롤하여 더 보기"
+  },
+  "create": {
+    "title": "추모관 만들기",
+    "description": "소중한 반려동물을 기리고 그들의 이야기를 세상과 나눌 수 있는 아름다운 추모 페이지를 만들어보세요."
+  },
+  "list": {
+    "searchByPetName": "반려동물 이름으로 검색...",
+    "searchByOwnerName": "보호자 이름으로 검색...",
+    "searchPlaceholder": "반려동물 또는 보호자 이름으로 검색...",
+    "sort": {
+      "latest": "최신순",
+      "popular": "인기순"
+    },
+    "createButton": "추모관 만들기",
+    "resultCount": "{count}개의 추모관 표시 중",
+    "error": "추모관을 불러오지 못했습니다. 다시 시도해주세요.",
+    "retry": "다시 시도",
+    "empty": "아직 추모관이 없습니다. 첫 번째로 만들어보세요!",
+    "createFirst": "첫 추모관 만들기"
+  },
+  "card": {
+    "hasVideo": "영상",
+    "species": {
+      "dog": "강아지",
+      "cat": "고양이",
+      "other": "기타"
+    },
+    "submittedBy": "{name}님이 등록"
+  },
+  "detail": {
+    "backToList": "추모관 목록으로",
+    "error": "추모관 상세 정보를 불러오지 못했습니다. 다시 시도해주세요.",
+    "retry": "다시 시도",
+    "noImage": "이미지가 없습니다",
+    "memorialVideo": "추모 영상",
+    "story": "우리의 이야기",
+    "species": {
+      "dog": "강아지",
+      "cat": "고양이",
+      "other": "기타"
+    },
+    "born": "태어난 날",
+    "passed": "떠난 날",
+    "submittedBy": "{name}님이 등록",
+    "lightCandle": "촛불 켜기",
+    "lightCandleTitle": "추모의 촛불을 켜주세요",
+    "yourName": "이름 (선택사항)",
+    "namePlaceholder": "이름을 입력하세요",
+    "yourMessage": "메시지 (선택사항)",
+    "messagePlaceholder": "위로의 말씀이나 추억을 남겨주세요...",
+    "lightCandleButton": "촛불 켜기",
+    "candleLit": "촛불이 켜졌습니다",
+    "candleError": "촛불 켜기 실패. 다시 시도해주세요.",
+    "createVideo": "추모 영상 만들기",
+    "createVideoTitle": "추모 영상 만들기",
+    "createVideoDescription": "이 추모관을 아름다운 영상 헌정 작품으로 변환하세요. 계정의 크레딧이 사용됩니다.",
+    "startGenerating": "생성 시작",
+    "videoStarted": "영상 생성이 시작되었습니다! 잠시 후 확인해주세요.",
+    "videoError": "영상 생성 시작 실패. 다시 시도해주세요.",
+    "share": "추모관 공유",
+    "shareTitle": "{name}을(를) 위한 추모관",
+    "linkCopied": "링크가 클립보드에 복사되었습니다!",
+    "recentCandles": "최근 촛불",
+    "viewAllCandles": "모든 촛불 보기",
+    "inLovingMemory": "영원한 사랑을 담아",
+    "ourStory": "우리의 이야기",
+    "rememberingName": "{name}을(를) 추억하며",
+    "payTribute": "헌정하기",
+    "lightCandleFor": "{name}을(를) 위한 촛불 켜기",
+    "candlesLit": "개의 촛불이 사랑의 기억으로 켜졌습니다",
+    "messagesOfLove": "사랑의 메시지",
+    "defaultVideoSet": "기본 영상으로 설정되었습니다",
+    "defaultVideoSetFailed": "기본 영상 설정 실패",
+    "lifeMovieComingSoon": "(이름) 추억 영화 제작 중 (Life Movie coming soon)"
+  },
+  "videoGallery": {
+    "subtitle": "월드 프리미어",
+    "title": "영화",
+    "doubleClickHint": "더블클릭하여 전체화면으로 보기",
+    "defaultVideo": "기본",
+    "videoSettings": "영상 설정",
+    "setAsDefault": "기본으로 설정",
+    "videoCount": "{count}개의 영상",
+    "currentlyPlaying": "현재 재생 중"
+  },
+  "photoGallery": {
+    "subtitle": "소중한 순간들",
+    "title": "사진 갤러리"
+  },
+  "form": {
+    "modalTitle": "반려동물을 위한 추모관 만들기",
+    "modalDescription": "반려동물의 삶을 기념하고 사진과 이야기를 공유해보세요.",
+    "successTitle": "감사합니다!",
+    "successMessage": "추모관 등록에 감사드립니다",
+    "successDescription": "추모관이 생성되었으며 이제 추모관 목록에서 확인하실 수 있습니다.",
+    "viewMemorial": "추모관 보기",
+    "close": "닫기",
+    "petInfo": "반려동물 정보",
+    "personalInfo": "개인 정보",
+    "basicInfo": "반려동물 정보",
+    "petName": "반려동물 이름",
+    "petNamePlaceholder": "반려동물 이름을 입력하세요",
+    "species": "종류",
+    "speciesPlaceholder": "종류를 선택하세요",
+    "speciesOptions": {
+      "dog": "강아지",
+      "cat": "고양이",
+      "other": "기타"
+    },
+    "birthday": "생일",
+    "dateOfPassing": "떠난 날",
+    "selectDate": "날짜를 선택하세요",
+    "photos": "사진 업로드",
+    "photosDescription": "소중한 반려동물의 사진을 1-6장 업로드하세요. 첫 번째 사진이 대표 이미지가 됩니다.",
+    "photosDescriptionRequired": "소중한 반려동물의 사진을 1-6장 업로드하세요 (필수). 첫 번째 사진이 대표 이미지가 됩니다.",
+    "uploadPhotos": "클릭하여 사진 업로드",
+    "uploadLimit": "{current}/6장 업로드됨",
+    "maxImagesError": "최대 6장까지 업로드할 수 있습니다",
+    "uploadError": "사진 업로드 실패. 다시 시도해주세요.",
+    "memorySection": "추억",
+    "message": "메시지 남기기",
+    "messagePlaceholder": "반려동물을 추억하는 메시지를 남겨주세요...",
+    "messageDescription": "추모관 카드에 표시될 짧은 메시지입니다 (최대 500자).",
+    "story": "우리의 이야기를 들려주세요",
+    "storyPlaceholder": "반려동물의 '이야기'를 들려주세요...",
+    "storyDescription": "추억, 재미있던 순간, 또는 다른 사람들이 알았으면 하는 것들을 공유해주세요 (최대 5000자).",
+    "contactInfo": "보호자 정보",
+    "name": "이름",
+    "namePlaceholder": "이름을 입력하세요",
+    "firstName": "이름",
+    "firstNamePlaceholder": "이름을 입력하세요",
+    "lastName": "성",
+    "city": "도시",
+    "cityPlaceholder": "도시를 입력하세요",
+    "state": "시/도",
+    "statePlaceholder": "시/도를 입력하세요",
+    "email": "이메일",
+    "emailDescription": "누군가 촛불을 켜면 알림을 보내드립니다.",
+    "privacySettings": "공개 설정",
+    "displayName": "이 추모관에 내 이름 표시",
+    "displayNameDescription": "추모관 페이지에 이름을 표시합니다.",
+    "publicMemorial": "공개 추모관",
+    "publicMemorialDescription": "다른 사람들이 추모관 목록에서 이 추모관을 볼 수 있도록 합니다.",
+    "cancel": "취소",
+    "submitMemorial": "추모관 등록",
+    "createButton": "추모관 만들기",
+    "updateButton": "추모관 수정",
+    "createSuccess": "추모관이 성공적으로 생성되었습니다!",
+    "createError": "추모관 생성 실패. 다시 시도해주세요.",
+    "updateSuccess": "추모관이 성공적으로 수정되었습니다!",
+    "updateError": "추모관 수정 실패. 다시 시도해주세요.",
+    "videoGuide": {
+      "title": "추모 영상 만들기",
+      "description": "반려동물의 사진을 AI로 아름다운 시네마틱 추모영상으로 변환해보세요. 소중한 아이를 기리는 완벽한 방법이에요.",
+      "button": "영상 생성하기"
+    }
+  },
+  "error": {
+    "unauthorized": "계속하려면 로그인해주세요.",
+    "notFound": "추모관을 찾을 수 없습니다.",
+    "notOwner": "이 작업을 수행할 권한이 없습니다.",
+    "validation": "입력 내용을 확인하고 다시 시도해주세요.",
+    "imageRequired": "최소 한 장의 이미지가 필요합니다.",
+    "videoExists": "이 추모관의 영상이 이미 생성되었습니다.",
+    "insufficientCredits": "크레딧이 부족합니다. 영상을 생성하려면 크레딧을 충전해주세요."
+  },
+  "candle": {
+    "successTitle": "촛불이 켜졌습니다",
+    "successMessage": "이 소중한 반려동물을 추억하며 촛불이 켜졌습니다.",
+    "viewMemorialVideo": "이 반려동물을 위해 만들어진 추모 영상을 감상하세요",
+    "createYourOwn": "내 반려동물을 위한 아름다운 AI 추모 영상 만들기",
+    "viewDetailButton": "추모관 보기",
+    "createVideoButton": "추모 영상 만들기",
+    "maybeLater": "나중에"
+  },
+  "videos": {
+    "title": "내 반려동물 영상",
+    "noVideos": "아직 영상이 없습니다. 첫 번째 반려동물 영상을 만들어보세요!",
+    "retry": "다시 시도",
+    "public": "공개",
+    "private": "비공개",
+    "status": {
+      "completed": "완료",
+      "generating": "생성 중",
+      "pending": "대기 중",
+      "failed": "실패"
+    },
+    "videoPlayer": "영상 플레이어",
+    "videoNotReady": "영상이 아직 준비되지 않았습니다",
+    "publicVideo": "이 영상은 공개입니다",
+    "privateVideo": "이 영상은 비공개입니다",
+    "download": "다운로드",
+    "share": "공유",
+    "shareVideoTitle": "내 반려동물 영상을 확인해보세요!",
+    "copyLink": "링크 복사",
+    "linkCopied": "링크가 복사되었습니다!",
+    "makePrivate": "비공개로 전환",
+    "makePublic": "공개로 전환",
+    "enableShareFirst": "먼저 공유를 활성화해주세요",
+    "shareEnabled": "영상이 공개로 설정되었습니다",
+    "shareDisabled": "영상이 비공개로 설정되었습니다",
+    "shareFailed": "공유 전환 실패"
+  },
+  "faq": {
+    "title": "온라인 추모관 자주 묻는 질문",
+    "description": "반려동물 추모관, 추모 페이지, 추모영상 제작에 대한 질문들",
+    "items": [
+      {
+        "question": "온라인 추모관은 무엇인가요?",
+        "answer": "온라인 추모관은 무지개다리를 건넌 소중한 반려동물을 기리는 디지털 기념 공간이에요. 반려동물의 사진, 이야기, 생일과 떠난 날 등의 정보를 담은 개인 추모 페이지를 만들 수 있어요. 가족과 친구들이 방문해서 촛불을 켜고 위로의 메시지를 남길 수 있어요."
+      },
+      {
+        "question": "무지개다리란 무엇인가요?",
+        "answer": "무지개다리(Rainbow Bridge)는 반려동물이 세상을 떠난 후 가는 평화로운 곳을 상징하는 따뜻한 표현이에요. 아이들이 아프지 않고 행복하게 뛰놀다가 언젠가 우리와 다시 만나게 된다는 이야기예요. 펫로스를 겪는 많은 보호자분들이 이 개념에서 위안을 찾고 계세요."
+      },
+      {
+        "question": "추모 페이지는 어떻게 만드나요?",
+        "answer": "'추모관 만들기' 버튼을 클릭하고 반려동물의 이름, 종류, 생일, 떠난 날을 입력하세요. 사진을 1-6장 업로드하고 아이와의 이야기를 작성하시면 돼요. 공개/비공개 설정도 선택할 수 있어요."
+      },
+      {
+        "question": "펫로스 증후군은 무엇이고, 추모관이 어떻게 도움이 되나요?",
+        "answer": "펫로스 증후군은 반려동물 상실 후 겪는 깊은 슬픔과 상실감을 말해요. 추모관을 만들고 아이의 이야기를 기록하는 것은 슬픔을 치유하는 과정이 될 수 있어요. 추억을 영원히 간직하고, 가족들과 함께 아이를 추억하며, 비슷한 경험을 한 다른 보호자들과 위로를 나눌 수 있어요."
+      },
+      {
+        "question": "추모 문구나 위로 편지는 어떻게 작성하나요?",
+        "answer": "추모관에서 직접 메시지를 남기거나, 다른 보호자의 추모관에 촛불을 켜며 위로의 말을 전할 수 있어요. 진심 어린 간단한 말, 함께한 추억, 또는 아이의 특별했던 점을 담아 작성해보세요. 형식보다는 마음을 담는 것이 중요해요."
+      },
+      {
+        "question": "추모관을 수정하거나 삭제할 수 있나요?",
+        "answer": "네, 본인이 만든 추모관은 언제든 수정할 수 있어요. 사진을 추가하거나 이야기를 업데이트할 수 있어요. 삭제 기능은 신중하게 진행되며, 지원팀에 문의하시면 도와드릴게요."
+      },
+      {
+        "question": "비공개 설정은 어떻게 하나요?",
+        "answer": "추모관 생성 시 '공개 추모관' 옵션을 해제하면 비공개로 설정돼요. 비공개 추모관은 추모관 목록에 표시되지 않고, 링크를 아는 사람만 접근할 수 있어요. 나중에 설정에서 변경할 수도 있어요."
+      },
+      {
+        "question": "추모관을 다른 사람들과 공유할 수 있나요?",
+        "answer": "네! 추모관 페이지에서 '공유' 버튼을 클릭하면 링크를 복사하거나 카카오톡, 인스타그램, 페이스북 등으로 직접 공유할 수 있어요. 가족과 친구들이 방문해서 촛불을 켜고 위로의 메시지를 남길 수 있어요."
+      },
+      {
+        "question": "추모 영상은 어떻게 만드나요?",
+        "answer": "추모관 페이지에서 '추모 영상 만들기' 버튼을 클릭하면 업로드한 사진들로 AI가 감동적인 추모영상을 만들어드려요. 크레딧이 필요하며, 생성에는 약 5-10분이 소요돼요."
+      },
+      {
+        "question": "비용은 얼마인가요?",
+        "answer": "추모관 생성은 무료예요! 추모 영상 제작에는 크레딧이 필요해요. 신규 가입 시 무료 크레딧이 제공되니 먼저 체험해보실 수 있어요. 자세한 요금은 요금제 페이지에서 확인하세요."
+      },
+      {
+        "question": "사진 외에 동영상도 업로드할 수 있나요?",
+        "answer": "현재 추모관에는 사진만 업로드 가능해요 (JPG, PNG, WebP). 동영상 업로드 기능은 곧 지원 예정이에요. 더 좋은 추모 서비스를 위해 열심히 준비하고 있어요!"
+      },
+      {
+        "question": "제작 시간은 얼마나 걸리나요?",
+        "answer": "추모관 생성은 즉시 완료돼요. 추모 영상 제작은 약 5-10분이 소요되며, 완료되면 알림을 받고 바로 확인하실 수 있어요."
+      }
+    ]
+  }
+}

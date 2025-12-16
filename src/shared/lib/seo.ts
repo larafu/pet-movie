@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
+import { locales } from '@/config/locale';
 
 // get metadata for page component
 export function getMetadata(
@@ -72,6 +73,25 @@ export function getMetadata(
       appName = envConfigs.app_name || '';
     }
 
+    // 生成 hreflang 语言替代链接
+    const languages: Record<string, string> = {};
+    const baseUrl = envConfigs.app_url.replace(/\/$/, '');
+    const pathname = options.canonicalUrl || '/';
+    const normalizedPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
+    const pathWithoutSlash = normalizedPath === '/' ? '' : normalizedPath;
+
+    for (const loc of locales) {
+      // 将 locale 代码映射到 hreflang 代码（pt-br -> pt-BR）
+      const hreflangCode = loc === 'pt-br' ? 'pt-BR' : loc;
+      if (loc === 'en') {
+        languages[hreflangCode] = `${baseUrl}${pathWithoutSlash}`;
+      } else {
+        languages[hreflangCode] = `${baseUrl}/${loc}${pathWithoutSlash}`;
+      }
+    }
+    // 添加 x-default（指向英文版）
+    languages['x-default'] = `${baseUrl}${pathWithoutSlash}`;
+
     return {
       title:
         passedMetadata.title ||
@@ -87,11 +107,12 @@ export function getMetadata(
         defaultMetadata.keywords,
       alternates: {
         canonical: canonicalUrl,
+        languages,
       },
 
       openGraph: {
         type: 'website',
-        locale: locale,
+        locale: locale === 'pt-br' ? 'pt_BR' : locale,
         url: canonicalUrl,
         title,
         description,

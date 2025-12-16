@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "title": "AI 채팅",
+    "description": "AI와 반려동물에 대해 대화하고 함께 이야기를 만들어보세요"
+  },
+  "page": {
+    "title": "AI 채팅",
+    "description": "AI와 반려동물에 대해 대화하고 함께 이야기를 만들어보세요"
+  },
+  "chat": {
+    "title": "AI 채팅",
+    "placeholder": "메시지를 입력하세요...",
+    "send": "전송",
+    "loading": "로딩 중...",
+    "thinking": "생각 중...",
+    "empty": "AI와 대화를 시작해보세요",
+    "error": "메시지 전송 실패. 다시 시도해주세요."
+  }
+}

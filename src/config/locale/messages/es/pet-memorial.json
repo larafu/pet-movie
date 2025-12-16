@@ -1,0 +1,307 @@
+{
+  "metadata": {
+    "title": "Memorial de Mascotas Online | PetMovie.ai",
+    "description": "Crea una página conmemorativa para tu mascota que cruzó el Puente del Arcoíris. Homenaje a tu mascota fallecida con fotos, historia y video memorial generado por IA.",
+    "keywords": "memorial de mascotas online, página conmemorativa para mascotas, homenaje a mi mascota fallecida, memorial de perro fallecido, memorial de gato fallecido, Puente del Arcoíris"
+  },
+  "page": {
+    "title": "Memorial de Mascotas Online",
+    "description": "Un lugar para honrar y recordar a nuestras queridas mascotas que han cruzado el Puente del Arcoíris."
+  },
+  "hero": {
+    "title": "Memorial de Mascotas Online",
+    "description": "Crea un memorial online para tu mascota – con una luz brillante en nuestro Jardín del Arcoíris, una página de historia personal, y la opción de convertir sus fotos en una película memorial con IA.",
+    "createButton": "Crear un Memorial",
+    "scrollHint": "Desplázate para explorar"
+  },
+  "sections": {
+    "commemorative": {
+      "title": "Página Conmemorativa para tu Mascota",
+      "description": "Crea un recuerdo digital permanente donde amigos y familiares pueden visitar, sin importar dónde estén. Tu página conmemorativa incluye fotos, la historia de tu mascota y un espacio para que otros dejen mensajes de amor."
+    },
+    "rainbowBridge": {
+      "title": "Tributo al Puente del Arcoíris",
+      "description": "Honra a tu mascota que ha cruzado el Puente del Arcoíris con un memorial digital. Según la leyenda, nuestras mascotas nos esperan en un lugar hermoso lleno de amor, donde algún día nos reuniremos."
+    },
+    "tribute": {
+      "title": "Homenaje a tu Mascota Fallecida",
+      "description": "Transforma el dolor en un hermoso tributo. Nuestros memoriales te permiten celebrar la vida de tu compañero, compartir momentos especiales y mantener vivo su recuerdo para siempre."
+    }
+  },
+  "resources": {
+    "title": "Recursos para el Duelo",
+    "description": "Artículos y guías para ayudarte a afrontar la pérdida de tu mascota",
+    "items": [
+      {
+        "title": "Duelo por la muerte de una mascota",
+        "url": "/blog/duelo-por-la-muerte-de-una-mascota"
+      },
+      {
+        "title": "Cómo afrontar la pérdida de una mascota",
+        "url": "/blog/como-afrontar-la-perdida-de-una-mascota"
+      },
+      {
+        "title": "Puente del Arcoíris: significado y poema",
+        "url": "/blog/puente-del-arcoiris-mascota"
+      },
+      {
+        "title": "Frases para despedir a una mascota",
+        "url": "/blog/frases-para-despedir-a-una-mascota"
+      },
+      {
+        "title": "Carta a mi mascota fallecida",
+        "url": "/blog/carta-a-mi-mascota-fallecida"
+      },
+      {
+        "title": "Ideas de memorial para mascotas",
+        "url": "/blog/ideas-de-memorial-para-mascotas"
+      }
+    ]
+  },
+  "create": {
+    "title": "Crear un Memorial",
+    "description": "Crea una hermosa página memorial para honrar a tu querida mascota y compartir su historia con el mundo."
+  },
+  "list": {
+    "searchByPetName": "Buscar por nombre de mascota...",
+    "searchByOwnerName": "Buscar por nombre del dueño...",
+    "searchPlaceholder": "Buscar por nombre de mascota o dueño...",
+    "sort": {
+      "latest": "Más Recientes",
+      "popular": "Más Populares"
+    },
+    "createButton": "Crear Memorial",
+    "resultCount": "Mostrando {count} memoriales",
+    "error": "Error al cargar memoriales. Por favor, inténtalo de nuevo.",
+    "retry": "Reintentar",
+    "empty": "No se encontraron memoriales. ¡Sé el primero en crear uno!",
+    "createFirst": "Crear Primer Memorial"
+  },
+  "card": {
+    "hasVideo": "Video",
+    "species": {
+      "dog": "Perro",
+      "cat": "Gato",
+      "other": "Otro"
+    },
+    "submittedBy": "Enviado por {name}"
+  },
+  "detail": {
+    "backToList": "Volver al Muro de Memoriales",
+    "error": "Error al cargar los detalles del memorial. Por favor, inténtalo de nuevo.",
+    "retry": "Reintentar",
+    "noImage": "No hay imagen disponible",
+    "memorialVideo": "Video Memorial",
+    "story": "Su Historia",
+    "species": {
+      "dog": "Perro",
+      "cat": "Gato",
+      "other": "Otro"
+    },
+    "born": "Nacimiento",
+    "passed": "Fallecimiento",
+    "submittedBy": "Enviado por {name}",
+    "lightCandle": "Encender una Vela",
+    "lightCandleTitle": "Enciende una Vela en Memoria",
+    "yourName": "Tu Nombre (opcional)",
+    "namePlaceholder": "Ingresa tu nombre",
+    "yourMessage": "Tu Mensaje (opcional)",
+    "messagePlaceholder": "Deja un mensaje de consuelo o recuerdo...",
+    "lightCandleButton": "Encender Vela",
+    "candleLit": "Tu vela ha sido encendida",
+    "candleError": "Error al encender la vela. Por favor, inténtalo de nuevo.",
+    "createVideo": "Crear Video Memorial",
+    "createVideoTitle": "Crear Video Memorial",
+    "createVideoDescription": "Transforma este memorial en un hermoso tributo en video. Esto usará créditos de tu cuenta.",
+    "startGenerating": "Comenzar a Generar",
+    "videoStarted": "¡Generación de video iniciada! Vuelve pronto.",
+    "videoError": "Error al iniciar la generación de video. Por favor, inténtalo de nuevo.",
+    "share": "Compartir Memorial",
+    "shareTitle": "Memorial para {name}",
+    "linkCopied": "¡Enlace copiado al portapapeles!",
+    "recentCandles": "Velas Recientes",
+    "viewAllCandles": "Ver Todas las Velas",
+    "inLovingMemory": "En Memoria Amorosa",
+    "ourStory": "Nuestra Historia",
+    "rememberingName": "Recordando a {name}",
+    "payTribute": "Rendir Homenaje",
+    "lightCandleFor": "Enciende una Vela para {name}",
+    "candlesLit": "velas encendidas en memoria amorosa",
+    "messagesOfLove": "Mensajes de Amor",
+    "defaultVideoSet": "Video predeterminado configurado exitosamente",
+    "defaultVideoSetFailed": "Error al configurar el video predeterminado"
+  },
+  "videoGallery": {
+    "subtitle": "Estreno Mundial",
+    "title": "La Película",
+    "doubleClickHint": "Doble clic para ver en pantalla completa",
+    "defaultVideo": "Predeterminado",
+    "videoSettings": "Configuración de Video",
+    "setAsDefault": "Establecer como Predeterminado",
+    "videoCount": "{count} videos",
+    "currentlyPlaying": "reproduciendo actualmente"
+  },
+  "photoGallery": {
+    "subtitle": "Momentos Preciados",
+    "title": "Galería de Fotos"
+  },
+  "form": {
+    "modalTitle": "Deja un Memorial para tu Mascota",
+    "modalDescription": "Celebra la vida de tu mascota compartiendo su historia y fotos.",
+    "successTitle": "¡Gracias!",
+    "successMessage": "Gracias por enviar tu memorial",
+    "successDescription": "Tu memorial ha sido creado y ahora es visible en el muro de memoriales.",
+    "viewMemorial": "Ver Memorial",
+    "close": "Cerrar",
+    "petInfo": "Información de la Mascota",
+    "personalInfo": "Información Personal",
+    "basicInfo": "Información de la Mascota",
+    "petName": "Nombre de la Mascota",
+    "petNamePlaceholder": "Ingresa el nombre de tu mascota",
+    "species": "Especie",
+    "speciesPlaceholder": "Selecciona la especie",
+    "speciesOptions": {
+      "dog": "Perro",
+      "cat": "Gato",
+      "other": "Otro"
+    },
+    "birthday": "Fecha de Nacimiento",
+    "dateOfPassing": "Fecha de Fallecimiento",
+    "selectDate": "Selecciona una fecha",
+    "photos": "Subir Fotos",
+    "photosDescription": "Sube 1-6 fotos de tu querida mascota. La primera foto se usará como imagen de portada.",
+    "photosDescriptionRequired": "Sube 1-6 fotos de tu querida mascota (requerido). La primera foto se usará como imagen de portada.",
+    "uploadPhotos": "Haz clic para subir fotos",
+    "uploadLimit": "{current}/6 fotos subidas",
+    "maxImagesError": "Solo puedes subir hasta 6 fotos",
+    "uploadError": "Error al subir la foto. Por favor, inténtalo de nuevo.",
+    "memorySection": "Recuerdos",
+    "message": "Deja un Mensaje",
+    "messagePlaceholder": "Deja un mensaje en memoria de tu mascota...",
+    "messageDescription": "Un breve mensaje que se mostrará en la tarjeta del memorial (máximo 500 caracteres).",
+    "story": "Cuéntanos Su Historia",
+    "storyPlaceholder": "Cuéntanos la 'historia' de tu mascota...",
+    "storyDescription": "Comparte recuerdos, momentos divertidos o cualquier cosa que quieras que otros sepan sobre tu mascota (máximo 5000 caracteres).",
+    "contactInfo": "Tu Información",
+    "name": "Tu Nombre",
+    "namePlaceholder": "Ingresa tu nombre",
+    "firstName": "Nombre",
+    "firstNamePlaceholder": "Ingresa tu nombre",
+    "lastName": "Apellido",
+    "city": "Ciudad",
+    "cityPlaceholder": "Ingresa tu ciudad",
+    "state": "Estado/Provincia",
+    "statePlaceholder": "Ingresa tu estado o provincia",
+    "email": "Correo Electrónico",
+    "emailDescription": "Te notificaremos cuando alguien encienda una vela para tu mascota.",
+    "privacySettings": "Configuración de Privacidad",
+    "displayName": "Mostrar mi nombre con este memorial",
+    "displayNameDescription": "Muestra tu nombre en la página del memorial.",
+    "publicMemorial": "Memorial Público",
+    "publicMemorialDescription": "Permite que otros vean este memorial en el muro de memoriales.",
+    "cancel": "Cancelar",
+    "submitMemorial": "Enviar Memorial",
+    "createButton": "Crear Memorial",
+    "updateButton": "Actualizar Memorial",
+    "createSuccess": "¡Memorial creado exitosamente!",
+    "createError": "Error al crear el memorial. Por favor, inténtalo de nuevo.",
+    "updateSuccess": "¡Memorial actualizado exitosamente!",
+    "updateError": "Error al actualizar el memorial. Por favor, inténtalo de nuevo.",
+    "videoGuide": {
+      "title": "Crear un Video Memorial",
+      "description": "Transforma las fotos de tu mascota en un hermoso video cinematográfico con IA. Perfecto para honrar a tu querido compañero.",
+      "button": "Generar Video"
+    }
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes sobre Memorial de Mascotas",
+    "items": [
+      {
+        "question": "¿Qué es un memorial de mascotas online?",
+        "answer": "Un memorial de mascotas online es una página conmemorativa digital donde puedes honrar la memoria de tu mascota fallecida. Incluye fotos, la historia de tu compañero, y un espacio donde amigos y familiares pueden encender velas virtuales y dejar mensajes de condolencias."
+      },
+      {
+        "question": "¿Cómo creo una página conmemorativa para mi mascota?",
+        "answer": "Crear una página conmemorativa es simple: regístrate, sube las fotos de tu mascota, escribe su historia y personaliza el memorial. Tu recuerdo digital de tu mascota estará disponible para compartir con familiares y amigos en minutos."
+      },
+      {
+        "question": "¿Qué es el Puente del Arcoíris para mascotas?",
+        "answer": "El Puente del Arcoíris es un concepto poético que describe un lugar donde nuestras mascotas fallecidas nos esperan. Según la leyenda, es un prado hermoso donde las mascotas corren libres y felices hasta que sus dueños lleguen para reunirse con ellas."
+      },
+      {
+        "question": "¿Puedo crear un memorial de perro fallecido?",
+        "answer": "Sí, puedes crear un memorial de perro fallecido personalizado con fotos, fechas importantes, la historia de vida de tu perro, y un video homenaje generado por IA. Es una forma hermosa de celebrar el vínculo especial que compartieron."
+      },
+      {
+        "question": "¿Cómo funciona el memorial de gato fallecido?",
+        "answer": "El memorial de gato fallecido funciona igual que para perros. Sube las fotos de tu gato, comparte anécdotas y momentos especiales, y opcionalmente crea un video memorial con IA para preservar su memoria de forma cinematográfica."
+      },
+      {
+        "question": "¿Puedo hacer un homenaje a mi mascota fallecida con video?",
+        "answer": "Sí, puedes crear un video homenaje para tu mascota fallecida usando nuestra tecnología de IA. Simplemente sube las fotos de tu mascota y nuestro sistema generará una película cinematográfica conmovedora con música y efectos profesionales."
+      },
+      {
+        "question": "¿El memorial de mascotas online es gratuito?",
+        "answer": "Crear un memorial básico es gratuito. Esto incluye la página conmemorativa con fotos, historia y la función de encender velas. Los videos memoriales generados por IA requieren créditos, pero ofrecemos créditos gratuitos a nuevos usuarios."
+      },
+      {
+        "question": "¿Cómo afrontar la pérdida de una mascota?",
+        "answer": "Afrontar la pérdida de una mascota es un proceso de duelo que cada persona vive de manera diferente. Crear un memorial puede ayudar a procesar el dolor transformándolo en un tributo positivo. Te recomendamos visitar nuestra sección de recursos con artículos sobre el duelo por la muerte de una mascota."
+      },
+      {
+        "question": "¿Puedo compartir el memorial con otros?",
+        "answer": "Sí, puedes compartir el memorial de tu mascota con familiares y amigos a través de un enlace único. Ellos pueden visitar la página, ver las fotos y la historia, encender velas virtuales y dejar mensajes de condolencias por la muerte de tu mascota."
+      },
+      {
+        "question": "¿Qué incluye un tributo a mi mascota?",
+        "answer": "Un tributo a tu mascota incluye una página conmemorativa personalizada con fotos, fechas de nacimiento y fallecimiento, una sección para contar su historia, espacio para que otros dejen mensajes, y la opción de crear un video de recuerdos de tu mascota generado por IA."
+      }
+    ]
+  },
+  "error": {
+    "unauthorized": "Por favor, inicia sesión para continuar.",
+    "notFound": "Memorial no encontrado.",
+    "notOwner": "No tienes permiso para realizar esta acción.",
+    "validation": "Por favor, verifica tu entrada e inténtalo de nuevo.",
+    "imageRequired": "Se requiere al menos una imagen.",
+    "videoExists": "Ya se ha generado un video para este memorial.",
+    "insufficientCredits": "Créditos insuficientes. Por favor, compra más créditos para generar un video."
+  },
+  "candle": {
+    "successTitle": "Vela Encendida Exitosamente",
+    "successMessage": "Tu vela ha sido encendida en memoria de esta querida mascota.",
+    "viewMemorialVideo": "Mira el video memorial creado para esta mascota",
+    "createYourOwn": "Crea un hermoso video memorial con IA para tu propia mascota",
+    "viewDetailButton": "Ver Memorial",
+    "createVideoButton": "Crear Video Memorial",
+    "maybeLater": "Quizás Después"
+  },
+  "videos": {
+    "title": "Mis Videos de Mascotas",
+    "noVideos": "Aún no hay videos. ¡Crea tu primer video de mascota!",
+    "retry": "Reintentar",
+    "public": "Público",
+    "private": "Privado",
+    "status": {
+      "completed": "Completado",
+      "generating": "Generando",
+      "pending": "Pendiente",
+      "failed": "Fallido"
+    },
+    "videoPlayer": "Reproductor de Video",
+    "videoNotReady": "El video aún no está listo",
+    "publicVideo": "Este video es público",
+    "privateVideo": "Este video es privado",
+    "download": "Descargar",
+    "share": "Compartir",
+    "shareVideoTitle": "¡Mira el video de mi mascota!",
+    "copyLink": "Copiar Enlace",
+    "linkCopied": "¡Enlace copiado!",
+    "makePrivate": "Hacer Privado",
+    "makePublic": "Hacer Público",
+    "enableShareFirst": "Por favor, habilita compartir primero",
+    "shareEnabled": "El video ahora es público",
+    "shareDisabled": "El video ahora es privado",
+    "shareFailed": "Error al cambiar el estado de compartir"
+  }
+}

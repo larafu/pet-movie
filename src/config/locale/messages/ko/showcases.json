@@ -1,0 +1,104 @@
+{
+  "metadata": {
+    "title": "영상 갤러리",
+    "description": "Pet Movie AI로 제작된 반려동물 영상들"
+  },
+  "showcases": {
+    "id": "showcase",
+    "sr_only_title": "영상 갤러리",
+    "title": "AI로 만든 반려동물 영화들",
+    "description": "커뮤니티에서 만든 강아지, 고양이 영상에서 영감을 받아보세요.",
+    "items": [
+      {
+        "title": "ThinkAny",
+        "description": "AI 검색 엔진",
+        "url": "https://thinkany.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/7.png",
+          "alt": "ThinkAny"
+        }
+      },
+      {
+        "title": "HeyBeauty",
+        "description": "AI 가상 피팅",
+        "url": "https://heybeauty.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/5.png",
+          "alt": "HeyBeauty"
+        }
+      },
+      {
+        "title": "AI Wallpaper",
+        "description": "AI 배경화면 생성기",
+        "url": "https://aiwallpaper.shop",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/1.png",
+          "alt": "AI Wallpaper"
+        }
+      },
+      {
+        "title": "AI Cover",
+        "description": "AI 커버 생성기",
+        "url": "https://aicover.design",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/2.png",
+          "alt": "AI Cover"
+        }
+      },
+      {
+        "title": "GPTs Works",
+        "description": "GPTs 디렉토리",
+        "url": "https://gpts.works",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/3.png",
+          "alt": "GPTs Works"
+        }
+      },
+      {
+        "title": "Melodisco",
+        "description": "AI 음악 플레이어",
+        "url": "https://melodis.co",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/4.png",
+          "alt": "Melodisco"
+        }
+      },
+      {
+        "title": "Pagen",
+        "description": "AI 랜딩 페이지 생성기",
+        "url": "https://pagen.so",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/6.png",
+          "alt": "Pagen"
+        }
+      },
+      {
+        "title": "SoraFM",
+        "description": "AI 영상 생성기",
+        "url": "https://sorafm.trys.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/8.png",
+          "alt": "SoraFM"
+        }
+      },
+      {
+        "title": "PodLM",
+        "description": "AI 팟캐스트 생성기",
+        "url": "https://podlm.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/9.png",
+          "alt": "PodLM"
+        }
+      }
+    ]
+  }
+}

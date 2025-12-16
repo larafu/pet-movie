@@ -1,7 +1,12 @@
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+
 import {withSentryConfig} from '@sentry/nextjs';
 import bundleAnalyzer from '@next/bundle-analyzer';
 import { createMDX } from 'fumadocs-mdx/next';
 import createNextIntlPlugin from 'next-intl/plugin';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const withMDX = createMDX();
 
@@ -70,27 +75,17 @@ const nextConfig = {
     return [];
   },
 
-  turbopack: {
-    resolveAlias: {
-      // fs: {
-      //   browser: './empty.ts', // We recommend to fix code imports before using this method
-      // },
-    },
-  },
-
   experimental: {
-    turbopackFileSystemCacheForDev: true,
+    // Disable Turbopack-specific dev cache to prefer webpack build stability
+    turbopackFileSystemCacheForDev: false,
     // Disable mdxRs for Vercel deployment compatibility with fumadocs-mdx
     ...(process.env.VERCEL ? {} : { mdxRs: true }),
-    // Optimize package imports
-    optimizePackageImports: [
-      '@radix-ui/react-dialog',
-      '@radix-ui/react-dropdown-menu',
-      '@radix-ui/react-select',
-      '@radix-ui/react-tabs',
-      'lucide-react',
-      'framer-motion',
-    ],
+    // Remove optimizePackageImports to avoid forcing Turbopack
+  },
+
+  turbopack: {
+    // Force correct project root to avoid walking parent directories with other lockfiles
+    root: join(__dirname),
   },
 
   serverExternalPackages: [
@@ -100,7 +95,7 @@ const nextConfig = {
     'fluent-ffmpeg',
   ],
 
-  reactCompiler: true,
+  reactCompiler: false,
 
   compiler: {
     // Remove console.log in production

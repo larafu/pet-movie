@@ -131,6 +131,7 @@ export interface Landing {
   faq?: FAQ;
   cta?: CTA;
   testimonials?: Testimonials;
+  imageToVideoReveal?: ImageToVideoReveal;
   footer?: Footer;
   sections?: Section[];
   imageToVideoReveal?: ImageToVideoReveal;

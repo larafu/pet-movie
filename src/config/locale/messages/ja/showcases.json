@@ -1,0 +1,104 @@
+{
+  "metadata": {
+    "title": "ギャラリー",
+    "description": "ユーザーがPet Movie AIで作成した素晴らしいペット動画"
+  },
+  "showcases": {
+    "id": "showcase",
+    "sr_only_title": "ギャラリー",
+    "title": "コミュニティが作成したペットムービー",
+    "description": "Pet Movie AIで作成されたユーザー作品をご覧ください。",
+    "items": [
+      {
+        "title": "ThinkAny",
+        "description": "AI検索エンジン",
+        "url": "https://thinkany.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/7.png",
+          "alt": "showcases"
+        }
+      },
+      {
+        "title": "HeyBeauty",
+        "description": "AIバーチャル試着",
+        "url": "https://heybeauty.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/5.png",
+          "alt": "showcases"
+        }
+      },
+      {
+        "title": "AI Wallpaper",
+        "description": "AI壁紙ジェネレーター",
+        "url": "https://aiwallpaper.shop",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/1.png",
+          "alt": "showcases"
+        }
+      },
+      {
+        "title": "AI Cover",
+        "description": "AIカバージェネレーター",
+        "url": "https://aicover.design",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/2.png",
+          "alt": "showcases"
+        }
+      },
+      {
+        "title": "GPTs Works",
+        "description": "GPTsディレクトリ",
+        "url": "https://gpts.works",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/3.png",
+          "alt": "showcases"
+        }
+      },
+      {
+        "title": "Melodisco",
+        "description": "AI音楽プレーヤー",
+        "url": "https://melodis.co",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/4.png",
+          "alt": "showcases"
+        }
+      },
+      {
+        "title": "Pagen",
+        "description": "AIランディングページジェネレーター",
+        "url": "https://pagen.so",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/6.png",
+          "alt": "showcases"
+        }
+      },
+      {
+        "title": "SoraFM",
+        "description": "AI動画ジェネレーター",
+        "url": "https://sorafm.trys.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/8.png",
+          "alt": "showcases"
+        }
+      },
+      {
+        "title": "PodLM",
+        "description": "AIポッドキャストジェネレーター",
+        "url": "https://podlm.ai",
+        "target": "_blank",
+        "image": {
+          "src": "/imgs/cases/9.png",
+          "alt": "showcases"
+        }
+      }
+    ]
+  }
+}

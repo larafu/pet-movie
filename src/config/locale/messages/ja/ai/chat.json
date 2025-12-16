@@ -1,0 +1,121 @@
+{
+  "sidebar": {
+    "header": {
+      "brand": {
+        "title": "Pet Movie AI チャット",
+        "logo": {
+          "src": "/logo.png",
+          "alt": "Pet Movie AI チャット"
+        },
+        "url": "/chat"
+      },
+      "show_trigger": false
+    },
+    "buttons": [
+      {
+        "title": "新しいチャット",
+        "icon": "Plus",
+        "url": "/chat",
+        "variant": "outline"
+      }
+    ],
+    "main_navs": [
+      {
+        "items": [
+          {
+            "title": "履歴",
+            "icon": "History",
+            "url": "/chat/history"
+          }
+        ]
+      }
+    ],
+    "bottom_nav": {
+      "items": []
+    },
+    "user": {
+      "nav": {
+        "items": [
+          {
+            "title": "プロフィール",
+            "url": "/settings/profile",
+            "icon": "User",
+            "target": "_blank"
+          }
+        ]
+      },
+      "show_email": false,
+      "show_signout": true,
+      "signout_callback": "/chat",
+      "signin_callback": "/chat"
+    },
+    "footer": {
+      "nav": {
+        "items": [
+          {
+            "title": "ホーム",
+            "url": "/",
+            "icon": "Home",
+            "target": "_blank"
+          },
+          {
+            "title": "GitHub",
+            "url": "https://github.com/shipanyai/shipany-template-two",
+            "icon": "Github",
+            "target": "_blank"
+          },
+          {
+            "title": "Twitter",
+            "url": "https://twitter.com/shipanyai",
+            "icon": "RiTwitterXFill",
+            "target": "_blank"
+          },
+          {
+            "title": "Discord",
+            "url": "https://discord.gg/HQNnrzjZQS",
+            "icon": "RiDiscordFill",
+            "target": "_blank"
+          },
+          {
+            "title": "メール",
+            "url": "mailto:support@xxx.ai",
+            "icon": "Mail",
+            "target": "_blank"
+          }
+        ]
+      },
+      "show_theme": true,
+      "show_locale": false
+    },
+    "variant": "sidebar"
+  },
+  "library": {
+    "title": "ライブラリ",
+    "icon": "History",
+    "url": "/chat/history",
+    "more": "もっと見る",
+    "actions": {
+      "edit_title": "タイトルを編集",
+      "share": "共有",
+      "delete": "削除"
+    }
+  },
+  "generator": {
+    "title": "今日は何をお手伝いしましょうか？",
+    "input_placeholder": "何でもお聞きください"
+  },
+  "history": {
+    "title": "チャット履歴",
+    "description": "過去の会話を確認および再訪できます。",
+    "empty": "まだ会話がありません。",
+    "error": "会話の読み込みに失敗しました。",
+    "retry": "再試行",
+    "signin": "チャット履歴を表示するにはサインインしてください。",
+    "summary": "{total}件中{from}-{to}件を表示",
+    "perPage": "ページあたり",
+    "prev": "前へ",
+    "next": "次へ",
+    "open": "チャットを開く",
+    "untitled": "無題の会話"
+  }
+}

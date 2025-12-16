@@ -1,0 +1,823 @@
+{
+  "metadata": {
+    "title": "Pet Movie AI - 彼らはあなたに何年もの時間をくれた。永遠の数分を彼らに贈りましょう。",
+    "description": "AIで素敵な犬の動画と猫の動画を作成。ペットの写真を追悼ムービーに変換。虹の橋への追悼に最適。今すぐ無料トライアルを始めましょう。",
+    "keywords": "犬 動画, 猫 動画, ペット追悼, 虹の橋, 追悼ビデオ, ai ペットムービー"
+  },
+  "header": {
+    "id": "header",
+    "brand": {
+      "title": "PET MOVIE AI",
+      "logoLight": {
+        "src": "/logo.png",
+        "alt": "Pet Movie AI"
+      },
+      "logoDark": {
+        "src": "/logo.png",
+        "alt": "Pet Movie AI"
+      },
+      "url": "/"
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "ペット追悼",
+          "url": "/pet-memorial",
+          "icon": "Heart"
+        },
+        {
+          "title": "ギャラリー",
+          "url": "/#gallery",
+          "icon": "Images"
+        },
+        {
+          "title": "料金",
+          "url": "/pricing",
+          "icon": "DollarSign"
+        },
+        {
+          "title": "ブログ",
+          "url": "/blog",
+          "icon": "BookOpen"
+        },
+        {
+          "title": "マイムービー",
+          "url": "/create-pet-movie?tab=my-generations",
+          "icon": "Film",
+          "requiresAuth": true
+        },
+        {
+          "title": "FAQ",
+          "url": "/#faq",
+          "icon": "HelpCircle"
+        }
+      ]
+    },
+    "buttons": [],
+    "user_nav": {
+      "show_name": true,
+      "show_credits": true,
+      "show_sign_out": true,
+      "items": [
+        {
+          "title": "お支払い",
+          "url": "/settings/billing",
+          "icon": "CreditCard"
+        },
+        {
+          "title": "アクティビティ",
+          "url": "/activity",
+          "icon": "Activity"
+        }
+      ]
+    },
+    "show_sign": true,
+    "show_theme": true,
+    "show_locale": true
+  },
+  "hero": {
+    "id": "hero",
+    "title": "すべてのペットに、専属の映画を",
+    "highlight_text": "専属の映画を",
+    "description": "写真をアップロードするだけで、AIが4K映画級のペットムービーを作成 — 誕生日、日常、虹の橋のメモリアルに最適です。",
+    "subtitle": "写真をアップロードするだけで、AIが4K映画級のペットムービーを作成。誕生日、日常、虹の橋のメモリアルに。",
+    "primaryCta": "無料で試してみる",
+    "secondaryCta": "サンプルを見る",
+    "badge": "写真をアップロードするだけ",
+    "announcement": {
+      "badge": "無料トライアル",
+      "title": "4Kシネマグレードエクスポートに対応",
+      "url": "/create-pet-movie"
+    },
+    "tip": "✨ 無料トライアル利用可能 - 最初のペットムービーを作成",
+    "buttons": [
+      {
+        "title": "無料で試してみる",
+        "icon": "Sparkles",
+        "url": "/create-pet-movie",
+        "target": "_self",
+        "variant": "default"
+      },
+      {
+        "title": "サンプルを見る",
+        "icon": "Play",
+        "url": "/#gallery",
+        "target": "_self",
+        "variant": "outline"
+      }
+    ],
+    "stats": [],
+    "show_avatars": false,
+    "avatars_tip": "",
+    "show_award": false,
+    "image": {
+      "src": "",
+      "alt": ""
+    },
+    "image_invert": {
+      "src": "",
+      "alt": ""
+    }
+  },
+  "logos": {
+    "title": "掲載メディア",
+    "items": [
+      {
+        "title": "YouTube",
+        "image": {
+          "src": "/imgs/logos/youtube.svg",
+          "alt": "YouTube"
+        }
+      },
+      {
+        "title": "Instagram",
+        "image": {
+          "src": "/imgs/logos/instagram.svg",
+          "alt": "Instagram"
+        }
+      },
+      {
+        "title": "TikTok",
+        "image": {
+          "src": "/imgs/logos/tiktok.svg",
+          "alt": "TikTok"
+        }
+      },
+      {
+        "title": "Facebook",
+        "image": {
+          "src": "/imgs/logos/facebook.svg",
+          "alt": "Facebook"
+        }
+      },
+      {
+        "title": "Twitter",
+        "image": {
+          "src": "/imgs/logos/twitter.svg",
+          "alt": "Twitter"
+        }
+      }
+    ]
+  },
+  "introduce": {
+    "id": "gallery",
+    "title": "注目の犬ムービー＆猫ムービー",
+    "label": "ギャラリー",
+    "description": "ペットの飼い主が作成した本物の犬ムービーと猫ムービーをご覧ください。追悼動画からお祝い動画まで。",
+    "items": [
+      {
+        "title": "大脱出",
+        "description": "外の世界を夢見る猫のスリリングな冒険。",
+        "icon": "Film",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/17607764967900u9630hr.mp4",
+          "alt": "猫ムービー"
+        }
+      },
+      {
+        "title": "ゴールデンデイズ",
+        "description": "友情と忠誠心の心温まる物語。",
+        "icon": "Heart",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4",
+          "alt": "犬ムービー"
+        }
+      }
+    ]
+  },
+  "benefits": {
+    "id": "benefits",
+    "title": "今後の予定",
+    "label": "ロードマップ",
+    "description": "ペットムービーをさらに魔法のようなものにする、エキサイティングな新機能を開発中です",
+    "items": [
+      {
+        "title": "ライブストリーミング",
+        "description": "ペットの日常の冒険をライブストリーミングし、AIが自動的にハイライトリールを作成します",
+        "icon": "Video",
+        "image": {
+          "src": "/imgs/features/live-streaming.svg",
+          "alt": "benefits"
+        }
+      },
+      {
+        "title": "音声ナレーション",
+        "description": "複数言語のAI生成音声ナレーションと有名人の音声オプションを追加",
+        "icon": "Mic",
+        "image": {
+          "src": "/imgs/features/voice-narration.svg",
+          "alt": "benefits"
+        }
+      },
+      {
+        "title": "ソーシャルコミュニティ",
+        "description": "グローバルコミュニティでペットムービーを共有し、トレンドのペットストーリーを発見し、コラボレーション",
+        "icon": "Users",
+        "image": {
+          "src": "/imgs/features/social-community.svg",
+          "alt": "benefits"
+        }
+      }
+    ]
+  },
+  "showcases": {
+    "id": "gallery",
+    "label": "AIペットムービー",
+    "title": "AIで犬ムービー＆猫ムービーを作成 - 虹の橋へのペット追悼ビデオ",
+    "description": "ペットの写真を4Kの素晴らしい犬ムービーと猫ムービーに変換します。ペット追悼ビデオ、虹の橋への追悼、誕生日のお祝い、愛する犬や猫との大切な日常の瞬間を捉えるのに最適です。",
+    "items": [
+      {
+        "title": "家族の瞬間",
+        "description": "愛らしい犬たちとの心温まる家族の瞬間",
+        "video": {
+          "src": "/video/dog-funny-family.mp4",
+          "poster": "/imgs/dog-funny-family-poster.jpg",
+          "alt": "犬の家族ビデオ"
+        }
+      },
+      {
+        "title": "猫のクリエイティブVlog",
+        "description": "素晴らしいビジュアルエフェクトを使ったシネマティックな猫のストーリー",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/17607764967900u9630hr.mp4",
+          "poster": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800",
+          "alt": "猫のブログビデオ"
+        }
+      },
+      {
+        "title": "子犬の物語",
+        "description": "プロフェッショナルな編集による心温まる犬の物語",
+        "video": {
+          "src": "https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4",
+          "poster": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800",
+          "alt": "犬のストーリービデオ"
+        }
+      },
+      {
+        "title": "犬たちの愛情深い視線",
+        "description": "目を合わせる犬たちの心温まる瞬間",
+        "video": {
+          "src": "/video/dogs-eye-contact.mp4",
+          "poster": "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=800",
+          "alt": "犬のアイコンタクト"
+        }
+      },
+      {
+        "title": "肉球のお祝い",
+        "description": "一緒にハイタッチをする愛らしい犬たち",
+        "video": {
+          "src": "/video/dogs-high-five.mp4",
+          "poster": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800",
+          "alt": "犬のハイタッチ"
+        }
+      },
+      {
+        "title": "草原の冒険",
+        "description": "美しい草原を自由に駆け回る",
+        "video": {
+          "src": "/video/prairie-adventure.mp4",
+          "poster": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800",
+          "alt": "草原を走る"
+        }
+      }
+    ]
+  },
+  "usage": {
+    "id": "usage",
+    "label": "使い方",
+    "title": "4ステップで犬ムービーまたは猫ムービーを作成",
+    "description": "大切な写真からシネマティックなペットムービーへ。追悼、お祝い、または虹の橋への追悼に最適です。",
+    "image": {
+      "src": "/imgs/features/1.svg",
+      "alt": "usage"
+    },
+    "image_position": "left",
+    "text_align": "center",
+    "items": [
+      {
+        "title": "メディアをアップロード",
+        "description": "ペットの鮮明な写真または動画をアップロードします。品質が高いほど、ムービーの仕上がりが良くなります。",
+        "icon": "Upload",
+        "image": {
+          "src": "/imgs/features/5.svg",
+          "alt": "usage"
+        }
+      },
+      {
+        "title": "スタイルを選択",
+        "description": "シネマティックなジャンルから選択：アドベンチャー、ドラマ、コメディ、またはSF。",
+        "icon": "Palette",
+        "image": {
+          "src": "/imgs/features/6.svg",
+          "alt": "usage"
+        }
+      },
+      {
+        "title": "主人公を生成",
+        "description": "AIがペットの特徴を分析し、一貫性のあるデジタルアクターを作成します。",
+        "icon": "User",
+        "image": {
+          "src": "/imgs/features/7.svg",
+          "alt": "usage"
+        }
+      },
+      {
+        "title": "ストーリーボードを選択",
+        "description": "AI生成のプロットオプションを確認し、お気に入りのストーリー展開を選択します。",
+        "icon": "FileText",
+        "image": {
+          "src": "/imgs/features/8.svg",
+          "alt": "usage"
+        }
+      },
+      {
+        "title": "ムービーを作成",
+        "description": "AIが音楽とエフェクト付きの4K傑作をレンダリングする様子をご覧ください。",
+        "icon": "Film",
+        "image": {
+          "src": "/imgs/features/8.svg",
+          "alt": "usage"
+        }
+      }
+    ]
+  },
+  "features": {
+    "id": "features",
+    "title": "プロフェッショナルな犬ムービー＆猫ムービーを作成",
+    "label": "AI機能",
+    "description": "高度なAIがペットの写真を数分でハリウッド品質の犬ムービー、猫ムービー、追悼ビデオに変換します。",
+    "items": [
+      {
+        "title": "スマートアップロード",
+        "description": "ペットの写真と動画をアップロード。AIが自動的にコンテンツを分析して整理します",
+        "icon": "Upload"
+      },
+      {
+        "title": "ストーリーテンプレート",
+        "description": "アドベンチャー、日常生活、誕生日パーティーなど20以上のシネマティックストーリーテンプレートから選択",
+        "icon": "Film"
+      },
+      {
+        "title": "AIディレクター",
+        "description": "高度なAIが編集、カラーグレーディング、音楽とエフェクトの追加でハリウッド品質の結果を実現",
+        "icon": "Sparkles"
+      },
+      {
+        "title": "即時プレビュー",
+        "description": "10分で4Kペットムービーを生成。すぐにダウンロードして共有",
+        "icon": "Zap"
+      }
+    ]
+  },
+  "stats": {
+    "id": "stats",
+    "title": "",
+    "description": "",
+    "items": []
+  },
+  "testimonials": {
+    "id": "testimonials",
+    "title": "世界中のペット飼い主に愛されています",
+    "description": "お祝いビデオから虹の橋の追悼まで、ペット飼い主の声をご覧ください。",
+    "className": "bg-black",
+    "items": [
+      {
+        "name": "サラ M.",
+        "role": "犬の飼い主",
+        "quote": "ゴールデンレトリバーのための完璧な虹の橋の追悼を作成しました。この犬ムービーは彼の魂を美しく捉え、家族に慰めをもたらしました。",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=200&auto=format&fit=crop",
+          "alt": "Critic"
+        }
+      },
+      {
+        "name": "ジェニファー L.",
+        "role": "猫の飼い主",
+        "quote": "タビー猫の誕生日に美しい猫ムービーを作りました。AIが彼女の個性を完璧に捉えました。今では特別な日ごとに作っています！",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=200&auto=format&fit=crop",
+          "alt": "Critic"
+        }
+      },
+      {
+        "name": "マイケル R.",
+        "role": "ペット追悼作成者",
+        "quote": "癒しをもたらすペット追悼ビデオを作成しました。品質は期待を超えるものでした - 愛する仲間への本当に感動的な追悼です。",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=200&auto=format&fit=crop",
+          "alt": "Critic"
+        }
+      }
+    ]
+  },
+  "faq": {
+    "id": "faq",
+    "title": "犬ムービー＆猫ムービーのFAQ",
+    "description": "犬ムービー、猫ムービー、ペット追悼ビデオの作成に関するよくある質問",
+    "tip": "まだ質問がありますか？<a href='mailto:support@petmovie.ai' class='text-primary font-medium hover:underline'>サポートチームにお問い合わせください</a>",
+    "items": [
+      {
+        "question": "犬ムービーまたは猫ムービーを作成するにはどうすればよいですか？",
+        "answer": "犬または猫の写真や動画をアップロードし、シネマティックテンプレートを選択すると、AIが音楽、トランジション、エフェクト付きのプロフェッショナルな犬ムービーまたは猫ムービー（25秒または50秒）を生成します。ペットムービーは5〜10分で準備完了です。"
+      },
+      {
+        "question": "虹の橋の追悼ビデオを作成できますか？",
+        "answer": "はい。Pet Movie AIは、虹の橋を渡ったペットを追悼するための虹の橋追悼ビデオの作成に最適です。穏やかな音楽付きの追悼テンプレートを選択し、ペットの生涯と遺産を称える感動的な追悼を作成します。"
+      },
+      {
+        "question": "ペット追悼ビデオとは何ですか？",
+        "answer": "ペット追悼ビデオは、音楽に合わせて写真や動画でペットの生涯を祝う心のこもった追悼です。AIは、虹の橋の追悼、葬儀、または愛する仲間を称える個人的な記念品に最適なシネマティックなペット追悼ビデオを作成します。"
+      },
+      {
+        "question": "どのような長さのオプションがありますか？",
+        "answer": "25秒のショートフィルムと50秒のショートフィルムの2つの形式をご用意しています。ペットムービーを作成する際に、ニーズに最適な長さを選択してください。"
+      },
+      {
+        "question": "どのようなテンプレートから選択できますか？",
+        "answer": "さまざまなスタイルとムードの複数のシネマティックテンプレートをご用意しています。各テンプレートには、ペットコンテンツ向けに最適化されたプロフェッショナルにキュレートされた音楽、トランジション、ビジュアルエフェクトが含まれています。"
+      },
+      {
+        "question": "どのようなビデオ形式がサポートされていますか？",
+        "answer": "写真はJPG、PNG、動画はMP4、MOVをサポートしています。アップロードごとの最大ファイルサイズは100MBです。"
+      },
+      {
+        "question": "処理にはどのくらい時間がかかりますか？",
+        "answer": "ほとんどの25秒と50秒のペットフィルムは5〜10分で準備完了です。ムービーがプレビューとダウンロードの準備ができたら通知を受け取ります。"
+      },
+      {
+        "question": "生成されたムービーを編集できますか？",
+        "answer": "AIは選択したテンプレートに最適化された最終的なショートフィルムを生成します。異なる結果が必要な場合は、別のテンプレートで再生成するか、別のコンテンツをアップロードできます。"
+      },
+      {
+        "question": "無料トライアルには何が含まれていますか？",
+        "answer": "新規ユーザーはサインアップ時に100クレジット（1つの無料ビデオ生成に相当）を受け取ります。これは時間制限のない1回限りのトライアルです。"
+      },
+      {
+        "question": "音楽のライセンスと著作権についてはどうですか？",
+        "answer": "ビデオはSora 2テクノロジーを使用してAI生成されます。バックグラウンドミュージックは、個人および ソーシャルメディア使用のためにライセンスされたロイヤリティフリーライブラリからのものです。商用利用（広告、収益化されたYouTube）については、詳細は利用規約をご覧ください。"
+      }
+    ]
+  },
+  "cta": {
+    "id": "cta",
+    "title": "今すぐ犬ムービーまたは猫ムービーを作成",
+    "description": "ペットの写真をシネマティックな犬ムービー、猫ムービー、追悼ビデオに変換。無料トライアル、クレジットカード不要。",
+    "buttons": [
+      {
+        "title": "無料トライアルを始める",
+        "url": "/create-pet-movie",
+        "target": "_self",
+        "icon": "Sparkles"
+      },
+      {
+        "title": "サンプルムービーを見る",
+        "url": "/#introduce",
+        "target": "_self",
+        "variant": "outline",
+        "icon": "Play"
+      }
+    ]
+  },
+  "subscribe": {
+    "id": "subscribe",
+    "title": "ペットムービーのヒントとインスピレーションを入手",
+    "description": "クリエイティブなアイデア、限定テンプレート、特別オファーを入手できます。",
+    "submit": {
+      "input": {
+        "placeholder": "メールアドレスを入力"
+      },
+      "button": {
+        "title": "購読"
+      },
+      "action": "/api/subscribe"
+    }
+  },
+  "footer": {
+    "id": "footer",
+    "brand": {
+      "title": "Pet Movie AI",
+      "description": "AIで素晴らしい犬ムービー、猫ムービー、ペット追悼ビデオを作成。虹の橋への追悼や愛するペットのお祝いに最適です。",
+      "logoLight": {
+        "src": "/logo.png",
+        "alt": "Pet Movie AI"
+      },
+      "logoDark": {
+        "src": "/logo.png",
+        "alt": "Pet Movie AI"
+      },
+      "url": "/"
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "プロダクト",
+          "children": [
+            {
+              "title": "使い方",
+              "url": "/#usage",
+              "target": "_self"
+            },
+            {
+              "title": "ギャラリー",
+              "url": "/#introduce",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "リソース",
+          "children": [
+            {
+              "title": "ヘルプセンター",
+              "url": "/#faq",
+              "target": "_self"
+            },
+            {
+              "title": "ストーリーテンプレート",
+              "url": "/#features",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "法的情報",
+          "children": [
+            {
+              "title": "利用規約",
+              "url": "/legal/terms",
+              "target": "_self"
+            },
+            {
+              "title": "プライバシーポリシー",
+              "url": "/legal/privacy",
+              "target": "_self"
+            },
+            {
+              "title": "返金ポリシー",
+              "url": "/legal/refund",
+              "target": "_self"
+            },
+            {
+              "title": "コンテンツポリシー",
+              "url": "/legal/content-policy",
+              "target": "_self"
+            }
+          ]
+        }
+      ]
+    },
+    "agreement": {
+      "items": [
+        {
+          "title": "利用規約",
+          "url": "/legal/terms",
+          "target": "_self"
+        },
+        {
+          "title": "プライバシー",
+          "url": "/legal/privacy",
+          "target": "_self"
+        },
+        {
+          "title": "返金",
+          "url": "/legal/refund",
+          "target": "_self"
+        }
+      ]
+    },
+    "copyright": "© 2025 Pet Movie AI. All rights reserved.",
+    "social": {
+      "items": [
+        {
+          "title": "メール",
+          "icon": "Mail",
+          "url": "mailto:support@petmovie.ai",
+          "target": "_self"
+        }
+      ]
+    },
+    "show_built_with": true,
+    "show_theme": false,
+    "show_locale": true
+  },
+  "petVideoGen": {
+    "pageTitle": "ペットムービーを作成",
+    "pageSubtitle": "ペットの写真を心温まるAI生成ムービーに変換します。愛する仲間のための美しい追悼と感動的なストーリーを作成します。",
+    "title": "ペットムービージェネレーター",
+    "subtitle": "ペットの写真を心温まるAIムービーに変換",
+    "petPhoto": "ペットの写真",
+    "uploadPrompt": "クリックしてペットの写真をアップロード",
+    "uploadHint": "JPG/PNG/WEBP",
+    "clickToChange": "クリックして変更",
+    "storyTemplate": "ストーリーテンプレート",
+    "templateDescription": "あなたの{pet}のための心のこもった虹の橋の追悼",
+    "customScript": "カスタムスクリプト",
+    "customScriptHint": "AIの支援を受けて独自のストーリーを作成",
+    "templateDog": "犬の追悼",
+    "templateCat": "猫の追悼",
+    "videoDuration": "ビデオの長さ",
+    "scenes": "シーン",
+    "soon": "近日公開",
+    "videoFormat": "ビデオ形式",
+    "landscape": "横向き（デスクトップ）",
+    "portrait": "縦向き（モバイル）",
+    "creditsRequired": "必要なクレジット：",
+    "credits": "クレジット",
+    "createMovie": "ムービーを作成",
+    "uploadPhotoFirst": "まずペットの写真をアップロードしてください",
+    "insufficientCredits": "クレジットが不足しています。必要：{required}、利用可能：{available}",
+    "tabs": {
+      "inspiration": "インスピレーション",
+      "myGenerations": "マイ生成"
+    },
+    "status": {
+      "idle": "ペットムービーの作成準備完了",
+      "uploading": "最終処理と保存中（1分）...",
+      "identifying_pet": "ペットの特徴を分析中（5〜10秒）...",
+      "generating_frame": "ピクサースタイルに変換中（3分）...",
+      "generating_frames": "シーンフレームを生成中（3分）...",
+      "generating_video": "シネマティックムービーを生成中（25分）...",
+      "generating_videos": "ビデオクリップを生成中（20分）...",
+      "generating_character_sheet": "キャラクター参照を作成中（1分）...",
+      "merging": "ビデオを結合中（2分）...",
+      "applying_watermark": "ウォーターマークを追加中（10〜20秒）...",
+      "completed": "ムービーの準備が完了しました！",
+      "failed": "生成に失敗しました。もう一度お試しください。"
+    },
+    "loading": {
+      "inspiration": "インスピレーションを読み込み中...",
+      "yourVideos": "ビデオを読み込み中...",
+      "creating": "作成中..."
+    },
+    "empty": {
+      "noVideos": "まだビデオがありません",
+      "beFirst": "最初にペットムービーを共有しましょう！",
+      "noGenerations": "まだ生成がありません",
+      "createFirst": "左側で画像をアップロードして最初のペットムービーを作成してください。"
+    },
+    "prompt": {
+      "dogHero": "クリスマス犬の救助 - {duration}秒",
+      "catHero": "クリスマス猫の救助 - {duration}秒",
+      "dogTemplate": "犬のヒーロー - {duration}秒",
+      "catTemplate": "猫のヒーロー - {duration}秒"
+    },
+    "uploadError": {
+      "title": "アップロード失敗",
+      "invalidType": "JPG、PNG、またはWebP画像をアップロードしてください。",
+      "uploadFailed": "アップロードに失敗しました。もう一度お試しください。",
+      "networkError": "ネットワークエラー。接続を確認してもう一度お試しください。"
+    },
+    "customScripts": {
+      "inProgress": "進行中のスクリプト",
+      "untitled": "無題のスクリプト",
+      "statusCreating": "作成中",
+      "statusMerging": "結合中",
+      "statusDraft": "下書き",
+      "continue": "続ける"
+    },
+    "deleteSuccess": "タスクが正常に削除されました",
+    "deleteFailed": "タスクの削除に失敗しました"
+  },
+  "videoCard": {
+    "download": "ダウンロード",
+    "noWatermark": "ウォーターマークなし",
+    "vip": "VIP",
+    "share": "共有",
+    "copyLink": "リンクをコピー",
+    "makePrivate": "非公開にする",
+    "makePublic": "公開する",
+    "report": "報告",
+    "sharedPublicly": "公開共有",
+    "anonymous": "匿名",
+    "creating": "作成中...",
+    "failed": "生成失敗",
+    "failedDescription": "クレジットは返金されました。削除してもう一度お試しください。",
+    "delete": "削除",
+    "retry": "再試行"
+  },
+  "videoPlayer": {
+    "close": "閉じる",
+    "play": "再生",
+    "pause": "一時停止",
+    "doubleClickToPlay": "ダブルクリックでフルスクリーン再生"
+  },
+  "videoShare": {
+    "aiGenerated": "AI生成",
+    "createdWithMagic": "魔法で作成",
+    "aiDescription": "このビデオは高度なAI技術を使用して生成され、あなたのペットをユニークなストーリーで生き生きと表現します。",
+    "petVideo": "ペットビデオ",
+    "adventure": "{name}の冒険",
+    "amazingPetVideo": "素晴らしいペットビデオ",
+    "watchDescription": "特別なペットが主役の信じられない冒険ストーリーを描いたこの愛らしいAI生成ビデオをご覧ください。愛と魔法のタッチで作成されました！",
+    "videoDetails": "ビデオの詳細",
+    "format": "形式",
+    "duration": "長さ",
+    "type": "タイプ",
+    "created": "作成日",
+    "recently": "最近",
+    "download": "ダウンロード",
+    "share": "共有",
+    "copied": "コピーしました！",
+    "createYourOwn": "独自のペットビデオを作成",
+    "createDescription": "AI駆動のビデオ生成であなたのペットを映画スターに",
+    "tryNow": "今すぐ試す",
+    "checkOutVideo": "この素晴らしいペットビデオをチェックしてください！",
+    "originalNotAvailable": "オリジナルビデオは利用できません",
+    "downloadingOriginal": "オリジナルバージョンをダウンロード中"
+  },
+  "toast": {
+    "shareLinkCopied": "共有リンクがコピーされました！",
+    "linkCopied": "リンクがコピーされました！",
+    "copyFailed": "コピーに失敗しました",
+    "setToPrivate": "非公開に設定しました",
+    "setToPublic": "公開に設定しました",
+    "shareFailed": "ビデオの共有に失敗しました",
+    "makePrivateFailed": "非公開の設定に失敗しました",
+    "makePublicFailed": "公開の設定に失敗しました",
+    "originalNotAvailable": "オリジナルビデオは利用できません",
+    "downloadingOriginal": "オリジナルバージョンをダウンロード中",
+    "likeFailed": "いいねに失敗しました",
+    "downloadFailed": "ダウンロードに失敗しました"
+  },
+  "customScript": {
+    "title": "カスタムスクリプトデザイナー",
+    "promptLabel": "ストーリープロンプト",
+    "promptPlaceholder": "ストーリーのアイデアを説明してください...例：私の猫が宇宙で冒険し、エイリアンの友達に出会う",
+    "promptHint": "AIがあなたのアイデアを一連の関連シーンに展開します",
+    "musicLabel": "バックグラウンドミュージック",
+    "musicPlaceholder": "例：アップビートなアドベンチャーミュージック、優しいピアノ",
+    "optional": "オプション",
+    "durationLabel": "ビデオの長さ",
+    "minute": "分",
+    "minutes": "分",
+    "scenes": "シーン",
+    "credits": "クレジット",
+    "createScript": "スクリプトを作成",
+    "creating": "作成中...",
+    "creatingScript": "ストーリーを作成中...",
+    "creatingHint": "AIがあなたのアイデアに基づいてシーンプロンプトを生成しています",
+    "creditsUsed": "使用したクレジット",
+    "scenesCompleted": "シーン完了",
+    "mergeVideo": "ビデオを結合",
+    "scenePrompt": "シーンプロンプト",
+    "edit": "編集",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "frameImage": "最初のフレーム",
+    "video": "ビデオ",
+    "generateFrame": "フレームを生成",
+    "regenerate": "再生成",
+    "generatingFrame": "フレームを生成中...",
+    "generateVideo": "ビデオを生成",
+    "generatingVideo": "ビデオを生成中...",
+    "starting": "開始中...",
+    "generateFrameFirst": "最初にフレームを生成してください",
+    "errorPromptRequired": "ストーリープロンプトを入力してください",
+    "errorCustomStyleRequired": "カスタムスタイルの説明を入力してください",
+    "merging": "結合中...",
+    "downloadVideo": "ビデオをダウンロード",
+    "styleLabel": "ビジュアルスタイル",
+    "customStyleLabel": "カスタムスタイルの説明",
+    "customStylePlaceholder": "希望するビジュアルスタイルを説明してください...例：サイバーパンクスタイル、ネオンライト、未来的な都市の背景",
+    "customStyleHint": "ヒント：色調、照明、アートスタイル、その他のビジュアル特性を説明してください",
+    "videoFailed": "生成失敗",
+    "videoFailedHint": "ビデオ生成が安全ポリシーによってブロックされました。これは、プロンプトに著作権で保護されたコンテンツ（特定の曲名など）が含まれていることが原因である可能性があります。特定のブランド名、曲のタイトル、有名人の名前の代わりに一般的な説明を使用するようにプロンプトを変更してください。",
+    "retry": "再試行"
+  },
+  "howItWorks": {
+    "title": "ペット写真をアップロードするだけで、AIペット動画作成が完了",
+    "subtitle": "難しい編集ソフトは不要です。数枚の写真とペットの性格を入力するだけで、AIがシーンを構成し、音楽付きのペットフォトムービーを生成します。",
+    "steps": {
+      "step1Title": "1. 写真をアップロード",
+      "step1Body": "スマホやPCから、犬・猫などペットの写真を数枚アップロードします。",
+      "step2Title": "2. ストーリーを選ぶ",
+      "step2Body": "「日常のかわいい」「記念日」「虹の橋メモリアル」など、お好みのストーリーテンプレートを選びます。",
+      "step3Title": "3. AIペット動画作成",
+      "step3Body": "AIが自動で構成と演出を行い、映画のようなペット思い出動画を生成。完成した動画はダウンロードやシェアが可能です。"
+    }
+  },
+  "useCases": {
+    "title": "日常の「かわいい」も、虹の橋を渡ったあの子も",
+    "subtitle": "ペットと過ごす毎日を楽しく残したい方にも、ペットロスでつらい気持ちを抱えている方にも、そっと寄り添う1本を。",
+    "dailyTitle": "毎日の「かわいい」をペットフォトムービーに",
+    "dailyBody": "何気ない寝顔や、走り回る姿、ちょっとしたいたずら——スマホに眠っている写真から、1本のペットフォトムービーとして残せます。",
+    "memorialTitle": "虹の橋を渡った子へのペットメモリアルムービー",
+    "memorialBody": "犬・猫が亡くなったあと、「もっと写真を撮っておけばよかった」と後悔する声は少なくありません。残っている写真からペットメモリアルムービーを作ることで、ペットロスの心にそっと灯りをともすお手伝いをします。"
+  },
+  "cinematic": {
+    "title": "海外映画風のシネマティックな仕上がり",
+    "body": "PetMovie.ai のペット動画は、ただのスライドショーではありません。光やカメラワークにこだわった、シネマティックなスタイルでペット思い出動画を作成します。海外映画のような雰囲気で、大切な家族だったペットの物語を残せます。"
+  },
+  "ctaSection": {
+    "title": "まずは1本、ペット思い出動画を作ってみませんか？",
+    "subtitle": "写真が数枚あれば大丈夫です。ペットフォトムービーとペットメモリアルムービー、どちらも同じフローで簡単に作成できます。",
+    "primaryCta": "無料で試してみる",
+    "secondaryCta": "ペットメモリアルについて詳しく見る"
+  },
+  "imageToVideoReveal": {
+    "title": "ペットを映画スターに変身させる",
+    "description": "AIによる変換をリアルタイムで見る",
+    "beforeLabel": "元の写真",
+    "afterLabel": "シネマティックAI結果"
+  }
+}

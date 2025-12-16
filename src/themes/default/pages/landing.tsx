@@ -32,13 +32,13 @@ export default async function LandingPage({
   // 生成 FAQ Schema（如果存在）
   const faqSchema = page.faq?.items
     ? getFAQSchema(
-        page.faq.items
-          .filter((item) => item.question && item.answer)
-          .map((item) => ({
-            question: item.question!,
-            answer: item.answer!,
-          }))
-      )
+      page.faq.items
+        .filter((item) => item.question && item.answer)
+        .map((item) => ({
+          question: item.question!,
+          answer: item.answer!,
+        }))
+    )
     : null;
 
   return (
@@ -117,7 +117,7 @@ export default async function LandingPage({
       )}
       {page.faq && <FAQ faq={page.faq} />}
       {page.cta && <CTA cta={page.cta} className="bg-muted" />}
-      
+
       <StickyCTA />
     </>
   );

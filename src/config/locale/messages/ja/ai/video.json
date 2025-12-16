@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "title": "AI動画ジェネレーター - Pet Movie",
+    "description": "AIで素晴らしいペット動画を生成します。写真を映画のような傑作に変換します。"
+  },
+  "page": {
+    "title": "AI動画ジェネレーター",
+    "description": "AI技術で写真から素晴らしいペット動画を作成します"
+  },
+  "generator": {
+    "title": "動画ジェネレーター",
+    "description": "AIモデルで動画を生成します。テキストから動画に対応しています。",
+    "form": {
+      "prompt": "動画の説明",
+      "prompt_placeholder": "動画のアイデアを説明してください。例：夕暮れの草原を駆けるゴールデンレトリバー、映画のような美しい照明",
+      "prompt_too_long": "説明が長すぎます。短くしてください",
+      "reference_images": "参照画像（オプション）",
+      "reference_images_description": "ペットの写真をアップロードすると、AIがより良い動画を生成できます",
+      "images_uploading": "画像のアップロードが完了するまでお待ちください",
+      "images_upload_error": "一部の画像のアップロードに失敗しました。削除して再試行してください。"
+    },
+    "generate": "動画を生成",
+    "checking_account": "アカウントを確認中...",
+    "loading": "読み込み中...",
+    "generating": "動画生成中...",
+    "sign_in_to_generate": "動画を生成するにはサインイン",
+    "credits_cost": "{credits}クレジット消費",
+    "credits_remaining": "残り{credits}クレジット",
+    "buy_credits": "クレジットを購入",
+    "progress": "進行状況",
+    "generated_videos": "動画プレビュー",
+    "ready_to_generate": "生成準備完了",
+    "ready_for_generating": "生成準備中",
+    "no_videos_generated": "まだ動画が生成されていません",
+    "free_trial": "🎉 {credits}クレジットの無料お試しをご利用いただけます！"
+  }
+}

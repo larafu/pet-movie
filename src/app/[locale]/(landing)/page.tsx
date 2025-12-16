@@ -35,7 +35,6 @@ export default async function LandingPage({
     testimonials: t.raw('testimonials'),
     faq: t.raw('faq'),
     cta: t.raw('cta'),
-    // 图片转视频展示区域的翻译
     imageToVideoReveal: t.raw('imageToVideoReveal'),
   };
 

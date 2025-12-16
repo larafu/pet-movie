@@ -1,0 +1,167 @@
+{
+  "header": {
+    "brand": {
+      "title": "Pet Movie AI",
+      "logo": {
+        "src": "/logo.png",
+        "alt": "Pet Movie AI"
+      },
+      "url": "/admin"
+    },
+    "show_trigger": false
+  },
+  "main_navs": [
+    {
+      "title": "システム",
+      "items": [
+        {
+          "title": "ユーザーと権限",
+          "icon": "User",
+          "is_expand": true,
+          "children": [
+            {
+              "title": "ユーザー",
+              "url": "/admin/users",
+              "icon": "User"
+            },
+            {
+              "title": "役割",
+              "url": "/admin/roles",
+              "icon": "Users"
+            },
+            {
+              "title": "権限",
+              "url": "/admin/permissions",
+              "icon": "ShieldCheck"
+            }
+          ]
+        },
+        {
+          "title": "ページとコンテンツ",
+          "icon": "FileText",
+          "children": [
+            {
+              "title": "カテゴリー",
+              "icon": "Folder",
+              "url": "/admin/categories"
+            },
+            {
+              "title": "投稿",
+              "icon": "FileText",
+              "url": "/admin/posts"
+            },
+            {
+              "title": "スクリプトテンプレート",
+              "icon": "Film",
+              "url": "/admin/script-templates"
+            }
+          ]
+        },
+        {
+          "title": "支払いとクレジット",
+          "icon": "DollarSign",
+          "children": [
+            {
+              "title": "支払い",
+              "url": "/admin/payments",
+              "icon": "DollarSign"
+            },
+            {
+              "title": "サブスクリプション",
+              "url": "/admin/subscriptions",
+              "icon": "CreditCard"
+            },
+            {
+              "title": "クレジット",
+              "url": "/admin/credits",
+              "icon": "Coins"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "ビジネス",
+      "items": [
+        {
+          "title": "AIタスク",
+          "url": "/admin/ai-tasks",
+          "icon": "Brain"
+        },
+        {
+          "title": "AIチャット",
+          "url": "/admin/chats",
+          "icon": "MessageCircle"
+        }
+      ]
+    }
+  ],
+  "bottom_nav": {
+    "items": [
+      {
+        "title": "設定",
+        "url": "/admin/settings/auth",
+        "icon": "Settings"
+      },
+      {
+        "title": "APIキー",
+        "url": "/admin/apikeys",
+        "icon": "Key"
+      }
+    ]
+  },
+  "user": {
+    "nav": {
+      "items": [
+        {
+          "title": "プロフィール",
+          "url": "/settings/profile",
+          "icon": "User",
+          "target": "_blank"
+        }
+      ]
+    },
+    "show_email": false,
+    "show_signout": true,
+    "signout_callback": "/"
+  },
+  "footer": {
+    "nav": {
+      "items": [
+        {
+          "title": "ホーム",
+          "url": "/",
+          "icon": "Home",
+          "target": "_blank"
+        },
+        {
+          "title": "GitHub",
+          "url": "https://github.com/shipanyai/shipany-template-two",
+          "icon": "Github",
+          "target": "_blank"
+        },
+        {
+          "title": "Twitter",
+          "url": "https://twitter.com/shipanyai",
+          "icon": "RiTwitterXFill",
+          "target": "_blank"
+        },
+        {
+          "title": "Discord",
+          "url": "https://discord.gg/HQNnrzjZQS",
+          "icon": "RiDiscordFill",
+          "target": "_blank"
+        },
+        {
+          "title": "Email",
+          "url": "mailto:support@xxx.ai",
+          "icon": "Mail",
+          "target": "_blank"
+        }
+      ]
+    },
+    "show_theme": true,
+    "show_locale": false
+  },
+  "variant": "sidebar"
+}

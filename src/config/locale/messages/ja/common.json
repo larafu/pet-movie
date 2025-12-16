@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "title": "Pet Movie AI - 何年も一緒にいてくれたペット。数分で永遠の思い出に。",
+    "description": "AIでペットの写真や動画をハリウッド品質の映画に変換。20以上のストーリーテンプレートから選択、数分で4K出力。すべてのペットは名作映画に値する。",
+    "keywords": "ペット動画, AI動画作成, ペットビデオ, 犬の動画, 猫の動画, ペットの思い出, ペットアルバム"
+  },
+  "sign": {
+    "sign_in_title": "ログイン",
+    "sign_in_description": "アカウントにログイン",
+    "sign_up_title": "新規登録",
+    "sign_up_description": "アカウントを作成",
+    "email_title": "メールアドレス",
+    "email_placeholder": "メールアドレスを入力",
+    "password_title": "パスワード",
+    "password_placeholder": "パスワードを入力",
+    "forgot_password": "パスワードをお忘れですか？",
+    "or": "または",
+    "continue": "続ける",
+    "no_account": "アカウントをお持ちでないですか？",
+    "already_have_account": "既にアカウントをお持ちですか？",
+    "email_sign_in": "メールでログイン",
+    "google_sign_in_title": "Googleでログイン",
+    "github_sign_in_title": "GitHubでログイン",
+    "close_title": "閉じる",
+    "cancel_title": "キャンセル",
+    "sign_out_title": "ログアウト",
+    "billing_title": "お支払い",
+    "name_title": "お名前",
+    "name_placeholder": "お名前を入力",
+    "admin_title": "管理システム",
+    "credits_title": "クレジット: {credits}"
+  },
+  "payment": {
+    "choose_payment_method": "お支払い方法を選択",
+    "choose_payment_method_description": "",
+    "cancel_title": "キャンセル"
+  },
+  "locale_detector": {
+    "title": "ブラウザの言語が{locale}であることを検出しました。切り替えますか？",
+    "switch_to": "{locale}に切り替える"
+  },
+  "share": {
+    "title": "シェア",
+    "share": "シェア",
+    "shareNow": "今すぐシェア",
+    "shareTo": "シェア先",
+    "orCopyLink": "またはリンクをコピー",
+    "linkCopied": "リンクをクリップボードにコピーしました！",
+    "linkCopiedForTikTok": "リンクをコピーしました！TikTokに貼り付けてください",
+    "linkCopiedForInstagram": "リンクをコピーしました！Instagramに貼り付けてください",
+    "copyFailed": "リンクのコピーに失敗しました",
+    "email": "メール",
+    "tiktok": "TikTok",
+    "instagram": "Instagram",
+    "twitter": "X",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp",
+    "youtube": "YouTube",
+    "scenes": {
+      "memorial": {
+        "title": "愛を込めて追悼",
+        "text": "永遠に心の中に 🌈 {name}を一緒に思い出しましょう。その愛と喜びは決して忘れません。",
+        "hashtags": "虹の橋,ペット追悼,永遠の愛"
+      },
+      "video": {
+        "title": "私のペットの映画",
+        "text": "私のペットの素晴らしいAI映画をご覧ください！🎬 Pet Movie AIで作成 - すべてのペットはスターになる価値があります ⭐",
+        "hashtags": "ペット動画,AIペットビデオ,ペットの愛"
+      },
+      "default": {
+        "title": "Pet Movie AI",
+        "text": "この素晴らしいペット動画をチェック！🐾 Pet Movie AIで作成",
+        "hashtags": "ペット動画,ペットの愛"
+      }
+    }
+  }
+}

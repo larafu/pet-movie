@@ -1,0 +1,27 @@
+{
+  "fields": {
+    "transaction_no": "取引番号",
+    "user": "ユーザー",
+    "amount": "数量",
+    "remaining": "残高",
+    "type": "タイプ",
+    "scene": "シーン",
+    "description": "説明",
+    "created_at": "作成日時",
+    "expires_at": "有効期限",
+    "metadata": "メタデータ",
+    "action": "操作"
+  },
+  "list": {
+    "title": "クレジット",
+    "crumbs": {
+      "admin": "管理",
+      "credits": "クレジット"
+    },
+    "tabs": {
+      "all": "すべて",
+      "grant": "付与",
+      "consume": "消費"
+    }
+  }
+}

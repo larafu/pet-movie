@@ -1,0 +1,55 @@
+{
+  "fields": {
+    "id": "ID",
+    "name": "名前",
+    "avatar": "アバター",
+    "email": "メールアドレス",
+    "email_verified": "メール認証済み",
+    "remaining_credits": "残クレジット",
+    "created_at": "作成日時",
+    "actions": "操作",
+    "roles": "役割"
+  },
+  "list": {
+    "title": "ユーザー",
+    "crumbs": {
+      "admin": "管理",
+      "users": "ユーザー"
+    },
+    "buttons": {
+      "add": "ユーザーを追加",
+      "edit": "ユーザーを編集",
+      "view": "ユーザーを表示",
+      "delete": "ユーザーを削除",
+      "edit_roles": "役割を編集"
+    },
+    "search": {
+      "email": {
+        "title": "メールアドレス",
+        "placeholder": "メールアドレス"
+      }
+    }
+  },
+  "edit": {
+    "title": "ユーザーを編集",
+    "crumbs": {
+      "admin": "管理",
+      "users": "ユーザー",
+      "edit": "編集"
+    },
+    "buttons": {
+      "submit": "更新"
+    }
+  },
+  "edit_roles": {
+    "title": "役割を編集",
+    "crumbs": {
+      "admin": "管理",
+      "users": "ユーザー",
+      "edit_roles": "役割を編集"
+    },
+    "buttons": {
+      "submit": "更新"
+    }
+  }
+}

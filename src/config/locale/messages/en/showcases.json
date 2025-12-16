@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "Showcases",
-    "description": "Awesome projects built with ShipAny"
+    "title": "Gallery",
+    "description": "Beautiful pet memorial videos created by our users"
   },
   "showcases": {
     "id": "showcase",
-    "sr_only_title": "Showcases",
-    "title": "AI SaaS Startups built with ShipAny",
-    "description": "Easy to use and fast to ship.",
+    "sr_only_title": "Gallery",
+    "title": "Pet Movies Created by Our Community",
+    "description": "See what our users have created with Pet Movie AI.",
     "items": [
       {
         "title": "ThinkAny",

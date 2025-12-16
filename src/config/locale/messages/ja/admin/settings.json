@@ -1,0 +1,48 @@
+{
+  "groups": {
+    "email_auth": "メール認証",
+    "google_auth": "Google認証",
+    "github_auth": "Github認証",
+    "basic_payment": "基本決済",
+    "stripe": "Stripe",
+    "creem": "Creem",
+    "paypal": "Paypal",
+    "resend": "Resend",
+    "r2": "Cloudflare R2",
+    "s3": "AWS S3",
+    "openrouter": "OpenRouter",
+    "replicate": "Replicate",
+    "fal": "Fal",
+    "google_analytics": "Google Analytics",
+    "clarity": "Clarity",
+    "plausible": "Plausible",
+    "openpanel": "OpenPanel",
+    "vercel_analytics": "Vercel Analytics",
+    "adsense": "Adsense",
+    "affonso": "Affonso",
+    "promotekit": "PromoteKit",
+    "tawk": "Tawk",
+    "crisp": "Crisp"
+  },
+  "edit": {
+    "title": "設定",
+    "crumbs": {
+      "admin": "管理",
+      "settings": "設定"
+    },
+    "tabs": {
+      "auth": "認証",
+      "payment": "決済",
+      "email": "メール",
+      "storage": "ストレージ",
+      "ai": "AI",
+      "analytics": "分析",
+      "ads": "広告",
+      "affiliate": "アフィリエイト",
+      "customer_service": "カスタマーサービス"
+    },
+    "buttons": {
+      "submit": "保存"
+    }
+  }
+}

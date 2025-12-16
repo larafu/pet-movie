@@ -445,8 +445,8 @@
         "answer": "The AI generates a finalized short film optimized for the selected template. If you'd like different results, you can regenerate with a different template or upload different content."
       },
       {
-        "question": "What's included in the free beta trial?",
-        "answer": "During beta testing, new users receive 5 free credits (good for 1 free video generation) upon sign-up. This is a one-time trial with no time limit. Paid plans will be available after beta testing concludes."
+        "question": "What's included in the free trial?",
+        "answer": "New users receive 100 free credits (good for 1 free video generation) upon sign-up. This is a one-time trial with no time limit."
       },
       {
         "question": "What about music licensing and copyright?",

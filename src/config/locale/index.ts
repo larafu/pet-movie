@@ -6,10 +6,11 @@ export const localeNames: any = {
   es: 'Español',
   'pt-br': 'Português (Brasil)',
   ko: '한국어',
+  ja: '日本語',
 };
 
 // 支持的语言列表：英语、中文、西班牙语、巴西葡萄牙语、韩语
-export const locales = ['en', 'zh', 'es', 'pt-br', 'ko'];
+export const locales = ['en', 'zh', 'es', 'pt-br', 'ko', 'ja'];
 
 export const defaultLocale = envConfigs.locale;
 
@@ -55,5 +56,6 @@ export const localeMessagesPaths = [
   'ai/image',
   'ai/video',
   'activity/sidebar',
+  'activity/chats',
   'activity/ai-tasks',
 ];

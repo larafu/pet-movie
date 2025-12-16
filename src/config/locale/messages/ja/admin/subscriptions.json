@@ -1,0 +1,27 @@
+{
+  "fields": {
+    "subscription_no": "サブスクリプション番号",
+    "user": "ユーザー",
+    "amount": "金額",
+    "interval": "期間",
+    "provider": "プロバイダー",
+    "created_at": "作成日時",
+    "current_period_start": "現在の期間開始",
+    "current_period_end": "現在の期間終了",
+    "status": "ステータス",
+    "description": "説明",
+    "action": "操作"
+  },
+  "list": {
+    "title": "サブスクリプション",
+    "crumbs": {
+      "admin": "管理",
+      "subscriptions": "サブスクリプション"
+    },
+    "tabs": {
+      "all": "すべて",
+      "month": "月次",
+      "year": "年次"
+    }
+  }
+}

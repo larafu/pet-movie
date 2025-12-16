@@ -2,15 +2,15 @@ import { MetadataRoute } from 'next';
 import { and, eq, isNull } from 'drizzle-orm';
 
 import { db } from '@/core/db';
+import { postsSource } from '@/core/docs/source';
 import { envConfigs } from '@/config';
 import { petMemorial, post } from '@/config/db/schema';
-import { postsSource } from '@/core/docs/source';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 移除 baseUrl 末尾的斜杠，避免生成双斜杠 URL
   const baseUrl = envConfigs.app_url.replace(/\/+$/, '');
   // 支持的语言列表：英语、中文、西班牙语、巴西葡萄牙语、韩语
-  const locales = ['en', 'zh', 'es', 'pt-br', 'ko'];
+  const locales = ['en', 'zh', 'es', 'pt-br', 'ko', 'ja'];
   const currentDate = new Date();
 
   // Homepage - highest priority, frequent updates

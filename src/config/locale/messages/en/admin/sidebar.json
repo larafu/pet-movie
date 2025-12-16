@@ -92,6 +92,11 @@
           "title": "AI Chats",
           "url": "/admin/chats",
           "icon": "MessageCircle"
+        },
+        {
+          "title": "Random Prompts",
+          "url": "/admin/random-prompts",
+          "icon": "Dices"
         }
       ]
     }

@@ -1,0 +1,60 @@
+{
+  "fields": {
+    "prompt": "Prompt",
+    "prompt_tip": "The prompt content that will be randomly selected",
+    "mode": "Mode",
+    "mode_tip": "Select image or video mode",
+    "status": "Status",
+    "sort_order": "Sort Order",
+    "sort_order_tip": "Lower numbers appear first",
+    "created_at": "Created At",
+    "updated_at": "Updated At"
+  },
+  "mode": {
+    "image": "Image",
+    "video": "Video"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "list": {
+    "title": "Random Prompts",
+    "crumbs": {
+      "admin": "Admin",
+      "random_prompts": "Random Prompts"
+    },
+    "buttons": {
+      "add": "Add Prompt",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "tabs": {
+      "all": "All",
+      "image": "Image",
+      "video": "Video"
+    }
+  },
+  "add": {
+    "title": "Add Random Prompt",
+    "crumbs": {
+      "admin": "Admin",
+      "random_prompts": "Random Prompts",
+      "add": "Add"
+    },
+    "buttons": {
+      "submit": "Add Prompt"
+    }
+  },
+  "edit": {
+    "title": "Edit Random Prompt",
+    "crumbs": {
+      "admin": "Admin",
+      "random_prompts": "Random Prompts",
+      "edit": "Edit"
+    },
+    "buttons": {
+      "submit": "Save Changes"
+    }
+  }
+}

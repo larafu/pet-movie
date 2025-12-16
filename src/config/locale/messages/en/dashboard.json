@@ -163,6 +163,11 @@
     "errors": {
       "insufficientCredits": "Insufficient credits, please top up",
       "generateFailed": "Generation failed, please retry"
+    },
+    "randomPrompt": {
+      "tooltip": "Random prompt",
+      "loading": "Getting random prompt...",
+      "error": "Failed to get random prompt"
     }
   },
   "detail": {

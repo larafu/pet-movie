@@ -1,0 +1,60 @@
+{
+  "fields": {
+    "prompt": "提示词",
+    "prompt_tip": "将被随机选中的提示词内容",
+    "mode": "模式",
+    "mode_tip": "选择图片或视频模式",
+    "status": "状态",
+    "sort_order": "排序",
+    "sort_order_tip": "数字越小越靠前",
+    "created_at": "创建时间",
+    "updated_at": "更新时间"
+  },
+  "mode": {
+    "image": "图片",
+    "video": "视频"
+  },
+  "status": {
+    "active": "启用",
+    "inactive": "禁用"
+  },
+  "list": {
+    "title": "随机提示词",
+    "crumbs": {
+      "admin": "管理后台",
+      "random_prompts": "随机提示词"
+    },
+    "buttons": {
+      "add": "添加提示词",
+      "edit": "编辑",
+      "delete": "删除"
+    },
+    "tabs": {
+      "all": "全部",
+      "image": "图片",
+      "video": "视频"
+    }
+  },
+  "add": {
+    "title": "添加随机提示词",
+    "crumbs": {
+      "admin": "管理后台",
+      "random_prompts": "随机提示词",
+      "add": "添加"
+    },
+    "buttons": {
+      "submit": "添加提示词"
+    }
+  },
+  "edit": {
+    "title": "编辑随机提示词",
+    "crumbs": {
+      "admin": "管理后台",
+      "random_prompts": "随机提示词",
+      "edit": "编辑"
+    },
+    "buttons": {
+      "submit": "保存修改"
+    }
+  }
+}

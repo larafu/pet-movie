@@ -163,6 +163,11 @@
     "errors": {
       "insufficientCredits": "积分不足，请充值",
       "generateFailed": "生成失败，请重试"
+    },
+    "randomPrompt": {
+      "tooltip": "随机提示词",
+      "loading": "获取随机提示词...",
+      "error": "获取随机提示词失败"
     }
   },
   "detail": {

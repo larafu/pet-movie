@@ -34,6 +34,7 @@ import {
   Check,
   Zap,
   Crown,
+  Dices,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
@@ -217,6 +218,10 @@ export function FloatingPromptBar({
   const [prompt, setPrompt] = useState(defaultPrompt);
   const [isGenerating, setIsGenerating] = useState(false);
 
+  // 随机提示词状态
+  const [hasRandomPrompts, setHasRandomPrompts] = useState(false);
+  const [isLoadingRandomPrompt, setIsLoadingRandomPrompt] = useState(false);
+
   // 免费用户判定: 没有付费订阅的用户 (使用 isPro 字段判断)
   const isFreeUser = !user?.isPro;
   const [isPublic, setIsPublic] = useState(true); // 免费用户强制公开
@@ -278,6 +283,43 @@ export function FloatingPromptBar({
       setUploadedImages(defaultImages);
     }
   }, [defaultImages]);
+
+  // 检查当前模式是否有可用的随机提示词
+  useEffect(() => {
+    const checkRandomPrompts = async () => {
+      try {
+        const response = await fetch(`/api/random-prompt/check?mode=${mode}`);
+        const data = await response.json();
+        if (data.code === 0) {
+          setHasRandomPrompts(data.data?.hasPrompts ?? false);
+        } else {
+          setHasRandomPrompts(false);
+        }
+      } catch {
+        setHasRandomPrompts(false);
+      }
+    };
+    checkRandomPrompts();
+  }, [mode]);
+
+  // 获取随机提示词
+  const handleRandomPrompt = async () => {
+    if (isLoadingRandomPrompt) return;
+    setIsLoadingRandomPrompt(true);
+    try {
+      const response = await fetch(`/api/random-prompt?mode=${mode}`);
+      const data = await response.json();
+      if (data.code === 0 && data.data?.prompt) {
+        setPrompt(data.data.prompt);
+      } else {
+        toast.error(t('randomPrompt.error'));
+      }
+    } catch {
+      toast.error(t('randomPrompt.error'));
+    } finally {
+      setIsLoadingRandomPrompt(false);
+    }
+  };
 
   const closeDropdown = useCallback(() => setActiveDropdown(null), []);
   const toggleDropdown = useCallback((name: string) => {
@@ -471,6 +513,31 @@ export function FloatingPromptBar({
               className="w-full min-h-[24px] max-h-[72px] border-none bg-transparent outline-none text-base placeholder:text-white/40 focus:outline-none focus:ring-0 focus:border-none focus-visible:ring-0 focus-visible:ring-offset-0 px-3 text-white selection:bg-white/20 selection:text-white resize-none overflow-y-auto py-2.5 appearance-none"
             />
           </div>
+
+          {/* 随机提示词按钮 - 放在输入框最右边 */}
+          {hasRandomPrompts && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    onClick={handleRandomPrompt}
+                    disabled={isLoadingRandomPrompt}
+                    className={btnComposer}
+                    type="button"
+                  >
+                    {isLoadingRandomPrompt ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Dices className="h-4 w-4" />
+                    )}
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <p className="text-xs">{t('randomPrompt.tooltip')}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
         </div>
 
         {/* Row 2: 控制按钮 */}

@@ -1118,3 +1118,36 @@ export const userMediaRelations = relations(userMedia, ({ one }) => ({
 export type UserMedia = typeof userMedia.$inferSelect;
 export type NewUserMedia = typeof userMedia.$inferInsert;
 
+// ==================== Random Prompt Tables ====================
+// 随机 Prompt 表 - 用于存储后台配置的随机 prompt 模板
+// 前端骰子按钮点击时随机获取一条填充到输入框
+
+/**
+ * 随机 Prompt 表
+ * 存储管理员配置的随机 prompt 模板，支持按模式（图片/视频）区分
+ */
+export const randomPrompt = pgTable(
+  'random_prompt',
+  {
+    id: text('id').primaryKey(),
+    prompt: text('prompt').notNull(), // prompt 内容
+    mode: text('mode').notNull(), // 'image' | 'video'
+    status: text('status').notNull().default('active'), // 'active' | 'inactive'
+    sortOrder: integer('sort_order').notNull().default(0), // 排序（越小越靠前）
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    // 查询指定模式的活跃 prompt（用于随机获取）
+    index('idx_random_prompt_mode_status').on(table.mode, table.status),
+    // 按排序顺序查询（用于后台列表）
+    index('idx_random_prompt_sort').on(table.sortOrder),
+  ]
+);
+
+// 随机 Prompt 类型导出
+export type RandomPrompt = typeof randomPrompt.$inferSelect;
+export type NewRandomPrompt = typeof randomPrompt.$inferInsert;
+

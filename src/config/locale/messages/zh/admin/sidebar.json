@@ -92,6 +92,11 @@
           "title": "AI 对话",
           "url": "/admin/chats",
           "icon": "MessageCircle"
+        },
+        {
+          "title": "随机提示词",
+          "url": "/admin/random-prompts",
+          "icon": "Dices"
         }
       ]
     }

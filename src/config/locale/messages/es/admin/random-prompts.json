@@ -1,0 +1,60 @@
+{
+  "fields": {
+    "prompt": "Prompt",
+    "prompt_tip": "El contenido del prompt que será seleccionado aleatoriamente",
+    "mode": "Modo",
+    "mode_tip": "Seleccionar modo imagen o video",
+    "status": "Estado",
+    "sort_order": "Orden",
+    "sort_order_tip": "Los números más bajos aparecen primero",
+    "created_at": "Creado",
+    "updated_at": "Actualizado"
+  },
+  "mode": {
+    "image": "Imagen",
+    "video": "Video"
+  },
+  "status": {
+    "active": "Activo",
+    "inactive": "Inactivo"
+  },
+  "list": {
+    "title": "Prompts Aleatorios",
+    "crumbs": {
+      "admin": "Admin",
+      "random_prompts": "Prompts Aleatorios"
+    },
+    "buttons": {
+      "add": "Añadir Prompt",
+      "edit": "Editar",
+      "delete": "Eliminar"
+    },
+    "tabs": {
+      "all": "Todos",
+      "image": "Imagen",
+      "video": "Video"
+    }
+  },
+  "add": {
+    "title": "Añadir Prompt Aleatorio",
+    "crumbs": {
+      "admin": "Admin",
+      "random_prompts": "Prompts Aleatorios",
+      "add": "Añadir"
+    },
+    "buttons": {
+      "submit": "Añadir Prompt"
+    }
+  },
+  "edit": {
+    "title": "Editar Prompt Aleatorio",
+    "crumbs": {
+      "admin": "Admin",
+      "random_prompts": "Prompts Aleatorios",
+      "edit": "Editar"
+    },
+    "buttons": {
+      "submit": "Guardar Cambios"
+    }
+  }
+}

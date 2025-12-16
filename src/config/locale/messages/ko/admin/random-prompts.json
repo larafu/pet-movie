@@ -1,0 +1,60 @@
+{
+  "fields": {
+    "prompt": "프롬프트",
+    "prompt_tip": "무작위로 선택될 프롬프트 내용",
+    "mode": "모드",
+    "mode_tip": "이미지 또는 비디오 모드 선택",
+    "status": "상태",
+    "sort_order": "정렬 순서",
+    "sort_order_tip": "숫자가 작을수록 먼저 표시됩니다",
+    "created_at": "생성일",
+    "updated_at": "수정일"
+  },
+  "mode": {
+    "image": "이미지",
+    "video": "비디오"
+  },
+  "status": {
+    "active": "활성",
+    "inactive": "비활성"
+  },
+  "list": {
+    "title": "랜덤 프롬프트",
+    "crumbs": {
+      "admin": "관리자",
+      "random_prompts": "랜덤 프롬프트"
+    },
+    "buttons": {
+      "add": "프롬프트 추가",
+      "edit": "편집",
+      "delete": "삭제"
+    },
+    "tabs": {
+      "all": "전체",
+      "image": "이미지",
+      "video": "비디오"
+    }
+  },
+  "add": {
+    "title": "랜덤 프롬프트 추가",
+    "crumbs": {
+      "admin": "관리자",
+      "random_prompts": "랜덤 프롬프트",
+      "add": "추가"
+    },
+    "buttons": {
+      "submit": "프롬프트 추가"
+    }
+  },
+  "edit": {
+    "title": "랜덤 프롬프트 편집",
+    "crumbs": {
+      "admin": "관리자",
+      "random_prompts": "랜덤 프롬프트",
+      "edit": "편집"
+    },
+    "buttons": {
+      "submit": "변경사항 저장"
+    }
+  }
+}

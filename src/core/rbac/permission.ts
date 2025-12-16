@@ -66,6 +66,11 @@ export const PERMISSIONS = {
   SCRIPT_TEMPLATES_READ: 'admin.script-templates.read',
   SCRIPT_TEMPLATES_WRITE: 'admin.script-templates.write',
   SCRIPT_TEMPLATES_DELETE: 'admin.script-templates.delete',
+
+  // Random Prompts (随机 Prompt 管理)
+  RANDOM_PROMPTS_READ: 'admin.random-prompts.read',
+  RANDOM_PROMPTS_WRITE: 'admin.random-prompts.write',
+  RANDOM_PROMPTS_DELETE: 'admin.random-prompts.delete',
 } as const;
 
 /**

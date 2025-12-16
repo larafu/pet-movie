@@ -92,6 +92,11 @@
           "title": "AI 채팅",
           "url": "/admin/chats",
           "icon": "MessageCircle"
+        },
+        {
+          "title": "랜덤 프롬프트",
+          "url": "/admin/random-prompts",
+          "icon": "Dices"
         }
       ]
     }

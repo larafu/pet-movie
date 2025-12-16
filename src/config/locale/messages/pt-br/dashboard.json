@@ -163,6 +163,11 @@
     "errors": {
       "insufficientCredits": "Créditos insuficientes, faça uma recarga",
       "generateFailed": "Falha na geração, tente novamente"
+    },
+    "randomPrompt": {
+      "tooltip": "Prompt aleatório",
+      "loading": "Obtendo prompt aleatório...",
+      "error": "Falha ao obter prompt aleatório"
     }
   },
   "detail": {

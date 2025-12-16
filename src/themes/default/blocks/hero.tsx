@@ -13,11 +13,18 @@ import { useAppContext } from '@/shared/contexts/app';
 
 import { SocialAvatars } from './social-avatars';
 
-// Background videos to play in sequence
+// Background videos to play in sequence (R2 CDN URLs for better performance)
+// 视频已上传到R2云存储，使用CDN加速
 const BACKGROUND_VIDEOS = [
-  '/video/dog-funny-family.mp4',
-  '/video/prairie-adventure.mp4',
+  'https://media.petmovie.ai/petmovie/videos/dog-funny-family.mp4',
+  'https://media.petmovie.ai/petmovie/videos/prairie-adventure.mp4',
 ];
+
+// 视频海报图片（用于LCP优化，在视频加载前显示）
+const VIDEO_POSTER = '/imgs/dog-funny-family-poster.jpg';
+
+// LCP延迟加载时间（毫秒）- 等待首屏内容渲染完成后再加载视频
+const LCP_DELAY_MS = 100;
 
 const BACKGROUND_TRANSITION_MS = 1500;
 
@@ -78,13 +85,37 @@ export function Hero({
   const [hasPreloadedSecondary, setHasPreloadedSecondary] = useState(
     !hasMultipleVideos
   );
+  // LCP优化：延迟加载视频，等待首屏内容渲染完成
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
     null
   );
   const video1Ref = useRef<HTMLVideoElement>(null);
   const video2Ref = useRef<HTMLVideoElement>(null);
 
+  // LCP优化：延迟加载视频，避免阻塞首屏渲染
   useEffect(() => {
+    // 使用 requestIdleCallback 或 setTimeout 延迟加载视频
+    // 确保LCP内容（文字、按钮）先渲染完成
+    if ('requestIdleCallback' in window) {
+      const idleId = requestIdleCallback(
+        () => setShouldLoadVideo(true),
+        { timeout: LCP_DELAY_MS + 500 }
+      );
+      return () => cancelIdleCallback(idleId);
+    } else {
+      const timer = setTimeout(() => setShouldLoadVideo(true), LCP_DELAY_MS);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  // 视频播放和切换逻辑 - 必须依赖 shouldLoadVideo，确保视频元素渲染后绑定事件
+  useEffect(() => {
+    // 等待视频加载标志为true且视频元素存在
+    if (!shouldLoadVideo) {
+      return;
+    }
+
     const video1 = video1Ref.current;
     const video2 = video2Ref.current;
     if (!video1 || totalVideos === 0) {
@@ -173,18 +204,22 @@ export function Hero({
       video1.removeEventListener('playing', handleVideo1Playing);
       video2?.removeEventListener('ended', handleVideo2Ended);
     };
-  }, [hasMultipleVideos, totalVideos, hasPreloadedSecondary]);
+  }, [shouldLoadVideo, hasMultipleVideos, totalVideos, hasPreloadedSecondary]);
 
+  // 视频源变化时重新加载 - 需要等待视频元素渲染
   useEffect(() => {
+    if (!shouldLoadVideo) {
+      return;
+    }
     const video1 = video1Ref.current;
     if (!video1) {
       return;
     }
     video1.load();
-  }, [videoIndices.video1]);
+  }, [shouldLoadVideo, videoIndices.video1]);
 
   useEffect(() => {
-    if (!hasMultipleVideos || !hasPreloadedSecondary) {
+    if (!shouldLoadVideo || !hasMultipleVideos || !hasPreloadedSecondary) {
       return;
     }
     const video2 = video2Ref.current;
@@ -192,7 +227,7 @@ export function Hero({
       return;
     }
     video2.load();
-  }, [videoIndices.video2, hasMultipleVideos, hasPreloadedSecondary]);
+  }, [shouldLoadVideo, videoIndices.video2, hasMultipleVideos, hasPreloadedSecondary]);
 
   const video1Source = BACKGROUND_VIDEOS[videoIndices.video1] ?? '';
   const video2Source = hasMultipleVideos
@@ -205,17 +240,31 @@ export function Hero({
         id={hero.id}
         className={`relative overflow-hidden pt-32 pb-20 md:pb-32 min-h-[90vh] flex items-center ${hero.className} ${className}`}
       >
-        {/* Background Videos with Crossfade */}
+        {/* Background Videos with Crossfade - LCP优化：延迟加载 */}
         <div className="absolute inset-0 w-full h-full overflow-hidden z-0 bg-black">
-          {video1Source && (
+          {/* 海报图片：在视频加载前显示，确保LCP性能 */}
+          <img
+            src={VIDEO_POSTER}
+            alt=""
+            className={cn(
+              "absolute inset-0 w-full h-full object-cover transition-opacity duration-500",
+              shouldLoadVideo ? "opacity-0" : "opacity-100"
+            )}
+            style={{ zIndex: 0 }}
+            // 使用 fetchpriority 确保海报图片优先加载
+            fetchPriority="high"
+          />
+
+          {/* 视频：LCP后延迟加载，避免阻塞首屏渲染 */}
+          {shouldLoadVideo && video1Source && (
             <video
               ref={video1Ref}
               src={video1Source}
               autoPlay
               muted
               playsInline
-              poster="/imgs/dog-funny-family-poster.jpg"
-              preload="metadata"
+              poster={VIDEO_POSTER}
+              preload="none"
               loop={!hasMultipleVideos}
               className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out"
               style={{
@@ -232,7 +281,7 @@ export function Hero({
             />
           )}
 
-          {hasMultipleVideos && video2Source && (
+          {shouldLoadVideo && hasMultipleVideos && video2Source && (
             <video
               ref={video2Ref}
               src={video2Source}

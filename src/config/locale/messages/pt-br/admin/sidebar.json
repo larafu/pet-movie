@@ -1,0 +1,167 @@
+{
+  "header": {
+    "brand": {
+      "title": "ShipAny Two",
+      "logo": {
+        "src": "/logo.png",
+        "alt": "ShipAny Two"
+      },
+      "url": "/admin"
+    },
+    "show_trigger": false
+  },
+  "main_navs": [
+    {
+      "title": "Sistema",
+      "items": [
+        {
+          "title": "Usuários e Permissões",
+          "icon": "User",
+          "is_expand": true,
+          "children": [
+            {
+              "title": "Usuários",
+              "url": "/admin/users",
+              "icon": "User"
+            },
+            {
+              "title": "Funções",
+              "url": "/admin/roles",
+              "icon": "Users"
+            },
+            {
+              "title": "Permissões",
+              "url": "/admin/permissions",
+              "icon": "ShieldCheck"
+            }
+          ]
+        },
+        {
+          "title": "Páginas e Conteúdo",
+          "icon": "FileText",
+          "children": [
+            {
+              "title": "Categorias",
+              "icon": "Folder",
+              "url": "/admin/categories"
+            },
+            {
+              "title": "Posts",
+              "icon": "FileText",
+              "url": "/admin/posts"
+            },
+            {
+              "title": "Modelos de Script",
+              "icon": "Film",
+              "url": "/admin/script-templates"
+            }
+          ]
+        },
+        {
+          "title": "Pagamentos e Créditos",
+          "icon": "DollarSign",
+          "children": [
+            {
+              "title": "Pagamentos",
+              "url": "/admin/payments",
+              "icon": "DollarSign"
+            },
+            {
+              "title": "Assinaturas",
+              "url": "/admin/subscriptions",
+              "icon": "CreditCard"
+            },
+            {
+              "title": "Créditos",
+              "url": "/admin/credits",
+              "icon": "Coins"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Negócios",
+      "items": [
+        {
+          "title": "Tarefas de IA",
+          "url": "/admin/ai-tasks",
+          "icon": "Brain"
+        },
+        {
+          "title": "Chats de IA",
+          "url": "/admin/chats",
+          "icon": "MessageCircle"
+        }
+      ]
+    }
+  ],
+  "bottom_nav": {
+    "items": [
+      {
+        "title": "Configurações",
+        "url": "/admin/settings/auth",
+        "icon": "Settings"
+      },
+      {
+        "title": "Chaves de API",
+        "url": "/admin/apikeys",
+        "icon": "Key"
+      }
+    ]
+  },
+  "user": {
+    "nav": {
+      "items": [
+        {
+          "title": "Perfil",
+          "url": "/settings/profile",
+          "icon": "User",
+          "target": "_blank"
+        }
+      ]
+    },
+    "show_email": false,
+    "show_signout": true,
+    "signout_callback": "/"
+  },
+  "footer": {
+    "nav": {
+      "items": [
+        {
+          "title": "Início",
+          "url": "/",
+          "icon": "Home",
+          "target": "_blank"
+        },
+        {
+          "title": "GitHub",
+          "url": "https://github.com/shipanyai/shipany-template-two",
+          "icon": "Github",
+          "target": "_blank"
+        },
+        {
+          "title": "Twitter",
+          "url": "https://twitter.com/shipanyai",
+          "icon": "RiTwitterXFill",
+          "target": "_blank"
+        },
+        {
+          "title": "Discord",
+          "url": "https://discord.gg/HQNnrzjZQS",
+          "icon": "RiDiscordFill",
+          "target": "_blank"
+        },
+        {
+          "title": "Email",
+          "url": "mailto:support@xxx.ai",
+          "icon": "Mail",
+          "target": "_blank"
+        }
+      ]
+    },
+    "show_theme": true,
+    "show_locale": false
+  },
+  "variant": "sidebar"
+}

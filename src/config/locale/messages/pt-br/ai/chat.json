@@ -1,0 +1,121 @@
+{
+  "sidebar": {
+    "header": {
+      "brand": {
+        "title": "ShipAny Chat",
+        "logo": {
+          "src": "/logo.png",
+          "alt": "ShipAny Chat"
+        },
+        "url": "/chat"
+      },
+      "show_trigger": false
+    },
+    "buttons": [
+      {
+        "title": "Novo Chat",
+        "icon": "Plus",
+        "url": "/chat",
+        "variant": "outline"
+      }
+    ],
+    "main_navs": [
+      {
+        "items": [
+          {
+            "title": "Histórico",
+            "icon": "History",
+            "url": "/chat/history"
+          }
+        ]
+      }
+    ],
+    "bottom_nav": {
+      "items": []
+    },
+    "user": {
+      "nav": {
+        "items": [
+          {
+            "title": "Perfil",
+            "url": "/settings/profile",
+            "icon": "User",
+            "target": "_blank"
+          }
+        ]
+      },
+      "show_email": false,
+      "show_signout": true,
+      "signout_callback": "/chat",
+      "signin_callback": "/chat"
+    },
+    "footer": {
+      "nav": {
+        "items": [
+          {
+            "title": "Início",
+            "url": "/",
+            "icon": "Home",
+            "target": "_blank"
+          },
+          {
+            "title": "GitHub",
+            "url": "https://github.com/shipanyai/shipany-template-two",
+            "icon": "Github",
+            "target": "_blank"
+          },
+          {
+            "title": "Twitter",
+            "url": "https://twitter.com/shipanyai",
+            "icon": "RiTwitterXFill",
+            "target": "_blank"
+          },
+          {
+            "title": "Discord",
+            "url": "https://discord.gg/HQNnrzjZQS",
+            "icon": "RiDiscordFill",
+            "target": "_blank"
+          },
+          {
+            "title": "Email",
+            "url": "mailto:support@xxx.ai",
+            "icon": "Mail",
+            "target": "_blank"
+          }
+        ]
+      },
+      "show_theme": true,
+      "show_locale": false
+    },
+    "variant": "sidebar"
+  },
+  "library": {
+    "title": "Biblioteca",
+    "icon": "History",
+    "url": "/chat/history",
+    "more": "Mais",
+    "actions": {
+      "edit_title": "Editar Título",
+      "share": "Compartilhar",
+      "delete": "Excluir"
+    }
+  },
+  "generator": {
+    "title": "Como posso ajudá-lo hoje?",
+    "input_placeholder": "Você pode me perguntar qualquer coisa"
+  },
+  "history": {
+    "title": "Histórico de chat",
+    "description": "Revise e revisite suas conversas anteriores.",
+    "empty": "Nenhuma conversa ainda.",
+    "error": "Falha ao carregar conversas.",
+    "retry": "Tentar novamente",
+    "signin": "Entre para ver seu histórico de chat.",
+    "summary": "Mostrando {from}-{to} de {total}",
+    "perPage": "Por página",
+    "prev": "Anterior",
+    "next": "Próximo",
+    "open": "Abrir chat",
+    "untitled": "Conversa sem título"
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "title": "Minhas Criações",
+  "header": {
+    "appName": "PET MOVIE AI",
+    "upgrade": "Upgrade",
+    "credits": "Créditos",
+    "profile": "Perfil",
+    "notifications": "Notificações",
+    "signIn": "Entrar",
+    "tabs": {
+      "community": "Comunidade",
+      "myWorks": "Minhas Obras"
+    }
+  },
+  "feed": {
+    "loading": "Carregando...",
+    "generating": "Gerando...",
+    "empty": "Ainda não há obras, comece a criar!",
+    "error": "Falha ao carregar, tente novamente",
+    "noMore": "Não há mais conteúdo",
+    "types": {
+      "video": "Vídeo",
+      "image": "Imagem"
+    },
+    "actions": {
+      "like": "Curtir",
+      "remix": "Remix",
+      "remixDisabled": "O prompt está oculto, não é possível fazer Remix"
+    },
+    "errors": {
+      "likeFailed": "Falha ao curtir, tente novamente"
+    }
+  },
+  "promptBar": {
+    "placeholder": {
+      "image": "Descreva sua imagem...",
+      "video": "Descreva seu vídeo..."
+    },
+    "addImages": "Adicionar Imagens",
+    "modes": {
+      "image": "Imagem",
+      "video": "Vídeo"
+    },
+    "models": {
+      "quickSelect": "Seleção Rápida",
+      "image": {
+        "_title": "Modelos de Imagem",
+        "standard": {
+          "description": "Rápido e qualidade equilibrada"
+        },
+        "pro": {
+          "description": "Qualidade premium, mais detalhes"
+        },
+        "nanobanana": {
+          "description": "Estilo artístico criativo"
+        },
+        "nanobanana-pro": {
+          "description": "Renderização artística avançada"
+        },
+        "nanobanana-2": {
+          "description": "Modelo criativo mais recente"
+        }
+      },
+      "video": {
+        "_title": "Modelos de Vídeo",
+        "vidgen10s": {
+          "description": "Geração de vídeo de 10 segundos"
+        },
+        "vidgen15s": {
+          "description": "Geração de vídeo de 15 segundos"
+        }
+      }
+    },
+    "credits": "créditos",
+    "videoAspectRatio": "Proporção do Vídeo",
+    "duration": "Duração",
+    "motion": "Quantidade de Movimento",
+    "settings": {
+      "title": "Configurações",
+      "aspectRatio": "Proporção",
+      "quality": "Qualidade",
+      "guidanceScale": "Aderência ao Prompt",
+      "ratio": {
+        "auto": "Auto",
+        "square": "Quadrado",
+        "standard": "Padrão 4:3",
+        "portrait": "Retrato 3:4",
+        "landscape": "Paisagem 16:9",
+        "vertical": "Vertical 9:16",
+        "photo": "Foto 3:2",
+        "photoPortrait": "Foto Retrato 2:3",
+        "ultrawide": "Ultra largo 21:9"
+      },
+      "qualityOption": {
+        "1k": "Geração rápida, tamanho menor",
+        "2k": "Qualidade e velocidade equilibradas",
+        "4k": "Qualidade máxima, créditos extras"
+      },
+      "guidance": {
+        "low": "Criativo",
+        "lowDesc": "Mais liberdade criativa",
+        "medium": "Equilibrado",
+        "mediumDesc": "Equilibrar criatividade e precisão",
+        "high": "Preciso",
+        "highDesc": "Seguir o prompt de perto",
+        "max": "Estrito",
+        "maxDesc": "Máxima aderência ao prompt"
+      },
+      "videoRatio": {
+        "landscape": "Paisagem 16:9",
+        "portrait": "Retrato 9:16"
+      },
+      "videoDuration": {
+        "standard": "Duração padrão",
+        "extended": "Duração estendida"
+      },
+      "watermark": {
+        "title": "Marca d'água",
+        "keep": "Manter Marca d'água",
+        "keepDesc": "Vídeo com marca d'água",
+        "remove": "Remover Marca d'água",
+        "removeDesc": "Vídeo limpo sem marca d'água",
+        "proTip": "Remoção de marca d'água disponível para usuários Pro"
+      },
+      "imageWatermark": {
+        "title": "Marca d'água do Download",
+        "keep": "Com Marca d'água",
+        "keepDesc": "Imagem baixada inclui marca d'água",
+        "remove": "Sem Marca d'água",
+        "removeDesc": "Baixar imagem limpa sem marca d'água",
+        "proTip": "Downloads sem marca d'água disponíveis para usuários Pro"
+      }
+    },
+    "visibility": {
+      "title": "Visibilidade",
+      "public": "Público",
+      "publicDesc": "Visível no feed da comunidade",
+      "private": "Privado",
+      "privateDesc": "Visível apenas para você",
+      "proRequired": "Assinatura Pro necessária",
+      "proTip": "Modo privado disponível para usuários Pro"
+    },
+    "promptLock": {
+      "proRequired": "Assinatura Pro necessária para ocultar o prompt",
+      "hidden": "O prompt está oculto para outros",
+      "visible": "Clique para ocultar seu prompt"
+    },
+    "imageUpload": {
+      "title": "Selecionar Imagens de Entrada",
+      "selected": "selecionado",
+      "uploadNew": "Enviar Nova Imagem",
+      "uploadHint": "JPEG, PNG, WebP · Máx 10MB",
+      "maxReached": "Número máximo de imagens atingido",
+      "uploadFailed": "Falha no envio, tente novamente",
+      "library": "Biblioteca",
+      "libraryEmpty": "Sem imagens na biblioteca",
+      "libraryUploadPrompt": "Enviar imagens",
+      "selectedImagesHint": "Imagens selecionadas (clique para remover)"
+    },
+    "success": {
+      "generated": "Gerado com sucesso!"
+    },
+    "errors": {
+      "insufficientCredits": "Créditos insuficientes, faça uma recarga",
+      "generateFailed": "Falha na geração, tente novamente"
+    }
+  },
+  "detail": {
+    "title": "Detalhes da Obra",
+    "prompt": "Prompt",
+    "promptHidden": "O prompt está oculto",
+    "model": "Modelo",
+    "ratio": "Proporção",
+    "created": "Criado",
+    "remix": "Remix",
+    "remixDisabled": "O prompt está oculto, não é possível fazer Remix",
+    "like": "Curtir",
+    "likes": "curtidas",
+    "share": "Compartilhar",
+    "download": "Baixar",
+    "copyPrompt": "Copiar prompt",
+    "promptCopied": "Prompt copiado!",
+    "linkCopied": "Link copiado!",
+    "downloadStarted": "Download iniciado",
+    "downloadFailed": "Falha no download",
+    "downloadWithWatermark": "Usuários gratuitos baixam com marca d'água. Faça upgrade para Pro para downloads sem marca d'água!",
+    "likeFailed": "Falha ao curtir, tente novamente",
+    "shareTitle": "Criação IA"
+  },
+  "remix": {
+    "success": "Copiado para a barra de criação, vá gerar!",
+    "storyboardRedirect": "Redirecionando para o editor de storyboard..."
+  },
+  "retry": "Tentar Novamente",
+  "startCreate": "Começar a Criar",
+  "generating": "Gerando...",
+  "generateSuccess": "Gerado com sucesso!",
+  "generateError": "Falha na geração"
+}

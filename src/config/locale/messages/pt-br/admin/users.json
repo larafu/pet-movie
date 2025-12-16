@@ -1,0 +1,55 @@
+{
+  "fields": {
+    "id": "ID",
+    "name": "Nome",
+    "avatar": "Avatar",
+    "email": "Email",
+    "email_verified": "Email Verificado",
+    "remaining_credits": "Créditos Restantes",
+    "created_at": "Criado Em",
+    "actions": "Ações",
+    "roles": "Funções"
+  },
+  "list": {
+    "title": "Usuários",
+    "crumbs": {
+      "admin": "Admin",
+      "users": "Usuários"
+    },
+    "buttons": {
+      "add": "Adicionar Usuário",
+      "edit": "Editar Usuário",
+      "view": "Ver Usuário",
+      "delete": "Excluir Usuário",
+      "edit_roles": "Editar Funções"
+    },
+    "search": {
+      "email": {
+        "title": "Email",
+        "placeholder": "Email"
+      }
+    }
+  },
+  "edit": {
+    "title": "Editar Usuário",
+    "crumbs": {
+      "admin": "Admin",
+      "users": "Usuários",
+      "edit": "Editar"
+    },
+    "buttons": {
+      "submit": "Atualizar"
+    }
+  },
+  "edit_roles": {
+    "title": "Editar Funções",
+    "crumbs": {
+      "admin": "Admin",
+      "users": "Usuários",
+      "edit_roles": "Editar Funções"
+    },
+    "buttons": {
+      "submit": "Atualizar"
+    }
+  }
+}

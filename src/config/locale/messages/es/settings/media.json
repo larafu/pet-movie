@@ -1,0 +1,30 @@
+{
+  "title": "Biblioteca de Medios",
+  "description": "Administra tus imágenes y videos subidos",
+  "tabs": {
+    "all": "Todo",
+    "images": "Imágenes",
+    "videos": "Videos"
+  },
+  "upload": {
+    "button": "Subir",
+    "hint": "JPEG, PNG, WebP, MP4 · Máx 50MB",
+    "success": "Subido exitosamente",
+    "failed": "Error al subir"
+  },
+  "empty": {
+    "title": "Sin medios aún",
+    "description": "Sube imágenes o videos para construir tu biblioteca de medios"
+  },
+  "item": {
+    "delete": "Eliminar",
+    "deleteConfirm": "¿Estás seguro de que quieres eliminar este elemento?",
+    "deleteSuccess": "Eliminado exitosamente",
+    "deleteFailed": "Error al eliminar",
+    "size": "Tamaño",
+    "uploaded": "Subido"
+  },
+  "loading": "Cargando...",
+  "loadMore": "Cargar Más",
+  "noMore": "No hay más elementos"
+}

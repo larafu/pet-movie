@@ -1,0 +1,49 @@
+{
+  "fields": {
+    "id": "ID",
+    "name": "Nome",
+    "title": "Título",
+    "description": "Descrição",
+    "status": "Status",
+    "sort": "Ordenação",
+    "created_at": "Criado Em",
+    "updated_at": "Atualizado Em",
+    "permissions": "Permissões",
+    "actions": "Ações"
+  },
+  "list": {
+    "title": "Funções",
+    "crumbs": {
+      "admin": "Admin",
+      "roles": "Funções"
+    },
+    "buttons": {
+      "create": "Criar Função",
+      "edit": "Editar Função",
+      "edit_permissions": "Editar Permissões",
+      "delete": "Excluir Função"
+    }
+  },
+  "edit": {
+    "title": "Editar Função",
+    "crumbs": {
+      "admin": "Admin",
+      "roles": "Funções",
+      "edit": "Editar Função"
+    },
+    "buttons": {
+      "submit": "Atualizar"
+    }
+  },
+  "edit_permissions": {
+    "title": "Editar Permissões",
+    "crumbs": {
+      "admin": "Admin",
+      "roles": "Funções",
+      "edit_permissions": "Editar Permissões"
+    },
+    "buttons": {
+      "submit": "Atualizar"
+    }
+  }
+}

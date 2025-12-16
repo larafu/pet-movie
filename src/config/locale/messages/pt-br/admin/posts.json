@@ -1,0 +1,60 @@
+{
+  "fields": {
+    "slug": "Slug",
+    "title": "Título",
+    "description": "Descrição",
+    "image": "Imagem",
+    "content": "Conteúdo",
+    "categories": "Categorias",
+    "tags": "Tags",
+    "author_name": "Nome do Autor",
+    "author_role": "Função do Autor",
+    "author_image": "Imagem do Autor",
+    "status": "Status",
+    "created_at": "Criado Em",
+    "updated_at": "Atualizado Em",
+    "deleted_at": "Excluído Em"
+  },
+  "list": {
+    "title": "Posts",
+    "crumbs": {
+      "admin": "Admin",
+      "posts": "Posts"
+    },
+    "buttons": {
+      "add": "Adicionar Post",
+      "edit": "Editar Post",
+      "view": "Ver Post",
+      "delete": "Excluir Post"
+    },
+    "tabs": {
+      "all": "Todos",
+      "published": "Publicado",
+      "pending": "Pendente",
+      "draft": "Rascunho",
+      "archived": "Arquivado"
+    }
+  },
+  "add": {
+    "title": "Adicionar Post",
+    "crumbs": {
+      "admin": "Admin",
+      "posts": "Posts",
+      "add": "Adicionar Post"
+    },
+    "buttons": {
+      "submit": "Adicionar Post"
+    }
+  },
+  "edit": {
+    "title": "Editar Post",
+    "crumbs": {
+      "admin": "Admin",
+      "posts": "Posts",
+      "edit": "Editar Post"
+    },
+    "buttons": {
+      "submit": "Editar Post"
+    }
+  }
+}

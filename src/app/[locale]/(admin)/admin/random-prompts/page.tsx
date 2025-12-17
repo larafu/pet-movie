@@ -63,8 +63,6 @@ export default async function RandomPromptsPage({
       {
         name: 'prompt',
         title: t('fields.prompt'),
-        type: 'text',
-        metadata: { maxWidth: '300px', truncate: true },
       },
       {
         name: 'mode',
@@ -81,7 +79,6 @@ export default async function RandomPromptsPage({
       {
         name: 'sortOrder',
         title: t('fields.sort_order'),
-        type: 'text',
       },
       { name: 'createdAt', title: t('fields.created_at'), type: 'time' },
       {

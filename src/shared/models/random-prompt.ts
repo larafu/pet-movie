@@ -57,10 +57,12 @@ export async function updateRandomPrompt(
  * 删除随机 Prompt（硬删除）
  */
 export async function deleteRandomPrompt(id: string): Promise<boolean> {
-  const result = await db()
+  // 使用 returning() 获取删除的记录，判断是否删除成功
+  const [deleted] = await db()
     .delete(randomPrompt)
-    .where(eq(randomPrompt.id, id));
-  return result.rowCount !== null && result.rowCount > 0;
+    .where(eq(randomPrompt.id, id))
+    .returning({ id: randomPrompt.id });
+  return deleted !== undefined;
 }
 
 /**

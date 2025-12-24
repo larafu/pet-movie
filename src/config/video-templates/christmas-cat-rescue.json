@@ -2,7 +2,7 @@
   "id": "christmas-cat-rescue",
   "name": "Christmas Cat Rescue",
   "description": "A heartwarming Christmas story about a brave cat saving its owner from a fire",
-  "previewVideo": "/video/cat-hero-christmas.mp4",
+  "previewVideo": "https://media.petmovie.ai/petmovie/videos/cat-hero-christmas.mp4",
   "aspectRatio": "landscape",
   "durations": {
     "25": {

@@ -15,7 +15,7 @@
         "url": "https://thinkany.ai",
         "target": "_blank",
         "image": {
-          "src": "/imgs/cases/7.png",
+          "src": "https://media.petmovie.ai/petmovie/imgs/cases/7.png",
           "alt": "ThinkAny"
         }
       },
@@ -25,7 +25,7 @@
         "url": "https://heybeauty.ai",
         "target": "_blank",
         "image": {
-          "src": "/imgs/cases/5.png",
+          "src": "https://media.petmovie.ai/petmovie/imgs/cases/5.png",
           "alt": "HeyBeauty"
         }
       },
@@ -35,7 +35,7 @@
         "url": "https://aiwallpaper.shop",
         "target": "_blank",
         "image": {
-          "src": "/imgs/cases/1.png",
+          "src": "https://media.petmovie.ai/petmovie/imgs/cases/1.png",
           "alt": "AI Wallpaper"
         }
       },
@@ -45,7 +45,7 @@
         "url": "https://aicover.design",
         "target": "_blank",
         "image": {
-          "src": "/imgs/cases/2.png",
+          "src": "https://media.petmovie.ai/petmovie/imgs/cases/2.png",
           "alt": "AI Cover"
         }
       },
@@ -55,7 +55,7 @@
         "url": "https://gpts.works",
         "target": "_blank",
         "image": {
-          "src": "/imgs/cases/3.png",
+          "src": "https://media.petmovie.ai/petmovie/imgs/cases/3.png",
           "alt": "GPTs Works"
         }
       },
@@ -65,7 +65,7 @@
         "url": "https://melodis.co",
         "target": "_blank",
         "image": {
-          "src": "/imgs/cases/4.png",
+          "src": "https://media.petmovie.ai/petmovie/imgs/cases/4.png",
           "alt": "Melodisco"
         }
       },
@@ -75,7 +75,7 @@
         "url": "https://pagen.so",
         "target": "_blank",
         "image": {
-          "src": "/imgs/cases/6.png",
+          "src": "https://media.petmovie.ai/petmovie/imgs/cases/6.png",
           "alt": "Pagen"
         }
       },
@@ -85,7 +85,7 @@
         "url": "https://sorafm.trys.ai",
         "target": "_blank",
         "image": {
-          "src": "/imgs/cases/8.png",
+          "src": "https://media.petmovie.ai/petmovie/imgs/cases/8.png",
           "alt": "SoraFM"
         }
       },
@@ -95,7 +95,7 @@
         "url": "https://podlm.ai",
         "target": "_blank",
         "image": {
-          "src": "/imgs/cases/9.png",
+          "src": "https://media.petmovie.ai/petmovie/imgs/cases/9.png",
           "alt": "PodLM"
         }
       }

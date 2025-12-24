@@ -71,42 +71,42 @@ function AIMultiModalGeneration() {
     outputCount: 1,
   })
 
-  // Static Inspiration Items (Local Assets)
+  // Static Inspiration Items (R2 CDN Assets)
   const inspirationItems: GalleryItem[] = [
     {
       id: "ins-1",
       type: "video",
-      url: "/video/dog-funny-family.mp4",
-      thumbnail: "/imgs/dog-funny-family-poster.jpg", // Assuming poster exists or video will auto-poster
+      url: "https://media.petmovie.ai/petmovie/videos/dog-funny-family.mp4",
+      thumbnail: "https://media.petmovie.ai/petmovie/imgs/dog-funny-family-poster.jpg",
       prompt: "Golden Retriever family playing in the garden, sunny day, cinematic 4k",
-      author: { name: "Sarah M.", avatar: "/imgs/avatars/1.png" },
+      author: { name: "Sarah M.", avatar: "https://media.petmovie.ai/petmovie/imgs/avatars/1.png" },
       likes: 124,
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24),
     },
     {
       id: "ins-2",
       type: "video",
-      url: "/video/dogs-eye-contact.mp4",
+      url: "https://media.petmovie.ai/petmovie/videos/dogs-eye-contact.mp4",
       prompt: "Close up of a husky looking into the camera, emotional, detailed fur",
-      author: { name: "Mike R.", avatar: "/imgs/avatars/2.png" },
+      author: { name: "Mike R.", avatar: "https://media.petmovie.ai/petmovie/imgs/avatars/2.png" },
       likes: 89,
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 48),
     },
     {
       id: "ins-3",
       type: "video",
-      url: "/video/dogs-high-five.mp4",
+      url: "https://media.petmovie.ai/petmovie/videos/dogs-high-five.mp4",
       prompt: "Border collie doing a high five trick, slow motion, action shot",
-      author: { name: "Jenny L.", avatar: "/imgs/avatars/3.png" },
+      author: { name: "Jenny L.", avatar: "https://media.petmovie.ai/petmovie/imgs/avatars/3.png" },
       likes: 256,
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 72),
     },
     {
       id: "ins-4",
       type: "video",
-      url: "/video/prairie-adventure.mp4",
+      url: "https://media.petmovie.ai/petmovie/videos/prairie-adventure.mp4",
       prompt: "Dog running through a wheat field at sunset, golden hour, epic music",
-      author: { name: "Tom K.", avatar: "/imgs/avatars/4.png" },
+      author: { name: "Tom K.", avatar: "https://media.petmovie.ai/petmovie/imgs/avatars/4.png" },
       likes: 67,
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 96),
     },
@@ -136,7 +136,7 @@ function AIMultiModalGeneration() {
       type: "video",
       url: "",
       prompt: settings.prompt || "Generating video...",
-      author: { name: "You", avatar: "/imgs/avatars/5.png" },
+      author: { name: "You", avatar: "https://media.petmovie.ai/petmovie/imgs/avatars/5.png" },
       likes: 0,
       timestamp: new Date(),
       isLoading: true,
@@ -171,7 +171,7 @@ function AIMultiModalGeneration() {
         return {
           ...item,
           isLoading: false,
-          url: "/video/dog-funny-family.mp4", // Mock result using local video
+          url: "https://media.petmovie.ai/petmovie/videos/dog-funny-family.mp4", // Mock result using R2 CDN video
           thumbnail: uploadedImage || undefined
         }
       }

@@ -21,7 +21,7 @@ const BACKGROUND_VIDEOS = [
 ];
 
 // 视频海报图片（用于LCP优化，在视频加载前显示）
-const VIDEO_POSTER = '/imgs/dog-funny-family-poster.jpg';
+const VIDEO_POSTER = 'https://media.petmovie.ai/petmovie/imgs/dog-funny-family-poster.jpg';
 
 // LCP延迟加载时间（毫秒）- 等待首屏内容渲染完成后再加载视频
 const LCP_DELAY_MS = 100;

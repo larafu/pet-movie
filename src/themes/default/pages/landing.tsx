@@ -84,7 +84,7 @@ export default async function LandingPage({
 
       {/* Image to Video Reveal - Cinematic Transformation */}
       <ImageToVideoReveal
-        beforeImage="/imgs/dog.avif"
+        beforeImage="https://media.petmovie.ai/petmovie/imgs/dog.avif"
         afterVideo="https://file.aiquickdraw.com/custom-page/akr/section-images/1759429390063fwmrwg93.mp4"
         videoPoster="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1200&auto=format&fit=crop"
         title={(page as any).imageToVideoReveal?.title}

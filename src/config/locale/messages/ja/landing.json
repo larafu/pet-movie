@@ -125,35 +125,35 @@
       {
         "title": "YouTube",
         "image": {
-          "src": "/imgs/logos/youtube.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/youtube.svg",
           "alt": "YouTube"
         }
       },
       {
         "title": "Instagram",
         "image": {
-          "src": "/imgs/logos/instagram.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/instagram.svg",
           "alt": "Instagram"
         }
       },
       {
         "title": "TikTok",
         "image": {
-          "src": "/imgs/logos/tiktok.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/tiktok.svg",
           "alt": "TikTok"
         }
       },
       {
         "title": "Facebook",
         "image": {
-          "src": "/imgs/logos/facebook.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/facebook.svg",
           "alt": "Facebook"
         }
       },
       {
         "title": "Twitter",
         "image": {
-          "src": "/imgs/logos/twitter.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/twitter.svg",
           "alt": "Twitter"
         }
       }
@@ -196,7 +196,7 @@
         "description": "ペットの日常の冒険をライブストリーミングし、AIが自動的にハイライトリールを作成します",
         "icon": "Video",
         "image": {
-          "src": "/imgs/features/live-streaming.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/live-streaming.svg",
           "alt": "benefits"
         }
       },
@@ -205,7 +205,7 @@
         "description": "複数言語のAI生成音声ナレーションと有名人の音声オプションを追加",
         "icon": "Mic",
         "image": {
-          "src": "/imgs/features/voice-narration.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/voice-narration.svg",
           "alt": "benefits"
         }
       },
@@ -214,7 +214,7 @@
         "description": "グローバルコミュニティでペットムービーを共有し、トレンドのペットストーリーを発見し、コラボレーション",
         "icon": "Users",
         "image": {
-          "src": "/imgs/features/social-community.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/social-community.svg",
           "alt": "benefits"
         }
       }
@@ -230,8 +230,8 @@
         "title": "家族の瞬間",
         "description": "愛らしい犬たちとの心温まる家族の瞬間",
         "video": {
-          "src": "/video/dog-funny-family.mp4",
-          "poster": "/imgs/dog-funny-family-poster.jpg",
+          "src": "https://media.petmovie.ai/petmovie/videos/dog-funny-family.mp4",
+          "poster": "https://media.petmovie.ai/petmovie/imgs/dog-funny-family-poster.jpg",
           "alt": "犬の家族ビデオ"
         }
       },
@@ -257,7 +257,7 @@
         "title": "犬たちの愛情深い視線",
         "description": "目を合わせる犬たちの心温まる瞬間",
         "video": {
-          "src": "/video/dogs-eye-contact.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/dogs-eye-contact.mp4",
           "poster": "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=800",
           "alt": "犬のアイコンタクト"
         }
@@ -266,7 +266,7 @@
         "title": "肉球のお祝い",
         "description": "一緒にハイタッチをする愛らしい犬たち",
         "video": {
-          "src": "/video/dogs-high-five.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/dogs-high-five.mp4",
           "poster": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800",
           "alt": "犬のハイタッチ"
         }
@@ -275,7 +275,7 @@
         "title": "草原の冒険",
         "description": "美しい草原を自由に駆け回る",
         "video": {
-          "src": "/video/prairie-adventure.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/prairie-adventure.mp4",
           "poster": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800",
           "alt": "草原を走る"
         }
@@ -288,7 +288,7 @@
     "title": "4ステップで犬ムービーまたは猫ムービーを作成",
     "description": "大切な写真からシネマティックなペットムービーへ。追悼、お祝い、または虹の橋への追悼に最適です。",
     "image": {
-      "src": "/imgs/features/1.svg",
+      "src": "https://media.petmovie.ai/petmovie/imgs/features/1.svg",
       "alt": "usage"
     },
     "image_position": "left",
@@ -299,7 +299,7 @@
         "description": "ペットの鮮明な写真または動画をアップロードします。品質が高いほど、ムービーの仕上がりが良くなります。",
         "icon": "Upload",
         "image": {
-          "src": "/imgs/features/5.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/5.svg",
           "alt": "usage"
         }
       },
@@ -308,7 +308,7 @@
         "description": "シネマティックなジャンルから選択：アドベンチャー、ドラマ、コメディ、またはSF。",
         "icon": "Palette",
         "image": {
-          "src": "/imgs/features/6.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/6.svg",
           "alt": "usage"
         }
       },
@@ -317,7 +317,7 @@
         "description": "AIがペットの特徴を分析し、一貫性のあるデジタルアクターを作成します。",
         "icon": "User",
         "image": {
-          "src": "/imgs/features/7.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/7.svg",
           "alt": "usage"
         }
       },
@@ -326,7 +326,7 @@
         "description": "AI生成のプロットオプションを確認し、お気に入りのストーリー展開を選択します。",
         "icon": "FileText",
         "image": {
-          "src": "/imgs/features/8.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/8.svg",
           "alt": "usage"
         }
       },
@@ -335,7 +335,7 @@
         "description": "AIが音楽とエフェクト付きの4K傑作をレンダリングする様子をご覧ください。",
         "icon": "Film",
         "image": {
-          "src": "/imgs/features/8.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/8.svg",
           "alt": "usage"
         }
       }

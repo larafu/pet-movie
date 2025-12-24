@@ -121,35 +121,35 @@
       {
         "title": "YouTube",
         "image": {
-          "src": "/imgs/logos/youtube.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/youtube.svg",
           "alt": "YouTube"
         }
       },
       {
         "title": "Instagram",
         "image": {
-          "src": "/imgs/logos/instagram.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/instagram.svg",
           "alt": "Instagram"
         }
       },
       {
         "title": "TikTok",
         "image": {
-          "src": "/imgs/logos/tiktok.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/tiktok.svg",
           "alt": "TikTok"
         }
       },
       {
         "title": "Facebook",
         "image": {
-          "src": "/imgs/logos/facebook.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/facebook.svg",
           "alt": "Facebook"
         }
       },
       {
         "title": "Twitter",
         "image": {
-          "src": "/imgs/logos/twitter.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/twitter.svg",
           "alt": "Twitter"
         }
       }
@@ -192,7 +192,7 @@
         "description": "Transmita as aventuras diárias do seu pet ao vivo e deixe a IA criar destaques automaticamente",
         "icon": "Video",
         "image": {
-          "src": "/imgs/features/live-streaming.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/live-streaming.svg",
           "alt": "benefícios"
         }
       },
@@ -201,7 +201,7 @@
         "description": "Adicione narração gerada por IA em vários idiomas e opções de vozes de celebridades",
         "icon": "Mic",
         "image": {
-          "src": "/imgs/features/voice-narration.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/voice-narration.svg",
           "alt": "benefícios"
         }
       },
@@ -210,7 +210,7 @@
         "description": "Compartilhe seus filmes de pet com uma comunidade global, descubra histórias em alta e colabore",
         "icon": "Users",
         "image": {
-          "src": "/imgs/features/social-community.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/social-community.svg",
           "alt": "benefícios"
         }
       }
@@ -226,8 +226,8 @@
         "title": "Momentos em Família",
         "description": "Momentos familiares emocionantes com cachorros adoráveis",
         "video": {
-          "src": "/video/dog-funny-family.mp4",
-          "poster": "/imgs/dog-funny-family-poster.jpg",
+          "src": "https://media.petmovie.ai/petmovie/videos/dog-funny-family.mp4",
+          "poster": "https://media.petmovie.ai/petmovie/imgs/dog-funny-family-poster.jpg",
           "alt": "Vídeo de Família com Cachorro"
         }
       },
@@ -253,7 +253,7 @@
         "title": "Olhar Amoroso dos Cães",
         "description": "Momento emocionante de cachorros fazendo contato visual",
         "video": {
-          "src": "/video/dogs-eye-contact.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/dogs-eye-contact.mp4",
           "poster": "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=800",
           "alt": "Contato Visual dos Cachorros"
         }
@@ -262,7 +262,7 @@
         "title": "Celebração das Patinhas",
         "description": "Cachorros adoráveis dando high five juntos",
         "video": {
-          "src": "/video/dogs-high-five.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/dogs-high-five.mp4",
           "poster": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800",
           "alt": "Cachorros High Five"
         }
@@ -271,7 +271,7 @@
         "title": "Aventura na Pradaria",
         "description": "Correndo livre pela bela pradaria",
         "video": {
-          "src": "/video/prairie-adventure.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/prairie-adventure.mp4",
           "poster": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800",
           "alt": "Correndo na Pradaria"
         }
@@ -284,7 +284,7 @@
     "title": "Crie seu filme de cachorro ou gato em 4 passos",
     "description": "De fotos queridas a filmes cinematográficos de pet. Perfeito para memoriais, celebrações ou homenagens na Ponte do Arco-Íris.",
     "image": {
-      "src": "/imgs/features/1.svg",
+      "src": "https://media.petmovie.ai/petmovie/imgs/features/1.svg",
       "alt": "uso"
     },
     "image_position": "left",
@@ -295,7 +295,7 @@
         "description": "Envie fotos nítidas do seu pet. Quanto melhor a qualidade, melhor o filme.",
         "icon": "Upload",
         "image": {
-          "src": "/imgs/features/5.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/5.svg",
           "alt": "uso"
         }
       },
@@ -304,7 +304,7 @@
         "description": "Escolha entre gêneros cinematográficos: Aventura, Drama, Comédia ou Ficção científica.",
         "icon": "Palette",
         "image": {
-          "src": "/imgs/features/6.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/6.svg",
           "alt": "uso"
         }
       },
@@ -313,7 +313,7 @@
         "description": "A IA analisa as características do seu pet para criar um 'ator' digital consistente.",
         "icon": "User",
         "image": {
-          "src": "/imgs/features/7.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/7.svg",
           "alt": "uso"
         }
       },
@@ -322,7 +322,7 @@
         "description": "Selecione a narrativa favorita e gere seu vídeo em 4K com música e efeitos.",
         "icon": "FileText",
         "image": {
-          "src": "/imgs/features/8.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/8.svg",
           "alt": "uso"
         }
       },
@@ -331,7 +331,7 @@
         "description": "Assista a IA renderizar sua obra-prima em 4K completa com música e efeitos.",
         "icon": "Film",
         "image": {
-          "src": "/imgs/features/8.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/8.svg",
           "alt": "uso"
         }
       }

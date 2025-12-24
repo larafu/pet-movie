@@ -98,14 +98,14 @@ export function PetVideoGeneration({ className }: PetVideoGenProps) {
   const inspirationItems: GalleryItem[] = [
     {
       id: "ins-1",
-      url: "/video/dog-hero-Christmas.mp4",
+      url: "https://media.petmovie.ai/petmovie/videos/dog-hero-Christmas.mp4",
       prompt: "Christmas Dog Rescue - A brave dog saves its owner from a fire",
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24),
       aspectRatio: "16:9",
     },
     {
       id: "ins-2",
-      url: "/video/cat-hero-christmas.mp4",
+      url: "https://media.petmovie.ai/petmovie/videos/cat-hero-christmas.mp4",
       prompt: "Christmas Cat Rescue - A brave cat saves its owner from a fire",
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 48),
       aspectRatio: "16:9",

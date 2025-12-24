@@ -121,35 +121,35 @@
       {
         "title": "YouTube",
         "image": {
-          "src": "/imgs/logos/youtube.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/youtube.svg",
           "alt": "YouTube"
         }
       },
       {
         "title": "Instagram",
         "image": {
-          "src": "/imgs/logos/instagram.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/instagram.svg",
           "alt": "Instagram"
         }
       },
       {
         "title": "TikTok",
         "image": {
-          "src": "/imgs/logos/tiktok.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/tiktok.svg",
           "alt": "TikTok"
         }
       },
       {
         "title": "Facebook",
         "image": {
-          "src": "/imgs/logos/facebook.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/facebook.svg",
           "alt": "Facebook"
         }
       },
       {
         "title": "Twitter",
         "image": {
-          "src": "/imgs/logos/twitter.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/twitter.svg",
           "alt": "Twitter"
         }
       }
@@ -192,7 +192,7 @@
         "description": "直播您宠物的日常冒险，AI 自动创作精彩集锦",
         "icon": "Video",
         "image": {
-          "src": "/imgs/features/live-streaming.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/live-streaming.svg",
           "alt": "benefits"
         }
       },
@@ -201,7 +201,7 @@
         "description": "添加 AI 生成的多语言旁白和名人语音选项",
         "icon": "Mic",
         "image": {
-          "src": "/imgs/features/voice-narration.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/voice-narration.svg",
           "alt": "benefits"
         }
       },
@@ -210,7 +210,7 @@
         "description": "与全球社区分享您的宠物电影，发现热门宠物故事，并协作创作",
         "icon": "Users",
         "image": {
-          "src": "/imgs/features/social-community.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/social-community.svg",
           "alt": "benefits"
         }
       }
@@ -226,8 +226,8 @@
         "title": "温馨家庭时光",
         "description": "温馨有趣的狗狗家庭时光",
         "video": {
-          "src": "/video/dog-funny-family.mp4",
-          "poster": "/imgs/dog-funny-family-poster.jpg",
+          "src": "https://media.petmovie.ai/petmovie/videos/dog-funny-family.mp4",
+          "poster": "https://media.petmovie.ai/petmovie/imgs/dog-funny-family-poster.jpg",
           "alt": "狗狗家庭视频"
         }
       },
@@ -253,7 +253,7 @@
         "title": "狗狗对视",
         "description": "温馨动人的狗狗对视时刻",
         "video": {
-          "src": "/video/dogs-eye-contact.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/dogs-eye-contact.mp4",
           "poster": "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=800",
           "alt": "狗狗对视"
         }
@@ -262,7 +262,7 @@
         "title": "狗狗击掌",
         "description": "可爱的狗狗击掌庆祝瞬间",
         "video": {
-          "src": "/video/dogs-high-five.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/dogs-high-five.mp4",
           "poster": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800",
           "alt": "狗狗击掌"
         }
@@ -271,7 +271,7 @@
         "title": "散步草原奔跑",
         "description": "在美丽草原上自由奔跑的快乐时光",
         "video": {
-          "src": "/video/prairie-adventure.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/prairie-adventure.mp4",
           "poster": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800",
           "alt": "草原奔跑"
         }
@@ -284,7 +284,7 @@
     "title": "4步创作您的狗狗电影或猫咪电影",
     "description": "从珍贵照片到电影级宠物视频,完美的纪念片、庆祝视频或彩虹桥悼念。",
     "image": {
-      "src": "/imgs/features/1.svg",
+      "src": "https://media.petmovie.ai/petmovie/imgs/features/1.svg",
       "alt": "usage"
     },
     "image_position": "left",
@@ -294,7 +294,7 @@
         "title": "上传素材",
         "description": "上传宠物照片或影片。支持 JPG、PNG、MP4、MOV 格式",
         "image": {
-          "src": "/imgs/features/5.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/5.svg",
           "alt": "usage"
         }
       },
@@ -302,7 +302,7 @@
         "title": "选择故事版",
         "description": "选择故事主题、音乐风格、时长。AI 生成专属故事版和预览",
         "image": {
-          "src": "/imgs/features/6.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/6.svg",
           "alt": "usage"
         }
       },
@@ -310,7 +310,7 @@
         "title": "AI 处理",
         "description": "AI 自动剪辑、调色、添加转场、音乐和字幕。实时查看处理进度",
         "image": {
-          "src": "/imgs/features/7.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/7.svg",
           "alt": "usage"
         }
       },
@@ -318,7 +318,7 @@
         "title": "下载分享",
         "description": "获取 4K 高清影片，多种格式可选。适合社交媒体、家庭分享或收藏",
         "image": {
-          "src": "/imgs/features/8.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/8.svg",
           "alt": "usage"
         }
       }

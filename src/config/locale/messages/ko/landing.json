@@ -121,35 +121,35 @@
       {
         "title": "YouTube",
         "image": {
-          "src": "/imgs/logos/youtube.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/youtube.svg",
           "alt": "YouTube"
         }
       },
       {
         "title": "Instagram",
         "image": {
-          "src": "/imgs/logos/instagram.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/instagram.svg",
           "alt": "Instagram"
         }
       },
       {
         "title": "TikTok",
         "image": {
-          "src": "/imgs/logos/tiktok.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/tiktok.svg",
           "alt": "TikTok"
         }
       },
       {
         "title": "Facebook",
         "image": {
-          "src": "/imgs/logos/facebook.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/facebook.svg",
           "alt": "Facebook"
         }
       },
       {
         "title": "Twitter",
         "image": {
-          "src": "/imgs/logos/twitter.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/twitter.svg",
           "alt": "Twitter"
         }
       }
@@ -192,7 +192,7 @@
         "description": "반려동물의 일상을 실시간으로 스트리밍하고 AI가 자동으로 하이라이트 영상을 만들어드려요",
         "icon": "Video",
         "image": {
-          "src": "/imgs/features/live-streaming.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/live-streaming.svg",
           "alt": "라이브 스트리밍"
         }
       },
@@ -201,7 +201,7 @@
         "description": "AI 음성 내레이션을 여러 언어와 다양한 음성 스타일로 추가할 수 있어요",
         "icon": "Mic",
         "image": {
-          "src": "/imgs/features/voice-narration.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/voice-narration.svg",
           "alt": "음성 내레이션"
         }
       },
@@ -210,7 +210,7 @@
         "description": "전 세계 반려동물 보호자들과 영화를 공유하고, 인기 있는 이야기를 발견하고, 함께 협업해보세요",
         "icon": "Users",
         "image": {
-          "src": "/imgs/features/social-community.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/social-community.svg",
           "alt": "소셜 커뮤니티"
         }
       }
@@ -226,8 +226,8 @@
         "title": "가족의 순간",
         "description": "사랑스러운 강아지와 함께하는 따뜻한 가족의 순간",
         "video": {
-          "src": "/video/dog-funny-family.mp4",
-          "poster": "/imgs/dog-funny-family-poster.jpg",
+          "src": "https://media.petmovie.ai/petmovie/videos/dog-funny-family.mp4",
+          "poster": "https://media.petmovie.ai/petmovie/imgs/dog-funny-family-poster.jpg",
           "alt": "강아지 가족 영상"
         }
       },
@@ -253,7 +253,7 @@
         "title": "강아지의 사랑스러운 눈빛",
         "description": "눈을 마주치는 강아지들의 따뜻한 순간",
         "video": {
-          "src": "/video/dogs-eye-contact.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/dogs-eye-contact.mp4",
           "poster": "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=800",
           "alt": "강아지 눈맞춤"
         }
@@ -262,7 +262,7 @@
         "title": "발바닥 축제",
         "description": "함께 하이파이브하는 사랑스러운 강아지들",
         "video": {
-          "src": "/video/dogs-high-five.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/dogs-high-five.mp4",
           "poster": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800",
           "alt": "강아지 하이파이브"
         }
@@ -271,7 +271,7 @@
         "title": "초원의 모험",
         "description": "아름다운 초원을 자유롭게 달리는 모습",
         "video": {
-          "src": "/video/prairie-adventure.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/prairie-adventure.mp4",
           "poster": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800",
           "alt": "초원에서 달리기"
         }
@@ -284,7 +284,7 @@
     "title": "4단계로 완성하는 반려동물 영화",
     "description": "소중한 사진에서 시네마틱 영화까지. 추모영상, 축하 영상, 무지개다리 헌정 영상 모두 가능해요.",
     "image": {
-      "src": "/imgs/features/1.svg",
+      "src": "https://media.petmovie.ai/petmovie/imgs/features/1.svg",
       "alt": "이용 방법"
     },
     "image_position": "left",
@@ -295,7 +295,7 @@
         "description": "반려동물의 선명한 사진이나 영상을 업로드하세요. 화질이 좋을수록 더 멋진 영화가 만들어져요.",
         "icon": "Upload",
         "image": {
-          "src": "/imgs/features/5.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/5.svg",
           "alt": "업로드"
         }
       },
@@ -304,7 +304,7 @@
         "description": "어드벤처, 드라마, 코미디, SF 등 다양한 시네마틱 장르 중에서 선택하세요.",
         "icon": "Palette",
         "image": {
-          "src": "/imgs/features/6.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/6.svg",
           "alt": "스타일"
         }
       },
@@ -313,7 +313,7 @@
         "description": "AI가 반려동물의 특징을 분석해서 일관된 디지털 캐릭터를 만들어요.",
         "icon": "User",
         "image": {
-          "src": "/imgs/features/7.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/7.svg",
           "alt": "주인공"
         }
       },
@@ -322,7 +322,7 @@
         "description": "AI가 생성한 플롯 옵션을 검토하고 마음에 드는 이야기 흐름을 선택하세요.",
         "icon": "FileText",
         "image": {
-          "src": "/imgs/features/8.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/8.svg",
           "alt": "스토리보드"
         }
       },
@@ -331,7 +331,7 @@
         "description": "AI가 음악과 효과가 포함된 4K 걸작을 렌더링하는 것을 지켜보세요.",
         "icon": "Film",
         "image": {
-          "src": "/imgs/features/8.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/8.svg",
           "alt": "영화"
         }
       }

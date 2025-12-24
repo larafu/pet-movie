@@ -2,7 +2,7 @@
   "id": "christmas-dog-rescue",
   "name": "Christmas Dog Rescue",
   "description": "A heartwarming Christmas story about a brave dog saving its owner from a fire",
-  "previewVideo": "/video/dog-hero-Christmas.mp4",
+  "previewVideo": "https://media.petmovie.ai/petmovie/videos/dog-hero-Christmas.mp4",
   "aspectRatio": "landscape",
   "durations": {
     "25": {

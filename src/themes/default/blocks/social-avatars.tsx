@@ -3,12 +3,12 @@ import { Star } from 'lucide-react';
 import { Avatar, AvatarImage } from '@/shared/components/ui/avatar';
 
 const userImgUrls = [
-  '/imgs/avatars/1.png',
-  '/imgs/avatars/2.png',
-  '/imgs/avatars/3.png',
-  '/imgs/avatars/4.png',
-  '/imgs/avatars/5.png',
-  '/imgs/avatars/6.png',
+  'https://media.petmovie.ai/petmovie/imgs/avatars/1.png',
+  'https://media.petmovie.ai/petmovie/imgs/avatars/2.png',
+  'https://media.petmovie.ai/petmovie/imgs/avatars/3.png',
+  'https://media.petmovie.ai/petmovie/imgs/avatars/4.png',
+  'https://media.petmovie.ai/petmovie/imgs/avatars/5.png',
+  'https://media.petmovie.ai/petmovie/imgs/avatars/6.png',
 ];
 
 export function SocialAvatars({ tip }: { tip: string }) {

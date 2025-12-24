@@ -22,7 +22,7 @@ export function FAQ({ faq, className }: { faq: FAQType; className?: string }) {
           className="w-full h-full object-cover opacity-30"
           style={{ filter: 'brightness(0.6)' }}
         >
-          <source src="/video/prairie-adventure.mp4" type="video/mp4" />
+          <source src="https://media.petmovie.ai/petmovie/videos/prairie-adventure.mp4" type="video/mp4" />
         </video>
       </div>
 

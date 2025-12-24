@@ -84,7 +84,7 @@ export function PaymentProviders({
     providers.push({
       name: 'stripe',
       title: 'Stripe',
-      icon_url: '/imgs/icons/stripe.png',
+      icon_url: 'https://media.petmovie.ai/petmovie/imgs/icons/stripe.png',
       onClick: () => handlePayment({ provider: 'stripe' }),
     });
   }
@@ -93,7 +93,7 @@ export function PaymentProviders({
     providers.push({
       name: 'creem',
       title: 'Creem',
-      icon_url: '/imgs/icons/creem.png',
+      icon_url: 'https://media.petmovie.ai/petmovie/imgs/icons/creem.png',
       onClick: () => handlePayment({ provider: 'creem' }),
     });
   }
@@ -102,7 +102,7 @@ export function PaymentProviders({
     providers.push({
       name: 'paypal',
       title: 'Paypal',
-      icon_url: '/imgs/icons/paypal.svg',
+      icon_url: 'https://media.petmovie.ai/petmovie/imgs/icons/paypal.svg',
       onClick: () => handlePayment({ provider: 'paypal' }),
     });
   }

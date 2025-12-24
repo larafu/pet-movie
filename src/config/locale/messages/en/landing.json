@@ -121,35 +121,35 @@
       {
         "title": "YouTube",
         "image": {
-          "src": "/imgs/logos/youtube.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/youtube.svg",
           "alt": "YouTube"
         }
       },
       {
         "title": "Instagram",
         "image": {
-          "src": "/imgs/logos/instagram.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/instagram.svg",
           "alt": "Instagram"
         }
       },
       {
         "title": "TikTok",
         "image": {
-          "src": "/imgs/logos/tiktok.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/tiktok.svg",
           "alt": "TikTok"
         }
       },
       {
         "title": "Facebook",
         "image": {
-          "src": "/imgs/logos/facebook.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/facebook.svg",
           "alt": "Facebook"
         }
       },
       {
         "title": "Twitter",
         "image": {
-          "src": "/imgs/logos/twitter.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/twitter.svg",
           "alt": "Twitter"
         }
       }
@@ -192,7 +192,7 @@
         "description": "Stream your pet's daily adventures live and let AI create highlight reels automatically",
         "icon": "Video",
         "image": {
-          "src": "/imgs/features/live-streaming.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/live-streaming.svg",
           "alt": "benefits"
         }
       },
@@ -201,7 +201,7 @@
         "description": "Add AI-generated voice narration in multiple languages and celebrity voice options",
         "icon": "Mic",
         "image": {
-          "src": "/imgs/features/voice-narration.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/voice-narration.svg",
           "alt": "benefits"
         }
       },
@@ -210,7 +210,7 @@
         "description": "Share your pet movies with a global community, discover trending pet stories, and collaborate",
         "icon": "Users",
         "image": {
-          "src": "/imgs/features/social-community.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/social-community.svg",
           "alt": "benefits"
         }
       }
@@ -226,8 +226,8 @@
         "title": "Family Moments",
         "description": "Heartwarming family moments with adorable dogs",
         "video": {
-          "src": "/video/dog-funny-family.mp4",
-          "poster": "/imgs/dog-funny-family-poster.jpg",
+          "src": "https://media.petmovie.ai/petmovie/videos/dog-funny-family.mp4",
+          "poster": "https://media.petmovie.ai/petmovie/imgs/dog-funny-family-poster.jpg",
           "alt": "Dog Family Video"
         }
       },
@@ -253,7 +253,7 @@
         "title": "Dogs' Loving Gaze",
         "description": "Heartwarming moment of dogs making eye contact",
         "video": {
-          "src": "/video/dogs-eye-contact.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/dogs-eye-contact.mp4",
           "poster": "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=800",
           "alt": "Dogs Eye Contact"
         }
@@ -262,7 +262,7 @@
         "title": "Paw Celebration",
         "description": "Adorable dogs giving high fives together",
         "video": {
-          "src": "/video/dogs-high-five.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/dogs-high-five.mp4",
           "poster": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800",
           "alt": "Dogs High Five"
         }
@@ -271,7 +271,7 @@
         "title": "Prairie Adventure",
         "description": "Running free through the beautiful grassland",
         "video": {
-          "src": "/video/prairie-adventure.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/prairie-adventure.mp4",
           "poster": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800",
           "alt": "Running on Prairie"
         }
@@ -284,7 +284,7 @@
     "title": "Create Your Dog Movie or Cat Movie in 4 Steps",
     "description": "From cherished photos to cinematic pet movies. Perfect for memorials, celebrations, or Rainbow Bridge tributes.",
     "image": {
-      "src": "/imgs/features/1.svg",
+      "src": "https://media.petmovie.ai/petmovie/imgs/features/1.svg",
       "alt": "usage"
     },
     "image_position": "left",
@@ -295,7 +295,7 @@
         "description": "Upload clear photos or videos of your pet. The better the quality, the better the movie.",
         "icon": "Upload",
         "image": {
-          "src": "/imgs/features/5.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/5.svg",
           "alt": "usage"
         }
       },
@@ -304,7 +304,7 @@
         "description": "Choose from cinematic genres: Adventure, Drama, Comedy, or Sci-Fi.",
         "icon": "Palette",
         "image": {
-          "src": "/imgs/features/6.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/6.svg",
           "alt": "usage"
         }
       },
@@ -313,7 +313,7 @@
         "description": "AI analyzes your pet's features to create a consistent digital actor.",
         "icon": "User",
         "image": {
-          "src": "/imgs/features/7.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/7.svg",
           "alt": "usage"
         }
       },
@@ -322,7 +322,7 @@
         "description": "Review AI-generated plot options and select your favorite narrative arc.",
         "icon": "FileText",
         "image": {
-          "src": "/imgs/features/8.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/8.svg",
           "alt": "usage"
         }
       },
@@ -331,7 +331,7 @@
         "description": "Watch as AI renders your 4K masterpiece complete with music and effects.",
         "icon": "Film",
         "image": {
-          "src": "/imgs/features/8.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/8.svg",
           "alt": "usage"
         }
       }

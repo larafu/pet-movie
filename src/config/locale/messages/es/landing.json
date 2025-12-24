@@ -121,35 +121,35 @@
       {
         "title": "YouTube",
         "image": {
-          "src": "/imgs/logos/youtube.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/youtube.svg",
           "alt": "YouTube"
         }
       },
       {
         "title": "Instagram",
         "image": {
-          "src": "/imgs/logos/instagram.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/instagram.svg",
           "alt": "Instagram"
         }
       },
       {
         "title": "TikTok",
         "image": {
-          "src": "/imgs/logos/tiktok.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/tiktok.svg",
           "alt": "TikTok"
         }
       },
       {
         "title": "Facebook",
         "image": {
-          "src": "/imgs/logos/facebook.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/facebook.svg",
           "alt": "Facebook"
         }
       },
       {
         "title": "Twitter",
         "image": {
-          "src": "/imgs/logos/twitter.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/logos/twitter.svg",
           "alt": "Twitter"
         }
       }
@@ -192,7 +192,7 @@
         "description": "Transmite las aventuras diarias de tu mascota en vivo y deja que la IA cree resúmenes automáticamente",
         "icon": "Video",
         "image": {
-          "src": "/imgs/features/live-streaming.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/live-streaming.svg",
           "alt": "Transmisión en vivo de mascotas"
         }
       },
@@ -201,7 +201,7 @@
         "description": "Añade narración generada por IA en múltiples idiomas y opciones de voces de celebridades",
         "icon": "Mic",
         "image": {
-          "src": "/imgs/features/voice-narration.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/voice-narration.svg",
           "alt": "Narración de voz para video de mascota"
         }
       },
@@ -210,7 +210,7 @@
         "description": "Comparte tus películas de mascotas con una comunidad global, descubre historias populares y colabora",
         "icon": "Users",
         "image": {
-          "src": "/imgs/features/social-community.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/social-community.svg",
           "alt": "Comunidad de amantes de mascotas"
         }
       }
@@ -226,8 +226,8 @@
         "title": "Momentos en Familia",
         "description": "Momentos familiares conmovedores con adorables perros",
         "video": {
-          "src": "/video/dog-funny-family.mp4",
-          "poster": "/imgs/dog-funny-family-poster.jpg",
+          "src": "https://media.petmovie.ai/petmovie/videos/dog-funny-family.mp4",
+          "poster": "https://media.petmovie.ai/petmovie/imgs/dog-funny-family-poster.jpg",
           "alt": "Video familiar de perro creado con IA"
         }
       },
@@ -253,7 +253,7 @@
         "title": "Mirada Amorosa de Perros",
         "description": "Momento conmovedor de perros haciendo contacto visual",
         "video": {
-          "src": "/video/dogs-eye-contact.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/dogs-eye-contact.mp4",
           "poster": "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=800",
           "alt": "Película de perros enamorados"
         }
@@ -262,7 +262,7 @@
         "title": "Celebración de Patas",
         "description": "Adorables perros chocando los cinco juntos",
         "video": {
-          "src": "/video/dogs-high-five.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/dogs-high-five.mp4",
           "poster": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800",
           "alt": "Video de celebración de perros"
         }
@@ -271,7 +271,7 @@
         "title": "Aventura en la Pradera",
         "description": "Corriendo libre por el hermoso campo",
         "video": {
-          "src": "/video/prairie-adventure.mp4",
+          "src": "https://media.petmovie.ai/petmovie/videos/prairie-adventure.mp4",
           "poster": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800",
           "alt": "Video de mascota corriendo en el campo"
         }
@@ -284,7 +284,7 @@
     "title": "Crea tu Película de Perro o Gato en 4 Pasos",
     "description": "De fotos preciadas a películas cinematográficas. Perfecto para memoriales, celebraciones o tributos del Puente del Arcoíris.",
     "image": {
-      "src": "/imgs/features/1.svg",
+      "src": "https://media.petmovie.ai/petmovie/imgs/features/1.svg",
       "alt": "Proceso de creación de video de mascota"
     },
     "image_position": "left",
@@ -295,7 +295,7 @@
         "description": "Sube fotos o videos claros de tu mascota. Cuanto mejor sea la calidad, mejor será la película.",
         "icon": "Upload",
         "image": {
-          "src": "/imgs/features/5.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/5.svg",
           "alt": "Subir fotos de mascota"
         }
       },
@@ -304,7 +304,7 @@
         "description": "Elige entre géneros cinematográficos: Aventura, Drama, Comedia o Ciencia Ficción.",
         "icon": "Palette",
         "image": {
-          "src": "/imgs/features/6.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/6.svg",
           "alt": "Estilos de película de mascota"
         }
       },
@@ -313,7 +313,7 @@
         "description": "La IA analiza las características de tu mascota para crear un actor digital consistente.",
         "icon": "User",
         "image": {
-          "src": "/imgs/features/7.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/7.svg",
           "alt": "Protagonista de película de mascota"
         }
       },
@@ -322,7 +322,7 @@
         "description": "Revisa las opciones de trama generadas por IA y selecciona tu arco narrativo favorito.",
         "icon": "FileText",
         "image": {
-          "src": "/imgs/features/8.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/8.svg",
           "alt": "Guion de película de mascota"
         }
       },
@@ -331,7 +331,7 @@
         "description": "Mira cómo la IA renderiza tu obra maestra en 4K completa con música y efectos.",
         "icon": "Film",
         "image": {
-          "src": "/imgs/features/8.svg",
+          "src": "https://media.petmovie.ai/petmovie/imgs/features/8.svg",
           "alt": "Película de mascota terminada"
         }
       }

@@ -5,6 +5,7 @@ export * from './pagination';
 export * from './brand-logo';
 
 export * from './locale-detector';
+export * from './maintenance-banner';
 export * from './locale-selector';
 export * from './user-initializer';
 

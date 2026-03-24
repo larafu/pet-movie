@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { getTranslations } from 'next-intl/server';
 
 import { getThemeLayout } from '@/core/theme';
-import { LocaleDetector, UserInitializer } from '@/shared/blocks/common';
+import { LocaleDetector, MaintenanceBanner, UserInitializer } from '@/shared/blocks/common';
 import {
   Footer as FooterType,
   Header as HeaderType,
@@ -25,6 +25,7 @@ export default async function LandingLayout({
 
   return (
     <Layout header={header} footer={footer}>
+      <MaintenanceBanner />
       <LocaleDetector />
       <UserInitializer />
       {children}
